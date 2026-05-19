@@ -17,8 +17,8 @@ export default function Footer() {
   return (
     <footer className="relative bg-gradient-to-b from-[var(--bg-obsidian)] to-black border-t border-white/5 overflow-hidden">
       <div className="container-x pt-14 pb-10 relative">
-        <div className="grid md:grid-cols-12 gap-10">
-          <div className="md:col-span-5">
+        <div className="grid grid-cols-2 md:grid-cols-12 gap-x-6 gap-y-10">
+          <div className="col-span-2 md:col-span-5">
             <Link href="/" aria-label="Luxury Supercars Dubai — home" className="inline-block mb-6">
               <Image
                 src={SITE_LOGO}
@@ -32,7 +32,7 @@ export default function Footer() {
               {FOOTER.description}
             </p>
           </div>
-          <div className="md:col-span-2">
+          <div className="col-span-1 md:col-span-2">
             <p className="font-[var(--font-mono)] text-[12px] uppercase tracking-[0.22em] text-[var(--champagne)] mb-4">
               Brands
             </p>
@@ -46,7 +46,7 @@ export default function Footer() {
               ))}
             </ul>
           </div>
-          <div className="md:col-span-2">
+          <div className="col-span-1 md:col-span-2">
             <p className="font-[var(--font-mono)] text-[12px] uppercase tracking-[0.22em] text-[var(--champagne)] mb-4">
               Useful Links
             </p>
@@ -60,7 +60,7 @@ export default function Footer() {
               ))}
             </ul>
           </div>
-          <div className="md:col-span-3">
+          <div className="col-span-2 md:col-span-3">
             <p className="font-[var(--font-mono)] text-[12px] uppercase tracking-[0.22em] text-[var(--champagne)] mb-4">
               Contact Us
             </p>

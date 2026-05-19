@@ -19,6 +19,22 @@ export default function AboutScrollHero() {
     const video = videoRef.current;
     if (!container || !video) return;
 
+    // Touch / coarse-pointer devices (mobile, iPad) — `video.currentTime`
+    // seeks are unreliable on iOS Safari, so just autoplay+loop instead.
+    const isCoarsePointer =
+      typeof window !== "undefined" &&
+      window.matchMedia("(hover: none), (pointer: coarse)").matches;
+
+    if (isCoarsePointer) {
+      video.loop = true;
+      video.muted = true;
+      video.playsInline = true;
+      video.play().catch(() => {
+        /* autoplay may be blocked — that's fine, poster will show */
+      });
+      return;
+    }
+
     let raf = 0;
     let primed = false;
 
@@ -56,7 +72,7 @@ export default function AboutScrollHero() {
   return (
     <div
       ref={containerRef}
-      className="relative h-[200vh] bg-[var(--bg-obsidian)] px-3 pb-3 md:px-5 md:pb-5"
+      className="relative h-[100svh] md:h-[200vh] bg-[var(--bg-obsidian)] px-3 pb-3 md:px-5 md:pb-5"
       style={{
         opacity: mounted ? 1 : 0,
         transition: "opacity 200ms ease-out",

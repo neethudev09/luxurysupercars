@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import Reveal from "@/components/motion/Reveal";
 import type { Car } from "@/lib/fleet";
 import { carHref } from "@/lib/fleet";
 import { CONTACT } from "@/lib/content";
@@ -71,12 +71,10 @@ export default function CarCard({ car, theme = "dark", index = 0 }: CarCardProps
   const waHref = `https://wa.me/${waNumber}?text=${waMessage}`;
 
   return (
-    <motion.article
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "0px 0px -8% 0px" }}
-      transition={{ duration: 0.7, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
-      className={`group relative flex flex-col rounded-2xl overflow-hidden border ${
+    <Reveal
+      as="article"
+      delay={Math.min(index * 80, 320)}
+      className={`rise group relative flex flex-col rounded-2xl overflow-hidden border ${
         isLight
           ? "bg-[var(--bg-bone)] border-black/15 shadow-[0_18px_40px_-16px_rgba(0,0,0,0.28)] hover:border-[var(--champagne)]/60 hover:shadow-[0_28px_60px_-18px_rgba(0,0,0,0.38)]"
           : "bg-[var(--bg-graphite)] border-white/8 hover:border-[var(--champagne)]/60"
@@ -157,7 +155,7 @@ export default function CarCard({ car, theme = "dark", index = 0 }: CarCardProps
           </a>
         </div>
       </div>
-    </motion.article>
+    </Reveal>
   );
 }
 

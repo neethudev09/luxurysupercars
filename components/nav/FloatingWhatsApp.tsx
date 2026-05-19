@@ -148,7 +148,7 @@ export default function FloatingWhatsApp() {
         aria-label={open ? "Close WhatsApp menu" : "Open WhatsApp menu"}
         aria-expanded={open}
         onClick={() => setOpen((v) => !v)}
-        className="group inline-flex items-center gap-2.5 rounded-full bg-[#25D366] pl-3.5 pr-5 py-3 text-white shadow-[0_12px_30px_-8px_rgba(37,211,102,0.55)] hover:bg-[#1ebd5b] hover:shadow-[0_18px_40px_-10px_rgba(37,211,102,0.7)] transition-colors"
+        className="group inline-flex items-center gap-2.5 rounded-full bg-[#25D366] p-3 md:pl-3.5 md:pr-5 md:py-3 text-white shadow-[0_12px_30px_-8px_rgba(37,211,102,0.55)] hover:bg-[#1ebd5b] hover:shadow-[0_18px_40px_-10px_rgba(37,211,102,0.7)] transition-colors"
       >
         <span className="relative inline-flex size-7 items-center justify-center overflow-hidden rounded-full bg-white/15">
           <AnimatePresence mode="wait" initial={false}>
@@ -182,7 +182,7 @@ export default function FloatingWhatsApp() {
             )}
           </AnimatePresence>
         </span>
-        <span className="relative inline-block min-w-[5.5rem] text-[13px] font-medium tracking-wide leading-none h-[1em] overflow-hidden">
+        <span className="relative hidden md:inline-block min-w-[5.5rem] text-[13px] font-medium tracking-wide leading-none h-[1em] overflow-hidden">
           <AnimatePresence mode="wait" initial={false}>
             <motion.span
               key={open ? "close" : "wa"}

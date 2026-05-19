@@ -40,7 +40,7 @@ export default function AboutBrands() {
                   width={92}
                   height={48}
                   sizes="92px"
-                  className="object-contain max-h-[48%] max-w-[60%] opacity-95 group-hover:opacity-100 transition-opacity"
+                  className="object-contain max-h-[34%] max-w-[48%] md:max-h-[42%] md:max-w-[55%] opacity-95 group-hover:opacity-100 transition-opacity"
                   style={isGrayscale ? { filter: "grayscale(1)" } : undefined}
                 />
                 <span className="absolute bottom-2.5 right-3 font-[var(--font-mono)] text-[9px] tracking-[0.16em] uppercase text-[var(--ink-dark-lo)]/60">
