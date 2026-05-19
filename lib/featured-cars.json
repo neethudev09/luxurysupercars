@@ -1,0 +1,27 @@
+{
+  "_comment": "Editorial selection of which cars appear in the 4-card teaser on each homepage section. Edit slugs here today; when Sanity is wired in this file is replaced by a `featured: boolean` toggle on each Car document and a GROQ query that returns the same shape.",
+  "sports": [
+    "lamborghini-huracan-sto-orange",
+    "mclaren-750s-spyder-tiffany-blue",
+    "lamborghini-revuelto",
+    "ferrari-sf90-stradale"
+  ],
+  "convertible": [
+    "rolls-royce-dawn-white",
+    "ferrari-296-gts-spyder",
+    "mclaren-750s-spyder-tiffany-blue",
+    "porsche-911-turbo-s"
+  ],
+  "luxury": [
+    "bentley-bentayga-mansory",
+    "rolls-royce-cullinan-mansory",
+    "ferrari-purosangue",
+    "mercedes-benz-amg-g63-800-widestar"
+  ],
+  "suv": [
+    "mercedes-benz-amg-g63-800-widestar",
+    "rolls-royce-cullinan-mansory",
+    "lamborghini-urus-mansory",
+    "bentley-bentayga-mansory"
+  ]
+}

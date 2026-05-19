@@ -1,0 +1,237 @@
+import type { Category } from "./fleet";
+
+/**
+ * Verbatim SEO copy for the four /rent-{type}-cars-dubai pages.
+ * Every string here is preserved word-for-word from the live
+ * WordPress site so the new pages inherit existing rankings.
+ *
+ * Owner rule: SEO is king — do NOT paraphrase or "clean up"
+ * the live copy (including the singular-vs-plural inconsistencies,
+ * the embedded "Sports Cars" typo on the convertible price FAQ,
+ * the capital "Contact US" H2 on the SUV page, etc.).
+ */
+export interface FleetTypeMeta {
+  /** URL slug, e.g. "rent-sports-cars-dubai" */
+  slug: string;
+  /** Category to filter the fleet by (cross-listings respected) */
+  category: Category;
+  /** <title> tag — verbatim */
+  title: string;
+  /** <meta name="description"> — verbatim */
+  description: string;
+  /** Semantic <h1> — verbatim */
+  h1: string;
+  /** Visible page heading (rendered as <p> on the live site) — verbatim */
+  visibleTitle: string;
+  /** Intro body paragraphs — verbatim, in original order */
+  introParagraphs: string[];
+  /** FAQ section heading — verbatim */
+  faqHeading: string;
+  /** FAQ Q&A pairs — verbatim */
+  faqs: { q: string; a: string }[];
+}
+
+export const FLEET_TYPES: Record<Exclude<Category, never>, FleetTypeMeta> = {
+  sports: {
+    slug: "rent-sports-cars-dubai",
+    category: "sports",
+    title: "Sports Car Rental in Dubai | Rent Sports Car in Dubai",
+    description:
+      "Rent a sports car in Dubai and experience the thrill of luxury and performance. Discover premium sports car rental services in Dubai. Book Now!",
+    h1: "Rent Sport Cars in Dubai",
+    visibleTitle: "Sports Cars",
+    introParagraphs: [
+      "From the world's top manufacturers, each with engineering for performance, our sports cars in Dubai include models featuring blistering acceleration to nimble handling. Renting a luxury sports car from Luxury Supercars Dubai means embracing the ultimate driving experience.",
+      "At Luxury Supercar Rental Dubai, we offer an unrivaled selection of sports cars, including Ferrari, Lamborghini, Porsche, Aston Martin, McLaren, and Audi. Our sports car rental lets you rent your dream car and experience the thrill of driving a world-class supercar in one of the most iconic cities in the world.",
+      "Our fleet features top-tier sports cars designed to deliver the feeling that you just won't get driving an ordinary car. Whether your supercar of choice is Lamborghini Huracán, McLaren 720S, or Ferrari SF90 Stradale, every model is going to turn eyes towards you. Experience the pure power and sounds of V8s, V10s, and V12s as you accelerate down Dubai's highways with your sports car rental in Dubai.",
+    ],
+    faqHeading: "Sports Cars FAQs",
+    faqs: [
+      {
+        q: "How much does it cost to rent a sports car in Dubai?",
+        a: "Sport car prices in Dubai start at AED 1,800 per day for models like the Aston Martin Vantage and go up to AED 7,500 per day for elite supercars like the Ferrari SF90 Stradale. The rental prices for Sports Cars in Dubai are based on type and duration, so kindly contact us for more details.",
+      },
+      {
+        q: "Is insurance included in the rental price?",
+        a: "Yes, all rentals come with comprehensive insurance. However, a security deposit is required when hiring a sports car.",
+      },
+      {
+        q: "Are there mileage limits on sports car rentals?",
+        a: "Yes, standard rentals include 250 km per day. Additional kilometers are charged at 20 AED per km. If you plan on taking extended trips, consider discussing mileage packages with us in advance.",
+      },
+      {
+        q: "What documents are required to rent a sports car?",
+        a: "To rent a sports car, you need to have a valid international driving license, a credit card for the security deposit, and your passport or ID for verification.",
+      },
+      {
+        q: "How many persons can the sports car carry?",
+        a: "Most sports cars seat 2 to 4 passengers comfortably, which would just be enough to give a thrilling ride with friends or with your partner. SUV models can fit up to five persons, making them a great choice for a small group.",
+      },
+      {
+        q: "Can I rent a sports car for a special occasion?",
+        a: "Absolutely! Whether it's a wedding, anniversary, corporate event, or just a luxurious getaway, a sports car rental adds excitement and prestige to any occasion.",
+      },
+      {
+        q: "What happens if I get a traffic fine or toll charges?",
+        a: "All traffic fines incurred during the rental period are the renter's responsibility. Salik tolls are charged at 6 AED per crossing, and any unpaid fines will be deducted from the security deposit.",
+      },
+      {
+        q: "Where can I drive my rental sports car?",
+        a: "Our vehicles are insured for use within the UAE only. Driving to other Emirates like Abu Dhabi is allowed, but off-roading, racing, and reckless driving are strictly prohibited.",
+      },
+      {
+        q: "How do I book my sports car rental?",
+        a: "Booking is easy! Contact us via our website, by phone, or WhatsApp, select your dream sports car, and confirm your reservation. Our luxury sports car rental company offers convenient doorstep delivery across Dubai.",
+      },
+    ],
+  },
+
+  convertible: {
+    slug: "rent-convertible-cars-dubai",
+    category: "convertible",
+    title: "Convertible Car Rental in Dubai | Rent Convertible Cars in Dubai",
+    description:
+      "Experience the thrill of open-top driving with Convertible Car Rental in Dubai. Rent convertible cars in Dubai for the ultimate blend of luxury and style.",
+    h1: "Rent Convertible Cars in Dubai",
+    visibleTitle: "Convertible Cars",
+    introParagraphs: [
+      "Dubai's stunning skyline, warm climate, and picturesque coastal roads make it the perfect city to experience a luxury convertible car rental in Dubai. Whether you're cruising down Jumeirah Beach Road, driving through the dazzling lights of Downtown Dubai, or making a stylish entrance at a luxury resort, a convertible rental in Dubai elevates your driving experience. At Luxury Supercar Rental Dubai, we offer an exquisite collection of Ferrari, Lamborghini, Porsche, and BMW convertibles, allowing you to enjoy the thrill of open-top driving in unparalleled style. Our convertible car rental options are ideal if you want a premium sports car with an open roof and unforgettable performance.",
+      "Feel the wind on your head and the roar of a high-performance engine as you take to the streets in a luxury convertible. Whether you choose the Ferrari 812 GTS, the Lamborghini Aventador SVJ, or the Porsche 911 Turbo S, every drive is an unforgettable blend of power and elegance. With responsive handling, top-tier acceleration, and cutting-edge aerodynamics, our convertibles offer the ultimate open-road thrill for anyone looking to rent a convertible in Dubai. Convertible sports cars are designed for those who appreciate both power and performance. Enjoy leather interiors, state-of-the-art infotainment systems, and high-end sound systems that enhance your journey. With easy-to-use retractable roofs, you can switch between a stylish coupe and an open-air experience in seconds, making a convertible sports car rental in Dubai ideal for both day and night drives.",
+      "From scenic coastal drives along Palm Jumeirah to breathtaking views at Burj Khalifa, driving a convertible in Dubai allows you to take in the city like never before. Whether you're celebrating a special occasion, exploring Dubai's nightlife, or simply indulging in luxury, a convertible luxury car rental guarantees an unmatched driving experience. Open-top driving lets you enjoy the warm climate, sea breeze, and city lights, making convertible car hire in Dubai a popular choice for tourists and residents alike who want to experience Dubai in style.",
+    ],
+    faqHeading: "Convertible Cars FAQs",
+    faqs: [
+      {
+        q: "How much does it cost to rent a convertible in Dubai?",
+        a: "Convertible rental prices start from AED 3,500 per day for models like the Porsche 911 Turbo S Cabriolet and go up to AED 10,000 per day for high-end convertibles like the Ferrari 812 GTS Novitec Spyder. The rental prices for Sports Cars in Dubai are based on type and duration, so kindly contact us for more details.",
+      },
+      {
+        q: "Is insurance included in the rental price?",
+        a: "Yes, all rentals come with comprehensive insurance. However, a security deposit is required when hiring a convertible car.",
+      },
+      {
+        q: "Are there mileage limits on convertible car rentals?",
+        a: "Yes, standard rentals include 250 km per day. Additional kilometers are charged at 20 AED per km.",
+      },
+      {
+        q: "What documents are required to hire a convertible car?",
+        a: "To rent a convertible car, you need to have a valid international driving license, a credit card for the security deposit, and your passport or ID for verification.",
+      },
+      {
+        q: "Can I rent a convertible for a special occasion?",
+        a: "Absolutely! Our convertibles are perfect for weddings, anniversaries, corporate events, and luxury getaways, ensuring an unforgettable experience.",
+      },
+      {
+        q: "Where can I drive my rental convertible?",
+        a: "Our convertibles are insured for use within the UAE only. Trips to Abu Dhabi and other Emirates are allowed, but off-roading and reckless driving are strictly prohibited.",
+      },
+      {
+        q: "How do I book my convertible rental?",
+        a: "Booking is made easy for you! Contact us via our website, by phone, or WhatsApp, select your dream sports car, and confirm your reservation. We offer doorstep delivery across Dubai for your convenience.",
+      },
+    ],
+  },
+
+  luxury: {
+    slug: "rent-luxury-cars-dubai",
+    category: "luxury",
+    title: "Rent Luxury Cars in Dubai | Luxury Car Rental in Dubai",
+    description:
+      "Rent luxury cars in Dubai and experience the pinnacle of elegance and performance. Discover premium luxury car rental services in Dubai. Book Now!",
+    h1: "Rent Luxury Cars in Dubai",
+    visibleTitle: "Luxury Cars",
+    introParagraphs: [
+      "Indulge in opulence with our selection of Luxury Cars in Dubai at Luxury Supercars Dubai. Our collection represents the finest luxury vehicles from the world's best manufacturers. Choose from elite brands like Rolls-Royce, Bentley, and Mercedes-Benz for a refined experience. If you are looking for a blend of luxury and high performance, take a look at our Ferrari, Lamborghini, Maserati, and Aston Martin models, which deliver exhilarating driving dynamics in a luxury package.",
+      "Luxury cars in Dubai are designed to guarantee an exceptional driving experience. Powerful engines, complemented by exquisitely fitted interiors, give one a reason to rent a luxury car and enjoy exclusive experiences regarding class and performance.",
+      "Step into our luxury car rentals and be astounded by the interiors, which are so sleek and ultra-modern. Enjoy the finest material, roomy seating, and advanced technological components combined to give your driving experience a whole new dimension.",
+    ],
+    faqHeading: "Luxury Cars FAQs",
+    faqs: [
+      {
+        q: "How much does it cost to rent a luxury car in Dubai?",
+        a: "Prices vary depending on the model and rental duration. Our fleet ranges from luxury sedans starting at AED 2,200 per day to ultra-luxury models at AED 6,000 per day. For customized quotes, contact our team.",
+      },
+      {
+        q: "Is insurance included in the rental price?",
+        a: "Yes, all rentals come with comprehensive insurance. However, a security deposit is required when hiring a luxury car.",
+      },
+      {
+        q: "Are there mileage limits on luxury car rentals?",
+        a: "Yes, standard rentals include 250 km per day. Additional kilometers are charged at 20 AED per km. If you plan on taking extended trips, consider discussing mileage packages with us in advance.",
+      },
+      {
+        q: "What documents are required to rent a luxury car?",
+        a: "To rent a luxury car, you need to have a valid international driving license, a credit card for the security deposit, and your passport or ID for verification.",
+      },
+      {
+        q: "How many passengers can a luxury car accommodate?",
+        a: "Most luxury models comfortably seat 4 to 5 passengers. Spacious SUVs provide ample room for families or small groups.",
+      },
+      {
+        q: "Can I rent a luxury car for corporate events?",
+        a: "Absolutely! Our luxury cars are ideal for business meetings, client entertainment, and VIP transport. We also offer chauffeur services for a premium travel experience.",
+      },
+      {
+        q: "Where can I drive my rental luxury car?",
+        a: "Our vehicles are insured for use within the UAE only. Driving to other Emirates like Abu Dhabi is allowed, but off-roading, racing, and reckless driving are strictly prohibited.",
+      },
+      {
+        q: "How do I book my luxury car rental?",
+        a: "Booking is easy! Contact us via our website, by phone, or WhatsApp, select your dream luxury car, and confirm your reservation. Our luxury car rental company offers convenient doorstep delivery across Dubai.",
+      },
+    ],
+  },
+
+  suv: {
+    slug: "rent-suv-cars-dubai",
+    category: "suv",
+    title: "Rent SUV Cars in Dubai | SUV Car Rentals in Dubai",
+    description:
+      "Rent SUV cars in Dubai for the ultimate combination of luxury, comfort, and performance. Discover premium SUV car rentals in Dubai. Book Now!",
+    h1: "Rent SUV Cars in Dubai",
+    visibleTitle: "SUV Cars",
+    introParagraphs: [
+      "Dubai is a city of adventure, luxury, and exploration – making a luxury SUV rental the perfect choice for those who seek both power and practicality. Whether you're cruising through the city's bustling streets, heading to an exclusive event, or embarking on a desert expedition, our premium SUV rentals in Dubai deliver unmatched performance in style.",
+      "At Luxury Supercar Rental Dubai, we offer an extensive collection of Bentley, Range Rover, Rolls Royce, Ferrari, Mercedes Benz, and Lamborghini SUVs, ensuring that you travel in ultimate comfort and elegance whenever you choose an SUV car rental in Dubai with us.",
+      "Dubai's roads and landscapes demand a vehicle that delivers both power and adaptability. Our 4×4 SUV rentals in Dubai feature powerful engines, high ground clearance, and advanced suspension systems, making them equally suited for the city and the smaller roads.",
+      "Most of our premium SUVs offer ample seating for 5 passengers, leather interiors and cutting-edge entertainment systems. Enjoy extra legroom, premium materials, and high-tech features – perfect for business trips, family vacations, or small groups who want a luxury SUV rental.",
+    ],
+    faqHeading: "SUV Cars FAQs",
+    faqs: [
+      {
+        q: "How much does it cost to rent an SUV in Dubai?",
+        a: "Luxury SUV rental prices in Dubai range from AED 1,800 per day for models like the Range Rover Vogue Mansory to AED 11,000 per day for high-performance SUVs like the Ferrari Purosangue. The rental prices for SUVs in Dubai are based on type and duration, so kindly contact us for more details.",
+      },
+      {
+        q: "Is insurance included in the rental price?",
+        a: "Yes, all rentals come with comprehensive insurance. However, a security deposit is required when hiring an SUV.",
+      },
+      {
+        q: "Are there mileage limits on SUV car rentals?",
+        a: "Yes, standard rentals include 250 km per day. Additional kilometers are charged at 20 AED per km.",
+      },
+      {
+        q: "What documents are required to rent an SUV?",
+        a: "To rent an SUV, you need to have a valid international driving license, a credit card for the security deposit, and your passport or ID for verification.",
+      },
+      {
+        q: "How many people can an SUV accommodate?",
+        a: "Most luxury SUVs seat 5 passengers, making them ideal for families, business travelers, and group outings.",
+      },
+      {
+        q: "Can I book an SUV for a corporate event?",
+        a: "Absolutely! Our SUVs are perfect for business trips, VIP transportation, and corporate events, offering both luxury and practicality.",
+      },
+      {
+        q: "Where can I drive my rental SUV?",
+        a: "Our SUVs are insured for use within the UAE only. Trips to Abu Dhabi and other Emirates are allowed, but off-roading and reckless driving are prohibited.",
+      },
+      {
+        q: "How do I book my SUV rental?",
+        a: "Booking is simple! Contact us via our website, by phone, or WhatsApp, select your perfect SUV, and confirm your reservation. We offer doorstep delivery across Dubai for your convenience.",
+      },
+    ],
+  },
+};
+
+export const FLEET_TYPE_LIST: FleetTypeMeta[] = Object.values(FLEET_TYPES);

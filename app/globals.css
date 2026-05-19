@@ -1,0 +1,393 @@
+@import "tailwindcss";
+
+/* ============================================================
+   DESIGN TOKENS
+   ============================================================ */
+:root {
+  /* Backgrounds */
+  --bg-obsidian: #07070a;
+  --bg-graphite: #111114;
+  --bg-pearl: #f4f1eb;
+  --bg-bone: #fbf9f4;
+
+  /* Accents */
+  --champagne: #c9a86a;
+  --champagne-hi: #e6cc8e;
+  --chrome: #bfc2c7;
+
+  /* Text */
+  --ink-hi: #f5f2eb;
+  --ink-lo: #8a8783;
+  --ink-dark-hi: #14140f;
+  --ink-dark-lo: #5c5a52;
+
+  --background: var(--bg-obsidian);
+  --foreground: var(--ink-hi);
+
+  /* Heading font (Switzer via Fontshare, loaded in <head>) */
+  --font-display: "Switzer", "Inter", system-ui, -apple-system, sans-serif;
+}
+
+/* Switzer at medium by default for all headings — gold-emph still bumps to 600 */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 500;
+}
+
+@theme inline {
+  --color-bg-obsidian: var(--bg-obsidian);
+  --color-bg-graphite: var(--bg-graphite);
+  --color-bg-pearl: var(--bg-pearl);
+  --color-bg-bone: var(--bg-bone);
+  --color-champagne: var(--champagne);
+  --color-champagne-hi: var(--champagne-hi);
+  --color-chrome: var(--chrome);
+  --color-ink-hi: var(--ink-hi);
+  --color-ink-lo: var(--ink-lo);
+  --color-ink-dark-hi: var(--ink-dark-hi);
+  --color-ink-dark-lo: var(--ink-dark-lo);
+
+  --font-display: var(--font-display);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+}
+
+html {
+  background: var(--bg-obsidian);
+  color: var(--ink-hi);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
+  font-feature-settings: "ss01", "cv11";
+}
+
+::selection {
+  background: var(--champagne);
+  color: var(--bg-obsidian);
+}
+
+/* ============================================================
+   GRAIN OVERLAY (always-on cinematic noise)
+   ============================================================ */
+.grain {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  opacity: 0.06;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.6 0'/></filter><rect width='200' height='200' filter='url(%23n)'/></svg>");
+  background-size: 200px 200px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .grain { display: none; }
+}
+
+/* ============================================================
+   CURSOR TRAIL (champagne dot + ring follow the mouse)
+   ============================================================ */
+@keyframes cursor-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(201, 168, 106, 0.35); }
+  50%      { box-shadow: 0 0 0 6px rgba(201, 168, 106, 0); }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(8px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0)  scale(1); }
+}
+.cursor-ring {
+  animation: cursor-pulse 2.4s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+@media (prefers-reduced-motion: reduce) {
+  .cursor-ring { animation: none; }
+}
+
+/* ============================================================
+   MARQUEES (pure CSS, no JS)
+   ============================================================ */
+@keyframes marquee-left {
+  from { transform: translate3d(0,0,0); }
+  to   { transform: translate3d(-50%,0,0); }
+}
+@keyframes marquee-right {
+  from { transform: translate3d(-50%,0,0); }
+  to   { transform: translate3d(0,0,0); }
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-left var(--marquee-speed, 40s) linear infinite;
+  will-change: transform;
+}
+.marquee-track--reverse {
+  animation-name: marquee-right;
+}
+.marquee-pause-hover:hover .marquee-track,
+.marquee-pause-hover:focus-within .marquee-track {
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track { animation: none; }
+}
+
+/* ============================================================
+   MASK REVEAL (heading words slide up from below)
+   ============================================================ */
+.mask-line {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  line-height: 1.05;
+  padding: 0.05em 0.05em 0.15em;
+  margin: -0.05em -0.05em -0.15em;
+}
+.mask-word {
+  display: inline-block;
+  transform: translateY(105%);
+  transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+.is-revealed .mask-word {
+  transform: translateY(0);
+}
+
+/* ============================================================
+   ANIMATED HAIRLINE (champagne line draws across on reveal)
+   ============================================================ */
+.hairline {
+  display: block;
+  width: 100%;
+  height: 1px;
+  background: var(--champagne);
+  transform-origin: left center;
+  transform: scaleX(0);
+  transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.is-revealed .hairline { transform: scaleX(1); }
+
+/* ============================================================
+   FADE / RISE IN (generic scroll-in for cards)
+   ============================================================ */
+.rise {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.9s ease-out, transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--rise-delay, 0ms);
+  will-change: opacity, transform;
+}
+.is-revealed.rise,
+.is-revealed .rise { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .mask-word, .hairline, .rise {
+    transform: none !important;
+    transition: none !important;
+    opacity: 1 !important;
+  }
+}
+
+/* ============================================================
+   UTILITY CLASSES
+   ============================================================ */
+.gold-emph {
+  color: var(--champagne);
+  font-weight: 600;
+}
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--champagne);
+}
+.eyebrow::before {
+  content: "";
+  width: 28px;
+  height: 1px;
+  background: var(--champagne);
+}
+
+/* ============================================================
+   DUAL-HANDLE RANGE SLIDER
+   Two stacked <input type="range"> share a track. The track is
+   invisible; only the thumbs receive pointer events so each can
+   be dragged independently.
+   ============================================================ */
+.range-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  position: absolute;
+  /* inset by half the thumb width so thumbs at the extremes are not
+     clipped by the slider container's bounds */
+  left: 10px;
+  right: 10px;
+  top: 0;
+  bottom: 0;
+  height: 100%;
+  background: transparent;
+  pointer-events: none;
+  margin: 0;
+  padding: 0;
+}
+.range-thumb::-webkit-slider-runnable-track {
+  background: transparent;
+  border: none;
+  height: 100%;
+}
+.range-thumb::-moz-range-track {
+  background: transparent;
+  border: none;
+  height: 100%;
+}
+.range-thumb::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  pointer-events: auto;
+  width: 18px;
+  height: 18px;
+  border-radius: 9999px;
+  background: var(--champagne);
+  border: 2px solid var(--bg-obsidian);
+  box-shadow: 0 0 0 1px var(--champagne), 0 4px 12px -2px rgba(0, 0, 0, 0.5);
+  cursor: grab;
+  transition: transform 0.15s ease;
+}
+.range-thumb::-webkit-slider-thumb:active {
+  cursor: grabbing;
+  transform: scale(1.12);
+}
+.range-thumb::-moz-range-thumb {
+  pointer-events: auto;
+  width: 18px;
+  height: 18px;
+  border-radius: 9999px;
+  background: var(--champagne);
+  border: 2px solid var(--bg-obsidian);
+  box-shadow: 0 0 0 1px var(--champagne), 0 4px 12px -2px rgba(0, 0, 0, 0.5);
+  cursor: grab;
+}
+.range-thumb:focus {
+  outline: none;
+}
+.range-thumb:focus::-webkit-slider-thumb {
+  box-shadow: 0 0 0 1px var(--champagne-hi), 0 0 0 4px rgba(201, 168, 106, 0.25);
+}
+
+/* container that's denser than Tailwind default */
+.container-x {
+  width: 100%;
+  max-width: 1520px;
+  margin-inline: auto;
+  padding-inline: clamp(1rem, 4vw, 3rem);
+}
+
+/* ============================================================
+   BLOG PROSE — applied to the dangerouslySetInnerHTML body on
+   /blogs/[slug] pages. The live site's HTML uses raw <p>, <h2>,
+   <ul>, <a>, <img>, <strong>, <em>, <blockquote>; styles below
+   give each a cinematic dark-mode treatment without depending on
+   @tailwindcss/typography.
+   ============================================================ */
+.prose-blog {
+  font-size: 16.5px;
+  line-height: 1.78;
+  color: var(--ink-lo);
+}
+.prose-blog p {
+  margin: 0 0 1.25em;
+}
+.prose-blog p:last-child { margin-bottom: 0; }
+.prose-blog h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.45rem, 2.4vw, 1.85rem);
+  line-height: 1.18;
+  letter-spacing: -0.01em;
+  color: var(--ink-hi);
+  margin: 2.4em 0 0.8em;
+  font-weight: 500;
+}
+.prose-blog h3 {
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 2vw, 1.45rem);
+  line-height: 1.25;
+  color: var(--ink-hi);
+  margin: 2em 0 0.7em;
+  font-weight: 500;
+}
+.prose-blog h4 {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  color: var(--ink-hi);
+  margin: 1.6em 0 0.6em;
+  font-weight: 500;
+}
+.prose-blog a {
+  color: var(--champagne);
+  text-decoration: underline;
+  text-decoration-color: rgba(201, 168, 106, 0.4);
+  text-underline-offset: 3px;
+  transition: color 0.2s ease;
+}
+.prose-blog a:hover { color: var(--champagne-hi); }
+.prose-blog strong, .prose-blog b {
+  color: var(--ink-hi);
+  font-weight: 600;
+}
+.prose-blog em, .prose-blog i { font-style: italic; }
+.prose-blog ul, .prose-blog ol {
+  margin: 0 0 1.25em;
+  padding-left: 1.4em;
+}
+.prose-blog ul li { list-style: disc; margin-bottom: 0.4em; }
+.prose-blog ol li { list-style: decimal; margin-bottom: 0.4em; }
+.prose-blog blockquote {
+  border-left: 2px solid var(--champagne);
+  margin: 1.5em 0;
+  padding: 0.4em 0 0.4em 1.2em;
+  color: var(--ink-hi);
+  font-style: italic;
+}
+.prose-blog img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 1.6em 0;
+  border-radius: 0.75rem;
+}
+.prose-blog figure { margin: 1.6em 0; }
+.prose-blog figcaption {
+  font-size: 0.875em;
+  color: var(--ink-lo);
+  margin-top: 0.5em;
+  text-align: center;
+}
+.prose-blog hr {
+  border: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  margin: 2em 0;
+}
+.prose-blog table {
+  width: 100%;
+  margin: 1.5em 0;
+  border-collapse: collapse;
+  font-size: 0.95em;
+}
+.prose-blog th, .prose-blog td {
+  padding: 0.6em 0.8em;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  text-align: left;
+}
+.prose-blog th { color: var(--ink-hi); font-weight: 500; }
+
+/* Section heading mask reveal — used by legal pages so each <h2>
+   inside an article wakes up as the reader scrolls. */
+.legal-article h2 {
+  scroll-margin-top: 96px;
+}
