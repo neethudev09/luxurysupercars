@@ -93,6 +93,7 @@ export interface Car {
   year?: number;
   horsepower?: string;
   engineCapacity?: string;
+  baggage?: string;
   // Rental terms — pulled from the live page (every car has them).
   deposit?: string;           // e.g. "AED 5,000"
   mileageLimit?: string;      // e.g. "250 km/day"
@@ -253,6 +254,7 @@ function adaptCar(raw: RawFleetCar): Car {
     year: raw.specs.year ? parseIntOrZero(raw.specs.year) : undefined,
     horsepower: raw.specs.horsepower,
     engineCapacity: raw.specs.engineCapacity,
+    baggage: raw.specs.baggage,
     deposit: raw.specs.deposit,
     mileageLimit: raw.specs.mileageLimit,
     extraKmCharge: raw.specs.extraKmCharge,

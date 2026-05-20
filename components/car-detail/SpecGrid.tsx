@@ -91,6 +91,14 @@ const ICON: Record<string, React.ReactNode> = {
       <path d="M19 9v6M22 12h-6" />
     </svg>
   ),
+  baggage: (
+    // Suitcase with a handle on top + a clasp strap across the body.
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="3.5" y="7" width="17" height="13" rx="1.6" />
+      <path d="M9 7V4.5h6V7" />
+      <path d="M3.5 13.5h17" />
+    </svg>
+  ),
 };
 
 function ccToLitres(s?: string): string | null {
@@ -137,6 +145,7 @@ export default function SpecGrid({
     { icon: ICON.drive,        label: "Drivetrain",   value: car.driveType },
     { icon: ICON.doors,        label: "Doors",        value: car.doors },
     { icon: ICON.seats,        label: "Seats",        value: car.seats },
+    { icon: ICON.baggage,      label: "Baggage",      value: car.baggage },
     { icon: ICON.color,        label: "Colour",       value: car.color },
     { icon: ICON.year,         label: "Year",         value: car.year },
     // Top speed last — only shown if the live page exposed it (rare).
@@ -167,11 +176,10 @@ export default function SpecGrid({
               aside ? "md:grid-cols-2 lg:grid-cols-3 md:col-span-8" : "md:grid-cols-3 lg:grid-cols-5"
             } gap-4`}
           >
-            {items.map((it, i) => (
-              <Reveal
+            {items.map((it) => (
+              <div
                 key={it.label}
-                delay={i * 55}
-                className="rise flex flex-col gap-3 rounded-xl border border-white/8 bg-[var(--bg-graphite)]/60 p-5 hover:border-[var(--champagne)]/40 transition-colors"
+                className="flex flex-col gap-3 rounded-xl border border-white/8 bg-[var(--bg-graphite)]/60 p-5"
               >
                 <span className="text-[var(--champagne)]">{it.icon}</span>
                 <div>
@@ -182,7 +190,7 @@ export default function SpecGrid({
                     {it.value}
                   </p>
                 </div>
-              </Reveal>
+              </div>
             ))}
           </div>
           {aside && (

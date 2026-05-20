@@ -27,19 +27,18 @@ export default function RentalCard({ car, className = "" }: { car: Car; classNam
         </span>
       </p>
 
-      {(car.deposit || car.mileageLimit || car.extraKmCharge) && (
-        <ul className="mt-5 flex flex-col divide-y divide-white/8">
-          {car.deposit && (
-            <RentalTermRow label="Security deposit" value={car.deposit} />
-          )}
-          {car.mileageLimit && (
-            <RentalTermRow label="Mileage limit" value={car.mileageLimit} />
-          )}
-          {car.extraKmCharge && (
-            <RentalTermRow label="Extra km charge" value={car.extraKmCharge} />
-          )}
-        </ul>
-      )}
+      <ul className="mt-5 flex flex-col divide-y divide-white/8">
+        {car.deposit && (
+          <RentalTermRow label="Security deposit" value={car.deposit} />
+        )}
+        {car.mileageLimit && (
+          <RentalTermRow label="Mileage limit" value={car.mileageLimit} />
+        )}
+        {car.extraKmCharge && (
+          <RentalTermRow label="Extra km charge" value={car.extraKmCharge} />
+        )}
+        <RentalTermRow label="Insurance" value="Included" />
+      </ul>
 
       <div className="mt-6 flex flex-col gap-2.5">
         <Link
@@ -63,6 +62,15 @@ export default function RentalCard({ car, className = "" }: { car: Car; classNam
           </svg>
           Enquire on WhatsApp
         </a>
+        <p className="mt-1 text-center font-[var(--font-mono)] text-[10.5px] uppercase tracking-[0.22em] text-[var(--ink-lo)]">
+          <span className="inline-flex items-center gap-1.5">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+              <circle cx="12" cy="12" r="10" />
+              <path d="M9 7v10M14 8c1.5 0 2.5 1 2.5 2.2S15.5 12 14 12H9M14 12c1.5 0 2.5 1 2.5 2.2S15.5 16 14 16H9" />
+            </svg>
+            Crypto accepted
+          </span>
+        </p>
       </div>
     </div>
   );

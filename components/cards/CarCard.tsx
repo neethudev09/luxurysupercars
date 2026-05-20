@@ -25,10 +25,11 @@ const ICON_PROPS = {
 };
 
 const EngineIcon = () => (
+  // Steering wheel — three-spoke layout: top spoke + two angled lower spokes
   <svg {...ICON_PROPS} aria-hidden>
-    <rect x="2" y="4.5" width="10" height="6" rx="0.5" />
-    <path d="M4 4.5V2.5M7 4.5V2.5M10 4.5V2.5" />
-    <path d="M2 7h-1M13 7h-1" />
+    <circle cx="7" cy="7" r="5.4" />
+    <circle cx="7" cy="7" r="1.5" />
+    <path d="M7 1.6V5.5M2.7 9.4l3.05-1.55M11.3 9.4 8.25 7.85" />
   </svg>
 );
 
@@ -80,7 +81,7 @@ export default function CarCard({ car, theme = "dark", index = 0 }: CarCardProps
           isLight
             ? "bg-[var(--bg-bone)] border-black/15 shadow-[0_18px_40px_-16px_rgba(0,0,0,0.28)] hover:border-[var(--champagne)]/60 hover:shadow-[0_28px_60px_-18px_rgba(0,0,0,0.38)]"
             : "bg-[var(--bg-graphite)] border-white/8 hover:border-[var(--champagne)]/60"
-        } transition-[transform,border-color,box-shadow,background-color] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1.5`}
+        } transition duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1.5`}
       >
       {/* Ambient champagne glow on hover */}
       <span className="pointer-events-none absolute -inset-1 -z-10 rounded-2xl opacity-0 group-hover:opacity-100 blur-3xl bg-[var(--champagne)]/15 transition-opacity duration-700" />

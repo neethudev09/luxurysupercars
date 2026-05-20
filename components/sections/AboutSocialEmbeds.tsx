@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import MaskHeading from "@/components/motion/MaskHeading";
 import Reveal from "@/components/motion/Reveal";
 
@@ -28,7 +28,6 @@ function BlockIcon({ name, size = 32 }: { name: Block["icon"]; size?: number }) 
       </svg>
     );
   }
-  // podcasts
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden>
       <circle cx="12" cy="9.5" r="3.6" stroke="currentColor" strokeWidth="1.6" />
@@ -57,16 +56,7 @@ const BLOCKS: Block[] = [
     heading: "YouTube",
     layout: "wide",
     icon: "youtube",
-    videoIds: [
-      "0K-TsnRHNE4",
-      "1nt0GYv4n9k",
-      "khZNxVoI1K8",
-      "qtnhEl9ogk4",
-      "TjB258kdQFc",
-      "VE48aZyvf7g",
-      "zrIdggcPOk4",
-      "QD87hNbhf-M",
-    ],
+    videoIds: ["TjB258kdQFc", "VE48aZyvf7g", "zrIdggcPOk4", "QD87hNbhf-M"],
   },
   {
     id: "podcasts",
@@ -78,13 +68,16 @@ const BLOCKS: Block[] = [
   },
 ];
 
-function embedSrc(id: string) {
+function thumbUrl(id: string) {
+  // hqdefault is reliable and ~480x360; covers both wide and 9:16 tiles
+  // (the 9:16 tiles letterbox the horizontal frame, same as YouTube Shorts).
+  return `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
+}
+
+function playerSrc(id: string) {
   const params = new URLSearchParams({
     autoplay: "1",
-    mute: "1",
-    loop: "1",
-    playlist: id,
-    controls: "1",
+    mute: "0",
     rel: "0",
     modestbranding: "1",
     playsinline: "1",
@@ -122,11 +115,11 @@ export default function AboutSocialEmbeds() {
                 <Reveal
                   key={vid}
                   className="rise"
-                  delay={Math.min(i * 70, 420)}
+                  delay={Math.min(i * 70, 280)}
                 >
-                  <LazyEmbed
-                    src={embedSrc(vid)}
-                    title={`${block.label} clip ${i + 1}`}
+                  <VideoFacade
+                    id={vid}
+                    label={`${block.label} clip ${i + 1}`}
                     aspect={block.layout === "shorts" ? "9/16" : "16/9"}
                   />
                 </Reveal>
@@ -140,51 +133,60 @@ export default function AboutSocialEmbeds() {
 }
 
 /**
- * Mounts the YouTube iframe only when the tile scrolls into view.
- * The embed URL already includes autoplay=1&mute=1, so once mounted
- * the clip plays automatically. Off-screen tiles unmount to keep
- * page memory + battery in check.
+ * Lightweight YouTube embed — renders a static thumbnail + play button
+ * until clicked. The real iframe only mounts on user interaction, and
+ * stays mounted afterwards so scrolling past doesn't black it out.
  */
-function LazyEmbed({
-  src,
-  title,
+function VideoFacade({
+  id,
+  label,
   aspect,
 }: {
-  src: string;
-  title: string;
+  id: string;
+  label: string;
   aspect: "9/16" | "16/9";
 }) {
-  const ref = useRef<HTMLDivElement | null>(null);
   const [active, setActive] = useState(false);
-
-  useEffect(() => {
-    const node = ref.current;
-    if (!node) return;
-    const io = new IntersectionObserver(
-      ([entry]) => setActive(entry.isIntersecting),
-      { threshold: 0.35, rootMargin: "0px 0px -10% 0px" }
-    );
-    io.observe(node);
-    return () => io.disconnect();
-  }, []);
 
   return (
     <div
-      ref={ref}
       className={`relative w-full overflow-hidden rounded-2xl border border-white/8 bg-black ${
         aspect === "9/16" ? "aspect-[9/16]" : "aspect-video"
       }`}
     >
-      {active && (
+      {active ? (
         <iframe
-          src={src}
-          title={title}
+          src={playerSrc(id)}
+          title={label}
           allow="autoplay; encrypted-media; picture-in-picture; web-share"
           allowFullScreen
           loading="lazy"
           referrerPolicy="strict-origin-when-cross-origin"
-          className="absolute inset-0 size-full pointer-events-none"
+          className="absolute inset-0 size-full"
         />
+      ) : (
+        <button
+          type="button"
+          onClick={() => setActive(true)}
+          aria-label={`Play ${label}`}
+          className="group absolute inset-0 size-full cursor-pointer"
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={thumbUrl(id)}
+            alt=""
+            loading="lazy"
+            className="absolute inset-0 size-full object-cover opacity-90 group-hover:opacity-100 transition-opacity"
+          />
+          <span className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+          <span className="absolute inset-0 flex items-center justify-center">
+            <span className="inline-flex size-14 items-center justify-center rounded-full bg-black/55 backdrop-blur-sm border border-white/20 text-white transition-transform duration-300 group-hover:scale-110 group-hover:bg-[var(--champagne)] group-hover:text-[var(--bg-obsidian)] group-hover:border-[var(--champagne)]">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" aria-hidden>
+                <path d="M5 3.5L17 10 5 16.5V3.5z" />
+              </svg>
+            </span>
+          </span>
+        </button>
       )}
     </div>
   );

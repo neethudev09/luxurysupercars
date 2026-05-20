@@ -53,7 +53,7 @@ const FEATURE_ICONS: Array<[RegExp, React.ReactNode]> = [
   [/power\s*seats?|memory\s*seats?|electric\s*seats?/i, (
     <svg {...ICON_PROPS}><path d="M6 4v10h8M4 18h11" /><path d="M15 14v4" /><circle cx="19" cy="6" r="2.5" /></svg>
   )],
-  [/climate\s*control|a\/?c|air\s*conditioning|dual\s*zone|tri\s*zone/i, (
+  [/climate\s*control|\bA\/?C\b|air\s*conditioning|dual\s*zone|tri\s*zone/i, (
     // Snowflake — universal "cold air" mark
     <svg {...ICON_PROPS}>
       <path d="M12 2v20M2 12h20M5 5l14 14M19 5L5 19" />
@@ -129,13 +129,19 @@ interface FeaturesGridProps {
   features?: string[];
 }
 
+// Features that have a dedicated home elsewhere on the page — strip them
+// out of Features & Comfort so the same point isn't made twice.
+const EXCLUDE_RE = /^(?:insurance(?:\s+included)?|crypto(?:\s+is)?\s*accepted|bitcoin(?:\s+is)?\s*accepted)$/i;
+
 export default function FeaturesGrid({ features }: FeaturesGridProps) {
   if (!features || features.length === 0) return null;
 
-  // Dedupe (case-insensitive) while preserving display order.
+  // Dedupe (case-insensitive) while preserving display order, and drop
+  // any feature whose responsibility lives in another component.
   const seen = new Set<string>();
   const items = features.filter((f) => {
     const k = f.toLowerCase().trim();
+    if (EXCLUDE_RE.test(k)) return false;
     if (seen.has(k)) return false;
     seen.add(k);
     return true;
@@ -155,15 +161,14 @@ export default function FeaturesGrid({ features }: FeaturesGridProps) {
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
-          {items.map((label, i) => (
-            <Reveal
+          {items.map((label) => (
+            <div
               key={label}
-              delay={i * 35}
-              className="rise flex items-center gap-4 rounded-xl border border-white/8 bg-[var(--bg-obsidian)]/40 px-5 py-4 hover:border-[var(--champagne)]/40 transition-colors"
+              className="flex items-center gap-4 rounded-xl border border-white/8 bg-[var(--bg-obsidian)]/40 px-5 py-4"
             >
               <span className="text-[var(--champagne)] shrink-0">{iconFor(label)}</span>
               <span className="text-[14px] font-medium text-[var(--ink-hi)]">{label}</span>
-            </Reveal>
+            </div>
           ))}
         </div>
       </div>

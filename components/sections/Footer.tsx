@@ -71,10 +71,32 @@ export default function Footer() {
               <li><a href={`mailto:${CONTACT.email}`} className="hover:text-[var(--champagne)] transition-colors">{CONTACT.email}</a></li>
               <li className="mt-2 text-[var(--ink-lo)] text-[14.5px]">{CONTACT.address}</li>
             </ul>
+
+            <p className="font-[var(--font-mono)] text-[12px] uppercase tracking-[0.22em] text-[var(--champagne)] mt-8 mb-4">
+              Accepted Payment
+            </p>
+            <ul className="flex flex-wrap items-center gap-2.5">
+              {[
+                { name: "Visa", file: "Visa.svg" },
+                { name: "Mastercard", file: "Mastercard.svg" },
+                { name: "American Express", file: "Amex.svg" },
+                { name: "PayPal", file: "PayPal.svg" },
+                { name: "Bitcoin", file: "Bitcoin.svg" },
+              ].map((p) => (
+                <li key={p.name} title={p.name}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={`/images/Payment%20Method/${p.file}`}
+                    alt={p.name}
+                    className="h-9 w-auto"
+                  />
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
 
-        <div className="mt-10 flex flex-wrap items-center justify-between gap-6 border-t border-white/5 pt-6">
+        <div className="mt-12 flex flex-wrap items-center justify-between gap-6 border-t border-white/5 pt-6">
           <p className="text-[14px] text-[var(--ink-lo)]">{FOOTER.copyright}</p>
           <ul className="flex items-center gap-5 text-[14px] text-[var(--ink-lo)]">
             {FOOTER.legal.map((l) => (

@@ -58,7 +58,7 @@ export default function Contact() {
             className="rounded-2xl border border-white/8 bg-[var(--bg-graphite)]/60 p-6 md:p-8 backdrop-blur"
             action={action}
           >
-            <h3 className="font-[var(--font-display)] text-[22px] tracking-tight text-[var(--ink-hi)] mb-6">
+            <h3 className="font-[var(--font-display)] text-[24px] tracking-tight text-[var(--ink-hi)] mb-6">
               How Can We Help You?
             </h3>
             <div className="grid md:grid-cols-2 gap-5">
@@ -66,14 +66,14 @@ export default function Contact() {
               <Field label="Email" name="email" type="email" placeholder="you@email.com" />
               <Field label="Mobile" name="phone" type="tel" placeholder="+971 ..." />
               <div className="flex flex-col gap-1.5">
-                <label htmlFor="brand" className="font-[var(--font-mono)] text-[10px] uppercase tracking-[0.18em] text-[var(--ink-lo)]">
+                <label htmlFor="brand" className="font-[var(--font-mono)] text-[12px] uppercase tracking-[0.18em] text-[var(--ink-lo)]">
                   Select Brand
                 </label>
                 <select
                   id="brand"
                   name="brand"
                   defaultValue=""
-                  className="bg-transparent border-b border-white/15 py-2 text-[14px] text-[var(--ink-hi)] outline-none focus:border-[var(--champagne)] transition-colors [color-scheme:dark]"
+                  className="bg-transparent border-b border-white/15 py-2 text-[16px] text-[var(--ink-hi)] outline-none focus:border-[var(--champagne)] transition-colors [color-scheme:dark]"
                 >
                   <option value="" disabled className="bg-[var(--bg-obsidian)]">Choose a brand</option>
                   {CARS_BRANDS.map((b) => (
@@ -86,7 +86,7 @@ export default function Contact() {
               <Field label="Date from" name="dateFrom" type="date" />
               <Field label="Date to" name="dateTo" type="date" />
               <div className="md:col-span-2 flex flex-col gap-1.5">
-                <label htmlFor="message" className="font-[var(--font-mono)] text-[10px] uppercase tracking-[0.18em] text-[var(--ink-lo)]">
+                <label htmlFor="message" className="font-[var(--font-mono)] text-[12px] uppercase tracking-[0.18em] text-[var(--ink-lo)]">
                   Message
                 </label>
                 <textarea
@@ -94,19 +94,19 @@ export default function Contact() {
                   name="message"
                   rows={4}
                   placeholder="Tell us about your trip, dates, and dream car…"
-                  className="bg-transparent border-b border-white/15 py-2 text-[14px] text-[var(--ink-hi)] placeholder:text-[var(--ink-lo)]/60 outline-none focus:border-[var(--champagne)] transition-colors resize-none [color-scheme:dark]"
+                  className="bg-transparent border-b border-white/15 py-2 text-[16px] text-[var(--ink-hi)] placeholder:text-[var(--ink-lo)]/60 outline-none focus:border-[var(--champagne)] transition-colors resize-none [color-scheme:dark]"
                 />
               </div>
             </div>
 
             <div className="mt-8 flex items-center justify-between gap-4 flex-wrap">
-              <p className="font-[var(--font-mono)] text-[10.5px] uppercase tracking-[0.22em] text-[var(--ink-lo)]">
+              <p className="font-[var(--font-mono)] text-[12px] uppercase tracking-[0.22em] text-[var(--ink-lo)]">
                 We will respond as fast as possible.
               </p>
               <button
                 type="submit"
                 disabled={pending}
-                className="inline-flex items-center gap-2.5 rounded-full bg-[var(--champagne)] text-[var(--bg-obsidian)] px-7 py-3 text-[13px] font-medium hover:bg-[var(--champagne-hi)] transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+                className="inline-flex items-center gap-2.5 rounded-full bg-[var(--champagne)] text-[var(--bg-obsidian)] px-7 py-3 text-[15px] font-medium hover:bg-[var(--champagne-hi)] transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
               >
                 {pending ? "Sending…" : "Send enquiry"}
                 {!pending && (
@@ -119,7 +119,7 @@ export default function Contact() {
             {state.message && (
               <p
                 role="status"
-                className={`mt-4 text-[13px] ${state.ok ? "text-[var(--champagne)]" : "text-red-400"}`}
+                className={`mt-4 text-[15px] ${state.ok ? "text-[var(--champagne)]" : "text-red-400"}`}
               >
                 {state.message}
               </p>
@@ -144,7 +144,7 @@ function Field({
 }) {
   return (
     <div className="flex flex-col gap-1.5">
-      <label htmlFor={name} className="font-[var(--font-mono)] text-[10px] uppercase tracking-[0.18em] text-[var(--ink-lo)]">
+      <label htmlFor={name} className="font-[var(--font-mono)] text-[12px] uppercase tracking-[0.18em] text-[var(--ink-lo)]">
         {label}
       </label>
       <input
@@ -152,7 +152,7 @@ function Field({
         name={name}
         type={type}
         placeholder={placeholder}
-        className="bg-transparent border-b border-white/15 py-2 text-[14px] text-[var(--ink-hi)] placeholder:text-[var(--ink-lo)]/60 outline-none focus:border-[var(--champagne)] transition-colors [color-scheme:dark]"
+        className="bg-transparent border-b border-white/15 py-2 text-[16px] text-[var(--ink-hi)] placeholder:text-[var(--ink-lo)]/60 outline-none focus:border-[var(--champagne)] transition-colors [color-scheme:dark]"
       />
     </div>
   );

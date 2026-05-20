@@ -80,14 +80,11 @@ export default function StickyEnquireBar({
                   </p>
                 </div>
                 <div className="hidden md:inline-flex items-baseline gap-1.5 whitespace-nowrap shrink-0">
-                  <span className="font-[var(--font-mono)] text-[9px] uppercase tracking-[0.1em] text-[var(--ink-lo)]">
-                    From
-                  </span>
                   <span className="font-[var(--font-display)] text-[20px] leading-none text-[var(--champagne)]">
                     AED {car.price.toLocaleString()}
                   </span>
                   <span className="font-[var(--font-mono)] text-[9px] uppercase tracking-[0.1em] text-[var(--ink-lo)]">
-                    / day
+                    per day
                   </span>
                 </div>
               </div>

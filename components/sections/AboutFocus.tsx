@@ -1,39 +1,57 @@
 import Image from "next/image";
-import Link from "next/link";
 import MaskHeading from "@/components/motion/MaskHeading";
 import Reveal from "@/components/motion/Reveal";
 
-const CAR_TYPES = [
-  { label: "Sports", href: "/rent-sports-cars-dubai" },
-  { label: "Convertibles", href: "/rent-convertible-cars-dubai" },
-  { label: "Luxury", href: "/rent-luxury-cars-dubai" },
-  { label: "SUV", href: "/rent-suv-cars-dubai" },
-];
+type Venture = {
+  h3: string;
+  body: string;
+  logo: string | null;
+  /** Wrap the logo in a white circular badge. Off for the in-house PNGs
+   *  whose gold-on-transparent winged mark already sits cleanly on dark. */
+  bordered?: boolean;
+};
 
-// Three ventures — H3 labels + body paragraphs verbatim from live /about-us/.
-const VENTURES = [
+// Five ventures shown under the About me block. Where a logo file isn't
+// available yet, leave `logo: null` and the tile renders the company
+// initials inside the white circle as a placeholder.
+const VENTURES: Venture[] = [
   {
-    h3: "LUXURY SUPERCAR RENTALS",
+    h3: "Luxury Supercar Rentals",
     body: "The Premier Luxury Supercars Rental in Dubai. With a fleet of more than 100 exclusive super cars to choose from!",
+    logo: "/images/LSR.png",
   },
   {
-    h3: "LUXURY CHAUFFEUR DUBAI",
+    h3: "Luxury Chauffeur Services",
     body: "Specialised to provide high-end chauffeur services Dubai with the best 24/7 customer service experience.",
+    logo: "/images/LCS.png",
+  },
+  {
+    h3: "Luxury Car Gallery",
+    body: "The Premier Luxury Car Dealership in Dubai. Specialised in buying, selling and trading the world's most exclusive premium cars.",
+    logo: "/images/LCG.png",
+  },
+  {
+    h3: "Luxury Auto Care",
+    body: "Specialised Auto Care for luxury supercars and hypercars in Dubai, delivering meticulous detailing, service and finish.",
+    logo: "/images/LAG.png",
   },
   {
     h3: "Luxury Property Experts",
     body: "Real Estate Agency Specialized mostly in exclusive and luxurious properties in the UAE.",
+    logo: "https://luxurysupercarsdubai.com/wp-content/uploads/elementor/thumbs/Luxury-Property-Experts-recrvozwm0qhknriejj7udemdmkmdhuj7lqfrikrq4.png",
+    bordered: true,
   },
 ];
 
-/**
- * "About me" — Ahmed portrait on the left, the verbatim live-site bio
- * paragraphs on the right, followed by the car-type chips and the three
- * venture cards. Consolidates what used to be two separate sections.
- *
- * Image expected at /public/images/ahmed-portrait.jpg (next/image rewrites
- * to /_next/image at runtime).
- */
+/** Company initials for the placeholder badge — first letter of each word. */
+function initials(name: string) {
+  return name
+    .split(/\s+/)
+    .map((w) => w[0]?.toUpperCase() ?? "")
+    .join("")
+    .slice(0, 3);
+}
+
 export default function AboutFocus() {
   return (
     <section className="relative bg-[var(--bg-obsidian)] text-[var(--ink-hi)] py-20 md:py-28 border-t border-white/[0.05] overflow-hidden">
@@ -43,16 +61,16 @@ export default function AboutFocus() {
       />
 
       <div className="container-x relative">
-        <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 items-start">
-          {/* Left — Ahmed portrait */}
-          <div className="lg:col-span-5">
+        {/* About me — image left, bio right, narrower than the container */}
+        <div className="mx-auto max-w-4xl grid lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+          <div className="lg:col-span-4">
             <Reveal>
-              <div className="relative aspect-[4/5] w-full rounded-2xl overflow-hidden border border-white/10 bg-[var(--bg-graphite)]">
+              <div className="relative aspect-[4/5] w-full max-w-[340px] mx-auto lg:mx-0 rounded-2xl overflow-hidden border border-white/10 bg-[var(--bg-graphite)]">
                 <Image
-                  src="/images/ahmed-portrait.jpg"
+                  src="/images/Ahmed-portrait.png"
                   alt="Ahmed Amwell — Founder and CEO of Luxury Supercar Rentals Dubai"
                   fill
-                  sizes="(min-width: 1024px) 38vw, 90vw"
+                  sizes="(min-width: 1024px) 340px, 90vw"
                   className="object-cover"
                   priority={false}
                 />
@@ -60,8 +78,7 @@ export default function AboutFocus() {
             </Reveal>
           </div>
 
-          {/* Right — heading, bio, car types, ventures */}
-          <div className="lg:col-span-7">
+          <div className="lg:col-span-8">
             <MaskHeading
               text="About me"
               as="h2"
@@ -70,7 +87,6 @@ export default function AboutFocus() {
               staggerMs={45}
             />
 
-            {/* Verbatim bio paragraphs from live /about-us/ */}
             <Reveal>
               <p className="mt-8 text-[16px] md:text-[17px] leading-[1.85] text-[var(--ink-lo)]">
                 I&rsquo;m Ahmed Amwell, the proud owner of Luxury Supercar
@@ -91,62 +107,53 @@ export default function AboutFocus() {
                 surely provide you with a fascinating experience.
               </p>
             </Reveal>
+          </div>
+        </div>
 
-            {/* Car types */}
-            <div className="mt-10">
-              <Reveal>
-                <p className="font-[var(--font-mono)] text-[10.5px] tracking-[0.22em] uppercase text-[var(--ink-lo)] mb-4">
-                  Car types
+        {/* "CEO of" — five ventures, centered */}
+        <div className="mt-16 md:mt-20">
+          <Reveal>
+            <p className="text-center font-[var(--font-mono)] text-[12px] uppercase tracking-[0.22em] text-[var(--champagne)] mb-8">
+              CEO of
+            </p>
+          </Reveal>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-5">
+            {VENTURES.map((v, i) => (
+              <Reveal
+                key={v.h3}
+                className="rise rounded-xl border border-white/8 bg-[var(--bg-graphite)]/40 p-5 hover:border-[var(--champagne)]/40 transition-colors flex flex-col items-center text-center"
+                delay={Math.min(i * 90, 360)}
+              >
+                <div
+                  className={`relative size-28 mb-5 flex items-center justify-center ${
+                    v.bordered
+                      ? "rounded-full overflow-hidden bg-white border-2 border-white shadow-[0_4px_18px_-4px_rgba(255,255,255,0.15)]"
+                      : ""
+                  }`}
+                >
+                  {v.logo ? (
+                    <Image
+                      src={v.logo}
+                      alt={`${v.h3} logo`}
+                      fill
+                      sizes="112px"
+                      className={`object-contain ${v.bordered ? "p-2.5" : ""}`}
+                    />
+                  ) : (
+                    <span className="font-[var(--font-display)] text-[26px] font-medium tracking-tight text-[var(--bg-obsidian)]">
+                      {initials(v.h3)}
+                    </span>
+                  )}
+                </div>
+                <h3 className="font-[var(--font-display)] text-[18px] leading-tight tracking-tight text-[var(--ink-hi)] mb-2">
+                  {v.h3}
+                </h3>
+                <p className="text-[15px] leading-[1.65] text-[var(--ink-lo)]">
+                  {v.body}
                 </p>
               </Reveal>
-              <div className="flex flex-wrap gap-2">
-                {CAR_TYPES.map((t, i) => (
-                  <Reveal key={t.label} className="rise" delay={i * 60}>
-                    <Link
-                      href={t.href}
-                      className="inline-flex items-center gap-2 rounded-full border border-white/15 px-4 py-2 text-[12.5px] hover:border-[var(--champagne)]/60 hover:text-[var(--champagne-hi)] transition-colors"
-                    >
-                      {t.label}
-                      <svg
-                        width="11"
-                        height="8"
-                        viewBox="0 0 14 10"
-                        fill="none"
-                        aria-hidden
-                        className="opacity-60"
-                      >
-                        <path d="M0 5h12M8 1l4 4-4 4" stroke="currentColor" strokeWidth="1.4" />
-                      </svg>
-                    </Link>
-                  </Reveal>
-                ))}
-              </div>
-            </div>
-
-            {/* Three ventures — H3 labels preserved verbatim from live /about-us/ */}
-            <div className="mt-10">
-              <Reveal>
-                <p className="font-[var(--font-mono)] text-[10.5px] tracking-[0.22em] uppercase text-[var(--ink-lo)] mb-5">
-                  Company types
-                </p>
-              </Reveal>
-              <div className="grid md:grid-cols-3 gap-4">
-                {VENTURES.map((v, i) => (
-                  <Reveal
-                    key={v.h3}
-                    className="rise rounded-xl border border-white/8 bg-[var(--bg-graphite)]/40 p-5 hover:border-[var(--champagne)]/40 transition-colors"
-                    delay={i * 100}
-                  >
-                    <h3 className="font-[var(--font-display)] text-[16px] leading-tight tracking-tight text-[var(--ink-hi)] mb-3">
-                      {v.h3}
-                    </h3>
-                    <p className="text-[13px] leading-[1.7] text-[var(--ink-lo)]">
-                      {v.body}
-                    </p>
-                  </Reveal>
-                ))}
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>

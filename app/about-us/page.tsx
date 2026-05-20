@@ -42,8 +42,8 @@ export default function AboutPage() {
       <AboutVideo />
       <AboutBrands />
       <AboutMarquee />
-      <AboutSocialEmbeds />
       <AboutFocus />
+      <AboutSocialEmbeds />
       <Contact />
       <Footer />
     </main>
