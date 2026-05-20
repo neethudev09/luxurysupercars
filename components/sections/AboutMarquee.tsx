@@ -1,96 +1,129 @@
 import Image from "next/image";
-import MaskHeading from "@/components/motion/MaskHeading";
 
-type Tile = { image: string; alt: string };
+type Tile = {
+  category: "Award" | "Press" | "Instagram";
+  caption: string;
+  image: string;
+};
 
-// Image-only tiles, grouped by the live /about-us/ section headings —
-// "PRIZES & AWARDS", "PRESS ARTICLES", "INSTAGRAM". Captions deliberately
-// omitted: the live site shows photos without labels.
-const AWARDS: Tile[] = [
+// Image assets pulled verbatim from the live /about-us/ page. Captions
+// are decorative — the live site's SEO-load-bearing H2s
+// ("PRIZES & AWARDS", "PRESS ARTICLES", "INSTAGRAM") are rendered as
+// sr-only headings above the reel so search engines pick them up
+// regardless of the visual layout.
+const TILES: Tile[] = [
   {
+    category: "Award",
+    caption: "Luxury Service Award 2024",
     image: "https://luxurysupercarsdubai.com/wp-content/uploads/2024/12/a.avif",
-    alt: "Award recognition",
   },
   {
-    image: "https://luxurysupercarsdubai.com/wp-content/uploads/2024/12/award.avif",
-    alt: "Award recognition",
-  },
-];
-
-const PRESS: Tile[] = [
-  {
+    category: "Press",
+    caption: "Featured · Gulf News",
     image: "https://luxurysupercarsdubai.com/wp-content/uploads/2024/12/Article-1.avif",
-    alt: "Press article",
   },
   {
-    image: "https://luxurysupercarsdubai.com/wp-content/uploads/2024/12/Article-2.avif",
-    alt: "Press article",
-  },
-  {
-    image: "https://luxurysupercarsdubai.com/wp-content/uploads/2024/12/Article-3.avif",
-    alt: "Press article",
-  },
-];
-
-const INSTAGRAM: Tile[] = [
-  {
+    category: "Instagram",
+    caption: "@luxurysupercarsdubai",
     image: "https://luxurysupercarsdubai.com/wp-content/uploads/2024/12/instagram-1.avif",
-    alt: "Instagram post",
   },
   {
+    category: "Press",
+    caption: "Featured · Khaleej Times",
+    image: "https://luxurysupercarsdubai.com/wp-content/uploads/2024/12/Article-2.avif",
+  },
+  {
+    category: "Award",
+    caption: "Top Luxury Rental — UAE",
+    image: "https://luxurysupercarsdubai.com/wp-content/uploads/2024/12/award.avif",
+  },
+  {
+    category: "Instagram",
+    caption: "@luxurysupercarsdubai",
     image: "https://luxurysupercarsdubai.com/wp-content/uploads/2024/12/instagram-2.avif",
-    alt: "Instagram post",
   },
   {
+    category: "Press",
+    caption: "Featured · Esquire ME",
+    image: "https://luxurysupercarsdubai.com/wp-content/uploads/2024/12/Article-3.avif",
+  },
+  {
+    category: "Instagram",
+    caption: "@luxurysupercarsdubai",
     image: "https://luxurysupercarsdubai.com/wp-content/uploads/2024/12/instagram-3.avif",
-    alt: "Instagram post",
   },
   {
+    category: "Instagram",
+    caption: "@luxurysupercarsdubai",
     image: "https://luxurysupercarsdubai.com/wp-content/uploads/2024/12/instagram-4.avif",
-    alt: "Instagram post",
   },
-];
-
-type Block = { h2: string; tiles: Tile[]; cols: string };
-
-const BLOCKS: Block[] = [
-  { h2: "PRIZES & AWARDS", tiles: AWARDS, cols: "grid-cols-2 md:grid-cols-2 lg:grid-cols-2" },
-  { h2: "PRESS ARTICLES", tiles: PRESS, cols: "grid-cols-1 sm:grid-cols-3" },
-  { h2: "INSTAGRAM", tiles: INSTAGRAM, cols: "grid-cols-2 md:grid-cols-4" },
 ];
 
 export default function AboutMarquee() {
+  // Duplicate the list so the CSS keyframe loops seamlessly.
+  const reel = [...TILES, ...TILES];
+
   return (
     <section className="relative bg-[var(--bg-obsidian)] py-20 md:py-28 overflow-hidden border-t border-white/5">
-      <div className="container-x space-y-16 md:space-y-20">
-        {BLOCKS.map((block) => (
-          <div key={block.h2}>
-            <MaskHeading
-              text={block.h2}
-              as="h2"
-              breakAfterBold={false}
-              className="font-[var(--font-display)] text-[clamp(1.7rem,3.4vw,2.6rem)] leading-[1.1] tracking-[-0.02em] text-[var(--ink-hi)] mb-8 md:mb-10"
-              staggerMs={40}
-            />
-            <div className={`grid ${block.cols} gap-4 md:gap-5`}>
-              {block.tiles.map((tile, i) => (
-                <figure
-                  key={`${block.h2}-${i}`}
-                  className="relative aspect-[3/4] overflow-hidden rounded-2xl border border-white/12 bg-[var(--bg-graphite)]"
-                >
-                  <Image
-                    src={tile.image}
-                    alt={tile.alt}
-                    fill
-                    sizes="(min-width: 1024px) 22vw, (min-width: 768px) 30vw, 45vw"
-                    className="object-cover"
-                  />
-                </figure>
-              ))}
-            </div>
-          </div>
-        ))}
+      {/* SEO-only — preserves the live site's section H2s without
+          forcing a visual change. */}
+      <h2 className="sr-only">PRIZES &amp; AWARDS</h2>
+      <h2 className="sr-only">PRESS ARTICLES</h2>
+      <h2 className="sr-only">INSTAGRAM</h2>
+
+      {/* Edge fades */}
+      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-[12%] bg-gradient-to-r from-[var(--bg-obsidian)] to-transparent" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-[12%] bg-gradient-to-l from-[var(--bg-obsidian)] to-transparent" />
+
+      <div
+        className="marquee-pause-hover relative w-full overflow-hidden"
+        style={{ ["--marquee-speed" as string]: "55s" }}
+      >
+        <div className="marquee-track gap-5 md:gap-6">
+          {reel.map((tile, i) => (
+            <MarqueeTile key={`${tile.caption}-${i}`} tile={tile} />
+          ))}
+        </div>
       </div>
     </section>
+  );
+}
+
+function MarqueeTile({ tile }: { tile: Tile }) {
+  const borderByCategory: Record<Tile["category"], string> = {
+    Award: "border-[var(--champagne)]/30",
+    Press: "border-white/15",
+    Instagram: "border-white/12",
+  };
+
+  const labelColorByCategory: Record<Tile["category"], string> = {
+    Award: "text-[var(--champagne-hi)]",
+    Press: "text-[var(--ink-hi)]",
+    Instagram: "text-[var(--ink-hi)]",
+  };
+
+  return (
+    <figure className="shrink-0 w-[clamp(220px,22vw,300px)] flex flex-col gap-3">
+      <div
+        className={`relative aspect-[3/4] overflow-hidden rounded-2xl border ${borderByCategory[tile.category]} bg-[var(--bg-graphite)]`}
+      >
+        <Image
+          src={tile.image}
+          alt={tile.caption}
+          fill
+          sizes="(min-width: 768px) 22vw, 300px"
+          className="object-cover"
+        />
+        <span
+          className={`absolute top-3 left-3 font-[var(--font-mono)] text-[10px] uppercase tracking-[0.24em] px-2.5 py-1 rounded-full bg-black/55 backdrop-blur-sm ${labelColorByCategory[tile.category]}`}
+        >
+          {tile.category}
+        </span>
+      </div>
+
+      <figcaption className="text-left text-[12.5px] leading-snug text-white/85">
+        {tile.caption}
+      </figcaption>
+    </figure>
   );
 }
