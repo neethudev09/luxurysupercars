@@ -42,9 +42,9 @@ export default function AboutPage() {
       <AboutScrollHero />
       <AboutVideo />
       <AboutBrands />
-      <AboutFocus />
       <AboutMarquee />
       <AboutSocialEmbeds />
+      <AboutFocus />
       <AboutMe />
       <Contact />
       <Footer />

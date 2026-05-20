@@ -18,7 +18,6 @@ async function main() {
       landline: CONTACT.landline,
       email: CONTACT.email,
       address: CONTACT.address,
-      altAddress: CONTACT.altAddress,
       operationHours: "9 am – 9 pm (Monday–Sunday)",
     },
     social: {

@@ -44,7 +44,7 @@ export default function FAQ({ heading, subheading, items }: FAQProps = {}) {
             />
             <a
               href="#contact"
-              className="mt-8 inline-flex items-center gap-2 rounded-full border border-[var(--ink-dark-hi)]/30 px-5 py-2.5 text-[12.5px] font-medium hover:bg-[var(--ink-dark-hi)] hover:text-[var(--bg-bone)] transition-colors"
+              className="mt-8 hidden md:inline-flex items-center gap-2 rounded-full border border-[var(--ink-dark-hi)]/30 px-5 py-2.5 text-[12.5px] font-medium hover:bg-[var(--ink-dark-hi)] hover:text-[var(--bg-bone)] transition-colors"
             >
               Read More
               <svg width="14" height="10" viewBox="0 0 14 10" fill="none">
@@ -106,6 +106,15 @@ export default function FAQ({ heading, subheading, items }: FAQProps = {}) {
                 );
               })}
             </ul>
+            <a
+              href="#contact"
+              className="mt-8 inline-flex md:hidden items-center gap-2 rounded-full border border-[var(--ink-dark-hi)]/30 px-5 py-2.5 text-[12.5px] font-medium hover:bg-[var(--ink-dark-hi)] hover:text-[var(--bg-bone)] transition-colors"
+            >
+              Read More
+              <svg width="14" height="10" viewBox="0 0 14 10" fill="none">
+                <path d="M0 5h12M8 1l4 4-4 4" stroke="currentColor" strokeWidth="1.4" />
+              </svg>
+            </a>
           </div>
         </div>
       </div>

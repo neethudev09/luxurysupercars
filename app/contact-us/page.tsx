@@ -28,11 +28,6 @@ const ADDRESSES = [
     value: CONTACT.address,
     maps: "https://www.google.com/maps/search/?api=1&query=Showroom+317+Nadd+Al+Hamar+Dubai",
   },
-  {
-    label: "Al Quoz",
-    value: CONTACT.altAddress,
-    maps: "https://www.google.com/maps/search/?api=1&query=4th+St+Al+Qouz+Industrial+Third+Al+Quoz+Dubai",
-  },
 ];
 
 export default function ContactUsPage() {

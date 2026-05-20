@@ -69,7 +69,7 @@ export default function Footer() {
               <li><a href={`tel:${CONTACT.secondaryPhone.replace(/\s/g, "")}`} className="hover:text-[var(--champagne)] transition-colors">{CONTACT.secondaryPhone}</a></li>
               <li><a href={`tel:${CONTACT.landline.replace(/\s/g, "")}`} className="hover:text-[var(--champagne)] transition-colors">{CONTACT.landline}</a></li>
               <li><a href={`mailto:${CONTACT.email}`} className="hover:text-[var(--champagne)] transition-colors">{CONTACT.email}</a></li>
-              <li className="mt-2 text-[var(--ink-lo)] text-[14.5px]">{CONTACT.altAddress}</li>
+              <li className="mt-2 text-[var(--ink-lo)] text-[14.5px]">{CONTACT.address}</li>
             </ul>
           </div>
         </div>

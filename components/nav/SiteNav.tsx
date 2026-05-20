@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { CONTACT, NAV_LINKS, SOCIAL } from "@/lib/content";
 import { SITE_LOGO, BRAND_LOGOS, NAV_CAR_TYPES } from "@/lib/assets";
@@ -15,6 +16,7 @@ type Currency = (typeof CURRENCIES)[number];
 const SHOW_CURRENCY_SELECTOR = false;
 
 export default function SiteNav() {
+  const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [hoverMenu, setHoverMenu] = useState<"type" | "brand" | null>(null);
@@ -35,6 +37,21 @@ export default function SiteNav() {
       document.body.style.overflow = "";
     };
   }, [open]);
+
+  // Route change cleanup: ensures the mobile menu's body-scroll lock can never
+  // bleed onto the destination page if React commits the navigation before the
+  // open=false effect runs.
+  useEffect(() => {
+    setOpen(false);
+    setMobileExpanded(null);
+    document.body.style.overflow = "";
+  }, [pathname]);
+
+  const closeMobileMenu = () => {
+    document.body.style.overflow = "";
+    setOpen(false);
+    setMobileExpanded(null);
+  };
 
   return (
     <>
@@ -232,7 +249,7 @@ export default function SiteNav() {
               <Link
                 href="/"
                 aria-label="Luxury Supercars Dubai — home"
-                onClick={() => setOpen(false)}
+                onClick={closeMobileMenu}
                 className="relative block h-12 w-auto shrink-0"
               >
                 <Image
@@ -297,7 +314,7 @@ export default function SiteNav() {
                     ) : (
                       <Link
                         href={link.href}
-                        onClick={() => setOpen(false)}
+                        onClick={closeMobileMenu}
                         className="block py-4 border-b border-white/5 font-[var(--font-display)] text-3xl text-[var(--ink-hi)] hover:text-[var(--champagne-hi)]"
                       >
                         {link.label}
@@ -322,10 +339,7 @@ export default function SiteNav() {
                                 <li key={itemLabel}>
                                   <Link
                                     href={itemHref}
-                                    onClick={() => {
-                                      setOpen(false);
-                                      setMobileExpanded(null);
-                                    }}
+                                    onClick={closeMobileMenu}
                                     className="block pl-4 py-3 border-b border-white/5 text-[17px] text-[var(--ink-hi)]/80 hover:text-[var(--champagne-hi)] transition-colors"
                                   >
                                     {itemLabel}
@@ -340,8 +354,8 @@ export default function SiteNav() {
                   </motion.div>
                 );
               })}
-              <div className="mt-6 flex items-center gap-4">
-                <SocialRow />
+              <div className="mt-8 flex items-center gap-4">
+                <SocialRow variant="circular" />
                 {SHOW_CURRENCY_SELECTOR && (
                   <>
                     <span className="text-[var(--ink-lo)]/50">·</span>
@@ -369,13 +383,32 @@ function Divider() {
   return <span aria-hidden className="h-3 w-px bg-white/15" />;
 }
 
-function SocialRow() {
+function SocialRow({ variant = "compact" }: { variant?: "compact" | "circular" }) {
+  const iconSize = variant === "circular" ? 18 : 14;
   const items: { label: string; href: string; icon: React.ReactNode }[] = [
-    { label: "Facebook", href: SOCIAL.facebook, icon: <FacebookIcon /> },
-    { label: "Instagram", href: SOCIAL.instagram, icon: <InstagramIcon /> },
-    { label: "YouTube", href: SOCIAL.youtube, icon: <YouTubeIcon /> },
-    { label: "TikTok", href: SOCIAL.tiktok, icon: <TikTokIcon /> },
+    { label: "Facebook", href: SOCIAL.facebook, icon: <FacebookIcon size={iconSize} /> },
+    { label: "Instagram", href: SOCIAL.instagram, icon: <InstagramIcon size={iconSize} /> },
+    { label: "YouTube", href: SOCIAL.youtube, icon: <YouTubeIcon size={iconSize} /> },
+    { label: "TikTok", href: SOCIAL.tiktok, icon: <TikTokIcon size={iconSize} /> },
   ];
+  if (variant === "circular") {
+    return (
+      <div className="inline-flex items-center gap-3 text-[var(--ink-hi)]">
+        {items.map((s) => (
+          <a
+            key={s.label}
+            href={s.href}
+            aria-label={s.label}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex size-11 items-center justify-center rounded-full border border-white/15 hover:border-[var(--champagne)] hover:text-[var(--champagne)] transition-colors"
+          >
+            {s.icon}
+          </a>
+        ))}
+      </div>
+    );
+  }
   return (
     <div className="inline-flex items-center gap-3.5 text-[var(--ink-lo)]">
       {items.map((s) => (
@@ -444,17 +477,17 @@ function PhoneIcon() {
   );
 }
 
-function FacebookIcon() {
+function FacebookIcon({ size = 14 }: { size?: number }) {
   return (
-    <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden>
+    <svg width={size} height={size} viewBox="0 0 16 16" fill="currentColor" aria-hidden>
       <path d="M16 8a8 8 0 1 0-9.25 7.9V10.3H4.72V8h2.03V6.24c0-2 1.2-3.1 3.02-3.1.87 0 1.79.15 1.79.15v1.97h-1.01c-.99 0-1.3.62-1.3 1.25V8h2.22l-.36 2.31H9.25V15.9A8 8 0 0 0 16 8z" />
     </svg>
   );
 }
 
-function InstagramIcon() {
+function InstagramIcon({ size = 14 }: { size?: number }) {
   return (
-    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden>
+    <svg width={size} height={size} viewBox="0 0 16 16" fill="none" aria-hidden>
       <rect x="1.5" y="1.5" width="13" height="13" rx="3.5" stroke="currentColor" strokeWidth="1.3" />
       <circle cx="8" cy="8" r="3" stroke="currentColor" strokeWidth="1.3" />
       <circle cx="11.5" cy="4.5" r="0.7" fill="currentColor" />
@@ -462,17 +495,17 @@ function InstagramIcon() {
   );
 }
 
-function YouTubeIcon() {
+function YouTubeIcon({ size = 14 }: { size?: number }) {
   return (
-    <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden>
+    <svg width={size} height={size} viewBox="0 0 16 16" fill="currentColor" aria-hidden>
       <path d="M15.66 4.66c-.18-.69-.72-1.23-1.4-1.42C12.99 2.88 8 2.88 8 2.88s-4.99 0-6.26.36c-.69.2-1.22.73-1.4 1.42C0 5.94 0 8 0 8s0 2.06.34 3.34c.18.69.72 1.23 1.4 1.42 1.27.36 6.26.36 6.26.36s4.99 0 6.26-.36c.69-.2 1.22-.73 1.4-1.42C16 10.06 16 8 16 8s0-2.06-.34-3.34zM6.4 10.7V5.3l4.17 2.7-4.17 2.7z" />
     </svg>
   );
 }
 
-function TikTokIcon() {
+function TikTokIcon({ size = 14 }: { size?: number }) {
   return (
-    <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden>
+    <svg width={size} height={size} viewBox="0 0 16 16" fill="currentColor" aria-hidden>
       <path d="M12.6 3.85a3.7 3.7 0 0 1-2.2-.94 3.7 3.7 0 0 1-1.18-2.05H6.94V10.5a2.07 2.07 0 1 1-2.07-2.07c.18 0 .36.02.53.07v-2.4a4.43 4.43 0 0 0-.53-.03 4.43 4.43 0 1 0 4.43 4.43V6.2a6.05 6.05 0 0 0 3.52 1.12V4.95a3.7 3.7 0 0 1-.22-1.1z" />
     </svg>
   );

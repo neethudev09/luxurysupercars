@@ -1,5 +1,13 @@
+import Link from "next/link";
 import MaskHeading from "@/components/motion/MaskHeading";
 import Reveal from "@/components/motion/Reveal";
+
+const CAR_TYPES = [
+  { label: "Sports", href: "/rent-sports-cars-dubai" },
+  { label: "Convertibles", href: "/rent-convertible-cars-dubai" },
+  { label: "Luxury", href: "/rent-luxury-cars-dubai" },
+  { label: "SUV", href: "/rent-suv-cars-dubai" },
+];
 
 // Three ventures — H3 labels + body paragraphs verbatim from live /about-us/.
 const VENTURES = [
@@ -17,6 +25,13 @@ const VENTURES = [
   },
 ];
 
+/**
+ * Image-left / text-right block — placeholder image on the left,
+ * "Focused on quality" headline + car-type chips + the three verbatim
+ * venture cards on the right. The H3 labels and body paragraphs are
+ * preserved exactly from live /about-us/ for SEO; the surrounding
+ * structure is editorial framing.
+ */
 export default function AboutFocus() {
   return (
     <section className="relative bg-[var(--bg-obsidian)] text-[var(--ink-hi)] py-20 md:py-28 border-t border-white/[0.05] overflow-hidden">
@@ -26,29 +41,101 @@ export default function AboutFocus() {
       />
 
       <div className="container-x relative">
-        <MaskHeading
-          text="CEO"
-          as="h2"
-          breakAfterBold={false}
-          className="font-[var(--font-display)] text-[clamp(1.9rem,4vw,3.2rem)] leading-[1.1] tracking-[-0.02em] text-[var(--ink-hi)] mb-12 md:mb-16"
-          staggerMs={45}
-        />
-
-        <div className="grid md:grid-cols-3 gap-5 md:gap-6">
-          {VENTURES.map((v, i) => (
-            <Reveal
-              key={v.h3}
-              className="rise rounded-xl border border-white/8 bg-[var(--bg-graphite)]/40 p-6 md:p-7 hover:border-[var(--champagne)]/40 transition-colors"
-              delay={i * 100}
-            >
-              <h3 className="font-[var(--font-display)] text-[18px] leading-tight tracking-tight text-[var(--ink-hi)] mb-3">
-                {v.h3}
-              </h3>
-              <p className="text-[14px] leading-[1.7] text-[var(--ink-lo)]">
-                {v.body}
-              </p>
+        <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+          {/* Left — image placeholder (swap for hero asset once supplied) */}
+          <div className="lg:col-span-5">
+            <Reveal>
+              <div className="relative aspect-[4/5] w-full rounded-2xl overflow-hidden border border-white/10 bg-gradient-to-br from-[var(--bg-graphite)] via-[var(--bg-obsidian)] to-black">
+                <div
+                  aria-hidden
+                  className="absolute inset-0 opacity-25"
+                  style={{
+                    backgroundImage:
+                      "repeating-linear-gradient(-30deg, transparent 0 36px, rgba(201,168,106,0.06) 36px 37px)",
+                  }}
+                />
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute -top-12 -right-12 size-[400px] rounded-full bg-[var(--champagne)]/[0.12] blur-[140px]"
+                />
+                <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 text-center px-6">
+                  <span className="font-[var(--font-mono)] text-[10px] tracking-[0.26em] uppercase text-[var(--ink-lo)]">
+                    Image · placeholder
+                  </span>
+                  <span className="font-[var(--font-display)] text-[clamp(1.4rem,2vw,1.8rem)] leading-tight tracking-tight text-[var(--ink-hi)]/70 max-w-[14ch]">
+                    Showroom, fleet hero or founder portrait
+                  </span>
+                </div>
+              </div>
             </Reveal>
-          ))}
+          </div>
+
+          {/* Right — text + types + ventures */}
+          <div className="lg:col-span-7">
+            <MaskHeading
+              text="Focused on **quality**, built for your convenience"
+              as="h2"
+              breakAfterBold={false}
+              className="font-[var(--font-display)] text-[clamp(1.9rem,4vw,3.2rem)] leading-[1.1] tracking-[-0.02em] text-[var(--ink-hi)] text-balance"
+              staggerMs={45}
+            />
+
+            {/* Car types */}
+            <div className="mt-10">
+              <Reveal>
+                <p className="font-[var(--font-mono)] text-[10.5px] tracking-[0.22em] uppercase text-[var(--ink-lo)] mb-4">
+                  Car types
+                </p>
+              </Reveal>
+              <div className="flex flex-wrap gap-2">
+                {CAR_TYPES.map((t, i) => (
+                  <Reveal key={t.label} className="rise" delay={i * 60}>
+                    <Link
+                      href={t.href}
+                      className="inline-flex items-center gap-2 rounded-full border border-white/15 px-4 py-2 text-[12.5px] hover:border-[var(--champagne)]/60 hover:text-[var(--champagne-hi)] transition-colors"
+                    >
+                      {t.label}
+                      <svg
+                        width="11"
+                        height="8"
+                        viewBox="0 0 14 10"
+                        fill="none"
+                        aria-hidden
+                        className="opacity-60"
+                      >
+                        <path d="M0 5h12M8 1l4 4-4 4" stroke="currentColor" strokeWidth="1.4" />
+                      </svg>
+                    </Link>
+                  </Reveal>
+                ))}
+              </div>
+            </div>
+
+            {/* Three ventures — H3 labels preserved verbatim from live /about-us/ */}
+            <div className="mt-10">
+              <Reveal>
+                <p className="font-[var(--font-mono)] text-[10.5px] tracking-[0.22em] uppercase text-[var(--ink-lo)] mb-5">
+                  Company types
+                </p>
+              </Reveal>
+              <div className="grid md:grid-cols-3 gap-4">
+                {VENTURES.map((v, i) => (
+                  <Reveal
+                    key={v.h3}
+                    className="rise rounded-xl border border-white/8 bg-[var(--bg-graphite)]/40 p-5 hover:border-[var(--champagne)]/40 transition-colors"
+                    delay={i * 100}
+                  >
+                    <h3 className="font-[var(--font-display)] text-[16px] leading-tight tracking-tight text-[var(--ink-hi)] mb-3">
+                      {v.h3}
+                    </h3>
+                    <p className="text-[13px] leading-[1.7] text-[var(--ink-lo)]">
+                      {v.body}
+                    </p>
+                  </Reveal>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>

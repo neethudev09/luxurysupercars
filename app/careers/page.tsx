@@ -32,7 +32,7 @@ const PILLARS = [
   },
   {
     title: "Locations",
-    body: "Two Dubai showrooms — Nadd Al Hamar and Al Quoz — with operations across the wider UAE.",
+    body: "Our Dubai showroom in Nadd Al Hamar anchors operations across the wider UAE.",
   },
   {
     title: "Benefits",

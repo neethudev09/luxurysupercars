@@ -32,7 +32,6 @@ export const CONTACT = {
   landline: "+971 4 546 6616",
   email: "info@luxurysupercarsdubai.com",
   address: "59MJ+F95 - Showroom 317 - Nadd Al Hamar - Dubai",
-  altAddress: "4th St - Al Qouz Ind.third - Al Quoz - Dubai",
 };
 
 export const SOCIAL = {
@@ -247,7 +246,7 @@ export const INSTAGRAM = {
 export const CONTACT_PAGE = {
   metaTitle: "Contact Us | Get in Touch & Book Your Ride",
   metaDescription:
-    "Get in touch with Luxury Supercars Dubai to book your ride or learn more about our exotic car rental services. Reach us by phone, email, or visit our Dubai showrooms — open 9am to 9pm, seven days a week.",
+    "Get in touch with Luxury Supercars Dubai to book your ride or learn more about our exotic car rental services. Reach us by phone, email, or visit our Dubai showroom — open 9am to 9pm, seven days a week.",
   h1: "Contact Us",
   h2: "Reach Out to Us for Effortless Communication",
   intro: "Get in Touch us! Feel Free to Drop us a note If you Wish to Learn More!",
