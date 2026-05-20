@@ -1,8 +1,9 @@
+import MaskHeading from "@/components/motion/MaskHeading";
 import Reveal from "@/components/motion/Reveal";
 
 /**
- * Bio + founder video — side-by-side layout. Verbatim bio from live
- * /about-us/ on the left, the embedded YouTube interview on the right.
+ * Founder bio + video. H2 + body paragraph are verbatim from live
+ * /about-us/ — preserved word-for-word for SEO.
  */
 export default function AboutVideo() {
   return (
@@ -14,8 +15,14 @@ export default function AboutVideo() {
 
       <div className="container-x relative">
         <div className="grid lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-          {/* Left — bio (verbatim from live /about-us/) */}
           <div className="lg:col-span-6">
+            <MaskHeading
+              text="Ahmed Mansour redefines opulence with luxury super car rentals Dubai"
+              as="h2"
+              breakAfterBold={false}
+              className="font-[var(--font-display)] text-[clamp(1.7rem,3.4vw,2.6rem)] leading-[1.12] tracking-[-0.018em] text-[var(--ink-hi)] text-balance mb-7"
+              staggerMs={35}
+            />
             <Reveal>
               <p className="text-[16px] md:text-[17px] leading-[1.85] text-[var(--ink-lo)]">
                 Within the glowing and glossy world of luxury car rentals,
@@ -26,17 +33,8 @@ export default function AboutVideo() {
                 a hassle-free process.
               </p>
             </Reveal>
-            <Reveal delay={250}>
-              {/* Verbatim founder statement from live /about-us/ */}
-              <p className="mt-7 font-[var(--font-display)] text-[clamp(1.1rem,1.6vw,1.4rem)] leading-[1.5] tracking-tight text-[var(--ink-hi)]">
-                &ldquo;I&rsquo;m Ahmed Amwell, the proud owner of Luxury
-                Supercar Rentals, Dubai&rsquo;s superior destination for the
-                most luxury and exclusive cars available.&rdquo;
-              </p>
-            </Reveal>
           </div>
 
-          {/* Right — YouTube embed */}
           <Reveal delay={300} className="lg:col-span-6">
             <div className="relative aspect-video w-full rounded-2xl overflow-hidden border border-white/12 bg-black shadow-[0_24px_70px_-20px_rgba(0,0,0,0.7)]">
               <iframe

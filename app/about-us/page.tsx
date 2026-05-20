@@ -2,11 +2,11 @@ import type { Metadata } from "next";
 import SiteNav from "@/components/nav/SiteNav";
 import AboutScrollHero from "@/components/sections/AboutScrollHero";
 import AboutVideo from "@/components/sections/AboutVideo";
-import AboutStats from "@/components/sections/AboutStats";
 import AboutBrands from "@/components/sections/AboutBrands";
 import AboutFocus from "@/components/sections/AboutFocus";
 import AboutMarquee from "@/components/sections/AboutMarquee";
 import AboutSocialEmbeds from "@/components/sections/AboutSocialEmbeds";
+import AboutMe from "@/components/sections/AboutMe";
 import Contact from "@/components/sections/Contact";
 import Footer from "@/components/sections/Footer";
 
@@ -41,11 +41,11 @@ export default function AboutPage() {
       <h1 className="sr-only">About Us</h1>
       <AboutScrollHero />
       <AboutVideo />
-      <AboutStats />
       <AboutBrands />
       <AboutFocus />
       <AboutMarquee />
       <AboutSocialEmbeds />
+      <AboutMe />
       <Contact />
       <Footer />
     </main>

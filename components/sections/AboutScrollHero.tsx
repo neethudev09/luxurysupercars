@@ -102,11 +102,6 @@ export default function AboutScrollHero() {
                   className="font-[var(--font-display)] text-[clamp(2rem,4.4vw,3.4rem)] leading-[1.1] tracking-[-0.022em] text-white text-balance"
                   staggerMs={45}
                 />
-                <Reveal delay={250}>
-                  <p className="mt-5 font-[var(--font-mono)] text-[11px] tracking-[0.24em] uppercase text-white/70">
-                    Ahmed Mansour · Founder &amp; Owner
-                  </p>
-                </Reveal>
               </div>
 
               <div className="md:col-span-5">

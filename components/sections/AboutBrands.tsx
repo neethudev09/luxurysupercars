@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import MaskHeading from "@/components/motion/MaskHeading";
 import Reveal from "@/components/motion/Reveal";
 import { BRAND_LOGOS } from "@/lib/assets";
 
@@ -14,16 +13,6 @@ export default function AboutBrands() {
   return (
     <section className="relative bg-[var(--bg-pearl)] text-[var(--ink-dark-hi)] py-20 md:py-28 overflow-hidden">
       <div className="container-x relative">
-        <div className="mb-14 md:mb-16 text-center">
-          <MaskHeading
-            text="Our **premium** car brands"
-            as="h2"
-            breakAfterBold={false}
-            className="font-[var(--font-display)] text-[clamp(2rem,4.4vw,3.4rem)] leading-[1.05] tracking-[-0.022em] text-[var(--ink-dark-hi)] text-balance"
-            staggerMs={45}
-          />
-        </div>
-
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
           {BRAND_LOGOS.map((b, i) => {
             const tileClassName =

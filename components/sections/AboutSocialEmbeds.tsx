@@ -16,14 +16,14 @@ const BLOCKS: Block[] = [
   {
     id: "tiktok",
     label: "TikTok",
-    heading: "**TikTok** — vertical cuts",
+    heading: "TikTok",
     layout: "shorts",
     videoIds: ["gIho6aTDC6k", "LEWBL8DzhIU", "3_oc4OdQ-4o", "k-xGgGabnXA"],
   },
   {
     id: "youtube",
     label: "YouTube",
-    heading: "**YouTube** — long-form drives",
+    heading: "YouTube",
     layout: "wide",
     videoIds: [
       "0K-TsnRHNE4",
@@ -39,7 +39,7 @@ const BLOCKS: Block[] = [
   {
     id: "podcasts",
     label: "Podcasts",
-    heading: "**Podcasts** — interviews & features",
+    heading: "PODCASTS",
     layout: "wide",
     videoIds: ["-1W-Vo3F1_I", "4o4XCiiJtm4", "d48kC2D8MwY", "pZ5-_3Oownw"],
   },
@@ -65,18 +65,13 @@ export default function AboutSocialEmbeds() {
       <div className="container-x space-y-20 md:space-y-24">
         {BLOCKS.map((block) => (
           <div key={block.id} id={block.id}>
-            <div className="mb-8 md:mb-10 flex items-end justify-between gap-6 flex-wrap">
-              <MaskHeading
-                text={block.heading}
-                as="h2"
-                breakAfterBold={false}
-                className="font-[var(--font-display)] text-[clamp(1.7rem,3.6vw,2.8rem)] leading-[1.1] tracking-[-0.02em] text-[var(--ink-hi)] text-balance"
-                staggerMs={40}
-              />
-              <span className="font-[var(--font-mono)] text-[11px] uppercase tracking-[0.24em] text-[var(--champagne)]">
-                {block.label}
-              </span>
-            </div>
+            <MaskHeading
+              text={block.heading}
+              as="h2"
+              breakAfterBold={false}
+              className="font-[var(--font-display)] text-[clamp(1.7rem,3.6vw,2.8rem)] leading-[1.1] tracking-[-0.02em] text-[var(--ink-hi)] text-balance mb-8 md:mb-10"
+              staggerMs={40}
+            />
 
             <div
               className={
