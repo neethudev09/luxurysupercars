@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import MaskHeading from "@/components/motion/MaskHeading";
 import Reveal from "@/components/motion/Reveal";
@@ -26,11 +27,12 @@ const VENTURES = [
 ];
 
 /**
- * Image-left / text-right block — placeholder image on the left,
- * "Focused on quality" headline + car-type chips + the three verbatim
- * venture cards on the right. The H3 labels and body paragraphs are
- * preserved exactly from live /about-us/ for SEO; the surrounding
- * structure is editorial framing.
+ * "About me" — Ahmed portrait on the left, the verbatim live-site bio
+ * paragraphs on the right, followed by the car-type chips and the three
+ * venture cards. Consolidates what used to be two separate sections.
+ *
+ * Image expected at /public/images/ahmed-portrait.jpg (next/image rewrites
+ * to /_next/image at runtime).
  */
 export default function AboutFocus() {
   return (
@@ -41,44 +43,54 @@ export default function AboutFocus() {
       />
 
       <div className="container-x relative">
-        <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 items-center">
-          {/* Left — image placeholder (swap for hero asset once supplied) */}
+        <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 items-start">
+          {/* Left — Ahmed portrait */}
           <div className="lg:col-span-5">
             <Reveal>
-              <div className="relative aspect-[4/5] w-full rounded-2xl overflow-hidden border border-white/10 bg-gradient-to-br from-[var(--bg-graphite)] via-[var(--bg-obsidian)] to-black">
-                <div
-                  aria-hidden
-                  className="absolute inset-0 opacity-25"
-                  style={{
-                    backgroundImage:
-                      "repeating-linear-gradient(-30deg, transparent 0 36px, rgba(201,168,106,0.06) 36px 37px)",
-                  }}
+              <div className="relative aspect-[4/5] w-full rounded-2xl overflow-hidden border border-white/10 bg-[var(--bg-graphite)]">
+                <Image
+                  src="/images/ahmed-portrait.jpg"
+                  alt="Ahmed Amwell — Founder and CEO of Luxury Supercar Rentals Dubai"
+                  fill
+                  sizes="(min-width: 1024px) 38vw, 90vw"
+                  className="object-cover"
+                  priority={false}
                 />
-                <div
-                  aria-hidden
-                  className="pointer-events-none absolute -top-12 -right-12 size-[400px] rounded-full bg-[var(--champagne)]/[0.12] blur-[140px]"
-                />
-                <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 text-center px-6">
-                  <span className="font-[var(--font-mono)] text-[10px] tracking-[0.26em] uppercase text-[var(--ink-lo)]">
-                    Image · placeholder
-                  </span>
-                  <span className="font-[var(--font-display)] text-[clamp(1.4rem,2vw,1.8rem)] leading-tight tracking-tight text-[var(--ink-hi)]/70 max-w-[14ch]">
-                    Showroom, fleet hero or founder portrait
-                  </span>
-                </div>
               </div>
             </Reveal>
           </div>
 
-          {/* Right — text + types + ventures */}
+          {/* Right — heading, bio, car types, ventures */}
           <div className="lg:col-span-7">
             <MaskHeading
-              text="Focused on **quality**, built for your convenience"
+              text="About me"
               as="h2"
               breakAfterBold={false}
-              className="font-[var(--font-display)] text-[clamp(1.9rem,4vw,3.2rem)] leading-[1.1] tracking-[-0.02em] text-[var(--ink-hi)] text-balance"
+              className="font-[var(--font-display)] text-[clamp(1.9rem,4vw,3.2rem)] leading-[1.1] tracking-[-0.02em] text-[var(--ink-hi)]"
               staggerMs={45}
             />
+
+            {/* Verbatim bio paragraphs from live /about-us/ */}
+            <Reveal>
+              <p className="mt-8 text-[16px] md:text-[17px] leading-[1.85] text-[var(--ink-lo)]">
+                I&rsquo;m Ahmed Amwell, the proud owner of Luxury Supercar
+                Rentals, Dubai&rsquo;s superior destination for the most luxury
+                and exclusive cars available. Join us as we showcase the latest
+                supercars, share expert insights into the world of luxury
+                automobiles, and take you behind the scenes of our iconic
+                showroom.
+              </p>
+            </Reveal>
+            <Reveal delay={150}>
+              <p className="mt-5 text-[16px] md:text-[17px] leading-[1.85] text-[var(--ink-lo)]">
+                If you are looking to rent the latest luxury Car in Dubai,
+                luxurysupercarsdubai.com is a one-stop destination for all. You
+                can avail the widest range of the most exotic luxury cars,
+                including everything from the latest Sports Cars, Convertible
+                Cars, SUVs, Supercars, and Prestige Cars, all of which would
+                surely provide you with a fascinating experience.
+              </p>
+            </Reveal>
 
             {/* Car types */}
             <div className="mt-10">

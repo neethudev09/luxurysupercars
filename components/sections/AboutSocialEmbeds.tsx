@@ -9,8 +9,38 @@ type Block = {
   label: string;
   heading: string;
   layout: "shorts" | "wide";
+  icon: "tiktok" | "youtube" | "podcasts";
   videoIds: readonly string[];
 };
+
+function BlockIcon({ name, size = 32 }: { name: Block["icon"]; size?: number }) {
+  if (name === "tiktok") {
+    return (
+      <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+        <path d="M16.6 5.82A4.85 4.85 0 0 1 14.4 3h-3.36v11.55a2.65 2.65 0 1 1-2.4-2.64v-3.42a6.07 6.07 0 1 0 5.76 6.06V9.94a8.12 8.12 0 0 0 4.6 1.41V7.97a4.78 4.78 0 0 1-2.4-2.15z" />
+      </svg>
+    );
+  }
+  if (name === "youtube") {
+    return (
+      <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+        <path d="M23.5 6.7c-.3-1-1-1.8-2.1-2.1C19.6 4.1 12 4.1 12 4.1s-7.6 0-9.4.5C1.5 4.9.7 5.7.4 6.7 0 8.6 0 12 0 12s0 3.4.4 5.3c.3 1 1 1.8 2.1 2.1 1.9.5 9.4.5 9.4.5s7.6 0 9.4-.5c1-.3 1.8-1 2.1-2.1.4-1.9.4-5.3.4-5.3s0-3.4-.4-5.3zM9.7 15.6V8.4l6.2 3.6-6.2 3.6z" />
+      </svg>
+    );
+  }
+  // podcasts
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden>
+      <circle cx="12" cy="9.5" r="3.6" stroke="currentColor" strokeWidth="1.6" />
+      <path
+        d="M12 16.7v3.6M8.4 20.3h7.2M5 12.2a7 7 0 0 1 14 0M2.4 12a9.6 9.6 0 0 1 19.2 0"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
 
 const BLOCKS: Block[] = [
   {
@@ -18,6 +48,7 @@ const BLOCKS: Block[] = [
     label: "TikTok",
     heading: "TikTok",
     layout: "shorts",
+    icon: "tiktok",
     videoIds: ["gIho6aTDC6k", "LEWBL8DzhIU", "3_oc4OdQ-4o", "k-xGgGabnXA"],
   },
   {
@@ -25,6 +56,7 @@ const BLOCKS: Block[] = [
     label: "YouTube",
     heading: "YouTube",
     layout: "wide",
+    icon: "youtube",
     videoIds: [
       "0K-TsnRHNE4",
       "1nt0GYv4n9k",
@@ -41,6 +73,7 @@ const BLOCKS: Block[] = [
     label: "Podcasts",
     heading: "PODCASTS",
     layout: "wide",
+    icon: "podcasts",
     videoIds: ["-1W-Vo3F1_I", "4o4XCiiJtm4", "d48kC2D8MwY", "pZ5-_3Oownw"],
   },
 ];
@@ -65,13 +98,18 @@ export default function AboutSocialEmbeds() {
       <div className="container-x space-y-20 md:space-y-24">
         {BLOCKS.map((block) => (
           <div key={block.id} id={block.id}>
-            <MaskHeading
-              text={block.heading}
-              as="h2"
-              breakAfterBold={false}
-              className="font-[var(--font-display)] text-[clamp(1.7rem,3.6vw,2.8rem)] leading-[1.1] tracking-[-0.02em] text-[var(--ink-hi)] text-balance mb-8 md:mb-10"
-              staggerMs={40}
-            />
+            <div className="flex items-center gap-3 md:gap-4 mb-8 md:mb-10 text-[var(--champagne)]">
+              <span className="shrink-0 inline-flex items-center justify-center">
+                <BlockIcon name={block.icon} size={32} />
+              </span>
+              <MaskHeading
+                text={block.heading}
+                as="h2"
+                breakAfterBold={false}
+                className="font-[var(--font-display)] text-[clamp(1.7rem,3.6vw,2.8rem)] leading-[1.1] tracking-[-0.02em] text-[var(--ink-hi)] text-balance"
+                staggerMs={40}
+              />
+            </div>
 
             <div
               className={

@@ -6,7 +6,6 @@ import AboutBrands from "@/components/sections/AboutBrands";
 import AboutFocus from "@/components/sections/AboutFocus";
 import AboutMarquee from "@/components/sections/AboutMarquee";
 import AboutSocialEmbeds from "@/components/sections/AboutSocialEmbeds";
-import AboutMe from "@/components/sections/AboutMe";
 import Contact from "@/components/sections/Contact";
 import Footer from "@/components/sections/Footer";
 
@@ -45,7 +44,6 @@ export default function AboutPage() {
       <AboutMarquee />
       <AboutSocialEmbeds />
       <AboutFocus />
-      <AboutMe />
       <Contact />
       <Footer />
     </main>

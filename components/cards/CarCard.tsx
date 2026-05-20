@@ -72,14 +72,16 @@ export default function CarCard({ car, theme = "dark", index = 0 }: CarCardProps
 
   return (
     <Reveal
-      as="article"
       delay={Math.min(index * 80, 320)}
-      className={`rise group relative flex flex-col rounded-2xl overflow-hidden border ${
-        isLight
-          ? "bg-[var(--bg-bone)] border-black/15 shadow-[0_18px_40px_-16px_rgba(0,0,0,0.28)] hover:border-[var(--champagne)]/60 hover:shadow-[0_28px_60px_-18px_rgba(0,0,0,0.38)]"
-          : "bg-[var(--bg-graphite)] border-white/8 hover:border-[var(--champagne)]/60"
-      } transition-all duration-500 hover:-translate-y-1.5`}
+      className="rise h-full"
     >
+      <article
+        className={`group relative flex h-full flex-col rounded-2xl overflow-hidden border ${
+          isLight
+            ? "bg-[var(--bg-bone)] border-black/15 shadow-[0_18px_40px_-16px_rgba(0,0,0,0.28)] hover:border-[var(--champagne)]/60 hover:shadow-[0_28px_60px_-18px_rgba(0,0,0,0.38)]"
+            : "bg-[var(--bg-graphite)] border-white/8 hover:border-[var(--champagne)]/60"
+        } transition-[transform,border-color,box-shadow,background-color] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1.5`}
+      >
       {/* Ambient champagne glow on hover */}
       <span className="pointer-events-none absolute -inset-1 -z-10 rounded-2xl opacity-0 group-hover:opacity-100 blur-3xl bg-[var(--champagne)]/15 transition-opacity duration-700" />
 
@@ -155,6 +157,7 @@ export default function CarCard({ car, theme = "dark", index = 0 }: CarCardProps
           </a>
         </div>
       </div>
+      </article>
     </Reveal>
   );
 }
