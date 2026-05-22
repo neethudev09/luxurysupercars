@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     title: "Luxury Supercars Dubai Blog",
     description:
       "Guides, brand histories, rental tips, and stories from Luxury Supercars Dubai.",
-    url: "https://luxurysupercarsdubai.com/blog/",
+    url: "/blog/",
     siteName: "Luxury Supercars Dubai",
     locale: "en_AE",
     type: "website",

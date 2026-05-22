@@ -1,25 +1,14 @@
 import type { MetadataRoute } from "next";
+import { SITE_URL, PRODUCTION_ORIGIN } from "@/lib/site";
 
 /**
- * Only the production deployment serves an "allow everything" robots.txt.
- * Vercel previews + staging + branch URLs get a hard "disallow everything"
- * so Google never indexes duplicate copies of the live site.
- *
- * Detection (in order):
- *   1. Explicit NEXT_PUBLIC_SITE_URL set to the prod origin
- *   2. Vercel's auto-injected VERCEL_ENV === "production"
+ * Only the real production domain serves an "allow everything" robots.txt.
+ * Staging, Vercel previews and branch URLs all resolve SITE_URL to a
+ * non-production origin and get a hard "disallow everything" so Google
+ * never indexes a duplicate of the live site.
  */
-const PROD_ORIGIN = "https://luxurysupercarsdubai.com";
-
-function isProd(): boolean {
-  if (process.env.VERCEL_ENV) return process.env.VERCEL_ENV === "production";
-  if (process.env.NEXT_PUBLIC_SITE_URL)
-    return process.env.NEXT_PUBLIC_SITE_URL === PROD_ORIGIN;
-  return process.env.NODE_ENV === "production";
-}
-
 export default function robots(): MetadataRoute.Robots {
-  if (!isProd()) {
+  if (SITE_URL !== PRODUCTION_ORIGIN) {
     return {
       rules: [{ userAgent: "*", disallow: "/" }],
     };
@@ -27,7 +16,7 @@ export default function robots(): MetadataRoute.Robots {
 
   return {
     rules: [{ userAgent: "*", allow: "/" }],
-    sitemap: `${PROD_ORIGIN}/sitemap.xml`,
-    host: PROD_ORIGIN,
+    sitemap: `${PRODUCTION_ORIGIN}/sitemap.xml`,
+    host: PRODUCTION_ORIGIN,
   };
 }

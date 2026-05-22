@@ -42,16 +42,38 @@ export default function MotionProvider({
     };
   }, []);
 
-  // Reset scroll to top on every route change (Lenis otherwise carries scroll
-  // state across navigations, which makes clicking into a detail page land
-  // partway down the new page).
+  // Take scroll restoration off the browser so it can't replay the
+  // previous page's offset onto the new route.
+  useEffect(() => {
+    if (typeof window !== "undefined" && "scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual";
+    }
+  }, []);
+
+  // Reset scroll to top on every route change. Lenis keeps its own internal
+  // scroll target — if that target is stale from the previous page it will
+  // smooth-scroll the new page back down. So we hard-reset immediately AND
+  // re-assert after the next frame (once images/fonts have grown the layout)
+  // so a stale target can't win the race.
   useEffect(() => {
     if (typeof window === "undefined") return;
-    if (lenisRef.current) {
-      lenisRef.current.scrollTo(0, { immediate: true, force: true });
-    } else {
-      window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
-    }
+
+    const reset = () => {
+      const lenis = lenisRef.current;
+      if (lenis) {
+        lenis.resize();
+        lenis.scrollTo(0, { immediate: true, force: true });
+      }
+      window.scrollTo(0, 0);
+    };
+
+    reset();
+    const raf1 = requestAnimationFrame(() => {
+      reset();
+      // Second rAF — covers async layout shifts after hydration.
+      requestAnimationFrame(reset);
+    });
+    return () => cancelAnimationFrame(raf1);
   }, [pathname]);
 
   return <>{children}</>;

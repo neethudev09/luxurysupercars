@@ -11,6 +11,7 @@ import Reveal from "@/components/motion/Reveal";
 import MaskHeading from "@/components/motion/MaskHeading";
 import MagneticCTA from "@/components/motion/MagneticCTA";
 import { BLOG_POSTS, getPost, getRelatedPosts } from "@/lib/blog";
+import { SITE_URL } from "@/lib/site";
 
 type Params = { slug: string };
 
@@ -32,7 +33,7 @@ export async function generateMetadata(
     openGraph: {
       title: post.ogTitle,
       description: post.ogDescription,
-      url: `https://luxurysupercarsdubai.com/blogs/${post.slug}/`,
+      url: `/blogs/${post.slug}/`,
       siteName: "Luxury Supercars Dubai",
       locale: "en_AE",
       type: "article",
@@ -63,7 +64,7 @@ export default async function BlogPostPage(
   if (!post) notFound();
 
   const related = getRelatedPosts(slug, 4);
-  const canonicalUrl = `https://luxurysupercarsdubai.com/blogs/${post.slug}/`;
+  const canonicalUrl = `${SITE_URL}/blogs/${post.slug}/`;
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -76,7 +77,7 @@ export default async function BlogPostPage(
     publisher: {
       "@type": "Organization",
       name: "Luxury Supercars Dubai",
-      url: "https://luxurysupercarsdubai.com/",
+      url: SITE_URL,
     },
   };
 

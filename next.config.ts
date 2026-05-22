@@ -45,6 +45,13 @@ const nextConfig: NextConfig = {
         hostname: "luxury-supercars-dubai.vercel.app",
         pathname: "/**",
       },
+      {
+        // Sanity asset CDN — all car galleries + blog hero images now
+        // resolve here after the build-time export from Sanity.
+        protocol: "https",
+        hostname: "cdn.sanity.io",
+        pathname: "/images/**",
+      },
     ],
   },
   async redirects() {

@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     openGraph: {
       title: meta.title,
       description: meta.description,
-      url: `https://luxurysupercarsdubai.com/brands/${meta.slug}`,
+      url: `/brands/${meta.slug}`,
       siteName: "Luxury Supercars Dubai",
       locale: "en_AE",
       type: "website",

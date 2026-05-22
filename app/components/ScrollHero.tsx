@@ -68,7 +68,7 @@ export default function ScrollHero() {
         transition: "opacity 200ms ease-out",
       }}
     >
-      <div className="sticky top-[76px] md:top-[124px] h-[calc(100svh-88px)] md:h-[calc(100vh-144px)] overflow-hidden rounded-2xl md:rounded-[28px] border border-white/10">
+      <div className="sticky top-[88px] md:top-[140px] h-[calc(100svh-100px)] md:h-[calc(100vh-160px)] overflow-hidden rounded-2xl md:rounded-[28px] border border-white/10">
         <video
           ref={videoRef}
           src="/scroller-header-video.mp4"

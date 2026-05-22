@@ -61,24 +61,24 @@ export default function AboutFocus() {
       />
 
       <div className="container-x relative">
-        {/* About me — image left, bio right, narrower than the container */}
-        <div className="mx-auto max-w-4xl grid lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-          <div className="lg:col-span-4">
-            <Reveal>
-              <div className="relative aspect-[4/5] w-full max-w-[340px] mx-auto lg:mx-0 rounded-2xl overflow-hidden border border-white/10 bg-[var(--bg-graphite)]">
+        {/* About me — image left, bio right */}
+        <div className="mx-auto max-w-6xl grid lg:grid-cols-12 gap-10 lg:gap-14 items-stretch">
+          <div className="lg:col-span-5">
+            <Reveal className="h-full">
+              <div className="relative aspect-[4/5] lg:aspect-auto lg:h-full w-full max-w-[340px] lg:max-w-none mx-auto lg:mx-0 rounded-2xl overflow-hidden border border-white/10 bg-[var(--bg-graphite)]">
                 <Image
                   src="/images/Ahmed-portrait.png"
                   alt="Ahmed Amwell — Founder and CEO of Luxury Supercar Rentals Dubai"
                   fill
-                  sizes="(min-width: 1024px) 340px, 90vw"
-                  className="object-cover"
+                  sizes="(min-width: 1024px) 480px, 90vw"
+                  className="object-cover object-top"
                   priority={false}
                 />
               </div>
             </Reveal>
           </div>
 
-          <div className="lg:col-span-8">
+          <div className="lg:col-span-7">
             <MaskHeading
               text="About me"
               as="h2"

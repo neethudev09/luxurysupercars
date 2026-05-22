@@ -3,8 +3,9 @@ import { FLEET_BRAND_SLUGS } from "@/lib/fleet-brands";
 import { UNIQUE_CARS, carHref } from "@/lib/fleet";
 import { BLOG_POSTS } from "@/lib/blog";
 import { SERVICES_PAGE } from "@/lib/content";
+import { SITE_URL } from "@/lib/site";
 
-const ORIGIN = "https://luxurysupercarsdubai.com";
+const ORIGIN = SITE_URL;
 const now = new Date();
 
 /**

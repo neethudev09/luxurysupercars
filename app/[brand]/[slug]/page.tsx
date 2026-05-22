@@ -29,7 +29,9 @@ export async function generateMetadata({
   const car = getCarByPath(brand, slug);
   if (!car) return {};
 
-  const url = `https://luxurysupercarsdubai.com${carHref(car)}`;
+  // Relative path — Next resolves it against metadataBase (env-driven),
+  // so canonical/OG URLs follow the deployment origin.
+  const url = carHref(car);
   const { seo } = car;
 
   // Live SEO is mirrored verbatim from luxurysupercarsdubai.com via

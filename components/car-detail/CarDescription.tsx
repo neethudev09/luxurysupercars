@@ -48,7 +48,7 @@ export default function CarDescription({ car }: { car: Car }) {
 
   return (
     <section className="bg-[var(--bg-pearl)] text-[var(--ink-dark-hi)] py-20 md:py-24">
-      <div className="container-x grid md:grid-cols-12 gap-10 md:gap-16">
+      <div className="container-car grid md:grid-cols-12 gap-10 md:gap-16">
         <div className="md:col-span-4">
           <MaskHeading
             text={`About the ${car.name}`}
@@ -60,7 +60,7 @@ export default function CarDescription({ car }: { car: Car }) {
         </div>
         <div className="md:col-span-8 space-y-5">
           {paragraphs.map((p, i) => (
-            <Reveal as="p" key={i} delay={i * 110} className="rise text-[15px] leading-[1.75] text-[var(--ink-dark-hi)]/85">
+            <Reveal as="p" key={i} delay={i * 110} className="rise text-[17px] leading-[1.75] text-[var(--ink-dark-hi)]/85">
               {p}
             </Reveal>
           ))}

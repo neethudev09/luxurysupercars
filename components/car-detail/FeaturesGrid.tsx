@@ -149,7 +149,7 @@ export default function FeaturesGrid({ features }: FeaturesGridProps) {
 
   return (
     <section className="bg-[var(--bg-graphite)]/40 py-16 md:py-20 border-t border-white/5">
-      <div className="container-x">
+      <div className="container-car">
         <div className="mb-10">
           <MaskHeading
             text="Features &amp; comfort"

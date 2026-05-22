@@ -88,3 +88,11 @@ export const BRAND_LOGOS: { name: string; src: string; slug: string | null }[] =
   { name: "Maserati",     src: "https://luxurysupercarsdubai.com/wp-content/uploads/2025/05/maserati-logo.png", slug: "rent-maserati-dubai" },
   { name: "Porsche",      src: "https://luxurysupercarsdubai.com/wp-content/uploads/2025/01/porsche-logo-2.png",      slug: "rent-porsche-dubai" },
 ];
+
+/** Resolve a brand's logo from its directory slug (e.g. "rent-aston-martin-dubai"). */
+export function getBrandLogo(
+  brandSlug: string,
+): { name: string; src: string } | null {
+  const match = BRAND_LOGOS.find((b) => b.slug === brandSlug);
+  return match ? { name: match.name, src: match.src } : null;
+}

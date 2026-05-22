@@ -1,8 +1,9 @@
 import { CONTACT } from "@/lib/content";
 import { FAQ as FAQ_DATA, HERO } from "@/lib/content";
 import { ALL_CARS } from "@/lib/fleet";
+import { SITE_URL } from "@/lib/site";
 
-const SITE = "https://luxurysupercarsdubai.com";
+const SITE = SITE_URL;
 
 export default function JsonLd() {
   const localBusiness = {

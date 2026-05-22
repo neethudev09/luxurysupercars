@@ -159,7 +159,7 @@ export default function SpecGrid({
 
   return (
     <section className="py-16 md:py-20 border-t border-white/5">
-      <div className="container-x">
+      <div className="container-car">
         <div className="mb-10">
           <MaskHeading
             text="Specifications"

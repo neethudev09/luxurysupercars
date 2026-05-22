@@ -95,7 +95,7 @@ export default function CarCard({ car, theme = "dark", index = 0 }: CarCardProps
         <span className="sr-only">View details for the {car.name}</span>
       </Link>
 
-      <div className="relative aspect-[5/4] overflow-hidden">
+      <div className="relative pointer-events-none aspect-[5/4] overflow-hidden">
         <Image
           src={car.image}
           alt={`${car.name} — ${car.category} car rental Dubai`}

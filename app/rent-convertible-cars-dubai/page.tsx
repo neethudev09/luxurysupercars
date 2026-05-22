@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: META.title,
     description: META.description,
-    url: `https://luxurysupercarsdubai.com/${META.slug}`,
+    url: `/${META.slug}`,
     siteName: "Luxury Supercars Dubai",
     locale: "en_AE",
     type: "website",

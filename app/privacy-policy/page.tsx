@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: PRIVACY_POLICY_PAGE.metaTitle,
     description: PRIVACY_POLICY_PAGE.metaDescription,
-    url: "https://luxurysupercarsdubai.com/privacy-policy/",
+    url: "/privacy-policy/",
     siteName: "Luxury Supercars Dubai",
     locale: "en_AE",
     type: "website",

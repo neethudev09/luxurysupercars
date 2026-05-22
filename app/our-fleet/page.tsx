@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     title: "Our Luxury Car Rental Fleet | Luxury Supercars Dubai",
     description:
       "Browse the full Luxury Supercars Dubai fleet — supercars, convertibles, SUVs and prestige rentals.",
-    url: "https://luxurysupercarsdubai.com/our-fleet",
+    url: "/our-fleet",
     siteName: "Luxury Supercars Dubai",
     locale: "en_AE",
     type: "website",

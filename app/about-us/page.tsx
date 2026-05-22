@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     title: "About Us | Luxury Super Car Rental",
     description:
       "Our mission is to provide the best luxury car rentals and services solutions, with a focus on exclusivity for your holiday or business experience.",
-    url: "https://luxurysupercarsdubai.com/about-us",
+    url: "/about-us",
     siteName: "Luxury Supercars Dubai",
     locale: "en_AE",
     type: "website",

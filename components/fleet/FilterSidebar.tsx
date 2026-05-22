@@ -7,18 +7,12 @@ import type { FleetFilterState } from "@/lib/fleet-filter";
 import {
   countActiveFilters,
   deriveBrandOptions,
-  deriveColorOptions,
   deriveDoorOptions,
   deriveSeatOptions,
   deriveTagOptions,
   derivePriceBounds,
 } from "@/lib/fleet-filter";
-import {
-  ALL_COLOR_FAMILIES,
-  colorFamilyMeta,
-  tagLabel,
-  type ColorFamily,
-} from "@/lib/fleet-tags";
+import { tagLabel } from "@/lib/fleet-tags";
 import type { Car } from "@/lib/fleet";
 
 const CATEGORY_META: { value: Category; label: string }[] = [
@@ -86,14 +80,6 @@ const SeatIcon = () => (
     <path d="M10 8v3" />
   </svg>
 );
-const ColorIcon = () => (
-  <svg {...ICON_PROPS} aria-hidden>
-    <path d="M7 1.4a5.6 5.6 0 0 0 0 11.2c.78 0 1.4-.62 1.4-1.4 0-.36-.14-.7-.4-.95-.25-.25-.4-.6-.4-.95 0-.78.62-1.4 1.4-1.4h1.65A2.35 2.35 0 0 0 13 5.55C13 3.26 10.32 1.4 7 1.4z" />
-    <circle cx="4" cy="5.5" r="0.7" fill="currentColor" stroke="none" />
-    <circle cx="6.7" cy="3.5" r="0.7" fill="currentColor" stroke="none" />
-    <circle cx="9.4" cy="4.5" r="0.7" fill="currentColor" stroke="none" />
-  </svg>
-);
 
 interface FilterSidebarProps {
   cars: Car[];
@@ -117,7 +103,6 @@ export default function FilterSidebar({
   const brandOpts = deriveBrandOptions(cars);
   const doorOpts = deriveDoorOptions(cars);
   const seatOpts = deriveSeatOptions(cars);
-  const colorOpts = deriveColorOptions(cars);
   const tagOpts = deriveTagOptions(cars);
   const priceBounds = derivePriceBounds(cars);
 
@@ -252,29 +237,6 @@ export default function FilterSidebar({
         />
       </Group>
 
-      {/* Tags */}
-      <Group label="Tags" icon={<TagIcon />} collapsible>
-        <div className="flex flex-wrap gap-1.5">
-          {tagOpts.map((t) => {
-            const checked = filters.tags.includes(t.value);
-            return (
-              <PillToggle
-                key={t.value}
-                checked={checked}
-                onClick={() =>
-                  onChange({ ...filters, tags: toggleArray(filters.tags, t.value) })
-                }
-              >
-                {tagLabel(t.value)}
-                <span className="ml-1.5 opacity-50 font-[var(--font-mono)] text-[9px]">
-                  {t.count}
-                </span>
-              </PillToggle>
-            );
-          })}
-        </div>
-      </Group>
-
       {/* Doors */}
       <Group label="Doors" icon={<DoorIcon />}>
         <div className="flex flex-wrap gap-1.5">
@@ -307,28 +269,24 @@ export default function FilterSidebar({
         </div>
       </Group>
 
-      {/* Color */}
-      <Group label="Color" icon={<ColorIcon />}>
-        <div className="flex flex-wrap gap-2.5 py-1.5">
-          {ALL_COLOR_FAMILIES.filter((f) => colorOpts.includes(f)).map((fam) => {
-            const meta = colorFamilyMeta(fam);
-            const checked = filters.colors.includes(fam);
+      {/* Tags */}
+      <Group label="Tags" icon={<TagIcon />} collapsible>
+        <div className="flex flex-wrap gap-1.5">
+          {tagOpts.map((t) => {
+            const checked = filters.tags.includes(t.value);
             return (
-              <button
-                key={fam}
-                type="button"
-                aria-label={meta.label}
-                title={meta.label}
+              <PillToggle
+                key={t.value}
+                checked={checked}
                 onClick={() =>
-                  onChange({ ...filters, colors: toggleArray(filters.colors, fam) })
+                  onChange({ ...filters, tags: toggleArray(filters.tags, t.value) })
                 }
-                className={`relative size-8 rounded-full transition-all ${
-                  checked
-                    ? "ring-2 ring-[var(--champagne)] ring-offset-2 ring-offset-[var(--bg-obsidian)] scale-105"
-                    : "ring-1 ring-white/15 hover:ring-white/40"
-                }`}
-                style={{ backgroundColor: meta.swatch }}
-              />
+              >
+                {tagLabel(t.value)}
+                <span className="ml-1.5 opacity-50 font-[var(--font-mono)] text-[9px]">
+                  {t.count}
+                </span>
+              </PillToggle>
             );
           })}
         </div>

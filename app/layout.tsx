@@ -3,6 +3,7 @@ import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import SiteChrome from "@/components/SiteChrome";
 import JsonLd from "@/components/seo/JsonLd";
+import { SITE_URL } from "@/lib/site";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -19,7 +20,7 @@ const jetbrains = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://luxurysupercarsdubai.com"),
+  metadataBase: new URL(SITE_URL),
   title: "Luxury Supercar Rentals Dubai - Rent Luxury & Sports Car Dubai",
   description:
     "Dubai's Most Trusted Supercar Rentals. Premium Services with 24/7 Support and Free Delivery Across Dubai. Lamborghini, Ferrari, Rolls Royce, McLaren, Porsche and more.",
@@ -28,7 +29,7 @@ export const metadata: Metadata = {
     title: "Luxury Supercar Rentals Dubai - Rent Luxury & Sports Car Dubai",
     description:
       "Dubai's Most Trusted Supercar Rentals. Premium Services with 24/7 Support and Free Delivery Across Dubai.",
-    url: "https://luxurysupercarsdubai.com/",
+    url: "/",
     siteName: "Luxury Supercars Dubai",
     locale: "en_AE",
     type: "website",

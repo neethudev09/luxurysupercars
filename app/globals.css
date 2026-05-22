@@ -283,7 +283,17 @@ body {
 /* container that's denser than Tailwind default */
 .container-x {
   width: 100%;
-  max-width: 1520px;
+  max-width: max(1520px, 95vw);
+  margin-inline: auto;
+  padding-inline: clamp(1rem, 4vw, 3rem);
+}
+
+/* narrow container for car-detail page content so the gallery + title
+   sit above the fold; the related-cars rail keeps the wide .container-x.
+   720px floor keeps tablet/mobile from collapsing to a too-narrow column. */
+.container-car {
+  width: 100%;
+  max-width: max(720px, 80vw);
   margin-inline: auto;
   padding-inline: clamp(1rem, 4vw, 3rem);
 }

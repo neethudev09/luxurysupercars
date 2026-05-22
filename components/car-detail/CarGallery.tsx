@@ -55,7 +55,7 @@ export default function CarGallery({ images, alt, category }: CarGalleryProps) {
   const showControls = images.length > 1;
 
   return (
-    <section className="container-x pt-4 pb-10 md:pb-14">
+    <section className="container-car pt-4 pb-10 md:pb-14">
       <motion.div
         className="relative"
         initial={{ opacity: 0, scale: 0.97, y: 20 }}
@@ -76,6 +76,10 @@ export default function CarGallery({ images, alt, category }: CarGalleryProps) {
                     alt={`${alt} — view ${i + 1}`}
                     fill
                     priority={i === 0}
+                    // Every non-first slide loads eagerly too, so swiping
+                    // through the carousel never shows the black slide
+                    // background while an image downloads on demand.
+                    loading={i === 0 ? undefined : "eager"}
                     sizes="(min-width: 1024px) 90vw, 100vw"
                     className="object-cover select-none"
                     draggable={false}

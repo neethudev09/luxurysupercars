@@ -68,15 +68,15 @@ export default function SiteNav() {
             scrolled ? "border-white/[0.06]" : "border-white/[0.04]"
           }`}
         >
-          <div className="w-full px-6 md:px-10 flex items-center justify-end h-[36px] gap-5 text-[12px] text-[var(--ink-lo)]">
-            <SocialRow />
+          <div className="w-full px-6 md:px-10 flex items-center justify-end h-[52px] gap-5 text-[12px] text-[var(--ink-lo)]">
+            <SocialRow variant="circular" circleClass="size-9" iconSize={15} />
             <Divider />
             <a
               href={`tel:${CONTACT.primaryPhone.replace(/\s/g, "")}`}
               className="inline-flex items-center gap-2 text-[var(--champagne)] hover:text-[var(--champagne-hi)] transition-colors"
             >
               <PhoneIcon />
-              <span className="font-[var(--font-mono)] tracking-[0.04em]">
+              <span className="font-[var(--font-mono)] text-[16px] tracking-[0.04em]">
                 {CONTACT.primaryPhone}
               </span>
             </a>
@@ -90,19 +90,19 @@ export default function SiteNav() {
         </div>
 
         {/* MAIN BAR */}
-        <div className="relative w-full px-6 md:px-10 flex items-center justify-between h-[72px] md:h-[80px]">
+        <div className="relative w-full px-6 md:px-10 flex items-center justify-between h-[80px]">
           <Link
             href="/"
             aria-label="Luxury Supercars Dubai — home"
-            className="relative z-[51] inline-flex items-center h-12 shrink-0 cursor-pointer"
+            className="relative z-[51] inline-flex items-center h-18 shrink-0 cursor-pointer"
           >
             <Image
               src={SITE_LOGO}
               alt="Luxury Supercars Dubai"
-              width={240}
-              height={48}
+              width={360}
+              height={72}
               priority
-              className="h-12 w-auto object-contain"
+              className="h-18 w-auto object-contain"
             />
           </Link>
 
@@ -151,8 +151,8 @@ export default function SiteNav() {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: 8 }}
                         transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-                        className={`absolute right-0 top-full mt-3 rounded-2xl bg-[var(--bg-obsidian)]/92 backdrop-blur-2xl border border-[var(--champagne)]/40 shadow-[0_24px_60px_-20px_rgba(0,0,0,0.7)] p-3 ${
-                          isType ? "w-[480px]" : "w-[600px]"
+                        className={`absolute right-0 top-full mt-3 rounded-2xl bg-[var(--bg-obsidian)]/92 backdrop-blur-2xl border border-[var(--champagne)]/40 shadow-[0_24px_60px_-20px_rgba(0,0,0,0.7)] ${
+                          isType ? "w-[480px] p-3" : "w-[760px] p-4"
                         }`}
                       >
                         {isType ? (
@@ -180,20 +180,20 @@ export default function SiteNav() {
                             ))}
                           </div>
                         ) : (
-                          <div className="grid grid-cols-3 gap-x-3 gap-y-1">
+                          <div className="grid grid-cols-3 gap-x-2 gap-y-1.5">
                             {BRAND_LOGOS.filter((b) => b.slug !== null).map((b) => (
                               <Link
                                 key={b.name}
                                 href={`/brands/${b.slug}`}
                                 onClick={() => setHoverMenu(null)}
-                                className="group/item flex items-center gap-3 px-3 py-2.5 rounded-lg text-[16px] text-[var(--ink-hi)] hover:bg-white/5 hover:text-[var(--champagne-hi)] transition-colors"
+                                className="group/item flex items-center gap-3.5 px-3.5 py-3 rounded-xl text-[16px] text-[var(--ink-hi)] hover:bg-white/5 hover:text-[var(--champagne-hi)] transition-colors"
                               >
-                                <span className="relative shrink-0 size-9 rounded-md bg-white/[0.04] border border-white/8 flex items-center justify-center overflow-hidden">
+                                <span className="relative shrink-0 size-12">
                                   <Image
                                     src={b.src}
                                     alt=""
-                                    width={26}
-                                    height={18}
+                                    fill
+                                    sizes="48px"
                                     className="object-contain opacity-90 group-hover/item:opacity-100 transition-opacity"
                                   />
                                 </span>
@@ -245,19 +245,19 @@ export default function SiteNav() {
             transition={{ duration: 0.3 }}
             className="fixed inset-0 z-[60] bg-[var(--bg-obsidian)] overflow-y-auto"
           >
-            <div className="w-full px-6 md:px-10 flex h-[72px] items-center justify-between">
+            <div className="w-full px-6 md:px-10 flex h-[80px] items-center justify-between">
               <Link
                 href="/"
                 aria-label="Luxury Supercars Dubai — home"
                 onClick={closeMobileMenu}
-                className="relative block h-12 w-auto shrink-0"
+                className="relative block h-18 w-auto shrink-0"
               >
                 <Image
                   src={SITE_LOGO}
                   alt="Luxury Supercars Dubai"
-                  width={240}
-                  height={48}
-                  className="h-12 w-auto object-contain"
+                  width={360}
+                  height={72}
+                  className="h-18 w-auto object-contain"
                 />
               </Link>
               <button
@@ -380,16 +380,24 @@ export default function SiteNav() {
 /* ----------------------------- subcomponents ----------------------------- */
 
 function Divider() {
-  return <span aria-hidden className="h-3 w-px bg-white/15" />;
+  return <span aria-hidden className="h-4 w-px bg-white/15" />;
 }
 
-function SocialRow({ variant = "compact" }: { variant?: "compact" | "circular" }) {
-  const iconSize = variant === "circular" ? 18 : 14;
+function SocialRow({
+  variant = "compact",
+  circleClass = "size-11",
+  iconSize,
+}: {
+  variant?: "compact" | "circular";
+  circleClass?: string;
+  iconSize?: number;
+}) {
+  const resolvedIconSize = iconSize ?? (variant === "circular" ? 18 : 14);
   const items: { label: string; href: string; icon: React.ReactNode }[] = [
-    { label: "Facebook", href: SOCIAL.facebook, icon: <FacebookIcon size={iconSize} /> },
-    { label: "Instagram", href: SOCIAL.instagram, icon: <InstagramIcon size={iconSize} /> },
-    { label: "YouTube", href: SOCIAL.youtube, icon: <YouTubeIcon size={iconSize} /> },
-    { label: "TikTok", href: SOCIAL.tiktok, icon: <TikTokIcon size={iconSize} /> },
+    { label: "Facebook", href: SOCIAL.facebook, icon: <FacebookIcon size={resolvedIconSize} /> },
+    { label: "Instagram", href: SOCIAL.instagram, icon: <InstagramIcon size={resolvedIconSize} /> },
+    { label: "YouTube", href: SOCIAL.youtube, icon: <YouTubeIcon size={resolvedIconSize} /> },
+    { label: "TikTok", href: SOCIAL.tiktok, icon: <TikTokIcon size={resolvedIconSize} /> },
   ];
   if (variant === "circular") {
     return (
@@ -401,7 +409,7 @@ function SocialRow({ variant = "compact" }: { variant?: "compact" | "circular" }
             aria-label={s.label}
             target="_blank"
             rel="noreferrer"
-            className="inline-flex size-11 items-center justify-center rounded-full border border-white/15 hover:border-[var(--champagne)] hover:text-[var(--champagne)] transition-colors"
+            className={`inline-flex ${circleClass} items-center justify-center rounded-full border border-white/10 hover:border-[var(--champagne)] hover:text-[var(--champagne)] transition-colors`}
           >
             {s.icon}
           </a>
@@ -466,7 +474,7 @@ function CurrencySelector({
 
 function PhoneIcon() {
   return (
-    <svg width="12" height="12" viewBox="0 0 14 14" fill="none" aria-hidden>
+    <svg width="15" height="15" viewBox="0 0 14 14" fill="none" aria-hidden>
       <path
         d="M12.5 9.85v1.65c0 .55-.45 1-1 1A10.5 10.5 0 0 1 1.5 2c0-.55.45-1 1-1H4.15c.45 0 .85.3.96.74l.6 2.4a1 1 0 0 1-.26.95L4.4 6.13a8.5 8.5 0 0 0 3.47 3.47l1.04-1.05c.25-.25.6-.35.95-.26l2.4.6c.44.1.74.5.74.96z"
         stroke="currentColor"

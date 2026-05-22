@@ -1,27 +1,27 @@
 {
-  "_comment": "Editorial selection of which cars appear in the 4-card teaser on each homepage section. Edit slugs here today; when Sanity is wired in this file is replaced by a `featured: boolean` toggle on each Car document and a GROQ query that returns the same shape.",
+  "_comment": "GENERATED from Sanity car.featuredIn by scripts/sanity/export-to-json.ts. Do not hand-edit — toggle 'Featured on homepage in...' on the car in /studio instead.",
   "sports": [
+    "ferrari-sf90-stradale",
     "lamborghini-huracan-sto-orange",
-    "mclaren-750s-spyder-tiffany-blue",
     "lamborghini-revuelto",
-    "ferrari-sf90-stradale"
+    "mclaren-750s-spyder-tiffany-blue"
   ],
   "convertible": [
-    "rolls-royce-dawn-white",
     "ferrari-296-gts-spyder",
     "mclaren-750s-spyder-tiffany-blue",
-    "porsche-911-turbo-s"
+    "porsche-911-turbo-s",
+    "rolls-royce-dawn-white"
   ],
   "luxury": [
     "bentley-bentayga-mansory",
-    "rolls-royce-cullinan-mansory",
     "ferrari-purosangue",
-    "mercedes-benz-amg-g63-800-widestar"
+    "mercedes-benz-amg-g63-800-widestar",
+    "rolls-royce-cullinan-mansory"
   ],
   "suv": [
-    "mercedes-benz-amg-g63-800-widestar",
-    "rolls-royce-cullinan-mansory",
+    "bentley-bentayga-mansory",
     "lamborghini-urus-mansory",
-    "bentley-bentayga-mansory"
+    "mercedes-benz-amg-g63-800-widestar",
+    "rolls-royce-cullinan-mansory"
   ]
 }

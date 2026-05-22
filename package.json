@@ -4,9 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prebuild": "tsx scripts/sanity/export-to-json.ts",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "cms:export": "tsx scripts/sanity/export-to-json.ts"
   },
   "dependencies": {
     "@portabletext/react": "^6.2.0",

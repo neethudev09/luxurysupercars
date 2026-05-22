@@ -1,7 +1,9 @@
+import Image from "next/image";
 import Link from "next/link";
 import type { Car } from "@/lib/fleet";
 import { getCarGallery } from "@/lib/fleet";
 import { CONTACT } from "@/lib/content";
+import { getBrandLogo } from "@/lib/assets";
 import SiteNav from "@/components/nav/SiteNav";
 import Footer from "@/components/sections/Footer";
 import MaskHeading from "@/components/motion/MaskHeading";
@@ -29,55 +31,6 @@ interface CarDetailProps {
   related: Car[];
 }
 
-const STROKE = {
-  width: 12,
-  height: 12,
-  viewBox: "0 0 14 14",
-  fill: "none",
-  stroke: "currentColor",
-  strokeWidth: 1.25,
-  strokeLinecap: "round" as const,
-  strokeLinejoin: "round" as const,
-};
-
-const EngineIcon = () => (
-  <svg {...STROKE} aria-hidden>
-    <rect x="2" y="4.5" width="10" height="6" rx="0.5" />
-    <path d="M4 4.5V2.5M7 4.5V2.5M10 4.5V2.5M2 7h-1M13 7h-1" />
-  </svg>
-);
-const SpeedIcon = () => (
-  <svg {...STROKE} aria-hidden>
-    <circle cx="7" cy="8.5" r="4.4" />
-    <path d="M7 8.5L9 6M7 1.5V1M5.5 1h3" />
-  </svg>
-);
-const PowerIcon = () => (
-  <svg {...STROKE} aria-hidden>
-    <path d="M7.5 1L3 8h3l-.5 5L10 6H7l.5-5z" />
-  </svg>
-);
-const DoorIcon = () => (
-  <svg {...STROKE} aria-hidden>
-    <path d="M3 12V2.6l8-1V12M3 12h8" />
-    <circle cx="9" cy="7.5" r="0.5" fill="currentColor" stroke="none" />
-  </svg>
-);
-const SeatIcon = () => (
-  <svg {...STROKE} aria-hidden>
-    <path d="M5 1.5v6.5h5M3.5 11h7M10 8v3" />
-  </svg>
-);
-
-function InlineSpec({ icon, value }: { icon: React.ReactNode; value: string }) {
-  return (
-    <span className="inline-flex items-center gap-1.5 whitespace-nowrap">
-      <span className="shrink-0 text-[var(--champagne)] opacity-90">{icon}</span>
-      <span>{value}</span>
-    </span>
-  );
-}
-
 const categoryLabel: Record<Car["category"], string> = {
   sports: "Sports",
   convertible: "Convertibles",
@@ -98,13 +51,14 @@ export default function CarDetail({ car, related }: CarDetailProps) {
     `Hi, I'm interested in renting the ${car.name}. Could you share availability and pricing?`,
   );
   const waHref = `https://wa.me/${waNumber}?text=${waMessage}`;
+  const brandLogo = getBrandLogo(car.brand);
 
   return (
     <main className="bg-[var(--bg-obsidian)] text-[var(--ink-hi)] min-h-screen">
       <SiteNav />
 
       {/* Breadcrumb */}
-      <div className="container-x pt-[100px] md:pt-[140px] pb-4">
+      <div className="container-car pt-[100px] md:pt-[140px] pb-4">
         <nav
           aria-label="Breadcrumb"
           className="font-[var(--font-mono)] text-[11px] uppercase tracking-[0.18em] text-[var(--ink-lo)] flex items-center gap-2 flex-wrap"
@@ -129,34 +83,29 @@ export default function CarDetail({ car, related }: CarDetailProps) {
       </div>
 
       {/* Headline + price + CTAs */}
-      <section className="container-x pb-10 md:pb-14">
+      <section className="container-car pb-10 md:pb-14">
         <div className="grid md:grid-cols-12 gap-8 md:gap-12 items-end">
           <div className={RENTAL_CARD_PLACEMENT === "hero" ? "md:col-span-8" : "md:col-span-12"}>
-            <MaskHeading
-              text={car.name}
-              as="h1"
-              className="font-[var(--font-display)] font-medium text-[clamp(2rem,5.5vw,4.5rem)] leading-[1] tracking-[-0.025em] text-[var(--ink-hi)]"
-              staggerMs={55}
-              breakAfterBold={false}
-            />
-            <Reveal
-              className="rise mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 max-w-2xl text-[12.5px] leading-none text-[var(--ink-lo)] font-[var(--font-mono)] uppercase tracking-[0.08em]"
-              delay={350}
-            >
-              {car.engine && <InlineSpec icon={<EngineIcon />} value={car.engine} />}
-              {car.zeroToHundred && (
-                <InlineSpec icon={<SpeedIcon />} value={`0–100 ${car.zeroToHundred}`} />
+            <div className="flex items-center justify-between gap-5 md:gap-8">
+              <MaskHeading
+                text={car.name}
+                as="h1"
+                className="min-w-0 font-[var(--font-display)] font-medium text-[clamp(2rem,5.5vw,4.5rem)] leading-[1] tracking-[-0.025em] text-[var(--ink-hi)]"
+                staggerMs={55}
+                breakAfterBold={false}
+              />
+              {brandLogo && (
+                <div className="relative shrink-0 h-16 w-28 md:h-20 md:w-36">
+                  <Image
+                    src={brandLogo.src}
+                    alt={`${car.brandName} logo`}
+                    fill
+                    sizes="160px"
+                    className="object-contain"
+                  />
+                </div>
               )}
-              {car.horsepower && (
-                <InlineSpec icon={<PowerIcon />} value={car.horsepower} />
-              )}
-              {car.seats > 0 && (
-                <InlineSpec icon={<SeatIcon />} value={`${car.seats} seats`} />
-              )}
-              {car.doors > 0 && (
-                <InlineSpec icon={<DoorIcon />} value={`${car.doors} doors`} />
-              )}
-            </Reveal>
+            </div>
           </div>
 
           {RENTAL_CARD_PLACEMENT === "hero" && (
@@ -230,7 +179,7 @@ export default function CarDetail({ car, related }: CarDetailProps) {
 
       <Footer />
 
-      {/* Scroll-aware sticky enquire bar */}
+      {/* Persistent car CTA — fixed to the bottom, overlaid on content */}
       <StickyEnquireBar car={car} />
     </main>
   );

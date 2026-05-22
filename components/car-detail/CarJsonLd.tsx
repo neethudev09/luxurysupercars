@@ -1,7 +1,8 @@
 import type { Car } from "@/lib/fleet";
 import { carHref } from "@/lib/fleet";
+import { SITE_URL } from "@/lib/site";
 
-const SITE = "https://luxurysupercarsdubai.com";
+const SITE = SITE_URL;
 
 export default function CarJsonLd({ car }: { car: Car }) {
   const url = `${SITE}${carHref(car)}`;

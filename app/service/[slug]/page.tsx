@@ -38,7 +38,7 @@ export async function generateMetadata(
     openGraph: {
       title: service.metaTitle,
       description: service.metaDescription,
-      url: `https://luxurysupercarsdubai.com/service/${service.slug}/`,
+      url: `/service/${service.slug}/`,
       siteName: "Luxury Supercars Dubai",
       locale: "en_AE",
       type: "website",
