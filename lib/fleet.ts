@@ -67,6 +67,10 @@ export interface Car {
   slug: string;     // car page slug, e.g. "mclaren-750s-spyder-tiffany-blue"
   brand: string;    // brand directory, e.g. "rent-mclaren-dubai"
   brandName: string; // display brand, e.g. "McLaren"
+  /** Coachbuilder / tuner brand slugs the car is also tagged with
+   *  (e.g. "rent-mansory-dubai", "rent-brabus-dubai"). The car appears
+   *  on each tuner's brand page in addition to its primary brand page. */
+  tuners?: string[];
   price: number;    // AED per day; 0 = unknown
   priceCurrency: string;
   /** Optional — live page may not expose every spec. Consumers should
@@ -143,6 +147,7 @@ interface RawFleetCar {
   slug: string;
   name: string;
   brandName: string;
+  tuners?: string[];
   url: string;
   canonical: string;
   title: string;
@@ -238,6 +243,7 @@ function adaptCar(raw: RawFleetCar): Car {
     slug: raw.slug,
     brand: raw.brand,
     brandName: raw.brandName,
+    tuners: raw.tuners && raw.tuners.length ? raw.tuners : undefined,
     price: raw.price ?? 0,
     priceCurrency: raw.priceCurrency,
     engine: raw.specs.engine || undefined,

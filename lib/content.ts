@@ -30,8 +30,8 @@ export const NAV_LINKS = [
 export const CARS_TYPES = ["Luxury", "Convertible", "Sports", "Electric", "SUV"];
 
 export const CARS_BRANDS = [
-  "Aston Martin", "Audi", "Bentley", "BMW", "Cadillac", "Ferrari",
-  "Lamborghini", "Rolls Royce", "Maserati", "McLaren", "Mercedes Benz",
+  "Aston Martin", "Audi", "Bentley", "BMW", "Brabus", "Cadillac", "Ferrari",
+  "Lamborghini", "Mansory", "Rolls Royce", "Maserati", "McLaren", "Mercedes Benz",
   "Porsche", "Range Rover",
 ];
 
@@ -497,11 +497,13 @@ export const FOOTER = {
     "Audi",
     "Bentley",
     "BMW",
+    "Brabus",
     "Bugatti",
     "Cadillac",
     "Ferrari",
     "Lamborghini",
     "Land Rover",
+    "Mansory",
     "Maserati",
     "McLaren",
     "Mercedes Benz",

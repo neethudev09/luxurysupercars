@@ -81,6 +81,7 @@ interface SanityCar {
   slug: string;
   brandSlug: string;
   brandName: string;
+  tuners?: string[];
   categories?: string[];
   featuredIn?: string[];
   priceAed?: number;
@@ -110,6 +111,7 @@ const CAR_QUERY = `*[_type == "car" && defined(slug.current) && defined(brand)]{
   "slug": slug.current,
   "brandSlug": brand->slug.current,
   "brandName": brand->displayName,
+  "tuners": tuners[]->slug.current,
   categories,
   featuredIn,
   priceAed,
@@ -145,6 +147,7 @@ function mapCar(c: SanityCar) {
     slug: c.slug,
     name: c.name,
     brandName: c.brandName,
+    tuners: (c.tuners || []).filter((x): x is string => typeof x === "string"),
     url,
     canonical: url,
     title,

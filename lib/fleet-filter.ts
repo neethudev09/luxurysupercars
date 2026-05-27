@@ -112,7 +112,10 @@ export function applyFilters(cars: Car[], f: FleetFilterState): Car[] {
 
     if (f.categories.length && !f.categories.some((c) => facets.categories.includes(c)))
       return false;
-    if (f.brands.length && !f.brands.includes(car.brand)) return false;
+    if (f.brands.length) {
+      const carBrands = [car.brand, ...(car.tuners ?? [])];
+      if (!f.brands.some((b) => carBrands.includes(b))) return false;
+    }
     if (f.tags.length && !f.tags.some((t) => facets.tags.includes(t))) return false;
     if (f.doors.length && !f.doors.includes(car.doors)) return false;
     if (f.seats.length && !f.seats.includes(car.seats)) return false;
@@ -155,8 +158,13 @@ export function applyFilters(cars: Car[], f: FleetFilterState): Car[] {
 /* ------------------------------------------------------------------ */
 
 export function deriveBrandOptions(cars: Car[]): { value: string; label: string; count: number }[] {
+  // Count each car under its primary brand AND each tuner brand it carries,
+  // so coachbuilders like Mansory / Brabus surface as filter options.
   const counts = new Map<string, number>();
-  for (const c of cars) counts.set(c.brand, (counts.get(c.brand) ?? 0) + 1);
+  for (const c of cars) {
+    counts.set(c.brand, (counts.get(c.brand) ?? 0) + 1);
+    for (const t of c.tuners ?? []) counts.set(t, (counts.get(t) ?? 0) + 1);
+  }
   return Array.from(counts.entries())
     .map(([value, count]) => ({ value, label: brandLabel(value), count }))
     .sort((a, b) => a.label.localeCompare(b.label));

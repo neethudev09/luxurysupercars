@@ -18,13 +18,12 @@ export const TESTIMONIAL_AVATAR =
 export const CATEGORY_ICONS = {
   luxury:
     "https://luxurysupercarsdubai.com/wp-content/uploads/2024/12/luxury-car-rental.svg",
-  sports:
-    "https://luxurysupercarsdubai.com/wp-content/uploads/2024/12/sports-car-rental.svg",
+  sports: "/images/car-types/sports.svg",
   convertible:
     "https://luxurysupercarsdubai.com/wp-content/uploads/2024/12/convertible-1.svg",
   electric:
     "https://luxurysupercarsdubai.com/wp-content/uploads/2024/12/electric-car-rental-1.svg",
-  suv: "https://luxurysupercarsdubai.com/wp-content/uploads/2024/12/suv-car-rental.svg",
+  suv: "/images/car-types/suv.svg",
 } as const;
 
 export const NAV_CAR_TYPES = [
@@ -76,17 +75,19 @@ export const BRAND_LOGOS: { name: string; src: string; slug: string | null }[] =
   { name: "Aston Martin", src: "https://luxurysupercarsdubai.com/wp-content/uploads/2024/12/aston_martin.png",       slug: "rent-aston-martin-dubai" },
   { name: "Audi",         src: "https://luxurysupercarsdubai.com/wp-content/uploads/2024/12/audi-1-1-1.png",          slug: "rent-audi-dubai" },
   { name: "Bentley",      src: "https://luxurysupercarsdubai.com/wp-content/uploads/2024/11/bentlay.png",             slug: "rent-bentley-dubai" },
+  { name: "Brabus",       src: "/images/brands/brabus.png",                                                            slug: "rent-brabus-dubai" },
   { name: "Rolls Royce",  src: "https://luxurysupercarsdubai.com/wp-content/uploads/2024/11/royce.png",               slug: "rent-rolls-royce-dubai" },
   { name: "Bugatti",      src: "https://luxurysupercarsdubai.com/wp-content/uploads/2024/11/bugatti.png",             slug: null },
-  { name: "McLaren",      src: "https://luxurysupercarsdubai.com/wp-content/uploads/2025/05/McLaren-logo-black-scaled.png",  slug: "rent-mclaren-dubai" },
+  { name: "McLaren",      src: "/images/brands/mclaren.png",                                                              slug: "rent-mclaren-dubai" },
   { name: "BMW",          src: "https://luxurysupercarsdubai.com/wp-content/uploads/2024/11/bmw.png",                 slug: "rent-bmw-dubai" },
   { name: "Land Rover",   src: "https://luxurysupercarsdubai.com/wp-content/uploads/2024/11/land.png",                slug: "rent-range-rover-dubai" },
   { name: "Mercedes",     src: "https://luxurysupercarsdubai.com/wp-content/uploads/2024/11/merc.png",                slug: "rent-mercedes-benz-dubai" },
   { name: "Cadillac",     src: "https://luxurysupercarsdubai.com/wp-content/uploads/2024/12/cadillas-1.png",          slug: "rent-cadillac-dubai" },
   { name: "Ferrari",      src: "https://luxurysupercarsdubai.com/wp-content/uploads/2024/11/ferri.png",               slug: "rent-ferrari-dubai" },
   { name: "Lamborghini",  src: "https://luxurysupercarsdubai.com/wp-content/uploads/2024/11/lam.png",                 slug: "rent-lamborghini-dubai" },
-  { name: "Maserati",     src: "https://luxurysupercarsdubai.com/wp-content/uploads/2025/05/maserati-logo.png", slug: "rent-maserati-dubai" },
-  { name: "Porsche",      src: "https://luxurysupercarsdubai.com/wp-content/uploads/2025/01/porsche-logo-2.png",      slug: "rent-porsche-dubai" },
+  { name: "Mansory",      src: "/images/brands/mansory.png",                                                           slug: "rent-mansory-dubai" },
+  { name: "Maserati",     src: "/images/brands/maserati.png",                                                              slug: "rent-maserati-dubai" },
+  { name: "Porsche",      src: "/images/brands/porsche.png",                                                              slug: "rent-porsche-dubai" },
 ];
 
 /** Resolve a brand's logo from its directory slug (e.g. "rent-aston-martin-dubai"). */

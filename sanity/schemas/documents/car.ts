@@ -47,6 +47,14 @@ export const car = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: "tuners",
+      title: "Tuners / modifications",
+      type: "array",
+      of: [{ type: "reference", to: [{ type: "brand" }] }],
+      description:
+        "Coachbuilders / tuners that have modified this car (e.g. Mansory, Brabus). The car appears on each tuner's brand page in addition to its primary brand page.",
+    }),
+    defineField({
       name: "categories",
       title: "Categories",
       type: "array",

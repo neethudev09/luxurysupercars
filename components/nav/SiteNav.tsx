@@ -151,29 +151,30 @@ export default function SiteNav() {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: 8 }}
                         transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-                        className={`absolute right-0 top-full mt-3 rounded-2xl bg-[var(--bg-obsidian)]/92 backdrop-blur-2xl border border-[var(--champagne)]/40 shadow-[0_24px_60px_-20px_rgba(0,0,0,0.7)] ${
-                          isType ? "w-[480px] p-3" : "w-[760px] p-4"
+                        className={`absolute right-0 top-full mt-3 rounded-2xl bg-[var(--bg-obsidian)]/80 backdrop-blur-xl border border-[var(--champagne)]/40 shadow-[0_24px_60px_-20px_rgba(0,0,0,0.7)] ${
+                          isType ? "w-[660px] p-3" : "w-[760px] p-4"
                         }`}
                       >
                         {isType ? (
-                          <div className="grid grid-cols-2 gap-x-3 gap-y-1">
-                            {NAV_CAR_TYPES.map((item) => (
+                          <div className="grid grid-cols-4 gap-2">
+                            {NAV_CAR_TYPES.filter((item) => item.label !== "Electric Cars").map((item) => (
                               <Link
                                 key={item.label}
                                 href={item.href}
                                 onClick={() => setHoverMenu(null)}
-                                className="group/item flex items-center gap-3 px-3 py-3 rounded-lg text-[16px] text-[var(--ink-hi)] hover:bg-white/5 hover:text-[var(--champagne-hi)] transition-colors"
+                                className="group/item flex flex-col items-center justify-center text-center gap-3 px-3 py-4 rounded-xl text-[16px] text-[var(--ink-hi)] hover:bg-white/5 hover:text-[var(--champagne-hi)] transition-colors"
                               >
-                                <span className="relative shrink-0 size-10 rounded-md bg-white/[0.04] border border-white/8 flex items-center justify-center overflow-hidden">
+                                <span className="relative shrink-0 size-[120px]">
                                   <Image
                                     src={item.icon}
                                     alt=""
-                                    width={28}
-                                    height={20}
+                                    fill
+                                    sizes="240px"
+                                    quality={95}
                                     className="object-contain opacity-90 group-hover/item:opacity-100 transition-opacity"
                                   />
                                 </span>
-                                <span className="font-medium tracking-tight">
+                                <span className="font-medium tracking-tight text-[14px] leading-tight">
                                   {item.label}
                                 </span>
                               </Link>

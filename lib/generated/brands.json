@@ -1342,6 +1342,17 @@
     ],
     "faqHeading": "BMW FAQs"
   },
+  "rent-brabus-dubai": {
+    "slug": "rent-brabus-dubai",
+    "displayName": "Brabus",
+    "title": "Rent Brabus in Dubai | Luxury Supercars Dubai",
+    "description": "Rent Brabus-tuned Mercedes-Benz performance cars in Dubai — AMG G63, GLS63, and more from the world's leading Mercedes tuner.",
+    "h1": "Rent Brabus in Dubai",
+    "visibleTitle": "Brabus",
+    "sections": [],
+    "faqs": [],
+    "faqHeading": "Brabus FAQs"
+  },
   "rent-cadillac-dubai": {
     "slug": "rent-cadillac-dubai",
     "displayName": "Cadillac",
@@ -2348,6 +2359,17 @@
       }
     ],
     "faqHeading": "Lamborghini FAQs"
+  },
+  "rent-mansory-dubai": {
+    "slug": "rent-mansory-dubai",
+    "displayName": "Mansory",
+    "title": "Rent Mansory in Dubai | Luxury Supercars Dubai",
+    "description": "Rent Mansory-tuned luxury cars in Dubai — Bentley, Rolls-Royce, Lamborghini, and Range Rover modifications by the world's most exclusive coachbuilder.",
+    "h1": "Rent Mansory in Dubai",
+    "visibleTitle": "Mansory",
+    "sections": [],
+    "faqs": [],
+    "faqHeading": "Mansory FAQs"
   },
   "rent-maserati-dubai": {
     "slug": "rent-maserati-dubai",

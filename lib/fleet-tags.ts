@@ -94,9 +94,15 @@ export function getCarsByCategory(cars: Car[], category: Category): Car[] {
 /**
  * Subset of cars belonging to a given brand slug (e.g. "rent-ferrari-dubai").
  * Used to lock the fleet view on /brands/rent-{brand}-dubai pages.
+ *
+ * Matches both primary `brand` and any tuner brand the car is tagged with
+ * (e.g. "rent-mansory-dubai"), so a Mansory-tuned Rolls-Royce appears on
+ * both its Rolls-Royce and Mansory brand pages.
  */
 export function getCarsByBrand(cars: Car[], brandSlug: string): Car[] {
-  return cars.filter((c) => c.brand === brandSlug);
+  return cars.filter(
+    (c) => c.brand === brandSlug || (c.tuners?.includes(brandSlug) ?? false),
+  );
 }
 
 /**
