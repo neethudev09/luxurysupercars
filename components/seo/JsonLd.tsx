@@ -1,6 +1,5 @@
 import { CONTACT } from "@/lib/content";
 import { FAQ as FAQ_DATA, HERO } from "@/lib/content";
-import { ALL_CARS } from "@/lib/fleet";
 import { SITE_URL } from "@/lib/site";
 
 const SITE = SITE_URL;
@@ -39,27 +38,9 @@ export default function JsonLd() {
     ],
   };
 
-  const cars = ALL_CARS.map((c) => ({
-    "@context": "https://schema.org",
-    "@type": "Car",
-    name: c.name,
-    image: c.image,
-    vehicleEngine: { "@type": "EngineSpecification", name: c.engine },
-    accelerationTime: c.zeroToHundred,
-    seatingCapacity: c.seats,
-    numberOfDoors: c.doors,
-    offers: {
-      "@type": "Offer",
-      price: c.price,
-      priceCurrency: "AED",
-      priceSpecification: {
-        "@type": "UnitPriceSpecification",
-        price: c.price,
-        priceCurrency: "AED",
-        referenceQuantity: { "@type": "QuantitativeValue", value: 1, unitCode: "DAY" },
-      },
-    },
-  }));
+  // Per-car Car structured data lives on the car-detail route via
+  // <CarJsonLd>; embedding 96 of them on every site-wide layout bloated
+  // the HTML by ~55 KiB on pages that don't surface those cars at all.
 
   const faqPage = {
     "@context": "https://schema.org",
@@ -79,7 +60,7 @@ export default function JsonLd() {
     ],
   };
 
-  const blocks = [localBusiness, faqPage, breadcrumb, ...cars];
+  const blocks = [localBusiness, faqPage, breadcrumb];
 
   return (
     <>

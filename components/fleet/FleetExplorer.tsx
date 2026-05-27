@@ -166,7 +166,7 @@ function FleetExplorerInner({
                         ease: [0.22, 1, 0.36, 1],
                       }}
                     >
-                      <CarCard car={car} theme="dark" index={0} />
+                      <CarCard car={car} theme="dark" index={i} />
                     </motion.div>
                   ))}
                 </AnimatePresence>

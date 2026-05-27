@@ -23,8 +23,9 @@ export default function Footer() {
               <Image
                 src={SITE_LOGO}
                 alt="Luxury Supercars Dubai"
-                width={720}
-                height={144}
+                width={360}
+                height={72}
+                sizes="360px"
                 className="h-18 w-auto object-contain"
               />
             </Link>
@@ -102,6 +103,10 @@ export default function Footer() {
                   <img
                     src={`/images/Payment%20Method/${p.file}`}
                     alt={p.name}
+                    width={56}
+                    height={36}
+                    loading="lazy"
+                    decoding="async"
                     className="h-9 w-auto"
                   />
                 </li>

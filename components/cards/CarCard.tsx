@@ -101,6 +101,7 @@ export default function CarCard({ car, theme = "dark", index = 0 }: CarCardProps
           alt={`${car.name} — ${car.category} car rental Dubai`}
           fill
           sizes="(min-width: 1024px) 24vw, (min-width: 640px) 48vw, 92vw"
+          priority={index === 0}
           className="object-cover transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.06]"
         />
         <div className={`absolute inset-0 bg-gradient-to-t ${isLight ? "from-black/40" : "from-black/70"} via-transparent to-transparent`} />
