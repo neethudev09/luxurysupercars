@@ -75,16 +75,13 @@ function ServiceCard({
           href={`/service/${service.slug}`}
           className="group flex h-full min-h-[340px] flex-col rounded-2xl border border-white/8 bg-[var(--bg-graphite)]/40 p-8 md:p-10 hover:border-[var(--champagne)]/60 hover:bg-[var(--bg-graphite)]/60 transition-colors"
         >
-          <p className="font-[var(--font-mono)] text-[10.5px] uppercase tracking-[0.28em] text-[var(--champagne)] mb-3">
-            Service
-          </p>
           <h2 className="font-[var(--font-display)] text-[clamp(1.4rem,2.4vw,1.9rem)] leading-[1.15] tracking-tight text-[var(--ink-hi)] mb-3">
             {service.title}
           </h2>
           <p className="text-[14.5px] leading-[1.65] text-[var(--ink-lo)] mb-5">
             {service.summary}
           </p>
-          <span className="mt-auto inline-flex items-center gap-2 text-[12.5px] text-[var(--champagne)] group-hover:text-[var(--champagne-hi)] transition-colors">
+          <span className="mt-auto inline-flex items-center gap-2 text-[14.5px] text-[var(--champagne)] group-hover:text-[var(--champagne-hi)] transition-colors">
             Learn more
             <svg width="13" height="9" viewBox="0 0 14 10" fill="none" className="transition-transform group-hover:translate-x-1">
               <path d="M0 5h12M8 1l4 4-4 4" stroke="currentColor" strokeWidth="1.5" />

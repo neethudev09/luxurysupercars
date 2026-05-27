@@ -3,7 +3,10 @@ import MaskHeading from "@/components/motion/MaskHeading";
 import Reveal from "@/components/motion/Reveal";
 import { BRAND_LOGOS } from "@/lib/assets";
 
-const DARK_LOGOS = new Set(["McLaren", "Maserati", "Porsche"]);
+// Logos that ship dark-on-transparent and need inverting on this dark bg.
+// Empty for now — the local McLaren / Maserati / Porsche / Mansory /
+// Brabus assets are already designed for a dark background.
+const DARK_LOGOS = new Set<string>();
 
 /**
  * "Our Brands" section. Carries the page's semantic <h1> (verbatim from

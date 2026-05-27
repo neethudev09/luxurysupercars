@@ -99,7 +99,7 @@ export default async function BlogIndexPage({
                     <p className="text-[13.5px] leading-[1.55] text-[var(--ink-lo)] line-clamp-2 mb-3">
                       {post.excerpt}
                     </p>
-                    <span className="inline-flex items-center gap-1.5 text-[11.5px] text-[var(--champagne)] tracking-wide">
+                    <span className="inline-flex items-center gap-1.5 text-[13.5px] text-[var(--champagne)] tracking-wide">
                       Read article
                       <svg width="12" height="9" viewBox="0 0 12 9" fill="none" className="transition-transform group-hover:translate-x-1">
                         <path d="M0 4.5h10M7 1l3 3.5L7 8" stroke="currentColor" strokeWidth="1.4" />

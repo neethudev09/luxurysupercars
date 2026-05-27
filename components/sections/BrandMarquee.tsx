@@ -2,7 +2,9 @@ import Image from "next/image";
 import { BRAND_LOGOS } from "@/lib/assets";
 
 // Logos that ship dark-on-transparent — invert on this section's dark bg.
-const DARK_LOGOS = new Set(["McLaren", "Maserati", "Porsche"]);
+// Empty for now — the local McLaren / Maserati / Porsche / Mansory /
+// Brabus assets are already designed for a dark background.
+const DARK_LOGOS = new Set<string>();
 
 export default function BrandMarquee() {
   const logos = [...BRAND_LOGOS, ...BRAND_LOGOS]; // double for seamless loop

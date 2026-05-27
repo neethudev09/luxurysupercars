@@ -152,7 +152,7 @@ export default function SiteNav() {
                         exit={{ opacity: 0, y: 8 }}
                         transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
                         className={`absolute right-0 top-full mt-3 rounded-2xl bg-[var(--bg-obsidian)]/80 backdrop-blur-xl border border-[var(--champagne)]/40 shadow-[0_24px_60px_-20px_rgba(0,0,0,0.7)] ${
-                          isType ? "w-[660px] p-3" : "w-[760px] p-4"
+                          isType ? "w-[660px] p-3" : "w-[680px] p-3"
                         }`}
                       >
                         {isType ? (
@@ -187,7 +187,7 @@ export default function SiteNav() {
                                 key={b.name}
                                 href={`/brands/${b.slug}`}
                                 onClick={() => setHoverMenu(null)}
-                                className="group/item flex items-center gap-3.5 px-3.5 py-3 rounded-xl text-[16px] text-[var(--ink-hi)] hover:bg-white/5 hover:text-[var(--champagne-hi)] transition-colors"
+                                className="group/item flex items-center gap-3 px-3 py-1.5 rounded-xl text-[16px] text-[var(--ink-hi)] hover:bg-white/5 hover:text-[var(--champagne-hi)] transition-colors"
                               >
                                 <span className="relative shrink-0 size-12">
                                   <Image
