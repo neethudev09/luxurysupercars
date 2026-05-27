@@ -76,17 +76,6 @@ export default function FleetSection({
           </Link>
         </Reveal>
       </div>
-
-      {/* Decorative oversized faded category numeral */}
-      <div
-        aria-hidden
-        className={`pointer-events-none absolute -right-10 -bottom-20 font-[var(--font-display)] font-semibold select-none ${
-          isLight ? "text-[var(--ink-dark-hi)]/4" : "text-[var(--champagne)]/5"
-        }`}
-        style={{ fontSize: "clamp(14rem, 30vw, 28rem)", lineHeight: 1 }}
-      >
-        {eyebrow.slice(0, 1)}
-      </div>
     </section>
   );
 }

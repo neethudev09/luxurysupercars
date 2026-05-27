@@ -1,0 +1,200 @@
+[
+  {
+    "q": "What is the age limit to rent a vehicle from LuxurySuperCarsDubai.com?",
+    "a": "The age limit to benefit from our services is between 21 and 65 years. Additionally, we require our clients to possess a valid driving license for a minimum period of 1 year.",
+    "category": "documents",
+    "showOnHomepage": true
+  },
+  {
+    "q": "Which vehicles can I rent from Luxury Supercars?",
+    "a": "We offer an extensive variety of vehicles in multiple categories. All our vehicles are insured, clean and reviewed and our help desk can be contacted on a 24-hours basis.",
+    "category": "other",
+    "showOnHomepage": false
+  },
+  {
+    "q": "Can a prepayment be made for car rentals?",
+    "a": "For details in this regard, please get in touch with us at +971 50 903 8904",
+    "category": "payment",
+    "showOnHomepage": false
+  },
+  {
+    "q": "What documents will I be asked to submit when hiring a car?",
+    "a": "The documents required by Luxury Super Cars Dubai are inclusive of: Credit Card, Copy of Passport with visa page, Copy of your valid UAE driving license / Valid International License.",
+    "category": "documents",
+    "showOnHomepage": true
+  },
+  {
+    "q": "Can a reservation be modified or cancelled?",
+    "a": "You may modify or terminate your existing reservation by getting in touch with one of our customer service representatives. Please keep in mind that modifications or cancellations must be made within 48 hours.",
+    "category": "booking",
+    "showOnHomepage": false
+  },
+  {
+    "q": "How can I pay for my car rental?",
+    "a": "We have multiple payment options, including Visa, MasterCard, cash, American Express, online banking, and Bitcoin.",
+    "category": "payment",
+    "showOnHomepage": true
+  },
+  {
+    "q": "Can a rental car be reserved?",
+    "a": "Yes, all you have to do is just get in touch with one of our sales representatives to reserve a rental car from us.",
+    "category": "booking",
+    "showOnHomepage": false
+  },
+  {
+    "q": "Is a deposit required to rent a vehicle?",
+    "a": "Yes, it is necessary for a deposit to be made when renting a vehicle from us. However, the amount, deposit type payment method will vary by the type of agreement.",
+    "category": "payment",
+    "showOnHomepage": true
+  },
+  {
+    "q": "What about late return fees?",
+    "a": "We rent out vehicles on a 24-hours basis with a 1 hour grace period allotted for returns. However, after the grace period, hourly charges will be applicable.",
+    "category": "booking",
+    "showOnHomepage": false
+  },
+  {
+    "q": "Are any other charges applicable?",
+    "a": "Unless customers wish to add additional services, including urgent exchange, personal driver etc., no other fees are applicable.",
+    "category": "booking",
+    "showOnHomepage": false
+  },
+  {
+    "q": "Is it possible for me to change where I want to return the vehicle after picking it up?",
+    "a": "Yes, the rental car pick-up service location can be changed by getting in touch with our representatives. However, this must be done at least 3 to 6 hours in advance.",
+    "category": "delivery",
+    "showOnHomepage": false
+  },
+  {
+    "q": "Is roadside assistance offered in case I have problems with my car?",
+    "a": "If you have difficulties with your rental car, please contact our Sales Department. If there are any minor problems that can be addressed on the spot, we will dispatch our operations team to assist you right away.",
+    "category": "other",
+    "showOnHomepage": false
+  },
+  {
+    "q": "What should I do is the car is damaged or is involved in an accident?",
+    "a": "Do not leave the site of an accident and get in touch with the police. If no one was hurt and the vehicle received only minor damage, drivers should move their cars to the side of the road.",
+    "category": "booking",
+    "showOnHomepage": false
+  },
+  {
+    "q": "How do I book a Dubai luxury car rental?",
+    "a": "The booking process for Dubai luxury car rental is easy and straightforward. Simply visit our website, select your desired luxury car, enter your payment details, and make the reservation.",
+    "category": "payment",
+    "showOnHomepage": false
+  },
+  {
+    "q": "Do I need an international driving license to hire luxury car in Dubai?",
+    "a": "Yes, you will need a valid international driving license to rent a luxury car in Dubai.",
+    "category": "documents",
+    "showOnHomepage": false
+  },
+  {
+    "q": "Can I book more than one vehicle at once?",
+    "a": "Yes, you can book multiple vehicles simultaneously with LuxurySuperCarsDubai.com. Simply select your desired cars and make the booking.",
+    "category": "booking",
+    "showOnHomepage": false
+  },
+  {
+    "q": "Are there any additional charges on Dubai luxury car rental?",
+    "a": "No, LuxurySuperCarsDubai.com does not charge any additional fees apart from the rental price you pay for your chosen car. All our rates are transparent and include all taxes and service fees.",
+    "category": "booking",
+    "showOnHomepage": false
+  },
+  {
+    "q": "Are there any discounts available on luxury car rental in Dubai?",
+    "a": "Yes, we offer various discounts and offers throughout the year on selected luxury car models. Visit our website for more information.",
+    "category": "other",
+    "showOnHomepage": false
+  },
+  {
+    "q": "Why opt for super car rental?",
+    "a": "Supercar rental Dubai is the ideal solution for those who are looking to experience a fun and luxurious journey through Dubai. With our fleet of top-notch luxury cars, you can explore the city in style and comfort.",
+    "category": "other",
+    "showOnHomepage": false
+  },
+  {
+    "q": "Are there any age restrictions?",
+    "a": "Clients are required to be in possession of a valid driving license for a period of at least one year. Driver's minimum age limit is 21 years and maximum age limit is 65 years.",
+    "category": "documents",
+    "showOnHomepage": false
+  },
+  {
+    "q": "What documents are required to hire a car from Luxury Supercar Rentals?",
+    "a": "Copy of Passport with visa page. Copy of your valid UAE driving license / Valid International License. Credit Card",
+    "category": "documents",
+    "showOnHomepage": false
+  },
+  {
+    "q": "What payment options do you have?",
+    "a": "You can use any of the following payment methods to pay for your rental: • Cash • Visa • MasterCard • American Express • Online Banking • Bitcoin",
+    "category": "payment",
+    "showOnHomepage": false
+  },
+  {
+    "q": "May I prepay my rental?",
+    "a": "Telephone: +971 50 903 8904",
+    "category": "other",
+    "showOnHomepage": false
+  },
+  {
+    "q": "Do you require a deposit to rent a vehicle?",
+    "a": "Yes. Your deposit type, amount and method of payment will vary by agreement type.",
+    "category": "payment",
+    "showOnHomepage": false
+  },
+  {
+    "q": "Can I reserve my rental car?",
+    "a": "Yes! You can reserve a rental car from Luxury Supercar Rentals, by contacting one of our sales representatives.",
+    "category": "booking",
+    "showOnHomepage": false
+  },
+  {
+    "q": "Modification / cancellation of reservation?",
+    "a": "You can modify or cancel your existing reservation by contacting our customer care representative. Please note that any modification or cancellation by the customer will have to make within 48 hours minimum.",
+    "category": "booking",
+    "showOnHomepage": false
+  },
+  {
+    "q": "Do Late-return fees apply?",
+    "a": "Vehicles are rented on a daily (24-hour) basis. There is 1 hour (60 minutes) grace period for returns. After 1 hour, hourly car rate charges apply. After 3 hours late (180 minutes) late, full-day late charges apply.",
+    "category": "booking",
+    "showOnHomepage": false
+  },
+  {
+    "q": "Will any other fees apply?",
+    "a": "No! There is no other fees apply, unless customer wishes to add additional services (e.g. personal driver, urgent exchange, pick up, and other)",
+    "category": "delivery",
+    "showOnHomepage": false
+  },
+  {
+    "q": "What types of vehicles do you offer?",
+    "a": "Luxury Supercar Rentals offers a wide range of vehicles of different categories according to your needs, clean and reviewed, with help desk 24 hours.",
+    "category": "other",
+    "showOnHomepage": false
+  },
+  {
+    "q": "Can I change where I return a vehicle after I have picked it up?",
+    "a": "Yes. You may change rental car pick-up service location by contact our customer care representatives 3-6 hours in advance.",
+    "category": "delivery",
+    "showOnHomepage": false
+  },
+  {
+    "q": "May I extend my rental beyond the original return date?",
+    "a": "It depends on the situation. In case if your rental car is reserved by other customer, you can't extend your rent of booked cars. However, you may exchange your rental car by any other available models.",
+    "category": "booking",
+    "showOnHomepage": false
+  },
+  {
+    "q": "What should I do if I have problems with my car? Do you offer roadside assistance?",
+    "a": "Before you start driving, take a few moments to familiarize yourself with the vehicle's equipment and operation, including heat and A/C, radio, lights, windshield wipers, spare tire, seat belts and door locks, and gas tank access.",
+    "category": "other",
+    "showOnHomepage": false
+  },
+  {
+    "q": "What should I do if I'm involved in an accident or the car is damaged during my rental?",
+    "a": "If you have an accident, do not leave the scene of the accident. Contact the police. If no one was hurt and vehicle damage is minor, drivers are recommended to move their vehicles to the side of the road to avoid blocking traffic.",
+    "category": "booking",
+    "showOnHomepage": false
+  }
+]

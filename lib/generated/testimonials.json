@@ -1,0 +1,98 @@
+[
+  {
+    "name": "Mohith Miah",
+    "quote": "Excellent service from start to finish. I want to thank Ryan and Carlo. I rented the green Brabus G800.",
+    "source": "named",
+    "rating": 5,
+    "showOnHomepage": true,
+    "order": 0
+  },
+  {
+    "name": "Jack Kho",
+    "quote": "I am delighted to share my exceptional experience with the largest luxury car rental team in Dubai.",
+    "source": "named",
+    "rating": 5,
+    "showOnHomepage": true,
+    "order": 1
+  },
+  {
+    "name": "Gloria Tiwoni",
+    "quote": "I recently visited Dubai for a week and rented a McLaren from Luxury Supercar Rentals.",
+    "source": "named",
+    "rating": 5,
+    "showOnHomepage": true,
+    "order": 2
+  },
+  {
+    "name": "Chris Worstencroft",
+    "quote": "Hired Range Rover SVR from luxury super car rentals Dubai. Smooth experience from handover to collection.",
+    "source": "named",
+    "rating": 5,
+    "showOnHomepage": true,
+    "order": 3
+  },
+  {
+    "name": "Muhaimin",
+    "quote": "I recently rented three cars from Luxury Supercar Rental Dubai, and I have to say the experience was fantastic!",
+    "source": "named",
+    "rating": 5,
+    "showOnHomepage": true,
+    "order": 4
+  },
+  {
+    "name": "Louis Kent",
+    "quote": "Amazing 10/10 service, hassle free and straightforward. Special thanks to Claire & Jay",
+    "source": "google",
+    "rating": 5,
+    "showOnHomepage": false,
+    "order": 5
+  },
+  {
+    "name": "Kaan",
+    "quote": "Outstanding customer service and unbeatable selection — the team made the rental flawless from start to finish.",
+    "source": "google",
+    "rating": 5,
+    "showOnHomepage": false,
+    "order": 6
+  },
+  {
+    "name": "mihai alexandru",
+    "quote": "Amazing customer service, making it flawless and hassle free to drive any car you want.",
+    "source": "google",
+    "rating": 5,
+    "showOnHomepage": false,
+    "order": 7
+  },
+  {
+    "name": "Kashif Dogar",
+    "quote": "Best car Rental in Dubai I must recommended it.",
+    "source": "google",
+    "rating": 5,
+    "showOnHomepage": false,
+    "order": 8
+  },
+  {
+    "name": "Hassan Khreis",
+    "quote": "Really great service! Friendly! Helpful! I will definitely come back and rent a car from Luxury Supercars Rental again!",
+    "source": "google",
+    "rating": 5,
+    "showOnHomepage": false,
+    "order": 9
+  },
+  {
+    "name": "roy ashkar",
+    "quote": "Amazing customer service. Recommend for each car enthusiast to get their rental cars from them.",
+    "source": "google",
+    "rating": 5,
+    "showOnHomepage": false,
+    "order": 10
+  },
+  {
+    "name": "SULTAN ALSHAMSI",
+    "quote": "Great place to rent a car, I personally follow Ahmed on YouTube, he is a successful person",
+    "source": "google",
+    "rating": 5,
+    "showOnHomepage": false,
+    "order": 11
+  }
+]

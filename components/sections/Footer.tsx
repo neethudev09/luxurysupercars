@@ -18,7 +18,7 @@ export default function Footer() {
     <footer className="relative bg-gradient-to-b from-[var(--bg-obsidian)] to-black border-t border-white/5 overflow-hidden">
       <div className="container-x pt-14 pb-10 relative">
         <div className="grid grid-cols-2 md:grid-cols-12 gap-x-6 gap-y-10">
-          <div className="col-span-2 md:col-span-5">
+          <div className="col-span-2 md:col-span-4">
             <Link href="/" aria-label="Luxury Supercars Dubai — home" className="inline-block mb-6">
               <Image
                 src={SITE_LOGO}
@@ -48,6 +48,20 @@ export default function Footer() {
           </div>
           <div className="col-span-1 md:col-span-2">
             <p className="font-[var(--font-mono)] text-[12px] uppercase tracking-[0.22em] text-[var(--champagne)] mb-4">
+              Rent
+            </p>
+            <ul className="flex flex-col gap-1.5 text-[15px] text-[var(--ink-hi)]/80">
+              {FOOTER.rent.map((r) => (
+                <li key={r.href + r.label}>
+                  <Link href={r.href} className="hover:text-[var(--champagne)] transition-colors">
+                    {r.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="col-span-1 md:col-span-2">
+            <p className="font-[var(--font-mono)] text-[12px] uppercase tracking-[0.22em] text-[var(--champagne)] mb-4">
               Useful Links
             </p>
             <ul className="flex flex-col gap-1.5 text-[15px] text-[var(--ink-hi)]/80">
@@ -60,7 +74,7 @@ export default function Footer() {
               ))}
             </ul>
           </div>
-          <div className="col-span-2 md:col-span-3">
+          <div className="col-span-2 md:col-span-2">
             <p className="font-[var(--font-mono)] text-[12px] uppercase tracking-[0.22em] text-[var(--champagne)] mb-4">
               Contact Us
             </p>

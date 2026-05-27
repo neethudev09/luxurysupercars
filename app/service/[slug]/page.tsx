@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import SiteNav from "@/components/nav/SiteNav";
@@ -161,43 +160,28 @@ export default async function ServiceDetailPage(
               Other Services
             </p>
             <ul className="flex flex-col gap-3">
-              {others.map((o, i) => {
-                const otherImg = SERVICE_IMAGES[o.slug];
-                return (
-                  <Reveal key={o.slug} delay={i * 80}>
-                    <li className="rise">
-                      <Link
-                        href={`/service/${o.slug}`}
-                        className="group flex items-center gap-4 rounded-xl border border-white/8 bg-[var(--bg-graphite)]/30 p-3 hover:border-[var(--champagne)]/40 hover:bg-[var(--bg-graphite)]/50 transition-colors"
-                      >
-                        <div className="relative size-16 shrink-0 overflow-hidden rounded-lg">
-                          {otherImg && (
-                            <Image
-                              src={otherImg}
-                              alt=""
-                              fill
-                              sizes="64px"
-                              className="object-cover"
-                            />
-                          )}
-                          <div className="absolute inset-0 bg-black/35" />
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <p className="font-[var(--font-display)] text-[15px] leading-tight text-[var(--ink-hi)] group-hover:text-[var(--champagne-hi)] transition-colors">
-                            {o.title}
-                          </p>
-                          <p className="font-[var(--font-mono)] text-[10px] uppercase tracking-[0.22em] text-[var(--ink-lo)] mt-1">
-                            Learn more
-                          </p>
-                        </div>
-                        <svg width="13" height="9" viewBox="0 0 14 10" fill="none" className="text-[var(--ink-lo)] opacity-60 transition-transform group-hover:translate-x-1 group-hover:text-[var(--champagne)]">
-                          <path d="M0 5h12M8 1l4 4-4 4" stroke="currentColor" strokeWidth="1.5" />
-                        </svg>
-                      </Link>
-                    </li>
-                  </Reveal>
-                );
-              })}
+              {others.map((o, i) => (
+                <Reveal key={o.slug} delay={i * 80}>
+                  <li className="rise">
+                    <Link
+                      href={`/service/${o.slug}`}
+                      className="group flex items-center gap-4 rounded-xl border border-white/8 bg-[var(--bg-graphite)]/30 px-4 py-4 hover:border-[var(--champagne)]/40 hover:bg-[var(--bg-graphite)]/50 transition-colors"
+                    >
+                      <div className="flex-1 min-w-0">
+                        <p className="font-[var(--font-display)] text-[15px] leading-tight text-[var(--ink-hi)] group-hover:text-[var(--champagne-hi)] transition-colors">
+                          {o.title}
+                        </p>
+                        <p className="font-[var(--font-mono)] text-[10px] uppercase tracking-[0.22em] text-[var(--ink-lo)] mt-1">
+                          Learn more
+                        </p>
+                      </div>
+                      <svg width="13" height="9" viewBox="0 0 14 10" fill="none" className="text-[var(--ink-lo)] opacity-60 transition-transform group-hover:translate-x-1 group-hover:text-[var(--champagne)]">
+                        <path d="M0 5h12M8 1l4 4-4 4" stroke="currentColor" strokeWidth="1.5" />
+                      </svg>
+                    </Link>
+                  </li>
+                </Reveal>
+              ))}
             </ul>
           </aside>
         </div>

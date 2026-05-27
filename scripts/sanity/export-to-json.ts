@@ -1,20 +1,29 @@
 /**
  * Build-time Sanity export.
  *
- * Pulls cars + blog posts out of Sanity and writes them into the JSON
- * files the app already reads (lib/fleet-data.json, lib/blog-data.json,
- * lib/featured-cars.json) — in the EXACT existing shapes, so no render
- * code changes.
+ * Pulls every CMS-backed content type out of Sanity and writes it into
+ * the JSON files the app reads — in the EXACT shapes the render code
+ * already expects, so no render code changes:
+ *
+ *   lib/fleet-data.json          cars
+ *   lib/blog-data.json           blog posts
+ *   lib/featured-cars.json       homepage featured-car map
+ *   lib/generated/site-settings.json   contact, social, footer blurb
+ *   lib/generated/testimonials.json    customer reviews
+ *   lib/generated/faq.json             FAQ entries (page + homepage)
+ *   lib/generated/services.json        service detail pages
+ *   lib/generated/brands.json          the 13 long-form brand pages
  *
  * Wired as the `prebuild` npm script: every `next build` regenerates
  * these files from Sanity first. A Sanity webhook → Vercel Deploy Hook
  * means an editor publish triggers a rebuild → site updates.
  *
  * Safe to run locally any time: `npx tsx scripts/sanity/export-to-json.ts`
- * Re-runnable / idempotent. If Sanity is unreachable it exits non-zero
- * WITHOUT touching the files, so a flaky network never wipes content.
+ * Re-runnable / idempotent. If Sanity is unreachable — or returns an
+ * empty set for any type — it exits non-zero WITHOUT touching the files,
+ * so a flaky network or a bad query never wipes content.
  */
-import { writeFileSync } from "node:fs";
+import { mkdirSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { client } from "./lib";
@@ -23,12 +32,13 @@ const ROOT = resolve(fileURLToPath(new URL(".", import.meta.url)), "../..");
 const SITE = "https://luxurysupercarsdubai.com";
 
 /* -------------------------------------------------------------------------- */
-/*  Portable Text → plain text                                                */
+/*  Helpers                                                                   */
 /* -------------------------------------------------------------------------- */
 
 interface PtSpan { _type: string; text?: string }
 interface PtBlock { _type: string; children?: PtSpan[] }
 
+/** Portable Text → plain text, one paragraph per block, joined by blank lines. */
 function portableTextToPlain(blocks: PtBlock[] | undefined): string {
   if (!Array.isArray(blocks)) return "";
   return blocks
@@ -51,6 +61,13 @@ function str(v: unknown): string | undefined {
 }
 function num(v: unknown): number | undefined {
   return typeof v === "number" && !Number.isNaN(v) ? v : undefined;
+}
+
+/** Like `str`, but yields a stable "" instead of `undefined` — keeps the
+ *  shape of always-present string fields constant. Never trims, so SEO
+ *  copy round-trips byte-for-byte. */
+function text(v: unknown): string {
+  return v == null ? "" : String(v);
 }
 
 /* -------------------------------------------------------------------------- */
@@ -217,22 +234,299 @@ function mapBlogPost(p: SanityBlogPost) {
 }
 
 /* -------------------------------------------------------------------------- */
+/*  Site settings → lib/generated/site-settings.json                          */
+/* -------------------------------------------------------------------------- */
+
+interface SanitySiteSettings {
+  title?: string;
+  description?: string;
+  contact?: {
+    primaryPhone?: string;
+    secondaryPhone?: string;
+    landline?: string;
+    email?: string;
+    address?: string;
+    altAddress?: string;
+  };
+  social?: {
+    facebook?: string;
+    instagram?: string;
+    twitter?: string;
+    youtube?: string;
+    tiktok?: string;
+  };
+  footerDescription?: string;
+}
+
+const SITE_SETTINGS_QUERY = `*[_id == "siteSettings"][0]{
+  title, description, contact, social, footerDescription
+}`;
+
+function mapSiteSettings(s: SanitySiteSettings) {
+  return {
+    title: text(s.title),
+    description: text(s.description),
+    contact: {
+      primaryPhone: text(s.contact?.primaryPhone),
+      secondaryPhone: text(s.contact?.secondaryPhone),
+      landline: text(s.contact?.landline),
+      email: text(s.contact?.email),
+      address: text(s.contact?.address),
+      altAddress: text(s.contact?.altAddress),
+    },
+    social: {
+      facebook: text(s.social?.facebook),
+      instagram: text(s.social?.instagram),
+      twitter: text(s.social?.twitter),
+      youtube: text(s.social?.youtube),
+      tiktok: text(s.social?.tiktok),
+    },
+    footerDescription: text(s.footerDescription),
+  };
+}
+
+/* -------------------------------------------------------------------------- */
+/*  Testimonials → lib/generated/testimonials.json                            */
+/* -------------------------------------------------------------------------- */
+
+interface SanityTestimonial {
+  name?: string;
+  quote?: string;
+  source?: string;
+  rating?: number;
+  showOnHomepage?: boolean;
+  order?: number;
+}
+
+const TESTIMONIAL_QUERY = `*[_type == "testimonial"] | order(order asc){
+  name, quote, source, rating, showOnHomepage, order
+}`;
+
+function mapTestimonial(t: SanityTestimonial) {
+  return {
+    name: text(t.name),
+    quote: text(t.quote),
+    source: t.source === "google" ? "google" : "named",
+    rating: num(t.rating) ?? 5,
+    showOnHomepage: t.showOnHomepage !== false,
+    order: num(t.order) ?? 0,
+  };
+}
+
+/* -------------------------------------------------------------------------- */
+/*  FAQ → lib/generated/faq.json                                              */
+/* -------------------------------------------------------------------------- */
+
+interface SanityFaq {
+  question?: string;
+  answer?: string;
+  category?: string;
+  showOnHomepage?: boolean;
+}
+
+const FAQ_QUERY = `*[_type == "faq"] | order(order asc, question asc){
+  question, answer, category, showOnHomepage
+}`;
+
+function mapFaq(f: SanityFaq) {
+  return {
+    q: text(f.question),
+    a: text(f.answer),
+    category: text(f.category) || "other",
+    showOnHomepage: f.showOnHomepage === true,
+  };
+}
+
+/* -------------------------------------------------------------------------- */
+/*  Services → lib/generated/services.json                                    */
+/* -------------------------------------------------------------------------- */
+
+interface SanityService {
+  title?: string;
+  slug?: string;
+  summary?: string;
+  h1?: string;
+  body?: PtBlock[];
+  seo?: { title?: string; description?: string };
+}
+
+const SERVICE_QUERY = `*[_type == "service" && defined(slug.current)] | order(order asc){
+  title, "slug": slug.current, summary, h1, body, seo
+}`;
+
+function mapService(s: SanityService) {
+  const paragraphs = portableTextToPlain(s.body)
+    .split(/\n{2,}/)
+    .map((p) => p.trim())
+    .filter(Boolean);
+  return {
+    slug: text(s.slug),
+    title: text(s.title),
+    summary: text(s.summary),
+    h1: text(s.h1),
+    metaTitle: text(s.seo?.title),
+    metaDescription: text(s.seo?.description),
+    paragraphs,
+  };
+}
+
+/* -------------------------------------------------------------------------- */
+/*  Brands → lib/generated/brands.json                                        */
+/* -------------------------------------------------------------------------- */
+
+/**
+ * Brand-page "visible title" — the heading shown on the brand hero and
+ * the prefix of its FAQ heading ("{visibleTitle} FAQs"). Not a Sanity
+ * field: the live site uses a simplified form that doesn't derive cleanly
+ * from the brand display name ("Mclaren" vs "McLaren", "Mercedes Benz" vs
+ * "Mercedes-Benz", "Rolls Royce" vs "Rolls-Royce"), so it's pinned here
+ * keyed by slug. A brand absent from this map falls back to displayName.
+ */
+const BRAND_VISIBLE_TITLES: Record<string, string> = {
+  "rent-aston-martin-dubai": "Aston Martin",
+  "rent-audi-dubai": "Audi",
+  "rent-bentley-dubai": "Bentley",
+  "rent-bmw-dubai": "BMW",
+  "rent-cadillac-dubai": "Cadillac",
+  "rent-ferrari-dubai": "Ferrari",
+  "rent-lamborghini-dubai": "Lamborghini",
+  "rent-maserati-dubai": "Maserati",
+  "rent-mclaren-dubai": "Mclaren",
+  "rent-mercedes-benz-dubai": "Mercedes Benz",
+  "rent-porsche-dubai": "Porsche",
+  "rent-range-rover-dubai": "Range Rover",
+  "rent-rolls-royce-dubai": "Rolls Royce",
+};
+
+type BrandSectionBlock =
+  | { kind: "paragraph"; text: string }
+  | { kind: "list"; items: string[] }
+  | { kind: "table"; headers: string[]; rows: string[][] };
+
+interface PtBodyBlock {
+  _type: string;
+  style?: string;
+  listItem?: string;
+  children?: PtSpan[];
+  headers?: string[];
+  rows?: { cells?: string[] }[];
+}
+
+interface SanityBrand {
+  displayName: string;
+  slug: string;
+  h1: string;
+  sections?: { h2: string; body?: PtBodyBlock[] }[];
+  faqs?: { question?: string; answer?: string }[];
+  seo?: { title?: string; description?: string };
+}
+
+const BRAND_QUERY = `*[_type == "brand" && defined(slug.current)] | order(slug.current asc){
+  displayName,
+  "slug": slug.current,
+  h1,
+  sections[]{ h2, body },
+  faqs[]{ question, answer },
+  seo
+}`;
+
+/**
+ * Inverse of blockToPortableText() in migrate-brands.ts — turns a brand
+ * section's Portable Text body back into the structured block list the
+ * renderer expects:
+ *   - normal block (no listItem)        → { kind: "paragraph" }
+ *   - consecutive `bullet` list blocks  → one { kind: "list" }
+ *   - custom `pricingTable` object      → { kind: "table" }
+ * Text is taken verbatim (no trimming) so SEO copy round-trips exactly.
+ */
+function portableTextToBrandBlocks(body: PtBodyBlock[] | undefined): BrandSectionBlock[] {
+  const out: BrandSectionBlock[] = [];
+  let listBuf: string[] | null = null;
+  const flushList = () => {
+    if (listBuf && listBuf.length) out.push({ kind: "list", items: listBuf });
+    listBuf = null;
+  };
+
+  for (const block of body || []) {
+    if (block._type === "pricingTable") {
+      flushList();
+      out.push({
+        kind: "table",
+        headers: (block.headers || []).map((h) => text(h)),
+        rows: (block.rows || []).map((r) => (r.cells || []).map((c) => text(c))),
+      });
+      continue;
+    }
+    if (block._type === "block") {
+      const value = (block.children || []).map((c) => c.text || "").join("");
+      if (block.listItem === "bullet") {
+        if (!listBuf) listBuf = [];
+        if (value.trim()) listBuf.push(value);
+      } else {
+        flushList();
+        if (value.trim()) out.push({ kind: "paragraph", text: value });
+      }
+    }
+  }
+  flushList();
+  return out;
+}
+
+function mapBrand(b: SanityBrand) {
+  const visibleTitle = BRAND_VISIBLE_TITLES[b.slug] ?? b.displayName;
+  return {
+    slug: b.slug,
+    displayName: b.displayName,
+    title: text(b.seo?.title),
+    description: text(b.seo?.description),
+    h1: b.h1,
+    visibleTitle,
+    sections: (b.sections || []).map((s) => ({
+      h2: s.h2,
+      body: portableTextToBrandBlocks(s.body),
+    })),
+    faqs: (b.faqs || []).map((f) => ({ q: text(f.question), a: text(f.answer) })),
+    faqHeading: `${visibleTitle} FAQs`,
+  };
+}
+
+/* -------------------------------------------------------------------------- */
 /*  Main                                                                      */
 /* -------------------------------------------------------------------------- */
+
+function writeJson(relPath: string, data: unknown) {
+  writeFileSync(resolve(ROOT, relPath), JSON.stringify(data, null, 2) + "\n");
+}
 
 async function main() {
   console.log("[export] fetching from Sanity…");
 
-  const [cars, posts] = await Promise.all([
-    client.fetch<SanityCar[]>(CAR_QUERY),
-    client.fetch<SanityBlogPost[]>(BLOG_QUERY),
-  ]);
+  const [cars, posts, siteSettings, testimonials, faqs, services, brands] =
+    await Promise.all([
+      client.fetch<SanityCar[]>(CAR_QUERY),
+      client.fetch<SanityBlogPost[]>(BLOG_QUERY),
+      client.fetch<SanitySiteSettings | null>(SITE_SETTINGS_QUERY),
+      client.fetch<SanityTestimonial[]>(TESTIMONIAL_QUERY),
+      client.fetch<SanityFaq[]>(FAQ_QUERY),
+      client.fetch<SanityService[]>(SERVICE_QUERY),
+      client.fetch<SanityBrand[]>(BRAND_QUERY),
+    ]);
 
-  if (!Array.isArray(cars) || cars.length === 0) {
-    throw new Error("No cars returned from Sanity — aborting (existing JSON left untouched).");
-  }
-  if (!Array.isArray(posts) || posts.length === 0) {
-    throw new Error("No blog posts returned from Sanity — aborting (existing JSON left untouched).");
+  // Fail-safe: if ANY type comes back empty, abort without writing — a
+  // bad query or network blip must never blank out live content.
+  const requireRows = (label: string, rows: unknown) => {
+    if (!Array.isArray(rows) || rows.length === 0) {
+      throw new Error(`No ${label} returned from Sanity — aborting (existing JSON left untouched).`);
+    }
+  };
+  requireRows("cars", cars);
+  requireRows("blog posts", posts);
+  requireRows("testimonials", testimonials);
+  requireRows("FAQs", faqs);
+  requireRows("services", services);
+  requireRows("brands", brands);
+  if (!siteSettings || typeof siteSettings !== "object") {
+    throw new Error("No siteSettings returned from Sanity — aborting (existing JSON left untouched).");
   }
 
   // Cars — sorted by brand then slug for stable diffs.
@@ -251,26 +545,39 @@ async function main() {
   // Blog posts — newest first (query already orders).
   const blog = posts.map(mapBlogPost);
 
-  writeFileSync(resolve(ROOT, "lib/fleet-data.json"), JSON.stringify(fleet, null, 2) + "\n");
-  writeFileSync(resolve(ROOT, "lib/blog-data.json"), JSON.stringify(blog, null, 2) + "\n");
-  writeFileSync(
-    resolve(ROOT, "lib/featured-cars.json"),
-    JSON.stringify(
-      {
-        _comment:
-          "GENERATED from Sanity car.featuredIn by scripts/sanity/export-to-json.ts. Do not hand-edit — toggle 'Featured on homepage in...' on the car in /studio instead.",
-        ...featured,
-      },
-      null,
-      2,
-    ) + "\n",
-  );
+  // Remaining CMS types → lib/generated/.
+  const settingsOut = mapSiteSettings(siteSettings);
+  const testimonialsOut = testimonials.map(mapTestimonial);
+  const faqOut = faqs.map(mapFaq);
+  const servicesOut = services.map(mapService);
+  const brandsOut = Object.fromEntries(brands.map((b) => [b.slug, mapBrand(b)]));
 
-  console.log(`[export] wrote lib/fleet-data.json    (${fleet.length} cars)`);
-  console.log(`[export] wrote lib/blog-data.json     (${blog.length} posts)`);
+  mkdirSync(resolve(ROOT, "lib/generated"), { recursive: true });
+
+  writeJson("lib/fleet-data.json", fleet);
+  writeJson("lib/blog-data.json", blog);
+  writeJson("lib/featured-cars.json", {
+    _comment:
+      "GENERATED from Sanity car.featuredIn by scripts/sanity/export-to-json.ts. Do not hand-edit — toggle 'Featured on homepage in...' on the car in /studio instead.",
+    ...featured,
+  });
+  writeJson("lib/generated/site-settings.json", settingsOut);
+  writeJson("lib/generated/testimonials.json", testimonialsOut);
+  writeJson("lib/generated/faq.json", faqOut);
+  writeJson("lib/generated/services.json", servicesOut);
+  writeJson("lib/generated/brands.json", brandsOut);
+
+  const homepageFaqs = faqOut.filter((f) => f.showOnHomepage).length;
+  console.log(`[export] wrote lib/fleet-data.json            (${fleet.length} cars)`);
+  console.log(`[export] wrote lib/blog-data.json             (${blog.length} posts)`);
   console.log(
-    `[export] wrote lib/featured-cars.json (sports ${featured.sports.length}, convertible ${featured.convertible.length}, luxury ${featured.luxury.length}, suv ${featured.suv.length})`,
+    `[export] wrote lib/featured-cars.json         (sports ${featured.sports.length}, convertible ${featured.convertible.length}, luxury ${featured.luxury.length}, suv ${featured.suv.length})`,
   );
+  console.log(`[export] wrote lib/generated/site-settings.json`);
+  console.log(`[export] wrote lib/generated/testimonials.json (${testimonialsOut.length} reviews)`);
+  console.log(`[export] wrote lib/generated/faq.json          (${faqOut.length} entries, ${homepageFaqs} on homepage)`);
+  console.log(`[export] wrote lib/generated/services.json     (${servicesOut.length} services)`);
+  console.log(`[export] wrote lib/generated/brands.json       (${brands.length} brands)`);
 }
 
 main().catch((e) => {

@@ -45,7 +45,7 @@ export default function ServicesPage() {
         />
 
         <div className="container-x relative">
-          <ul className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
+          <ul className="mx-auto grid max-w-[1200px] grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
             {SERVICES_PAGE.items.map((service, i) => (
               <ServiceCard key={service.slug} service={service} delay={i * 90} />
             ))}
@@ -73,7 +73,7 @@ function ServiceCard({
       <li className="rise list-none h-full">
         <Link
           href={`/service/${service.slug}`}
-          className="group block h-full rounded-2xl border border-white/8 bg-[var(--bg-graphite)]/40 p-6 md:p-8 hover:border-[var(--champagne)]/60 hover:bg-[var(--bg-graphite)]/60 transition-colors"
+          className="group flex h-full min-h-[340px] flex-col rounded-2xl border border-white/8 bg-[var(--bg-graphite)]/40 p-8 md:p-10 hover:border-[var(--champagne)]/60 hover:bg-[var(--bg-graphite)]/60 transition-colors"
         >
           <p className="font-[var(--font-mono)] text-[10.5px] uppercase tracking-[0.28em] text-[var(--champagne)] mb-3">
             Service
@@ -84,7 +84,7 @@ function ServiceCard({
           <p className="text-[14.5px] leading-[1.65] text-[var(--ink-lo)] mb-5">
             {service.summary}
           </p>
-          <span className="inline-flex items-center gap-2 text-[12.5px] text-[var(--champagne)] group-hover:text-[var(--champagne-hi)] transition-colors">
+          <span className="mt-auto inline-flex items-center gap-2 text-[12.5px] text-[var(--champagne)] group-hover:text-[var(--champagne-hi)] transition-colors">
             Learn more
             <svg width="13" height="9" viewBox="0 0 14 10" fill="none" className="transition-transform group-hover:translate-x-1">
               <path d="M0 5h12M8 1l4 4-4 4" stroke="currentColor" strokeWidth="1.5" />

@@ -3,7 +3,16 @@
  * luxurysupercarsdubai.com — preserves SEO crawl signals.
  * Heading strings use **bold** markers; renderer parses them into
  * champagne-italic spans.
+ *
+ * CMS-backed slices (CONTACT, SOCIAL, FOOTER.description, TESTIMONIALS,
+ * FAQ, FAQ_PAGE, SERVICES_PAGE.items) are sourced from lib/generated/*.json,
+ * which scripts/sanity/export-to-json.ts regenerates from Sanity on every
+ * build. Everything else here is hand-authored and not in the CMS.
  */
+import siteSettingsData from "./generated/site-settings.json";
+import testimonialsData from "./generated/testimonials.json";
+import faqData from "./generated/faq.json";
+import servicesData from "./generated/services.json";
 
 export const NAV_LINKS = [
   { label: "Home", href: "/" },
@@ -26,24 +35,13 @@ export const CARS_BRANDS = [
   "Porsche", "Range Rover",
 ];
 
-export const CONTACT = {
-  primaryPhone: "+971 56 526 6295",
-  secondaryPhone: "+971 50 790 3412",
-  landline: "+971 4 546 6616",
-  email: "info@luxurysupercarsdubai.com",
-  address: "59MJ+F95 - Showroom 317 - Nadd Al Hamar - Dubai",
-};
+// Phone numbers, email, showroom address — from Sanity `siteSettings`.
+export const CONTACT = siteSettingsData.contact;
 
-export const SOCIAL = {
-  facebook: "https://www.facebook.com/luxurysupercarsdubai/",
-  instagram: "https://www.instagram.com/luxurysupercarsdubai/",
-  // Live site only carries a placeholder twitter.com link with no handle —
-  // intentionally blank here so no UI surfaces an empty/dead profile.
-  // Set this once an actual @handle exists.
-  twitter: "",
-  youtube: "https://www.youtube.com/@Ahmed.Amwell",
-  tiktok: "https://www.tiktok.com/@luxurysupercarsdubai/",
-};
+// Social profile URLs — from Sanity `siteSettings`. `twitter` is currently
+// a placeholder and is not surfaced by any UI (nav + footer render only
+// facebook/instagram/youtube/tiktok).
+export const SOCIAL = siteSettingsData.social;
 
 export const HERO = {
   // Owner-approved rewrite (2026-05-13) — replaces the live site's ungrammatical
@@ -123,27 +121,19 @@ export const REQUIREMENTS = {
   ],
 } as const;
 
+// Reviews — from Sanity `testimonial` docs, split by `source` into the
+// two marquee tracks. Section heading is hand-authored.
 export const TESTIMONIALS = {
   id: "testimonials",
   eyebrow: "Reviews",
   h2: "What Our **Customers** are Saying **About Us**",
-  named: [
-    { name: "Mohith Miah",      quote: "Excellent service from start to finish. I want to thank Ryan and Carlo. I rented the green Brabus G800." },
-    { name: "Jack Kho",         quote: "I am delighted to share my exceptional experience with the largest luxury car rental team in Dubai." },
-    { name: "Gloria Tiwoni",    quote: "I recently visited Dubai for a week and rented a McLaren from Luxury Supercar Rentals." },
-    { name: "Chris Worstencroft", quote: "Hired Range Rover SVR from luxury super car rentals Dubai. Smooth experience from handover to collection." },
-    { name: "Muhaimin",         quote: "I recently rented three cars from Luxury Supercar Rental Dubai, and I have to say the experience was fantastic!" },
-  ],
-  google: [
-    { name: "Louis Kent",       quote: "Amazing 10/10 service, hassle free and straightforward. Special thanks to Claire & Jay" },
-    { name: "Kaan",             quote: "Outstanding customer service and unbeatable selection — the team made the rental flawless from start to finish." },
-    { name: "mihai alexandru",  quote: "Amazing customer service, making it flawless and hassle free to drive any car you want." },
-    { name: "Kashif Dogar",     quote: "Best car Rental in Dubai I must recommended it." },
-    { name: "Hassan Khreis",    quote: "Really great service! Friendly! Helpful! I will definitely come back and rent a car from Luxury Supercars Rental again!" },
-    { name: "roy ashkar",       quote: "Amazing customer service. Recommend for each car enthusiast to get their rental cars from them." },
-    { name: "SULTAN ALSHAMSI",  quote: "Great place to rent a car, I personally follow Ahmed on YouTube, he is a successful person" },
-  ],
-} as const;
+  named: testimonialsData
+    .filter((t) => t.source === "named")
+    .map((t) => ({ name: t.name, quote: t.quote })),
+  google: testimonialsData
+    .filter((t) => t.source === "google")
+    .map((t) => ({ name: t.name, quote: t.quote })),
+};
 
 export const WHY_US = {
   id: "why",
@@ -169,30 +159,43 @@ export const WHY_US = {
   ],
 } as const;
 
+/**
+ * Homepage FAQ teaser fallback — the 4 entries originally hand-authored
+ * for the homepage. The live data now comes from Sanity `faq` docs flagged
+ * "Show in homepage FAQ teaser"; this array only renders if an editor
+ * un-ticks every entry, so the homepage section never goes blank.
+ */
+const HOMEPAGE_FAQ_FALLBACK = [
+  {
+    q: "What is the age limit to rent a vehicle from LuxurySuperCarsDubai.com?",
+    a: "The age limit to benefit from our services is between 21 and 65 years. Additionally, we require our clients to possess a valid driving license for a minimum period of 1 year.",
+  },
+  {
+    q: "What documents will I be asked to submit when hiring a car?",
+    a: "The documents required by Luxury Super Cars Dubai are inclusive of: Credit Card, Copy of Passport with visa page, Copy of your valid UAE driving license / Valid International License.",
+  },
+  {
+    q: "How can I pay for my car rental?",
+    a: "We have multiple payment options, including Visa, MasterCard, cash, American Express, online banking, and Bitcoin.",
+  },
+  {
+    q: "Is a deposit required to rent a vehicle?",
+    a: "Yes, it is necessary for a deposit to be made when renting a vehicle from us. However, the amount, deposit type payment method will vary by the type of agreement.",
+  },
+];
+
+const homepageFaqItems = faqData
+  .filter((f) => f.showOnHomepage)
+  .map((f) => ({ q: f.q, a: f.a }));
+
+// Homepage FAQ section — items from Sanity (showOnHomepage entries).
 export const FAQ = {
   id: "faq",
   eyebrow: "FAQs",
   h2: "FAQs",
   h3: "**Everything** You Need To Know About Our **Services**",
-  items: [
-    {
-      q: "What is the age limit to rent a vehicle from LuxurySuperCarsDubai.com?",
-      a: "The age limit to benefit from our services is between 21 and 65 years. Additionally, we require our clients to possess a valid driving license for a minimum period of 1 year.",
-    },
-    {
-      q: "What documents will I be asked to submit when hiring a car?",
-      a: "The documents required by Luxury Super Cars Dubai are inclusive of: Credit Card, Copy of Passport with visa page, Copy of your valid UAE driving license / Valid International License.",
-    },
-    {
-      q: "How can I pay for my car rental?",
-      a: "We have multiple payment options, including Visa, MasterCard, cash, American Express, online banking, and Bitcoin.",
-    },
-    {
-      q: "Is a deposit required to rent a vehicle?",
-      a: "Yes, it is necessary for a deposit to be made when renting a vehicle from us. However, the amount, deposit type payment method will vary by the type of agreement.",
-    },
-  ],
-} as const;
+  items: homepageFaqItems.length ? homepageFaqItems : HOMEPAGE_FAQ_FALLBACK,
+};
 
 export const BLOG = {
   id: "blog",
@@ -262,102 +265,27 @@ export const SERVICES_PAGE = {
     "Explore the full range of services from Luxury Supercars Dubai — long-term rental, self-drive, weddings and special events, and gift vouchers. Premium service across Dubai with 24/7 concierge support.",
   h1: "Providing Amazing Service To Our Clients",
   body: "If you are looking to rent the latest luxury Car in Dubai, luxurysupercarsdubai.com is a one-stop destination for all. You can avail the widest range of the most exotic luxury cars, including everything from the latest Sports Cars, Convertible Cars, SUVs, Supercars, and Prestige Cars, all of which would surely provide you with a fascinating experience.",
-  items: [
-    {
-      slug: "gift-vouchers",
-      title: "Gift Vouchers",
-      summary: "Give the gift of a supercar experience — bespoke vouchers redeemable across our entire fleet.",
-      metaTitle: "Gift Vouchers | Luxury Supercars Dubai",
-      metaDescription:
-        "Surprise someone with a Luxury Supercars Dubai gift voucher — bespoke gift cards for any occasion, redeemable across our full fleet of exotic cars.",
-      h1: "Gift Vouchers",
-      paragraphs: [
-        "There's no better gift than a fancy ride in Dubai's streets. Allow your loved ones to feel special while riding in Dubai's elite car collection from Luxury Supercar Rentals.",
-        "Our offices provide gift cards and vouchers for all your occasions.",
-        "Do not hesitate to get more information about our gift vouchers program.",
-      ],
-    },
-    {
-      slug: "long-term-rental",
-      title: "Long Term Rental",
-      summary: "Weekly and monthly contracts on luxury and sports cars with concierge handover and full support.",
-      metaTitle: "Long Term Car Rental Dubai | Long Term Car Rental UAE",
-      metaDescription:
-        "Long-term luxury car rental in Dubai — monthly and weekly contracts with rates that drop the longer you rent. Drive a premium car without exceeding your budget.",
-      h1: "Long Term Rental",
-      paragraphs: [
-        "For long-term travel plans and replacement car needs, an affordable monthly rental from Luxury Supercar Rentals can be the ideal solution. The longer you choose to rent with Luxury Supercar Rentals, the cheaper the price becomes, meaning you can drive that premium rental car you've always wanted for a price that doesn't exceed the budget.",
-      ],
-    },
-    {
-      slug: "self-drive-car-rental",
-      title: "Self Drive Car Rental",
-      summary: "Take the wheel yourself — straightforward bookings, transparent pricing, free delivery across Dubai.",
-      metaTitle: "Self Drive Car Rental Dubai | Luxury Supercars Dubai",
-      metaDescription:
-        "Self drive luxury car rental in Dubai — over 50 prestige and supercars from Ferrari, Lamborghini, Bentley, Rolls-Royce and more. Free pickup and delivery, insurance included.",
-      h1: "Self Drive Car Rental",
-      paragraphs: [
-        "Luxury Supercar Rentals Dubai prides itself on being the leading prestige and performance car hire company in the industry. At Luxury Supercar Rentals, we give you the opportunity to get your pulse racing, make a lasting impression at your next corporate or social event, or simply drive the car of your dreams. We don't just offer you a luxury car model; we also offer you a luxury car hire experience.",
-        "Our staff are fully trained to ensure your luxury car comes to you spotless and well-serviced so you can be confident that the vehicle you're driving is safe, performing to its highest standard, and of prestige quality.",
-        "Our luxury car rental service is tailored to suit your lifestyle whether you want comfort, speed, economy or a combination of all three. We will source the best vehicle for you. With a fleet of over 50 different prestige, luxury and supercars, we offer an unrivalled selection, including exclusive models from Ferrari, Lamborghini, Bentley, Rolls Royce, Maserati, Mercedes, BMW, Porsche and Audi. At LSR we pride ourselves on client satisfaction, which is why we offer a superb selection of Luxury cars at fantastic value for money prices. Our service includes exclusive benefits such as Free Pick up & drop off anywhere in Dubai, discounts on long term rental hire and insurance included across our entire fleet.",
-      ],
-    },
-    {
-      slug: "weddings-special-events",
-      title: "Wedding & Special Events",
-      summary: "Make your day unforgettable with a fleet of Rolls-Royce, Ferrari, and Lamborghini cars chauffeured to your event.",
-      metaTitle: "Wedding Car Rental Dubai | Special Event Car Rental Services",
-      metaDescription:
-        "Bridal Rolls-Royce, Ferrari convoys, and bespoke fleets for weddings and special events across Dubai. Expert event coordination, flawless presentation, standby cars on call.",
-      h1: "Wedding & Special Event Luxury Cars Dubai | Exotic Car Hire",
-      paragraphs: [
-        "Turn your special day or wedding day into an event that is truly unforgettable with Luxury Supercars Dubai. With bridal Rolls-Royce, Ferrari convoys, our fleet makes your event as legendary as Dubai.",
-        "Event expertise – Hundreds of weddings and A-list events planned. Flawless presentation – Cars delivered sleek and adorned to your décor. Customized support – Coordination with event planners and photographers. Back-up readiness – Standby cars always available for peace of mind.",
-      ],
-    },
-  ],
-} as const;
+  // Service detail cards — from Sanity `service` docs (slug, title,
+  // summary, h1, SEO, flattened body paragraphs).
+  items: servicesData,
+};
 
-// Live: /faq/ — full Q&A set extracted from the live page. Homepage uses a
-// subset via FAQ.items; this is the complete list for the dedicated /faq/ route.
+// Live: /faq/ — full Q&A set. Items come from Sanity `faq` docs that are
+// NOT flagged for the homepage teaser; the homepage-only entries feed FAQ
+// above. metaTitle/metaDescription/h1 are hand-authored page-level copy.
+const faqPageItems = faqData
+  .filter((f) => !f.showOnHomepage)
+  .map((f) => ({ q: f.q, a: f.a }));
+
 export const FAQ_PAGE = {
   metaTitle: "FAQs | Luxury Car Rental Dubai Questions Answered",
   metaDescription:
     "Find answers to every question about renting a luxury car in Dubai — age limits, required documents, payment options, deposits, deliveries, and more.",
   h1: "Frequently Asked Questions",
-  items: [
-    { q: "Which vehicles can I rent from Luxury Supercars?", a: "We offer an extensive variety of vehicles in multiple categories. All our vehicles are insured, clean and reviewed and our help desk can be contacted on a 24-hours basis." },
-    { q: "Can a prepayment be made for car rentals?", a: "For details in this regard, please get in touch with us at +971 50 903 8904" },
-    { q: "Can a reservation be modified or cancelled?", a: "You may modify or terminate your existing reservation by getting in touch with one of our customer service representatives. Please keep in mind that modifications or cancellations must be made within 48 hours." },
-    { q: "Can a rental car be reserved?", a: "Yes, all you have to do is just get in touch with one of our sales representatives to reserve a rental car from us." },
-    { q: "What about late return fees?", a: "We rent out vehicles on a 24-hours basis with a 1 hour grace period allotted for returns. However, after the grace period, hourly charges will be applicable." },
-    { q: "Are any other charges applicable?", a: "Unless customers wish to add additional services, including urgent exchange, personal driver etc., no other fees are applicable." },
-    { q: "Is it possible for me to change where I want to return the vehicle after picking it up?", a: "Yes, the rental car pick-up service location can be changed by getting in touch with our representatives. However, this must be done at least 3 to 6 hours in advance." },
-    { q: "Is roadside assistance offered in case I have problems with my car?", a: "If you have difficulties with your rental car, please contact our Sales Department. If there are any minor problems that can be addressed on the spot, we will dispatch our operations team to assist you right away." },
-    { q: "What should I do is the car is damaged or is involved in an accident?", a: "Do not leave the site of an accident and get in touch with the police. If no one was hurt and the vehicle received only minor damage, drivers should move their cars to the side of the road." },
-    { q: "How do I book a Dubai luxury car rental?", a: "The booking process for Dubai luxury car rental is easy and straightforward. Simply visit our website, select your desired luxury car, enter your payment details, and make the reservation." },
-    { q: "Do I need an international driving license to hire luxury car in Dubai?", a: "Yes, you will need a valid international driving license to rent a luxury car in Dubai." },
-    { q: "Can I book more than one vehicle at once?", a: "Yes, you can book multiple vehicles simultaneously with LuxurySuperCarsDubai.com. Simply select your desired cars and make the booking." },
-    { q: "Are there any additional charges on Dubai luxury car rental?", a: "No, LuxurySuperCarsDubai.com does not charge any additional fees apart from the rental price you pay for your chosen car. All our rates are transparent and include all taxes and service fees." },
-    { q: "Are there any discounts available on luxury car rental in Dubai?", a: "Yes, we offer various discounts and offers throughout the year on selected luxury car models. Visit our website for more information." },
-    { q: "Why opt for super car rental?", a: "Supercar rental Dubai is the ideal solution for those who are looking to experience a fun and luxurious journey through Dubai. With our fleet of top-notch luxury cars, you can explore the city in style and comfort." },
-    { q: "Are there any age restrictions?", a: "Clients are required to be in possession of a valid driving license for a period of at least one year. Driver's minimum age limit is 21 years and maximum age limit is 65 years." },
-    { q: "What documents are required to hire a car from Luxury Supercar Rentals?", a: "Copy of Passport with visa page. Copy of your valid UAE driving license / Valid International License. Credit Card" },
-    { q: "What payment options do you have?", a: "You can use any of the following payment methods to pay for your rental: • Cash • Visa • MasterCard • American Express • Online Banking • Bitcoin" },
-    { q: "May I prepay my rental?", a: "Telephone: +971 50 903 8904" },
-    { q: "Do you require a deposit to rent a vehicle?", a: "Yes. Your deposit type, amount and method of payment will vary by agreement type." },
-    { q: "Can I reserve my rental car?", a: "Yes! You can reserve a rental car from Luxury Supercar Rentals, by contacting one of our sales representatives." },
-    { q: "Modification / cancellation of reservation?", a: "You can modify or cancel your existing reservation by contacting our customer care representative. Please note that any modification or cancellation by the customer will have to make within 48 hours minimum." },
-    { q: "Do Late-return fees apply?", a: "Vehicles are rented on a daily (24-hour) basis. There is 1 hour (60 minutes) grace period for returns. After 1 hour, hourly car rate charges apply. After 3 hours late (180 minutes) late, full-day late charges apply." },
-    { q: "Will any other fees apply?", a: "No! There is no other fees apply, unless customer wishes to add additional services (e.g. personal driver, urgent exchange, pick up, and other)" },
-    { q: "What types of vehicles do you offer?", a: "Luxury Supercar Rentals offers a wide range of vehicles of different categories according to your needs, clean and reviewed, with help desk 24 hours." },
-    { q: "Can I change where I return a vehicle after I have picked it up?", a: "Yes. You may change rental car pick-up service location by contact our customer care representatives 3-6 hours in advance." },
-    { q: "May I extend my rental beyond the original return date?", a: "It depends on the situation. In case if your rental car is reserved by other customer, you can't extend your rent of booked cars. However, you may exchange your rental car by any other available models." },
-    { q: "What should I do if I have problems with my car? Do you offer roadside assistance?", a: "Before you start driving, take a few moments to familiarize yourself with the vehicle's equipment and operation, including heat and A/C, radio, lights, windshield wipers, spare tire, seat belts and door locks, and gas tank access." },
-    { q: "What should I do if I'm involved in an accident or the car is damaged during my rental?", a: "If you have an accident, do not leave the scene of the accident. Contact the police. If no one was hurt and vehicle damage is minor, drivers are recommended to move their vehicles to the side of the road to avoid blocking traffic." },
-  ],
-} as const;
+  // Safety net: if every FAQ were flagged homepage-only, fall back to the
+  // full set rather than rendering an empty /faq page.
+  items: faqPageItems.length ? faqPageItems : faqData.map((f) => ({ q: f.q, a: f.a })),
+};
 
 // Live: /careers/ — verbatim. Live page has no specific job openings; the form
 // captures general expressions of interest.
@@ -562,8 +490,8 @@ export const PRIVACY_POLICY_PAGE = {
 } as const;
 
 export const FOOTER = {
-  description:
-    "If you are looking to rent the latest luxury Car in Dubai, luxurysupercarsdubai.com is a one-stop destination for all. You can avail the widest range of the most exotic luxury cars, including everything from the latest Sports Cars, Convertible Cars, SUVs, Supercars, and Prestige Cars, all of which would surely provide you with a fascinating experience.",
+  // Footer blurb — from Sanity `siteSettings.footerDescription`.
+  description: siteSettingsData.footerDescription,
   brands: [
     "Aston Martin",
     "Audi",
@@ -579,6 +507,14 @@ export const FOOTER = {
     "Mercedes Benz",
     "Porsche",
     "Rolls Royce",
+  ],
+  // "Rent Exotics" intentionally points at the luxury page — owner direction.
+  rent: [
+    { label: "Rent Luxury Cars", href: "/rent-luxury-cars-dubai" },
+    { label: "Rent Convertible Cars", href: "/rent-convertible-cars-dubai" },
+    { label: "Rent Sports Cars", href: "/rent-sports-cars-dubai" },
+    { label: "Rent SUV Cars", href: "/rent-suv-cars-dubai" },
+    { label: "Rent Exotics", href: "/rent-luxury-cars-dubai" },
   ],
   // hrefs mirror live luxurysupercarsdubai.com slugs exactly so existing
   // backlinks resolve unchanged on launch.
@@ -597,4 +533,4 @@ export const FOOTER = {
     { label: "Privacy Policy", href: "/privacy-policy" },
   ],
   copyright: "© 2026 Luxury Supercar Rentals. All rights reserved.",
-} as const;
+};

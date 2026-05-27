@@ -66,7 +66,7 @@ export default async function BlogIndexPage({
 
       <section id="archive" className="bg-[var(--bg-obsidian)] pb-16 md:pb-20 scroll-mt-24">
         <div className="container-x">
-          <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
+          <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
             {grid.map((post, i) => (
               <Reveal key={post.slug} delay={(i % 12) * 30}>
                 <Link
@@ -93,7 +93,7 @@ export default async function BlogIndexPage({
                     )}
                   </div>
                   <div className="p-5">
-                    <h3 className="font-[var(--font-display)] text-[17px] leading-snug tracking-tight text-[var(--ink-hi)] line-clamp-3 mb-2 group-hover:text-[var(--champagne-hi)] transition-colors">
+                    <h3 className="font-[var(--font-display)] text-[19px] leading-snug tracking-tight text-[var(--ink-hi)] line-clamp-3 mb-2 group-hover:text-[var(--champagne-hi)] transition-colors">
                       {post.h1 || post.title}
                     </h3>
                     <p className="text-[13.5px] leading-[1.55] text-[var(--ink-lo)] line-clamp-2 mb-3">

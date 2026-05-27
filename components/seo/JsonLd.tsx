@@ -19,8 +19,9 @@ export default function JsonLd() {
     email: CONTACT.email,
     address: {
       "@type": "PostalAddress",
-      streetAddress: "Showroom 317, Nadd Al Hamar",
-      addressLocality: "Dubai",
+      streetAddress: "87 4th St, Al Qouz Ind.third",
+      addressLocality: "Al Quoz",
+      addressRegion: "Dubai",
       addressCountry: "AE",
     },
     aggregateRating: {
