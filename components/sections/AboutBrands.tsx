@@ -4,6 +4,27 @@ import Reveal from "@/components/motion/Reveal";
 import { BRAND_LOGOS } from "@/lib/assets";
 
 /**
+ * Per-section logo overrides — keyed by `brand.name` from BRAND_LOGOS.
+ * Only apply on this About Us grid, which sits on a light pearl
+ * background and needs dark-on-transparent variants of a few logos.
+ * The shared BRAND_LOGOS entries (used by the homepage marquee,
+ * /our-fleet marquee, and car-detail badge) stay untouched.
+ */
+const ABOUT_LOGO_OVERRIDES: Record<string, string> = {
+  Porsche: "/images/brands/about/porsche.png",
+  Maserati: "/images/brands/about/maserati.png",
+  Mansory: "/images/brands/about/mansory.png",
+  Brabus: "/images/brands/about/brabus.png",
+};
+
+/**
+ * Brands whose About-Us override file is tighter (less built-in padding)
+ * than the others — render them roughly 2x larger inside the tile so
+ * they read at the same visual weight as Aston Martin / Ferrari / etc.
+ */
+const ABOUT_BIG_LOGOS = new Set<string>(["Maserati", "Mansory", "Brabus"]);
+
+/**
  * Premium-brand showcase. Light-pearl background — breaks the dark
  * rhythm of the rest of the page, signalling a deliberate switch in
  * tone (per the "different colour" brief). Brand logos link to their
@@ -17,20 +38,20 @@ export default function AboutBrands() {
           {BRAND_LOGOS.map((b, i) => {
             const tileClassName =
               "group relative flex items-center justify-center aspect-[5/3] rounded-xl border border-[var(--ink-dark-hi)]/10 bg-[var(--bg-bone)] hover:border-[var(--champagne)] hover:-translate-y-1 transition-all duration-500";
-            // Porsche ships as the multicolor crest — desaturate to keep
-            // the brand strip visually consistent on the pearl background.
-            const GRAYSCALE_LOGOS = new Set(["Porsche"]);
-            const isGrayscale = GRAYSCALE_LOGOS.has(b.name);
+            const logoSrc = ABOUT_LOGO_OVERRIDES[b.name] ?? b.src;
+            const isBig = ABOUT_BIG_LOGOS.has(b.name);
+            // Big logos render at 2x the intrinsic size of the others.
+            const logoW = isBig ? 184 : 92;
+            const logoH = isBig ? 96 : 48;
             const inner = (
               <>
                 <Image
-                  src={b.src}
+                  src={logoSrc}
                   alt={`${b.name} logo`}
-                  width={92}
-                  height={48}
-                  sizes="92px"
-                  className="object-contain max-h-[34%] max-w-[48%] md:max-h-[42%] md:max-w-[55%] opacity-95 group-hover:opacity-100 transition-opacity"
-                  style={isGrayscale ? { filter: "grayscale(1)" } : undefined}
+                  width={logoW}
+                  height={logoH}
+                  sizes={`${logoW}px`}
+                  className="object-contain opacity-95 group-hover:opacity-100 transition-opacity"
                 />
                 <span className="absolute bottom-2.5 right-3 font-[var(--font-mono)] text-[9px] tracking-[0.16em] uppercase text-[var(--ink-dark-lo)]/60">
                   {b.name}
