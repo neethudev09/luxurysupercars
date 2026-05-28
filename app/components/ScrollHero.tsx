@@ -85,7 +85,7 @@ export default function ScrollHero() {
           <MaskHeading
             text={HERO.h1}
             as="h1"
-            className="font-[var(--font-display)] font-medium text-[clamp(1.7rem,4vw,3.5rem)] leading-[1.05] tracking-[-0.02em] text-white max-w-[22ch]"
+            className="font-[var(--font-display)] font-medium text-[clamp(2rem,4.4vw,3.75rem)] leading-[1.05] tracking-[-0.02em] text-white max-w-[22ch]"
             staggerMs={55}
             animate
           />

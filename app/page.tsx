@@ -4,6 +4,7 @@ import BrandMarquee from "@/components/sections/BrandMarquee";
 import FleetSection from "@/components/sections/FleetSection";
 import BrandStory from "@/components/sections/BrandStory";
 import Requirements from "@/components/sections/Requirements";
+import RentalDirectory from "@/components/sections/RentalDirectory";
 import Testimonials from "@/components/sections/Testimonials";
 import WhyChooseUs from "@/components/sections/WhyChooseUs";
 import FAQ from "@/components/sections/FAQ";
@@ -74,6 +75,7 @@ export default function Home() {
       />
 
       <Requirements />
+      <RentalDirectory />
       <Testimonials />
       <WhyChooseUs />
       <FAQ />

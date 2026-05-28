@@ -162,7 +162,7 @@ export default function SiteNav() {
                                 key={item.label}
                                 href={item.href}
                                 onClick={() => setHoverMenu(null)}
-                                className="group/item flex flex-col items-center justify-center text-center gap-3 px-3 py-4 rounded-xl text-[16px] text-[var(--ink-hi)] hover:bg-white/5 hover:text-[var(--champagne-hi)] transition-colors"
+                                className="group/item flex flex-col items-center justify-center text-center gap-3 px-3 py-4 rounded-xl text-[16px] text-[var(--ink-hi)] hover:bg-white/15 hover:text-[var(--champagne-hi)] transition-colors"
                               >
                                 <span className="relative shrink-0 size-[120px]">
                                   <Image
@@ -187,7 +187,7 @@ export default function SiteNav() {
                                 key={b.name}
                                 href={`/brands/${b.slug}`}
                                 onClick={() => setHoverMenu(null)}
-                                className="group/item flex items-center gap-3 px-3 py-1.5 rounded-xl text-[16px] text-[var(--ink-hi)] hover:bg-white/5 hover:text-[var(--champagne-hi)] transition-colors"
+                                className="group/item flex items-center gap-3 px-3 py-1.5 rounded-xl text-[16px] text-[var(--ink-hi)] hover:bg-white/15 hover:text-[var(--champagne-hi)] transition-colors"
                               >
                                 <span className="relative shrink-0 size-12">
                                   <Image
