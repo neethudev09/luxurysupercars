@@ -14,6 +14,8 @@ import {
 } from "@/lib/fleet-filter";
 import { tagLabel } from "@/lib/fleet-tags";
 import type { Car } from "@/lib/fleet";
+import { useCurrency } from "@/components/currency/CurrencyProvider";
+import { formatPrice } from "@/lib/currency";
 
 const CATEGORY_META: { value: Category; label: string }[] = [
   { value: "sports", label: "Sports" },
@@ -105,6 +107,7 @@ export default function FilterSidebar({
   const seatOpts = deriveSeatOptions(cars);
   const tagOpts = deriveTagOptions(cars);
   const priceBounds = derivePriceBounds(cars);
+  const { currency } = useCurrency();
 
   const active = countActiveFilters(filters);
 
@@ -228,7 +231,7 @@ export default function FilterSidebar({
       )}
 
       {/* Price */}
-      <Group label="Daily Rate (AED)" icon={<PriceIcon />}>
+      <Group label={`Daily Rate (${currency})`} icon={<PriceIcon />}>
         <PriceRange
           bounds={priceBounds}
           min={filters.minPrice}
@@ -414,6 +417,7 @@ function PriceRange({
   max?: number;
   onChange: (min: number | undefined, max: number | undefined) => void;
 }) {
+  const { currency } = useCurrency();
   const lo = min ?? bounds.min;
   const hi = max ?? bounds.max;
   const span = bounds.max - bounds.min || 1;
@@ -434,11 +438,11 @@ function PriceRange({
       {/* Live values */}
       <div className="flex items-baseline justify-between font-[var(--font-mono)] text-[11px] tracking-[0.06em]">
         <span className="text-[var(--champagne)]">
-          AED {lo.toLocaleString()}
+          {formatPrice(lo, currency)}
         </span>
         <span className="text-[var(--ink-lo)]">–</span>
         <span className="text-[var(--champagne)]">
-          AED {hi.toLocaleString()}
+          {formatPrice(hi, currency)}
         </span>
       </div>
 

@@ -23,7 +23,9 @@ export default function ScrollHero() {
     let raf = 0;
     let primed = false;
 
-    const START_OFFSET = 4;
+    // Seconds of the clip to skip before the scroll-scrub begins. The source is
+    // already trimmed to start on the right frame, so scrub the whole thing from 0.
+    const START_OFFSET = 0;
 
     const tick = () => {
       const duration = video.duration;

@@ -20,6 +20,8 @@ import {
   tagLabel,
   type ColorFamily,
 } from "@/lib/fleet-tags";
+import { useCurrency } from "@/components/currency/CurrencyProvider";
+import { formatPrice } from "@/lib/currency";
 
 const SORT_OPTIONS: { value: SortKey; label: string }[] = [
   { value: "featured", label: "Featured" },
@@ -292,6 +294,7 @@ function FilterChips({
   filters: FleetFilterState;
   onChange: (next: FleetFilterState) => void;
 }) {
+  const { currency } = useCurrency();
   const chips: { key: string; label: string; remove: () => void }[] = [];
 
   filters.categories.forEach((c) =>
@@ -342,13 +345,13 @@ function FilterChips({
   if (filters.minPrice !== undefined)
     chips.push({
       key: "min-price",
-      label: `≥ AED ${filters.minPrice.toLocaleString()}`,
+      label: `≥ ${formatPrice(filters.minPrice, currency)}`,
       remove: () => onChange({ ...filters, minPrice: undefined }),
     });
   if (filters.maxPrice !== undefined)
     chips.push({
       key: "max-price",
-      label: `≤ AED ${filters.maxPrice.toLocaleString()}`,
+      label: `≤ ${formatPrice(filters.maxPrice, currency)}`,
       remove: () => onChange({ ...filters, maxPrice: undefined }),
     });
   if (filters.search.trim())

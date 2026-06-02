@@ -42,6 +42,21 @@ function WhatsAppGlyph({ size = 16 }: { size?: number }) {
   );
 }
 
+function PhoneGlyph({ size = 14 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 14 14" fill="none" aria-hidden>
+      <path
+        d="M12.5 9.85v1.65c0 .55-.45 1-1 1A10.5 10.5 0 0 1 1.5 2c0-.55.45-1 1-1H4.15c.45 0 .85.3.96.74l.6 2.4a1 1 0 0 1-.26.95L4.4 6.13a8.5 8.5 0 0 0 3.47 3.47l1.04-1.05c.25-.25.6-.35.95-.26l2.4.6c.44.1.74.5.74.96z"
+        stroke="currentColor"
+        strokeWidth="1.3"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+const TEL_HREF = `tel:${CONTACT.primaryPhone.replace(/[^\d+]/g, "")}`;
+
 export default function FloatingWhatsApp() {
   const [open, setOpen] = useState(false);
   const [hidden, setHidden] = useState(false);
@@ -143,7 +158,17 @@ export default function FloatingWhatsApp() {
         </div>
       )}
 
-      <button
+      <div className="flex items-center gap-3">
+        <a
+          href={TEL_HREF}
+          aria-label="Call us now"
+          title="Call us now"
+          className="inline-flex size-11 shrink-0 items-center justify-center rounded-full bg-white text-[var(--bg-obsidian)] shadow-[0_12px_30px_-8px_rgba(0,0,0,0.45)] transition-colors hover:bg-white/90"
+        >
+          <PhoneGlyph size={16} />
+        </a>
+
+        <button
         type="button"
         aria-label={open ? "Close WhatsApp menu" : "Open WhatsApp menu"}
         aria-expanded={open}
@@ -196,7 +221,8 @@ export default function FloatingWhatsApp() {
             </motion.span>
           </AnimatePresence>
         </span>
-      </button>
+        </button>
+      </div>
     </div>
   );
 }

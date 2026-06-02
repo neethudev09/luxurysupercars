@@ -1,6 +1,7 @@
 import Image from "next/image";
 import type { Car } from "@/lib/fleet";
 import { CONTACT } from "@/lib/content";
+import { Price } from "@/components/currency/Price";
 
 interface StickyEnquireBarProps {
   car: Car;
@@ -44,9 +45,7 @@ export default function StickyEnquireBar({ car }: StickyEnquireBarProps) {
               </p>
             </div>
             <div className="hidden md:inline-flex items-baseline gap-1.5 whitespace-nowrap shrink-0">
-              <span className="font-[var(--font-display)] text-[20px] leading-none text-[var(--champagne)]">
-                AED {car.price.toLocaleString()}
-              </span>
+              <Price className="font-[var(--font-display)] text-[20px] leading-none text-[var(--champagne)]" amount={car.price} />
               <span className="font-[var(--font-mono)] text-[9px] uppercase tracking-[0.1em] text-[var(--ink-lo)]">
                 per day
               </span>

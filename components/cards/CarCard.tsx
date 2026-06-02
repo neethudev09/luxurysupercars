@@ -6,6 +6,7 @@ import Reveal from "@/components/motion/Reveal";
 import type { Car } from "@/lib/fleet";
 import { carHref } from "@/lib/fleet";
 import { CONTACT } from "@/lib/content";
+import { PriceAmount, CurrencyCode } from "@/components/currency/Price";
 
 interface CarCardProps {
   car: Car;
@@ -114,11 +115,9 @@ export default function CarCard({ car, theme = "dark", index = 0 }: CarCardProps
           </h3>
           {car.price > 0 && (
             <span className="shrink-0 text-right">
-              <span className="block font-[var(--font-display)] text-[24px] leading-none text-[var(--champagne)]">
-                {car.price.toLocaleString()}
-              </span>
+              <PriceAmount className="block font-[var(--font-display)] text-[24px] leading-none text-[var(--champagne)]" amount={car.price} />
               <span className="font-[var(--font-mono)] text-[10px] uppercase tracking-[0.2em] opacity-70">
-                AED / day
+                <CurrencyCode /> / day
               </span>
             </span>
           )}

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Car } from "@/lib/fleet";
 import { CONTACT } from "@/lib/content";
+import { Price } from "@/components/currency/Price";
 
 /**
  * Rental card — price headline + live rental terms (deposit / mileage /
@@ -21,7 +22,7 @@ export default function RentalCard({ car, className = "" }: { car: Car; classNam
       className={`rounded-2xl border border-white/10 bg-[var(--bg-graphite)]/55 backdrop-blur p-6 ${className}`.trim()}
     >
       <p className="font-[var(--font-display)] text-[clamp(2rem,3.6vw,2.8rem)] font-medium leading-none text-[var(--champagne)]">
-        AED {car.price.toLocaleString()}
+        <Price amount={car.price} />
         <span className="font-[var(--font-mono)] text-[11px] uppercase tracking-[0.18em] text-[var(--ink-lo)] ml-2">
           / day
         </span>

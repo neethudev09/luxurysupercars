@@ -6,6 +6,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import MotionProvider from "@/components/motion/MotionProvider";
 import CursorTrail from "@/components/motion/CursorTrail";
 import FloatingWhatsApp from "@/components/nav/FloatingWhatsApp";
+import { CurrencyProvider } from "@/components/currency/CurrencyProvider";
 
 // Car detail pages already have an inline "Enquire on WhatsApp" CTA
 // inside the rental card — surfacing the global floating bubble too
@@ -26,13 +27,13 @@ export default function SiteChrome({ children }: { children: React.ReactNode }) 
   if (isStudio) return <>{children}</>;
 
   return (
-    <>
+    <CurrencyProvider>
       <MotionProvider>{children}</MotionProvider>
       {!isCarDetail && <FloatingWhatsApp />}
       <CursorTrail />
       <div className="grain" aria-hidden />
       <Analytics />
       <SpeedInsights />
-    </>
+    </CurrencyProvider>
   );
 }

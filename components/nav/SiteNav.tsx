@@ -7,13 +7,12 @@ import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { CONTACT, NAV_LINKS, SOCIAL } from "@/lib/content";
 import { SITE_LOGO, BRAND_LOGOS, NAV_CAR_TYPES } from "@/lib/assets";
+import { useCurrency } from "@/components/currency/CurrencyProvider";
+import { CURRENCIES, type Currency } from "@/lib/currency";
 
 const PRIMARY_LINKS = NAV_LINKS;
-const CURRENCIES = ["AED", "USD", "EUR", "GBP"] as const;
-type Currency = (typeof CURRENCIES)[number];
 
-/** Flip this to true once price-conversion logic is wired up. */
-const SHOW_CURRENCY_SELECTOR = false;
+const SHOW_CURRENCY_SELECTOR = true;
 
 export default function SiteNav() {
   const pathname = usePathname();
@@ -21,7 +20,7 @@ export default function SiteNav() {
   const [open, setOpen] = useState(false);
   const [hoverMenu, setHoverMenu] = useState<"type" | "brand" | null>(null);
   const [mobileExpanded, setMobileExpanded] = useState<"type" | "brand" | null>(null);
-  const [currency, setCurrency] = useState<Currency>("AED");
+  const { currency, setCurrency } = useCurrency();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -449,7 +448,7 @@ function CurrencySelector({
       <select
         value={value}
         onChange={(e) => onChange(e.target.value as Currency)}
-        className="appearance-none bg-transparent pr-5 pl-0.5 py-1 text-[12px] font-[var(--font-mono)] tracking-[0.08em] text-[var(--champagne)] hover:text-[var(--champagne-hi)] focus:outline-none cursor-pointer"
+        className="appearance-none bg-transparent pr-5 pl-0.5 py-1 text-[16px] font-[var(--font-mono)] tracking-[0.04em] text-[var(--champagne)] hover:text-[var(--champagne-hi)] focus:outline-none cursor-pointer"
       >
         {CURRENCIES.map((c) => (
           <option key={c} value={c} className="bg-[var(--bg-obsidian)]">

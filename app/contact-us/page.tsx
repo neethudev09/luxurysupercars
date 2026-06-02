@@ -107,6 +107,18 @@ export default function ContactUsPage() {
                 Locations
               </p>
             </Reveal>
+            <Reveal>
+              <div className="rise relative mb-5 h-[260px] w-full overflow-hidden rounded-2xl border border-white/8 bg-[var(--bg-graphite)]/40 md:h-[300px]">
+                <iframe
+                  title={`Map of ${CONTACT.address}`}
+                  src={`https://www.google.com/maps?q=${encodeURIComponent(CONTACT.address)}&output=embed`}
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  allowFullScreen
+                  className="absolute inset-0 size-full border-0"
+                />
+              </div>
+            </Reveal>
             <ul className="grid gap-5">
               {ADDRESSES.map((a, i) => (
                 <Reveal key={a.label} delay={i * 90}>

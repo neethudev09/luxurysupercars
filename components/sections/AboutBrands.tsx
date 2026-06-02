@@ -18,11 +18,23 @@ const ABOUT_LOGO_OVERRIDES: Record<string, string> = {
 };
 
 /**
- * Brands whose About-Us override file is tighter (less built-in padding)
- * than the others — render them roughly 2x larger inside the tile so
- * they read at the same visual weight as Aston Martin / Ferrari / etc.
+ * Brands whose About-Us override file carries extra baked-in whitespace —
+ * render them at a slightly larger height so the actual mark reads at the
+ * same visual weight as Aston Martin / Ferrari / etc.
  */
 const ABOUT_BIG_LOGOS = new Set<string>(["Maserati", "Mansory", "Brabus"]);
+
+/**
+ * Per-brand fine-tuning on top of the base height — some marks read heavier or
+ * lighter than the rest at the same height, so nudge them ±20% to even it out.
+ */
+const ABOUT_LOGO_SCALE: Record<string, string> = {
+  Bentley: "scale-[0.8]",
+  Audi: "scale-[0.8]",
+  Bugatti: "scale-[1.2]",
+  Mansory: "scale-[1.2]",
+  "Aston Martin": "scale-[1.2]",
+};
 
 /**
  * Premium-brand showcase. Light-pearl background — breaks the dark
@@ -40,18 +52,25 @@ export default function AboutBrands() {
               "group relative flex items-center justify-center aspect-[5/3] rounded-xl border border-[var(--ink-dark-hi)]/10 bg-[var(--bg-bone)] hover:border-[var(--champagne)] hover:-translate-y-1 transition-all duration-500";
             const logoSrc = ABOUT_LOGO_OVERRIDES[b.name] ?? b.src;
             const isBig = ABOUT_BIG_LOGOS.has(b.name);
-            // Big logos render at 2x the intrinsic size of the others.
-            const logoW = isBig ? 184 : 92;
-            const logoH = isBig ? 96 : 48;
+            // Constrain every logo to a uniform CSS height (width auto) so they
+            // read at the same height regardless of the source file's aspect
+            // ratio — the source files vary from portrait to square, and a fixed
+            // height is what keeps the grid even (object-contain alone can't,
+            // because Tailwind's `height: auto` preflight defeats a height prop).
+            // max-w stops the occasional wide wordmark from touching the edges.
+            const logoSizeClass = isBig
+              ? "h-16 sm:h-20 md:h-24 max-w-[90%]"
+              : "h-12 sm:h-16 md:h-20 max-w-[80%]";
+            const logoScale = ABOUT_LOGO_SCALE[b.name] ?? "";
             const inner = (
               <>
                 <Image
                   src={logoSrc}
                   alt={`${b.name} logo`}
-                  width={logoW}
-                  height={logoH}
-                  sizes={`${logoW}px`}
-                  className="object-contain opacity-95 group-hover:opacity-100 transition-opacity"
+                  width={120}
+                  height={120}
+                  sizes="(min-width: 1024px) 180px, (min-width: 640px) 200px, 150px"
+                  className={`w-auto ${logoSizeClass} ${logoScale} object-contain opacity-95 group-hover:opacity-100 transition-opacity`}
                 />
                 <span className="absolute bottom-2.5 right-3 font-[var(--font-mono)] text-[9px] tracking-[0.16em] uppercase text-[var(--ink-dark-lo)]/60">
                   {b.name}

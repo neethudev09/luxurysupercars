@@ -116,7 +116,20 @@ export default function Footer() {
         </div>
 
         <div className="mt-12 flex flex-wrap items-center justify-between gap-6 border-t border-white/5 pt-6">
-          <p className="text-[14px] text-[var(--ink-lo)]">{FOOTER.copyright}</p>
+          <p className="text-[14px] text-[var(--ink-lo)]">
+            {FOOTER.copyright}{" "}
+            <span className="whitespace-nowrap">
+              Website by{" "}
+              <a
+                href="https://www.fastclicks.ae"
+                target="_blank"
+                rel="noreferrer"
+                className="text-[var(--ink-hi)] underline-offset-2 hover:text-[var(--champagne)] hover:underline transition-colors"
+              >
+                FastClicks
+              </a>
+            </span>
+          </p>
           <ul className="flex items-center gap-5 text-[14px] text-[var(--ink-lo)]">
             {FOOTER.legal.map((l) => (
               <li key={l.href}><Link href={l.href} className="hover:text-[var(--champagne)]">{l.label}</Link></li>
