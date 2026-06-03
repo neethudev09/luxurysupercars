@@ -15,6 +15,7 @@ import CarDescription from "./CarDescription";
 import RelatedCars from "./RelatedCars";
 import StickyEnquireBar from "./StickyEnquireBar";
 import RentalCard from "./RentalCard";
+import FAQ from "@/components/sections/FAQ";
 
 /**
  * Where the rental card (price + deposit/mileage/extra-km + CTAs) lives.
@@ -132,6 +133,12 @@ export default function CarDetail({ car, related }: CarDetailProps) {
 
       {/* Related cars */}
       <RelatedCars cars={related} category={car.category} />
+
+      {/* Rental FAQs — renders the same Q&A that the global FAQPage schema
+          (components/seo/JsonLd.tsx) already emits, so the structured data is
+          backed by visible, crawlable content. Mirrors the live car pages,
+          which carried this "Everything You Need To Know" block. */}
+      <FAQ />
 
       {/* Final CTA */}
       <section id="enquire" className="bg-[var(--bg-obsidian)] py-20 md:py-24 border-t border-white/5">

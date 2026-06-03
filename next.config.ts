@@ -27,6 +27,24 @@ const BRAND_REDIRECT_SLUGS = [
   "rent-rolls-royce-dubai",
 ];
 
+/**
+ * One-off legacy URLs from the live WordPress/WooCommerce site that have no
+ * 1:1 slug in the new structure. Both are live + indexed on the production
+ * domain but 404 here, so we 301 them to their closest equivalent to preserve
+ * link equity:
+ *  - /shop — the old WooCommerce shop page → the new fleet listing.
+ *  - /product/mercedes-benz-amg-g63-800-brabus — the only car published on
+ *    WooCommerce's default /product/ permalink → its new car detail page
+ *    ("Mercedes Brabus G63 800 Widestar").
+ */
+const LEGACY_REDIRECTS = [
+  { source: "/shop", destination: "/our-fleet" },
+  {
+    source: "/product/mercedes-benz-amg-g63-800-brabus",
+    destination: "/rent-mercedes-benz-dubai/mercedes-brabus-g63-800-widestar",
+  },
+];
+
 const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
@@ -55,11 +73,14 @@ const nextConfig: NextConfig = {
     ],
   },
   async redirects() {
-    return BRAND_REDIRECT_SLUGS.map((slug) => ({
-      source: `/${slug}`,
-      destination: "/",
-      permanent: true,
-    }));
+    return [
+      ...BRAND_REDIRECT_SLUGS.map((slug) => ({
+        source: `/${slug}`,
+        destination: "/",
+        permanent: true,
+      })),
+      ...LEGACY_REDIRECTS.map((r) => ({ ...r, permanent: true })),
+    ];
   },
 };
 

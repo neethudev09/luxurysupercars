@@ -10,12 +10,12 @@ import Reveal from "@/components/motion/Reveal";
 import { BLOG_POSTS } from "@/lib/blog";
 
 export const metadata: Metadata = {
-  title: "Luxury Supercars Dubai Blog | News, Guides & Stories",
+  title: "Blog | Insights & News on Super Car Rentals in Dubai",
   description:
     "Explore the Luxury Supercars Dubai journal — guides, brand histories, rental tips, and stories from the world's most extraordinary car rental fleet.",
   alternates: { canonical: "/blog" },
   openGraph: {
-    title: "Luxury Supercars Dubai Blog",
+    title: "Blog | Insights & News on Super Car Rentals in Dubai",
     description:
       "Guides, brand histories, rental tips, and stories from Luxury Supercars Dubai.",
     url: "/blog/",

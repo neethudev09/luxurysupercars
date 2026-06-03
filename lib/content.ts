@@ -278,7 +278,7 @@ const faqPageItems = faqData
   .map((f) => ({ q: f.q, a: f.a }));
 
 export const FAQ_PAGE = {
-  metaTitle: "FAQs | Luxury Car Rental Dubai Questions Answered",
+  metaTitle: "Luxury Supercars Dubai – FAQ on Rental Terms & Services",
   metaDescription:
     "Find answers to every question about renting a luxury car in Dubai — age limits, required documents, payment options, deposits, deliveries, and more.",
   h1: "Frequently Asked Questions",
@@ -290,7 +290,7 @@ export const FAQ_PAGE = {
 // Live: /careers/ — verbatim. Live page has no specific job openings; the form
 // captures general expressions of interest.
 export const CAREERS_PAGE = {
-  metaTitle: "Careers at Luxury Group | Join Our Team in Dubai",
+  metaTitle: "Careers at Luxury Group | Get in Touch",
   metaDescription:
     "Explore careers at Luxury Group. We're always open to hearing from people who take pride in their work and want to join a professional, well-run luxury automotive business in Dubai.",
   h1: "Careers at Luxury Group",
@@ -306,7 +306,7 @@ export const CAREERS_PAGE = {
 // title uses "Booking T&C 'S" with a stray space + capital; preserved as-is
 // since it appears in the live <h1> and may match inbound links.
 export const BOOKING_TERMS_PAGE = {
-  metaTitle: "Booking T&Cs | Luxury Supercars Dubai",
+  metaTitle: "Booking Terms & Conditions | Rental Agreement Details",
   metaDescription:
     "Booking terms and conditions for Luxury Supercars Dubai — required documents, age requirements, security deposits, payment methods, rental periods, and delivery information.",
   h1: "Booking T&C 'S",
@@ -377,7 +377,7 @@ export const BOOKING_TERMS_PAGE = {
 
 // Live: /privacy-policy/ — verbatim policy. Sections preserved in live order.
 export const PRIVACY_POLICY_PAGE = {
-  metaTitle: "Privacy Policy | Luxury Supercars Dubai",
+  metaTitle: "Luxury Supercars Dubai – Privacy Policy | Data & Privacy Protection",
   metaDescription:
     "How Luxury Supercars Dubai collects, uses, and protects your personal information — consent, cookies, third-party advertising, CCPA and GDPR rights, and children's information.",
   h1: "Privacy Policy",
