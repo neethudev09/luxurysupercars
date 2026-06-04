@@ -3,6 +3,7 @@ import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import SiteChrome from "@/components/SiteChrome";
 import JsonLd from "@/components/seo/JsonLd";
+import Analytics from "@/components/analytics/Analytics";
 import { SITE_URL } from "@/lib/site";
 
 const inter = Inter({
@@ -59,6 +60,7 @@ export default function RootLayout({
         />
       </head>
       <body>
+        <Analytics />
         <JsonLd />
         <SiteChrome>{children}</SiteChrome>
       </body>
