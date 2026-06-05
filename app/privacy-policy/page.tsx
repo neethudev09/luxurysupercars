@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import SiteNav from "@/components/nav/SiteNav";
 import PageHero from "@/components/sections/PageHero";
 import StickyToc from "@/components/sections/StickyToc";
-import Contact from "@/components/sections/Contact";
 import Footer from "@/components/sections/Footer";
 import MaskHeading from "@/components/motion/MaskHeading";
 import { PRIVACY_POLICY_PAGE } from "@/lib/content";
@@ -70,7 +69,7 @@ export default function PrivacyPolicyPage() {
                     className="font-[var(--font-display)] text-[clamp(1.5rem,2.4vw,1.95rem)] tracking-tight text-[var(--ink-hi)] mb-6"
                     staggerMs={32}
                   />
-                  <div className="flex flex-col gap-4 text-[15.5px] leading-[1.78] text-[var(--ink-lo)]">
+                  <div className="flex flex-col gap-4 text-[17.5px] leading-[1.78] text-[var(--ink-lo)]">
                     {section.paragraphs.map((p, i) => (
                       <p key={i}>{p}</p>
                     ))}
@@ -92,7 +91,6 @@ export default function PrivacyPolicyPage() {
         </div>
       </section>
 
-      <Contact />
       <Footer />
     </main>
   );

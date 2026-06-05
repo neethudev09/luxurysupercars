@@ -4,7 +4,6 @@ import { notFound } from "next/navigation";
 import SiteNav from "@/components/nav/SiteNav";
 import PageHero from "@/components/sections/PageHero";
 import FleetSection from "@/components/sections/FleetSection";
-import Contact from "@/components/sections/Contact";
 import Footer from "@/components/sections/Footer";
 import Reveal from "@/components/motion/Reveal";
 import MagneticCTA from "@/components/motion/MagneticCTA";
@@ -144,7 +143,7 @@ export default async function ServiceDetailPage(
               <div className="rise mt-12">
                 <MagneticCTA
                   href="/contact-us"
-                  className="inline-flex items-center gap-2.5 rounded-full bg-[var(--champagne)] text-[var(--bg-obsidian)] px-7 py-3.5 text-[13px] font-medium hover:bg-[var(--champagne-hi)] transition-colors"
+                  className="inline-flex items-center gap-2.5 rounded-full bg-[var(--champagne)] text-[var(--bg-obsidian)] px-7 py-3.5 text-[15px] font-medium hover:bg-[var(--champagne-hi)] transition-colors"
                 >
                   <span>Enquire about {service.title}</span>
                   <svg width="14" height="10" viewBox="0 0 14 10" fill="none">
@@ -168,7 +167,7 @@ export default async function ServiceDetailPage(
                       className="group flex items-center gap-4 rounded-xl border border-white/8 bg-[var(--bg-graphite)]/30 px-4 py-4 hover:border-[var(--champagne)]/40 hover:bg-[var(--bg-graphite)]/50 transition-colors"
                     >
                       <div className="flex-1 min-w-0">
-                        <p className="font-[var(--font-display)] text-[15px] leading-tight text-[var(--ink-hi)] group-hover:text-[var(--champagne-hi)] transition-colors">
+                        <p className="font-[var(--font-display)] text-[17px] leading-tight text-[var(--ink-hi)] group-hover:text-[var(--champagne-hi)] transition-colors">
                           {o.title}
                         </p>
                         <p className="font-[var(--font-mono)] text-[10px] uppercase tracking-[0.22em] text-[var(--ink-lo)] mt-1">
@@ -198,7 +197,6 @@ export default async function ServiceDetailPage(
         theme="dark"
       />
 
-      <Contact />
       <Footer />
     </main>
   );

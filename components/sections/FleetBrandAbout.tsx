@@ -66,7 +66,7 @@ function BlockRenderer({ block, delay }: { block: BrandSectionBlock; delay: numb
   if (block.kind === "paragraph") {
     return (
       <Reveal delay={delay}>
-        <p className="text-[14.5px] leading-[1.85] text-[var(--ink-lo)]">
+        <p className="text-[16.5px] leading-[1.85] text-[var(--ink-lo)]">
           {block.text}
         </p>
       </Reveal>
@@ -79,7 +79,7 @@ function BlockRenderer({ block, delay }: { block: BrandSectionBlock; delay: numb
           {block.items.map((item, i) => (
             <li
               key={i}
-              className="relative pl-6 text-[14px] leading-[1.75] text-[var(--ink-lo)]"
+              className="relative pl-6 text-[16px] leading-[1.75] text-[var(--ink-lo)]"
             >
               <span
                 aria-hidden
@@ -96,7 +96,7 @@ function BlockRenderer({ block, delay }: { block: BrandSectionBlock; delay: numb
     return (
       <Reveal delay={delay}>
         <div className="overflow-x-auto rounded-lg border border-white/10">
-          <table className="min-w-full text-[13px]">
+          <table className="min-w-full text-[15px]">
             <thead>
               <tr className="bg-white/[0.04] border-b border-white/10">
                 {block.headers.map((h, i) => (

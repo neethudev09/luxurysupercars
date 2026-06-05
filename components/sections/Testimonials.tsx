@@ -26,17 +26,17 @@ function QuoteCard({ name, quote }: { name: string; quote: string }) {
       className="shrink-0 flex flex-col w-[320px] md:w-[360px] min-h-[220px] rounded-xl bg-white border border-black/8 p-6 mx-3 hover:border-[var(--champagne)]/60 transition-colors"
     >
       <div className="flex items-start justify-between gap-3">
-        <span className="text-[15px] font-semibold text-[var(--ink-dark-hi)] leading-tight">
+        <span className="text-[17px] font-semibold text-[var(--ink-dark-hi)] leading-tight">
           {name}
         </span>
         <GoogleLogo size={20} />
       </div>
-      <div className="mt-2 flex gap-0.5 text-[#F5B400] text-[15px] leading-none">
+      <div className="mt-2 flex gap-0.5 text-[#F5B400] text-[17px] leading-none">
         {[0, 1, 2, 3, 4].map((i) => (
           <span key={i}>★</span>
         ))}
       </div>
-      <p className="mt-4 text-[15.5px] leading-[1.6] text-[var(--ink-dark-hi)]/85">
+      <p className="mt-4 text-[17.5px] leading-[1.6] text-[var(--ink-dark-hi)]/85">
         {quote}
       </p>
     </article>
@@ -67,7 +67,7 @@ export default function Testimonials() {
               {/* Google brand bar above the stat */}
               <div className="inline-flex items-center gap-2 self-start md:self-end">
                 <GoogleLogo size={18} />
-                <span className="font-sans font-semibold text-[15px] tracking-[-0.01em] text-[#202124]">
+                <span className="font-sans font-semibold text-[17px] tracking-[-0.01em] text-[#202124]">
                   Google
                 </span>
                 <span className="ml-1 font-[var(--font-mono)] text-[9px] uppercase tracking-[0.22em] text-[var(--ink-dark-lo)]">
@@ -79,7 +79,7 @@ export default function Testimonials() {
                   <CountUp value={4.9} decimals={1} />
                 </span>
                 <div className="flex flex-col gap-1">
-                  <div className="flex gap-0.5 text-[#F5B400] text-[14px] leading-none">
+                  <div className="flex gap-0.5 text-[#F5B400] text-[16px] leading-none">
                     {[0, 1, 2, 3, 4].map((i) => (
                       <span key={i}>★</span>
                     ))}

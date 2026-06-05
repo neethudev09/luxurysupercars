@@ -4,6 +4,10 @@ import CountUp from "@/components/motion/CountUp";
 import { BRAND_STORY } from "@/lib/content";
 
 export default function BrandStory() {
+  // Split the heading at the colon so "Luxury Supercars Dubai" sits on its own
+  // line, followed by a rule, then the remainder of the heading below it.
+  const [storyTitle, ...storyRestParts] = BRAND_STORY.h2.split(": ");
+  const storyLead = storyRestParts.join(": ");
   return (
     <section
       id={BRAND_STORY.id}
@@ -13,16 +17,26 @@ export default function BrandStory() {
         <div className="grid md:grid-cols-12 gap-8 md:gap-12">
           <div className="md:col-span-7">
             <MaskHeading
-              text={BRAND_STORY.h2}
+              text={storyTitle}
               as="h2"
-              className="font-[var(--font-display)] text-[clamp(1.9rem,4.4vw,3.4rem)] leading-[1.07] tracking-[-0.018em] text-[var(--ink-dark-hi)]"
+              breakAfterBold={false}
+              className="font-[var(--font-display)] text-[clamp(2.1rem,4.8vw,3.6rem)] leading-[1.05] tracking-[-0.018em] text-[var(--ink-dark-hi)]"
               staggerMs={42}
             />
+            {storyLead && (
+              <MaskHeading
+                text={storyLead}
+                as="p"
+                breakAfterBold={false}
+                className="mt-7 font-[var(--font-display)] text-[clamp(1.35rem,2.6vw,2rem)] leading-[1.18] tracking-[-0.01em] text-[var(--ink-dark-hi)]"
+                staggerMs={28}
+              />
+            )}
           </div>
           <div className="md:col-span-5 md:pt-10 space-y-5">
             {BRAND_STORY.paragraphs.map((p, i) => (
               <Reveal key={i} delay={i * 120}>
-                <p className="rise text-[14.5px] leading-[1.75] text-[var(--ink-dark-lo)]">
+                <p className="rise text-[16.5px] leading-[1.75] text-[var(--ink-dark-lo)]">
                   {p}
                 </p>
               </Reveal>
@@ -34,7 +48,7 @@ export default function BrandStory() {
           {BRAND_STORY.stats.map((s, i) => (
             <div
               key={s.label}
-              className={`rise flex flex-col gap-1 py-7 px-2 ${i > 0 ? "md:border-l border-black/10" : ""} ${i === 2 ? "border-l md:border-l" : ""}`}
+              className={`rise flex flex-col items-center text-center gap-1 py-7 px-2 ${i > 0 ? "md:border-l border-black/10" : ""} ${i === 2 ? "border-l md:border-l" : ""}`}
               style={{ ["--rise-delay" as string]: `${i * 80}ms` }}
             >
               <span className="font-[var(--font-display)] text-[clamp(2rem,4vw,3.2rem)] leading-none text-[var(--ink-dark-hi)]">

@@ -40,7 +40,7 @@ export default function FleetTypeAbout({
           <div className="md:col-span-7 space-y-6">
             {paragraphs.map((p, i) => (
               <Reveal key={i} delay={100 + i * 80}>
-                <p className="text-[15px] leading-[1.85] text-[var(--ink-lo)]">{p}</p>
+                <p className="text-[17px] leading-[1.85] text-[var(--ink-lo)]">{p}</p>
               </Reveal>
             ))}
           </div>

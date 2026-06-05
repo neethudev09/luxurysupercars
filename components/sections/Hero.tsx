@@ -86,14 +86,14 @@ export default function Hero() {
             staggerMs={55}
           />
 
-          <p className="mt-6 max-w-xl text-[14.5px] md:text-[15.5px] leading-[1.65] text-white/75">
+          <p className="mt-6 max-w-xl text-[16.5px] md:text-[17.5px] leading-[1.65] text-white/75">
             {HERO.sub}
           </p>
 
           <div className="mt-8 flex flex-wrap items-center justify-start gap-3">
             <MagneticCTA
               href="#contact"
-              className="group inline-flex items-center gap-2.5 rounded-full bg-white px-6 py-3 text-[13px] font-medium tracking-wide text-[var(--bg-obsidian)] hover:bg-white/90 transition-colors"
+              className="group inline-flex items-center gap-2.5 rounded-full bg-white px-6 py-3 text-[15px] font-medium tracking-wide text-[var(--bg-obsidian)] hover:bg-white/90 transition-colors"
             >
               {HERO.ctaPrimary}
               <svg width="14" height="10" viewBox="0 0 14 10" fill="none" className="transition-transform group-hover:translate-x-1">
@@ -102,7 +102,7 @@ export default function Hero() {
             </MagneticCTA>
             <MagneticCTA
               href="#contact"
-              className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-black/10 backdrop-blur px-6 py-3 text-[13px] font-medium tracking-wide text-white hover:border-[var(--champagne)] hover:bg-[var(--champagne)]/15 transition-all"
+              className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-black/10 backdrop-blur px-6 py-3 text-[15px] font-medium tracking-wide text-white hover:border-[var(--champagne)] hover:bg-[var(--champagne)]/15 transition-all"
             >
               {HERO.ctaSecondary}
             </MagneticCTA>

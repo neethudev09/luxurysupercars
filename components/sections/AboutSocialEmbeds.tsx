@@ -69,9 +69,10 @@ const BLOCKS: Block[] = [
 ];
 
 function thumbUrl(id: string) {
-  // hqdefault is reliable and ~480x360; covers both wide and 9:16 tiles
-  // (the 9:16 tiles letterbox the horizontal frame, same as YouTube Shorts).
-  return `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
+  // maxresdefault (1280x720) is far sharper than hqdefault once cropped into
+  // the small 9:16 Shorts tiles, which previously looked blurry. Videos that
+  // lack a maxres rendition fall back to hqdefault via the <img> onError below.
+  return `https://i.ytimg.com/vi/${id}/maxresdefault.jpg`;
 }
 
 function playerSrc(id: string) {
@@ -107,14 +108,18 @@ export default function AboutSocialEmbeds() {
             <div
               className={
                 block.layout === "shorts"
-                  ? "grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-5"
+                  ? "flex flex-wrap justify-center gap-3 md:gap-4"
                   : "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5"
               }
             >
               {block.videoIds.map((vid, i) => (
                 <Reveal
                   key={vid}
-                  className="rise"
+                  className={
+                    block.layout === "shorts"
+                      ? "rise w-[30%] md:w-[15%]"
+                      : "rise"
+                  }
                   delay={Math.min(i * 70, 280)}
                 >
                   <VideoFacade
@@ -176,6 +181,14 @@ function VideoFacade({
             src={thumbUrl(id)}
             alt=""
             loading="lazy"
+            onError={(e) => {
+              // Fall back to hqdefault when a video has no maxres rendition.
+              const img = e.currentTarget;
+              if (!img.dataset.fallback) {
+                img.dataset.fallback = "1";
+                img.src = `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
+              }
+            }}
             className="absolute inset-0 size-full object-cover opacity-90 group-hover:opacity-100 transition-opacity"
           />
           <span className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />

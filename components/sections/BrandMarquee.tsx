@@ -11,28 +11,33 @@ export default function BrandMarquee() {
 
   return (
     <section id="brands" aria-label="Trusted brands" className="relative">
-      <div className="container-x py-3">
-        <div
-          className="overflow-hidden"
-          style={{ ["--marquee-speed" as string]: "55s" }}
-        >
-          <div className="marquee-track gap-12 md:gap-16 py-1">
-            {logos.map((b, i) => (
-              <div
-                key={`${b.name}-${i}`}
-                className="relative h-10 w-[80px] shrink-0 flex items-center justify-center"
-                title={b.name}
-              >
-                <Image
-                  src={b.src}
-                  alt={`${b.name} logo`}
-                  fill
-                  sizes="80px"
-                  className="object-contain opacity-60 hover:opacity-100 transition-opacity"
-                  style={DARK_LOGOS.has(b.name) ? { filter: "invert(1)" } : undefined}
-                />
-              </div>
-            ))}
+      <div className="w-full pt-10 pb-4 md:pt-14">
+        <div className="relative">
+          {/* Edge fades so the logos dissolve in/out at the left + right. */}
+          <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-[12%] bg-gradient-to-r from-[var(--bg-obsidian)] to-transparent" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-[12%] bg-gradient-to-l from-[var(--bg-obsidian)] to-transparent" />
+          <div
+            className="overflow-hidden"
+            style={{ ["--marquee-speed" as string]: "55s" }}
+          >
+            <div className="marquee-track gap-12 md:gap-16 py-1">
+              {logos.map((b, i) => (
+                <div
+                  key={`${b.name}-${i}`}
+                  className="relative h-[64px] w-[70px] shrink-0 flex items-center justify-center"
+                  title={b.name}
+                >
+                  <Image
+                    src={b.src}
+                    alt={`${b.name} logo`}
+                    fill
+                    sizes="70px"
+                    className="object-contain opacity-60 hover:opacity-100 transition-opacity"
+                    style={DARK_LOGOS.has(b.name) ? { filter: "invert(1)" } : undefined}
+                  />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>

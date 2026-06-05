@@ -3,7 +3,6 @@ import Script from "next/script";
 import SiteNav from "@/components/nav/SiteNav";
 import PageHero from "@/components/sections/PageHero";
 import FAQ from "@/components/sections/FAQ";
-import Contact from "@/components/sections/Contact";
 import Footer from "@/components/sections/Footer";
 import Reveal from "@/components/motion/Reveal";
 import MagneticCTA from "@/components/motion/MagneticCTA";
@@ -84,7 +83,7 @@ export default function FaqPage() {
             <div className="rise mt-8 flex flex-wrap items-center justify-center gap-3">
               <MagneticCTA
                 href="/contact-us"
-                className="inline-flex items-center gap-2 rounded-full bg-[var(--champagne)] text-[var(--bg-obsidian)] px-6 py-3 text-[13px] font-medium hover:bg-[var(--champagne-hi)] transition-colors"
+                className="inline-flex items-center gap-2 rounded-full bg-[var(--champagne)] text-[var(--bg-obsidian)] px-6 py-3 text-[15px] font-medium hover:bg-[var(--champagne-hi)] transition-colors"
               >
                 <span>Contact us</span>
                 <svg width="14" height="10" viewBox="0 0 14 10" fill="none">
@@ -93,7 +92,7 @@ export default function FaqPage() {
               </MagneticCTA>
               <a
                 href="tel:+971565266295"
-                className="inline-flex items-center gap-2 rounded-full border border-white/15 px-6 py-3 text-[13px] text-[var(--ink-hi)] hover:bg-white/5 hover:border-[var(--champagne)] hover:text-[var(--champagne)] transition-colors"
+                className="inline-flex items-center gap-2 rounded-full border border-white/15 px-6 py-3 text-[15px] text-[var(--ink-hi)] hover:bg-white/5 hover:border-[var(--champagne)] hover:text-[var(--champagne)] transition-colors"
               >
                 +971 56 526 6295
               </a>
@@ -102,7 +101,6 @@ export default function FaqPage() {
         </div>
       </section>
 
-      <Contact />
       <Footer />
       <Script
         id="faq-page-jsonld"

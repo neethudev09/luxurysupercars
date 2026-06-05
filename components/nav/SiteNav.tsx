@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -21,6 +21,23 @@ export default function SiteNav() {
   const [hoverMenu, setHoverMenu] = useState<"type" | "brand" | null>(null);
   const [mobileExpanded, setMobileExpanded] = useState<"type" | "brand" | null>(null);
   const { currency, setCurrency } = useCurrency();
+
+  // Mega-menu hover bridge: the dropdown panels are now centred on the viewport
+  // (fixed positioning), so there's a gap between the trigger link and the
+  // panel. A short close delay lets the cursor cross that gap without the menu
+  // snapping shut, and entering the panel cancels the pending close.
+  const megaCloseTimer = useRef<number | null>(null);
+  const openMega = (which: "type" | "brand") => {
+    if (megaCloseTimer.current) {
+      window.clearTimeout(megaCloseTimer.current);
+      megaCloseTimer.current = null;
+    }
+    setHoverMenu(which);
+  };
+  const scheduleCloseMega = () => {
+    if (megaCloseTimer.current) window.clearTimeout(megaCloseTimer.current);
+    megaCloseTimer.current = window.setTimeout(() => setHoverMenu(null), 140);
+  };
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -67,7 +84,7 @@ export default function SiteNav() {
             scrolled ? "border-white/[0.06]" : "border-white/[0.04]"
           }`}
         >
-          <div className="w-full px-6 md:px-10 flex items-center justify-end h-[52px] gap-5 text-[12px] text-[var(--ink-lo)]">
+          <div className="w-full max-w-[1400px] mx-auto px-6 md:px-10 flex items-center justify-end h-[52px] gap-5 text-[12px] text-[var(--ink-lo)]">
             <SocialRow variant="circular" circleClass="size-9" iconSize={15} />
             <Divider />
             <a
@@ -89,7 +106,7 @@ export default function SiteNav() {
         </div>
 
         {/* MAIN BAR */}
-        <div className="relative w-full px-6 md:px-10 flex items-center justify-between h-[80px]">
+        <div className="relative w-full max-w-[1400px] mx-auto px-6 md:px-10 flex items-center justify-between h-[80px]">
           <Link
             href="/"
             aria-label="Luxury Supercars Dubai — home"
@@ -116,10 +133,8 @@ export default function SiteNav() {
                 <div
                   key={link.label}
                   className="relative"
-                  onMouseEnter={() =>
-                    hasMega && setHoverMenu(isType ? "type" : "brand")
-                  }
-                  onMouseLeave={() => hasMega && setHoverMenu(null)}
+                  onMouseEnter={() => hasMega && openMega(isType ? "type" : "brand")}
+                  onMouseLeave={() => hasMega && scheduleCloseMega()}
                 >
                   <Link
                     href={link.href}
@@ -150,50 +165,52 @@ export default function SiteNav() {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: 8 }}
                         transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-                        className={`absolute right-0 top-full mt-3 rounded-2xl bg-[var(--bg-obsidian)]/80 backdrop-blur-xl border border-[var(--champagne)]/40 shadow-[0_24px_60px_-20px_rgba(0,0,0,0.7)] ${
-                          isType ? "w-[660px] p-3" : "w-[680px] p-3"
+                        onMouseEnter={() => openMega(isType ? "type" : "brand")}
+                        onMouseLeave={scheduleCloseMega}
+                        className={`fixed left-1/2 top-full mt-4 -translate-x-1/2 max-w-[95vw] rounded-2xl bg-[var(--bg-obsidian)]/90 backdrop-blur-xl border border-[var(--champagne)]/40 shadow-[0_24px_60px_-20px_rgba(0,0,0,0.7)] ${
+                          isType ? "w-[920px] p-5" : "w-[1180px] p-5"
                         }`}
                       >
                         {isType ? (
-                          <div className="grid grid-cols-4 gap-2">
+                          <div className="grid grid-cols-4 gap-5">
                             {NAV_CAR_TYPES.filter((item) => item.label !== "Electric Cars").map((item) => (
                               <Link
                                 key={item.label}
                                 href={item.href}
                                 onClick={() => setHoverMenu(null)}
-                                className="group/item flex flex-col items-center justify-center text-center gap-3 px-3 py-4 rounded-xl text-[16px] text-[var(--ink-hi)] hover:bg-white/15 hover:text-[var(--champagne-hi)] transition-colors"
+                                className="group/item flex flex-col items-center justify-center text-center gap-4 px-4 py-6 rounded-xl text-[18px] text-[var(--ink-hi)] hover:bg-white/15 hover:text-[var(--champagne-hi)] transition-colors"
                               >
-                                <span className="relative shrink-0 size-[120px]">
+                                <span className="relative shrink-0 size-[180px]">
                                   <Image
                                     src={item.icon}
                                     alt=""
                                     fill
-                                    sizes="240px"
+                                    sizes="360px"
                                     quality={95}
                                     className="object-contain opacity-90 group-hover/item:opacity-100 transition-opacity"
                                   />
                                 </span>
-                                <span className="font-medium tracking-tight text-[14px] leading-tight">
+                                <span className="font-medium tracking-tight text-[21px] leading-tight">
                                   {item.label}
                                 </span>
                               </Link>
                             ))}
                           </div>
                         ) : (
-                          <div className="grid grid-cols-3 gap-x-2 gap-y-1.5">
+                          <div className="grid grid-cols-5 gap-x-3 gap-y-2">
                             {BRAND_LOGOS.filter((b) => b.slug !== null).map((b) => (
                               <Link
                                 key={b.name}
                                 href={`/brands/${b.slug}`}
                                 onClick={() => setHoverMenu(null)}
-                                className="group/item flex items-center gap-3 px-3 py-1.5 rounded-xl text-[16px] text-[var(--ink-hi)] hover:bg-white/15 hover:text-[var(--champagne-hi)] transition-colors"
+                                className="group/item flex items-center gap-3 px-3 py-2 rounded-xl text-[16px] text-[var(--ink-hi)] hover:bg-white/15 hover:text-[var(--champagne-hi)] transition-colors"
                               >
-                                <span className="relative shrink-0 size-12">
+                                <span className="relative shrink-0 size-20">
                                   <Image
                                     src={b.src}
                                     alt=""
                                     fill
-                                    sizes="48px"
+                                    sizes="80px"
                                     className="object-contain opacity-90 group-hover/item:opacity-100 transition-opacity"
                                   />
                                 </span>
@@ -215,7 +232,7 @@ export default function SiteNav() {
           {/* Contact Us — pulled out of the main nav and styled as a button */}
           <Link
             href="/contact-us"
-            className="hidden lg:inline-flex items-center gap-2 rounded-full bg-[var(--champagne)] text-[var(--bg-obsidian)] px-5 py-2.5 text-[13px] font-medium tracking-wide hover:bg-[var(--champagne-hi)] transition-colors"
+            className="hidden lg:inline-flex items-center gap-2 rounded-full bg-[var(--champagne)] text-[var(--bg-obsidian)] px-5 py-2.5 text-[15px] font-medium tracking-wide hover:bg-[var(--champagne-hi)] transition-colors"
           >
             Contact Us
             <svg width="13" height="9" viewBox="0 0 14 10" fill="none">

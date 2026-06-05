@@ -167,7 +167,7 @@ export default function FeaturesGrid({ features }: FeaturesGridProps) {
               className="flex items-center gap-4 rounded-xl border border-white/8 bg-[var(--bg-obsidian)]/40 px-5 py-4"
             >
               <span className="text-[var(--champagne)] shrink-0">{iconFor(label)}</span>
-              <span className="text-[14px] font-medium text-[var(--ink-hi)]">{label}</span>
+              <span className="text-[16px] font-medium text-[var(--ink-hi)]">{label}</span>
             </div>
           ))}
         </div>

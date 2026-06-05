@@ -4,7 +4,6 @@ import Link from "next/link";
 import Script from "next/script";
 import { notFound } from "next/navigation";
 import SiteNav from "@/components/nav/SiteNav";
-import Contact from "@/components/sections/Contact";
 import Footer from "@/components/sections/Footer";
 import ShareStrip from "@/components/sections/ShareStrip";
 import Reveal from "@/components/motion/Reveal";
@@ -232,7 +231,7 @@ export default async function BlogPostPage(
                             </div>
                           )}
                           <div className="flex-1 min-w-0">
-                            <p className="font-[var(--font-display)] text-[14px] leading-snug text-[var(--ink-hi)] line-clamp-3 group-hover:text-[var(--champagne-hi)] transition-colors">
+                            <p className="font-[var(--font-display)] text-[16px] leading-snug text-[var(--ink-hi)] line-clamp-3 group-hover:text-[var(--champagne-hi)] transition-colors">
                               {r.h1 || r.title}
                             </p>
                             {r.date && (
@@ -252,7 +251,6 @@ export default async function BlogPostPage(
         </div>
       </section>
 
-      <Contact />
       <Footer />
 
       <Script

@@ -150,13 +150,13 @@ export default function CarDetail({ car, related }: CarDetailProps) {
             staggerMs={45}
             breakAfterBold={false}
           />
-          <p className="mt-5 text-[14.5px] leading-[1.7] text-[var(--ink-lo)]">
+          <p className="mt-5 text-[16.5px] leading-[1.7] text-[var(--ink-lo)]">
             Free delivery anywhere in Dubai, 24/7 concierge, transparent pricing. Reach out and we&apos;ll have the keys waiting.
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
             <Link
               href="/#contact"
-              className="inline-flex items-center gap-2 rounded-full bg-white px-7 py-3 text-[13px] font-medium tracking-wide text-[var(--bg-obsidian)] hover:bg-white/90 transition-colors"
+              className="inline-flex items-center gap-2 rounded-full bg-white px-7 py-3 text-[15px] font-medium tracking-wide text-[var(--bg-obsidian)] hover:bg-white/90 transition-colors"
             >
               Send enquiry
               <svg width="14" height="10" viewBox="0 0 14 10" fill="none">
@@ -167,7 +167,7 @@ export default function CarDetail({ car, related }: CarDetailProps) {
               href={waHref}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-2 rounded-full bg-[#25D366] text-white px-6 py-3 text-[13px] font-medium hover:bg-[#1ebe5d] transition-colors"
+              className="inline-flex items-center gap-2 rounded-full bg-[#25D366] text-white px-6 py-3 text-[15px] font-medium hover:bg-[#1ebe5d] transition-colors"
             >
               <svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor" aria-hidden>
                 <path d="M13.6 2.32A7.85 7.85 0 0 0 8.02 0C3.6 0 0 3.6 0 8.02c0 1.41.37 2.79 1.07 4.01L0 16l4.09-1.07a8.04 8.04 0 0 0 3.92 1c4.42 0 8.02-3.6 8.02-8.02 0-2.14-.83-4.16-2.43-5.6zM8.02 14.66a6.65 6.65 0 0 1-3.4-.93l-.24-.14-2.43.63.65-2.37-.16-.25a6.65 6.65 0 0 1-1.02-3.55c0-3.68 3-6.68 6.68-6.68a6.65 6.65 0 0 1 6.68 6.68c0 3.68-3 6.68-6.68 6.68z" />
@@ -176,7 +176,7 @@ export default function CarDetail({ car, related }: CarDetailProps) {
             </a>
             <a
               href={`tel:${waNumber}`}
-              className="inline-flex items-center gap-2 rounded-full border border-white/20 text-[var(--ink-hi)] px-6 py-3 text-[13px] font-medium hover:bg-white/5 transition-colors"
+              className="inline-flex items-center gap-2 rounded-full border border-white/20 text-[var(--ink-hi)] px-6 py-3 text-[15px] font-medium hover:bg-white/5 transition-colors"
             >
               Call {CONTACT.primaryPhone}
             </a>

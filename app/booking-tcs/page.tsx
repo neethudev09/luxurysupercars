@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import SiteNav from "@/components/nav/SiteNav";
 import PageHero from "@/components/sections/PageHero";
 import StickyToc from "@/components/sections/StickyToc";
-import Contact from "@/components/sections/Contact";
 import Footer from "@/components/sections/Footer";
 import MaskHeading from "@/components/motion/MaskHeading";
 import { BOOKING_TERMS_PAGE } from "@/lib/content";
@@ -84,7 +83,7 @@ export default function BookingTermsPage() {
                         <h3 className="font-[var(--font-mono)] text-[11px] uppercase tracking-[0.24em] text-[var(--champagne)] mb-4">
                           {group.subtitle}
                         </h3>
-                        <ul className="list-disc list-outside pl-5 flex flex-col gap-2 text-[15.5px] leading-[1.75] text-[var(--ink-lo)]">
+                        <ul className="list-disc list-outside pl-5 flex flex-col gap-2 text-[17.5px] leading-[1.75] text-[var(--ink-lo)]">
                           {group.items.map((it) => (
                             <li key={it}>{it}</li>
                           ))}
@@ -99,7 +98,6 @@ export default function BookingTermsPage() {
         </div>
       </section>
 
-      <Contact />
       <Footer />
     </main>
   );

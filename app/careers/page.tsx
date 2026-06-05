@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import SiteNav from "@/components/nav/SiteNav";
 import PageHero from "@/components/sections/PageHero";
-import Contact from "@/components/sections/Contact";
 import Footer from "@/components/sections/Footer";
 import Reveal from "@/components/motion/Reveal";
 import MaskHeading from "@/components/motion/MaskHeading";
@@ -97,12 +96,12 @@ export default function CareersPage() {
                   <p className="font-[var(--font-display)] text-[clamp(1.3rem,2vw,1.6rem)] leading-tight text-[var(--ink-hi)] mb-5">
                     Tell us about yourself.
                   </p>
-                  <p className="text-[14.5px] leading-[1.7] text-[var(--ink-lo)] mb-6">
+                  <p className="text-[16.5px] leading-[1.7] text-[var(--ink-lo)] mb-6">
                     Share your details using the enquiry form below and someone from our team will be in touch if there&apos;s a suitable opportunity.
                   </p>
                   <MagneticCTA
                     href="#contact"
-                    className="inline-flex items-center gap-2 rounded-full bg-[var(--champagne)] text-[var(--bg-obsidian)] px-6 py-3 text-[13px] font-medium hover:bg-[var(--champagne-hi)] transition-colors"
+                    className="inline-flex items-center gap-2 rounded-full bg-[var(--champagne)] text-[var(--bg-obsidian)] px-6 py-3 text-[15px] font-medium hover:bg-[var(--champagne-hi)] transition-colors"
                   >
                     <span>Submit enquiry</span>
                     <svg width="14" height="10" viewBox="0 0 14 10" fill="none">
@@ -143,7 +142,7 @@ export default function CareersPage() {
                   <h3 className="font-[var(--font-display)] text-[clamp(1.25rem,1.8vw,1.5rem)] leading-tight text-[var(--ink-hi)] mb-3">
                     {pillar.title}
                   </h3>
-                  <p className="text-[14.5px] leading-[1.7] text-[var(--ink-lo)]">{pillar.body}</p>
+                  <p className="text-[16.5px] leading-[1.7] text-[var(--ink-lo)]">{pillar.body}</p>
                 </li>
               </Reveal>
             ))}
@@ -151,7 +150,6 @@ export default function CareersPage() {
         </div>
       </section>
 
-      <Contact />
       <Footer />
     </main>
   );

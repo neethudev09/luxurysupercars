@@ -149,7 +149,7 @@ export default function AboutFocus() {
                 <h3 className="font-[var(--font-display)] text-[18px] leading-tight tracking-tight text-[var(--ink-hi)] mb-2">
                   {v.h3}
                 </h3>
-                <p className="text-[15px] leading-[1.65] text-[var(--ink-lo)]">
+                <p className="text-[17px] leading-[1.65] text-[var(--ink-lo)]">
                   {v.body}
                 </p>
               </Reveal>

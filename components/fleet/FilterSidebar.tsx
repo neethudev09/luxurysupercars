@@ -170,7 +170,7 @@ export default function FilterSidebar({
             onChange={(e) => onChange({ ...filters, search: e.target.value })}
             placeholder="Search the fleet"
             aria-label="Search the fleet"
-            className="w-full bg-white/[0.04] border border-white/10 rounded-lg pl-9 pr-3 py-2.5 text-[13px] placeholder:text-[var(--ink-lo)] focus:outline-none focus:border-[var(--champagne)]/60 transition-colors"
+            className="w-full bg-white/[0.04] border border-white/10 rounded-lg pl-9 pr-3 py-2.5 text-[15px] placeholder:text-[var(--ink-lo)] focus:outline-none focus:border-[var(--champagne)]/60 transition-colors"
           />
         </div>
       </Group>
@@ -213,7 +213,7 @@ export default function FilterSidebar({
                     onClick={() =>
                       onChange({ ...filters, brands: toggleArray(filters.brands, b.value) })
                     }
-                    className="group w-full flex items-center justify-between gap-2 py-1.5 text-[13px] hover:text-[var(--champagne)] transition-colors"
+                    className="group w-full flex items-center justify-between gap-2 py-1.5 text-[15px] hover:text-[var(--champagne)] transition-colors"
                   >
                     <span className="inline-flex items-center gap-2.5">
                       <Checkmark checked={checked} />

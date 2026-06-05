@@ -64,11 +64,11 @@ export default function BlogFeaturedHero({ featured, secondary }: BlogFeaturedHe
                 staggerMs={40}
               />
               <Reveal>
-                <p className="rise text-[15px] leading-[1.7] text-[var(--ink-lo)] line-clamp-4 mb-6">
+                <p className="rise text-[17px] leading-[1.7] text-[var(--ink-lo)] line-clamp-4 mb-6">
                   {featured.excerpt}
                 </p>
               </Reveal>
-              <span className="inline-flex items-center gap-2 text-[13px] text-[var(--champagne)] group-hover:text-[var(--champagne-hi)] transition-colors">
+              <span className="inline-flex items-center gap-2 text-[15px] text-[var(--champagne)] group-hover:text-[var(--champagne-hi)] transition-colors">
                 Read full article
                 <svg width="14" height="10" viewBox="0 0 14 10" fill="none" className="transition-transform group-hover:translate-x-1.5">
                   <path d="M0 5h12M8 1l4 4-4 4" stroke="currentColor" strokeWidth="1.5" />

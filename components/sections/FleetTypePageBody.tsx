@@ -4,7 +4,6 @@ import FleetTypeAbout from "@/components/sections/FleetTypeAbout";
 import FleetExplorer from "@/components/fleet/FleetExplorer";
 import Testimonials from "@/components/sections/Testimonials";
 import FAQ from "@/components/sections/FAQ";
-import Contact from "@/components/sections/Contact";
 import Footer from "@/components/sections/Footer";
 import type { Car } from "@/lib/fleet";
 import type { FleetTypeMeta } from "@/lib/fleet-types";
@@ -31,7 +30,6 @@ export default function FleetTypePageBody({ meta, cars }: FleetTypePageBodyProps
       />
       <Testimonials />
       <FAQ heading={meta.faqHeading} items={meta.faqs} />
-      <Contact />
       <Footer />
     </main>
   );

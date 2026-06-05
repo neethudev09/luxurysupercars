@@ -397,7 +397,7 @@ function EmptyState({ onReset }: { onReset: () => void }) {
       <h3 className="relative font-[var(--font-display)] text-[clamp(1.4rem,3vw,1.8rem)] mb-2">
         No vehicles match those filters
       </h3>
-      <p className="relative text-[14px] text-[var(--ink-lo)] max-w-sm mb-6">
+      <p className="relative text-[16px] text-[var(--ink-lo)] max-w-sm mb-6">
         Try widening the price band, removing a brand, or clearing the colour filter.
       </p>
       <button

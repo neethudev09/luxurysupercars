@@ -4,7 +4,6 @@ import BrandsSection from "@/components/sections/BrandsSection";
 import FleetExplorer from "@/components/fleet/FleetExplorer";
 import Testimonials from "@/components/sections/Testimonials";
 import FAQ from "@/components/sections/FAQ";
-import Contact from "@/components/sections/Contact";
 import Footer from "@/components/sections/Footer";
 import { UNIQUE_CARS } from "@/lib/fleet";
 
@@ -37,7 +36,6 @@ export default function OurFleetPage() {
       </div>
       <Testimonials />
       <FAQ />
-      <Contact />
       <Footer />
     </main>
   );

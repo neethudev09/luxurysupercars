@@ -186,7 +186,7 @@ export default function SpecGrid({
                   <p className="font-[var(--font-mono)] text-[10px] uppercase tracking-[0.22em] text-[var(--ink-lo)] mb-1">
                     {it.label}
                   </p>
-                  <p className="text-[15px] font-medium text-[var(--ink-hi)] leading-tight">
+                  <p className="text-[17px] font-medium text-[var(--ink-hi)] leading-tight">
                     {it.value}
                   </p>
                 </div>

@@ -100,7 +100,7 @@ export default function StickyToc({ entries, label = "On this page" }: StickyToc
 
       {/* Mobile collapsible */}
       <details className="md:hidden mb-8 rounded-xl border border-white/8 bg-[var(--bg-graphite)]/40 p-5">
-        <summary className="cursor-pointer list-none flex items-center justify-between text-[13px] font-[var(--font-mono)] uppercase tracking-[0.24em] text-[var(--champagne)]">
+        <summary className="cursor-pointer list-none flex items-center justify-between text-[15px] font-[var(--font-mono)] uppercase tracking-[0.24em] text-[var(--champagne)]">
           <span>{label}</span>
           <svg width="11" height="7" viewBox="0 0 11 7" fill="none" aria-hidden>
             <path d="M1 1l4.5 4.5L10 1" stroke="currentColor" strokeWidth="1.3" />

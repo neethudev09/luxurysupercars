@@ -48,7 +48,7 @@ export default function FleetSection({
             />
           </div>
           <div className={`md:col-span-5 md:pl-8 md:border-l ${isLight ? "md:border-black/5" : "md:border-white/[0.06]"}`}>
-            <p className={`text-[14.5px] leading-[1.7] ${isLight ? "text-[var(--ink-dark-lo)]" : "text-[var(--ink-lo)]"}`}>
+            <p className={`text-[16.5px] leading-[1.7] ${isLight ? "text-[var(--ink-dark-lo)]" : "text-[var(--ink-lo)]"}`}>
               {body}
             </p>
           </div>

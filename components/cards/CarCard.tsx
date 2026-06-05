@@ -134,7 +134,7 @@ export default function CarCard({ car, theme = "dark", index = 0 }: CarCardProps
           {/* Decorative "View Details" pill — the whole card is the click target */}
           <span
             aria-hidden
-            className={`flex-1 inline-flex items-center justify-center gap-2 rounded-full px-4 py-3 text-[13px] font-medium tracking-wide transition-all ${
+            className={`flex-1 inline-flex items-center justify-center gap-2 rounded-full px-4 py-3 text-[15px] font-medium tracking-wide transition-all ${
               isLight
                 ? "bg-[var(--ink-dark-hi)] text-[var(--bg-bone)] group-hover:bg-[var(--champagne)] group-hover:text-[var(--bg-obsidian)]"
                 : "bg-white/8 text-[var(--ink-hi)] group-hover:bg-[var(--champagne)] group-hover:text-[var(--bg-obsidian)]"

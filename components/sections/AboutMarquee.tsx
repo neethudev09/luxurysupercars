@@ -64,7 +64,7 @@ export default function AboutMarquee() {
   const reel = [...TILES, ...TILES];
 
   return (
-    <section className="relative bg-[var(--bg-obsidian)] py-20 md:py-28 overflow-hidden border-t border-white/5">
+    <section className="relative bg-[var(--bg-pearl)] py-20 md:py-28 overflow-hidden border-t border-black/5">
       {/* SEO-only — preserves the live site's section H2s without
           forcing a visual change. */}
       <h2 className="sr-only">PRIZES &amp; AWARDS</h2>
@@ -72,8 +72,8 @@ export default function AboutMarquee() {
       <h2 className="sr-only">INSTAGRAM</h2>
 
       {/* Edge fades */}
-      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-[12%] bg-gradient-to-r from-[var(--bg-obsidian)] to-transparent" />
-      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-[12%] bg-gradient-to-l from-[var(--bg-obsidian)] to-transparent" />
+      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-[12%] bg-gradient-to-r from-[var(--bg-pearl)] to-transparent" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-[12%] bg-gradient-to-l from-[var(--bg-pearl)] to-transparent" />
 
       <div
         className="marquee-pause-hover relative w-full overflow-hidden"
@@ -121,7 +121,7 @@ function MarqueeTile({ tile }: { tile: Tile }) {
         </span>
       </div>
 
-      <figcaption className="text-left text-[12.5px] leading-snug text-white/85">
+      <figcaption className="text-left text-[12.5px] leading-snug text-[var(--ink-dark-lo)]">
         {tile.caption}
       </figcaption>
     </figure>

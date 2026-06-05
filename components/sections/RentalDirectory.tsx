@@ -49,7 +49,7 @@ export default function RentalDirectory() {
                 href={link.href}
                 className="rise group flex items-center justify-between gap-4 rounded-xl border border-white/8 bg-[var(--bg-obsidian)]/40 px-5 py-4 hover:border-[var(--champagne)]/40 hover:bg-[var(--bg-graphite)]/50 transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)]"
               >
-                <span className="text-[14.5px] font-medium text-[var(--ink-hi)] group-hover:text-[var(--champagne)] transition-colors duration-500 ease-[cubic-bezier(0.4,0,0.2,1)]">
+                <span className="text-[16.5px] font-medium text-[var(--ink-hi)] group-hover:text-[var(--champagne)] transition-colors duration-500 ease-[cubic-bezier(0.4,0,0.2,1)]">
                   {link.label}
                 </span>
                 <svg

@@ -37,7 +37,7 @@ export default function StickyEnquireBar({ car }: StickyEnquireBarProps) {
           {/* Name + price */}
           <div className="min-w-0 flex-1 flex items-center justify-between gap-3 md:gap-6">
             <div className="min-w-0">
-              <p className="font-[var(--font-display)] text-[14px] md:text-[16px] leading-tight tracking-tight text-[var(--ink-hi)] truncate">
+              <p className="font-[var(--font-display)] text-[16px] md:text-[16px] leading-tight tracking-tight text-[var(--ink-hi)] truncate">
                 {car.name}
               </p>
               <p className="font-[var(--font-mono)] text-[10px] uppercase tracking-[0.18em] text-[var(--ink-lo)] truncate">
@@ -56,7 +56,7 @@ export default function StickyEnquireBar({ car }: StickyEnquireBarProps) {
           <div className="flex items-center gap-2 shrink-0">
             <a
               href={`tel:${phoneDigits}`}
-              className="inline-flex items-center gap-2 rounded-full bg-white px-4 md:px-5 py-2.5 md:py-3 text-[12px] md:text-[13px] font-medium text-[var(--bg-obsidian)] hover:bg-white/90 transition-colors"
+              className="inline-flex items-center gap-2 rounded-full bg-white px-4 md:px-5 py-2.5 md:py-3 text-[12px] md:text-[15px] font-medium text-[var(--bg-obsidian)] hover:bg-white/90 transition-colors"
             >
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
                 <path

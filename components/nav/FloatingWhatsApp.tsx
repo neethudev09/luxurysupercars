@@ -116,7 +116,7 @@ export default function FloatingWhatsApp() {
               <WhatsAppGlyph size={18} />
             </span>
             <div className="min-w-0">
-              <p className="text-[15px] font-semibold leading-tight">Start a Conversation</p>
+              <p className="text-[17px] font-semibold leading-tight">Start a Conversation</p>
               <p className="mt-1 text-[12.5px] leading-snug text-white/90">
                 Hi! Click one of our team below to chat on{" "}
                 <span className="font-semibold">WhatsApp</span>.
@@ -141,7 +141,7 @@ export default function FloatingWhatsApp() {
                     <WhatsAppGlyph size={16} />
                   </span>
                   <span className="min-w-0 flex-1">
-                    <span className="block text-[14px] font-semibold leading-tight text-[var(--ink-dark-hi)]">
+                    <span className="block text-[16px] font-semibold leading-tight text-[var(--ink-dark-hi)]">
                       {agent.name}
                     </span>
                     <span className="block text-[12px] leading-tight text-[var(--ink-dark-lo)]">
@@ -207,7 +207,7 @@ export default function FloatingWhatsApp() {
             )}
           </AnimatePresence>
         </span>
-        <span className="relative hidden md:inline-block min-w-[5.5rem] text-[13px] font-medium tracking-wide leading-none h-[1em] overflow-hidden">
+        <span className="relative hidden md:inline-block min-w-[5.5rem] text-[15px] font-medium tracking-wide leading-none h-[1em] overflow-hidden">
           <AnimatePresence mode="wait" initial={false}>
             <motion.span
               key={open ? "close" : "wa"}

@@ -2,6 +2,7 @@
 
 import { useActionState } from "react";
 import { CARS_BRANDS, CONTACT } from "@/lib/content";
+import { COUNTRY_CODES, DEFAULT_DIAL, flagEmoji } from "@/lib/country-codes";
 import MaskHeading from "@/components/motion/MaskHeading";
 import Reveal from "@/components/motion/Reveal";
 import { sendEnquiry, type EnquiryFormState } from "@/app/actions/send-enquiry";
@@ -21,7 +22,7 @@ export default function Contact() {
               className="font-[var(--font-display)] text-[clamp(2rem,4.6vw,3.6rem)] leading-[1.05] tracking-[-0.018em] text-[var(--ink-hi)]"
               staggerMs={45}
             />
-            <p className="mt-5 max-w-md text-[14.5px] leading-[1.7] text-[var(--ink-lo)]">
+            <p className="mt-5 max-w-md text-[16.5px] leading-[1.7] text-[var(--ink-lo)]">
               24/7 concierge support, free delivery anywhere in Dubai, and a fleet that turns heads. Reach out and we&apos;ll have the keys waiting.
             </p>
           </div>
@@ -64,7 +65,33 @@ export default function Contact() {
             <div className="grid md:grid-cols-2 gap-5">
               <Field label="Full name" name="name" placeholder="John Smith" />
               <Field label="Email" name="email" type="email" placeholder="you@email.com" />
-              <Field label="Mobile" name="phone" type="tel" placeholder="+971 ..." />
+              <div className="flex flex-col gap-1.5">
+                <label htmlFor="phone" className="font-[var(--font-mono)] text-[12px] uppercase tracking-[0.18em] text-[var(--ink-lo)]">
+                  Mobile
+                </label>
+                <div className="flex items-end gap-2">
+                  <select
+                    id="countryCode"
+                    name="countryCode"
+                    defaultValue={DEFAULT_DIAL}
+                    aria-label="Country dialling code"
+                    className="w-[7rem] shrink-0 bg-transparent border-b border-white/15 py-2 text-[16px] text-[var(--ink-hi)] outline-none focus:border-[var(--champagne)] transition-colors [color-scheme:dark]"
+                  >
+                    {COUNTRY_CODES.map((c) => (
+                      <option key={c.iso} value={c.dial} className="bg-[var(--bg-obsidian)]">
+                        {flagEmoji(c.iso)} {c.dial}  {c.name}
+                      </option>
+                    ))}
+                  </select>
+                  <input
+                    id="phone"
+                    name="phone"
+                    type="tel"
+                    placeholder="56 526 6295"
+                    className="flex-1 min-w-0 bg-transparent border-b border-white/15 py-2 text-[16px] text-[var(--ink-hi)] placeholder:text-[var(--ink-lo)]/60 outline-none focus:border-[var(--champagne)] transition-colors [color-scheme:dark]"
+                  />
+                </div>
+              </div>
               <div className="flex flex-col gap-1.5">
                 <label htmlFor="brand" className="font-[var(--font-mono)] text-[12px] uppercase tracking-[0.18em] text-[var(--ink-lo)]">
                   Select Brand
@@ -106,7 +133,7 @@ export default function Contact() {
               <button
                 type="submit"
                 disabled={pending}
-                className="inline-flex items-center gap-2.5 rounded-full bg-[var(--champagne)] text-[var(--bg-obsidian)] px-7 py-3 text-[15px] font-medium hover:bg-[var(--champagne-hi)] transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+                className="inline-flex items-center gap-2.5 rounded-full bg-[var(--champagne)] text-[var(--bg-obsidian)] px-7 py-3 text-[17px] font-medium hover:bg-[var(--champagne-hi)] transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
               >
                 {pending ? "Sending…" : "Send enquiry"}
                 {!pending && (
@@ -119,7 +146,7 @@ export default function Contact() {
             {state.message && (
               <p
                 role="status"
-                className={`mt-4 text-[15px] ${state.ok ? "text-[var(--champagne)]" : "text-red-400"}`}
+                className={`mt-4 text-[17px] ${state.ok ? "text-[var(--champagne)]" : "text-red-400"}`}
               >
                 {state.message}
               </p>

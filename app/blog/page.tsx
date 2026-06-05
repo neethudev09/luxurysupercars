@@ -4,7 +4,6 @@ import Link from "next/link";
 import SiteNav from "@/components/nav/SiteNav";
 import PageHero from "@/components/sections/PageHero";
 import BlogFeaturedHero from "@/components/sections/BlogFeaturedHero";
-import Contact from "@/components/sections/Contact";
 import Footer from "@/components/sections/Footer";
 import Reveal from "@/components/motion/Reveal";
 import { BLOG_POSTS } from "@/lib/blog";
@@ -117,7 +116,6 @@ export default async function BlogIndexPage({
         </div>
       </section>
 
-      <Contact />
       <Footer />
     </main>
   );

@@ -49,7 +49,7 @@ export default function WhyChooseUs() {
               </h3>
               <div className="mt-auto pt-7 md:pt-9">
                 <span className="hairline block mb-5 max-w-[80px]" />
-                <p className="relative text-[15.5px] leading-[1.7] text-[var(--ink-lo)]">
+                <p className="relative text-[17.5px] leading-[1.7] text-[var(--ink-lo)]">
                   {c.body}
                 </p>
               </div>

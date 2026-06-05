@@ -5,7 +5,6 @@ import FleetBrandAbout from "@/components/sections/FleetBrandAbout";
 import FleetExplorer from "@/components/fleet/FleetExplorer";
 import Testimonials from "@/components/sections/Testimonials";
 import FAQ from "@/components/sections/FAQ";
-import Contact from "@/components/sections/Contact";
 import Footer from "@/components/sections/Footer";
 import { CONTACT } from "@/lib/content";
 import type { Car } from "@/lib/fleet";
@@ -45,7 +44,6 @@ export default function FleetBrandPageBody({ meta, cars }: FleetBrandPageBodyPro
       {meta.faqHeading && meta.faqs.length > 0 && (
         <FAQ heading={meta.faqHeading} items={meta.faqs} />
       )}
-      <Contact />
       <Footer />
     </main>
   );
@@ -69,7 +67,7 @@ function BrandEmptyState({ brandName }: { brandName: string }) {
           <h2 className="relative font-[var(--font-display)] text-[clamp(1.6rem,3.4vw,2.4rem)] leading-tight tracking-tight mb-3 text-balance max-w-xl">
             {brandName} models reserved for our concierge clients
           </h2>
-          <p className="relative text-[14px] text-[var(--ink-lo)] max-w-md mb-7">
+          <p className="relative text-[16px] text-[var(--ink-lo)] max-w-md mb-7">
             We curate select {brandName} vehicles by request. Reach out and our
             team will source the exact model, trim, and timing you have in mind.
           </p>

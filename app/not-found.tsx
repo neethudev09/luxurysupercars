@@ -35,7 +35,7 @@ export default function NotFound() {
           <h1 className="font-[var(--font-display)] text-[clamp(2.2rem,5.4vw,4.4rem)] leading-[1.04] tracking-[-0.022em] text-[var(--ink-hi)] text-balance max-w-3xl mx-auto">
             This page took a wrong turn
           </h1>
-          <p className="mt-6 max-w-xl mx-auto text-[15.5px] leading-[1.7] text-[var(--ink-lo)]">
+          <p className="mt-6 max-w-xl mx-auto text-[17.5px] leading-[1.7] text-[var(--ink-lo)]">
             The page you&apos;re looking for doesn&apos;t exist, has moved, or
             never made it past the showroom doors. Let&apos;s get you back on
             track.
@@ -44,7 +44,7 @@ export default function NotFound() {
           <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
             <Link
               href="/"
-              className="group inline-flex items-center gap-2.5 rounded-full bg-[var(--champagne)] text-[var(--bg-obsidian)] px-6 py-3 text-[13px] font-medium tracking-wide hover:bg-[var(--champagne-hi)] transition-colors"
+              className="group inline-flex items-center gap-2.5 rounded-full bg-[var(--champagne)] text-[var(--bg-obsidian)] px-6 py-3 text-[15px] font-medium tracking-wide hover:bg-[var(--champagne-hi)] transition-colors"
             >
               Back to home
               <svg width="14" height="10" viewBox="0 0 14 10" fill="none" className="transition-transform group-hover:translate-x-1">
@@ -53,13 +53,13 @@ export default function NotFound() {
             </Link>
             <Link
               href="/our-fleet"
-              className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-black/10 backdrop-blur px-6 py-3 text-[13px] font-medium tracking-wide text-[var(--ink-hi)] hover:border-[var(--champagne)] hover:bg-[var(--champagne)]/15 transition-all"
+              className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-black/10 backdrop-blur px-6 py-3 text-[15px] font-medium tracking-wide text-[var(--ink-hi)] hover:border-[var(--champagne)] hover:bg-[var(--champagne)]/15 transition-all"
             >
               Browse our fleet
             </Link>
             <Link
               href="/#contact"
-              className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-[13px] font-medium tracking-wide text-[var(--ink-hi)] hover:text-[var(--champagne)] transition-colors"
+              className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-[15px] font-medium tracking-wide text-[var(--ink-hi)] hover:text-[var(--champagne)] transition-colors"
             >
               Contact us
             </Link>

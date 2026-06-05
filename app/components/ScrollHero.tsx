@@ -64,13 +64,15 @@ export default function ScrollHero() {
   return (
     <div
       ref={containerRef}
-      className="relative h-[200vh] bg-[var(--bg-obsidian)] px-3 pb-3 md:px-5 md:pb-5"
+      className="relative h-[200vh] bg-[var(--bg-obsidian)]"
       style={{
         opacity: mounted ? 1 : 0,
         transition: "opacity 200ms ease-out",
       }}
     >
-      <div className="sticky top-[88px] md:top-[140px] h-[calc(100svh-100px)] md:h-[calc(100vh-160px)] overflow-hidden rounded-2xl md:rounded-[28px] border border-white/10">
+      {/* Full-bleed hero — fills the viewport (100vw × 100vh) and sits beneath
+          the transparent fixed nav, which floats over the top of the video. */}
+      <div className="sticky top-0 h-screen w-full overflow-hidden">
         <video
           ref={videoRef}
           src="/scroller-header-video.mp4"
@@ -82,33 +84,36 @@ export default function ScrollHero() {
 
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/15" />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/85 via-black/15 to-transparent" />
+        {/* Bottom fade to the page background so the video dissolves into the
+            black and flows seamlessly into the brand slider below. */}
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-[var(--bg-obsidian)] via-[var(--bg-obsidian)]/70 to-transparent" />
 
-        <div className="absolute inset-0 flex flex-col items-start justify-end text-left px-6 md:px-12 pt-20 pb-8 md:pb-20">
+        <div className="absolute inset-0 flex flex-col items-start justify-end text-left px-6 md:px-12 pt-24 pb-12 md:pb-24">
           <MaskHeading
             text={HERO.h1}
             as="h1"
-            className="font-[var(--font-display)] font-medium text-[clamp(2rem,4.4vw,3.75rem)] leading-[1.05] tracking-[-0.02em] text-white max-w-[22ch]"
+            className="font-[var(--font-display)] font-medium text-[clamp(2.4rem,5.3vw,4.5rem)] leading-[1.05] tracking-[-0.02em] text-white max-w-[22ch]"
             staggerMs={55}
             animate
           />
 
-          <p className="mt-4 md:mt-6 max-w-xl text-[14px] md:text-[15.5px] leading-[1.6] md:leading-[1.65] text-white/75">
+          <p className="mt-5 md:mt-7 max-w-2xl text-[17px] md:text-[18.5px] leading-[1.6] md:leading-[1.65] text-white/75">
             {HERO.sub}
           </p>
 
-          <div className="mt-5 md:mt-8 flex flex-wrap items-center justify-start gap-3">
+          <div className="mt-6 md:mt-9 flex flex-wrap items-center justify-start gap-3.5">
             <MagneticCTA
               href="#contact"
-              className="group inline-flex items-center gap-2.5 rounded-full bg-white px-6 py-3 text-[13px] font-medium tracking-wide text-[var(--bg-obsidian)] hover:bg-white/90 transition-colors"
+              className="group inline-flex items-center gap-2.5 rounded-full bg-white px-7 py-3.5 text-[16px] font-medium tracking-wide text-[var(--bg-obsidian)] hover:bg-white/90 transition-colors"
             >
               {HERO.ctaPrimary}
-              <svg width="14" height="10" viewBox="0 0 14 10" fill="none" className="transition-transform group-hover:translate-x-1">
+              <svg width="16" height="11" viewBox="0 0 14 10" fill="none" className="transition-transform group-hover:translate-x-1">
                 <path d="M0 5h12M8 1l4 4-4 4" stroke="currentColor" strokeWidth="1.5" />
               </svg>
             </MagneticCTA>
             <MagneticCTA
               href="#contact"
-              className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-black/10 backdrop-blur px-6 py-3 text-[13px] font-medium tracking-wide text-white hover:border-[var(--champagne)] hover:bg-[var(--champagne)]/15 transition-all"
+              className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-black/10 backdrop-blur px-7 py-3.5 text-[16px] font-medium tracking-wide text-white hover:border-[var(--champagne)] hover:bg-[var(--champagne)]/15 transition-all"
             >
               {HERO.ctaSecondary}
             </MagneticCTA>

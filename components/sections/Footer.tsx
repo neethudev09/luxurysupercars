@@ -29,7 +29,7 @@ export default function Footer() {
                 className="h-18 w-auto object-contain"
               />
             </Link>
-            <p className="text-[15.5px] leading-[1.7] text-[var(--ink-lo)] max-w-md">
+            <p className="text-[17.5px] leading-[1.7] text-[var(--ink-lo)] max-w-md">
               {FOOTER.description}
             </p>
           </div>
@@ -37,7 +37,7 @@ export default function Footer() {
             <p className="font-[var(--font-mono)] text-[12px] uppercase tracking-[0.22em] text-[var(--champagne)] mb-4">
               Brands
             </p>
-            <ul className="grid grid-cols-2 gap-x-4 gap-y-1.5 text-[15px] text-[var(--ink-hi)]/80">
+            <ul className="grid grid-cols-2 gap-x-4 gap-y-1.5 text-[17px] text-[var(--ink-hi)]/80">
               {FOOTER.brands.map((b) => (
                 <li key={b}>
                   <a href={brandHref(b)} className="hover:text-[var(--champagne)] transition-colors">
@@ -51,7 +51,7 @@ export default function Footer() {
             <p className="font-[var(--font-mono)] text-[12px] uppercase tracking-[0.22em] text-[var(--champagne)] mb-4">
               Rent
             </p>
-            <ul className="flex flex-col gap-1.5 text-[15px] text-[var(--ink-hi)]/80">
+            <ul className="flex flex-col gap-1.5 text-[17px] text-[var(--ink-hi)]/80">
               {FOOTER.rent.map((r) => (
                 <li key={r.href + r.label}>
                   <Link href={r.href} className="hover:text-[var(--champagne)] transition-colors">
@@ -65,7 +65,7 @@ export default function Footer() {
             <p className="font-[var(--font-mono)] text-[12px] uppercase tracking-[0.22em] text-[var(--champagne)] mb-4">
               Useful Links
             </p>
-            <ul className="flex flex-col gap-1.5 text-[15px] text-[var(--ink-hi)]/80">
+            <ul className="flex flex-col gap-1.5 text-[17px] text-[var(--ink-hi)]/80">
               {FOOTER.useful.map((u) => (
                 <li key={u.href}>
                   <Link href={u.href} className="hover:text-[var(--champagne)] transition-colors">
@@ -79,12 +79,12 @@ export default function Footer() {
             <p className="font-[var(--font-mono)] text-[12px] uppercase tracking-[0.22em] text-[var(--champagne)] mb-4">
               Contact Us
             </p>
-            <ul className="flex flex-col gap-1.5 text-[15px] text-[var(--ink-hi)]/80">
+            <ul className="flex flex-col gap-1.5 text-[17px] text-[var(--ink-hi)]/80">
               <li><a href={`tel:${CONTACT.primaryPhone.replace(/\s/g, "")}`} className="hover:text-[var(--champagne)] transition-colors">{CONTACT.primaryPhone}</a></li>
               <li><a href={`tel:${CONTACT.secondaryPhone.replace(/\s/g, "")}`} className="hover:text-[var(--champagne)] transition-colors">{CONTACT.secondaryPhone}</a></li>
               <li><a href={`tel:${CONTACT.landline.replace(/\s/g, "")}`} className="hover:text-[var(--champagne)] transition-colors">{CONTACT.landline}</a></li>
               <li><a href={`mailto:${CONTACT.email}`} className="hover:text-[var(--champagne)] transition-colors">{CONTACT.email}</a></li>
-              <li className="mt-2 text-[var(--ink-lo)] text-[14.5px]">{CONTACT.address}</li>
+              <li className="mt-2 text-[var(--ink-lo)] text-[16.5px]">{CONTACT.address}</li>
             </ul>
 
             <p className="font-[var(--font-mono)] text-[12px] uppercase tracking-[0.22em] text-[var(--champagne)] mt-8 mb-4">
@@ -116,7 +116,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-12 flex flex-wrap items-center justify-between gap-6 border-t border-white/5 pt-6">
-          <p className="text-[14px] text-[var(--ink-lo)]">
+          <p className="text-[16px] text-[var(--ink-lo)]">
             {FOOTER.copyright}{" "}
             <span className="whitespace-nowrap">
               Website by{" "}
@@ -130,7 +130,7 @@ export default function Footer() {
               </a>
             </span>
           </p>
-          <ul className="flex items-center gap-5 text-[14px] text-[var(--ink-lo)]">
+          <ul className="flex items-center gap-5 text-[16px] text-[var(--ink-lo)]">
             {FOOTER.legal.map((l) => (
               <li key={l.href}><Link href={l.href} className="hover:text-[var(--champagne)]">{l.label}</Link></li>
             ))}
