@@ -92,7 +92,7 @@ export default function AboutSocialEmbeds() {
       <div className="container-x space-y-20 md:space-y-24">
         {BLOCKS.map((block) => (
           <div key={block.id} id={block.id}>
-            <div className="flex items-center gap-3 md:gap-4 mb-8 md:mb-10 text-[var(--champagne)]">
+            <div className="flex items-center justify-center gap-3 md:gap-4 mb-8 md:mb-10 text-[var(--champagne)]">
               <span className="shrink-0 inline-flex items-center justify-center">
                 <BlockIcon name={block.icon} size={32} />
               </span>
@@ -108,18 +108,14 @@ export default function AboutSocialEmbeds() {
             <div
               className={
                 block.layout === "shorts"
-                  ? "flex flex-wrap justify-center gap-3 md:gap-4"
+                  ? "grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-5"
                   : "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5"
               }
             >
               {block.videoIds.map((vid, i) => (
                 <Reveal
                   key={vid}
-                  className={
-                    block.layout === "shorts"
-                      ? "rise w-[30%] md:w-[15%]"
-                      : "rise"
-                  }
+                  className="rise"
                   delay={Math.min(i * 70, 280)}
                 >
                   <VideoFacade

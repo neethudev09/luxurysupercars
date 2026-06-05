@@ -1,7 +1,8 @@
 "use client";
 
 import { useCurrency } from "./CurrencyProvider";
-import { formatAmount, formatPrice } from "@/lib/currency";
+import { formatAmount, formatPrice, CURRENCY_META } from "@/lib/currency";
+import AedSymbol from "./AedSymbol";
 
 /**
  * Inline price with symbol, e.g. "AED 12,000" or "≈ $3,270". Use inside text or
@@ -35,6 +36,20 @@ export function CurrencyCode({ className }: { className?: string }) {
   return (
     <span className={className} suppressHydrationWarning>
       {currency}
+    </span>
+  );
+}
+
+/**
+ * The active currency's symbol — "$" / "£" / "€" for foreign currencies, and
+ * the new UAE Dirham glyph for AED.
+ */
+export function CurrencySymbol({ className }: { className?: string }) {
+  const { currency } = useCurrency();
+  if (currency === "AED") return <AedSymbol className={className} />;
+  return (
+    <span className={className} suppressHydrationWarning>
+      {CURRENCY_META[currency].symbol}
     </span>
   );
 }

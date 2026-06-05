@@ -2,18 +2,19 @@
 
 import { useActionState } from "react";
 import { CARS_BRANDS, CONTACT } from "@/lib/content";
-import { COUNTRY_CODES, DEFAULT_DIAL, flagEmoji } from "@/lib/country-codes";
+import PhoneCountrySelect from "@/components/contact/PhoneCountrySelect";
 import MaskHeading from "@/components/motion/MaskHeading";
 import Reveal from "@/components/motion/Reveal";
 import { sendEnquiry, type EnquiryFormState } from "@/app/actions/send-enquiry";
 
 const INITIAL_STATE: EnquiryFormState = { ok: false, message: "" };
 
-export default function Contact() {
+export default function Contact({ formOnly = false }: { formOnly?: boolean }) {
   const [state, action, pending] = useActionState(sendEnquiry, INITIAL_STATE);
   return (
     <section id="contact" className="bg-[var(--bg-obsidian)] py-20 md:py-28 border-t border-white/5 overflow-hidden">
-      <div className="container-x grid md:grid-cols-12 gap-12 md:gap-20">
+      <div className={formOnly ? "container-x" : "container-x grid md:grid-cols-12 gap-12 md:gap-20"}>
+        {!formOnly && (
         <div className="md:col-span-5 flex flex-col gap-8">
           <div>
             <MaskHeading
@@ -53,8 +54,9 @@ export default function Contact() {
             ))}
           </Reveal>
         </div>
+        )}
 
-        <div className="md:col-span-5 md:col-start-8">
+        <div className={formOnly ? "mx-auto w-full max-w-2xl" : "md:col-span-5 md:col-start-8"}>
           <form
             className="rounded-2xl border border-white/8 bg-[var(--bg-graphite)]/60 p-6 md:p-8 backdrop-blur"
             action={action}
@@ -70,19 +72,7 @@ export default function Contact() {
                   Mobile
                 </label>
                 <div className="flex items-end gap-2">
-                  <select
-                    id="countryCode"
-                    name="countryCode"
-                    defaultValue={DEFAULT_DIAL}
-                    aria-label="Country dialling code"
-                    className="w-[7rem] shrink-0 bg-transparent border-b border-white/15 py-2 text-[16px] text-[var(--ink-hi)] outline-none focus:border-[var(--champagne)] transition-colors [color-scheme:dark]"
-                  >
-                    {COUNTRY_CODES.map((c) => (
-                      <option key={c.iso} value={c.dial} className="bg-[var(--bg-obsidian)]">
-                        {flagEmoji(c.iso)} {c.dial}  {c.name}
-                      </option>
-                    ))}
-                  </select>
+                  <PhoneCountrySelect />
                   <input
                     id="phone"
                     name="phone"

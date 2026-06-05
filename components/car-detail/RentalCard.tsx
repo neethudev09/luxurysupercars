@@ -63,7 +63,7 @@ export default function RentalCard({ car, className = "" }: { car: Car; classNam
           </svg>
           Enquire on WhatsApp
         </a>
-        <p className="mt-1 text-center font-[var(--font-mono)] text-[10.5px] uppercase tracking-[0.22em] text-[var(--ink-lo)]">
+        <p className="mt-1 text-center font-[var(--font-mono)] text-[12.5px] uppercase tracking-[0.22em] text-[var(--ink-lo)]">
           <span className="inline-flex items-center gap-1.5">
             <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
               <circle cx="12" cy="12" r="10" />

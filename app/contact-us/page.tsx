@@ -152,7 +152,7 @@ export default function ContactUsPage() {
         </div>
       </section>
 
-      <Contact />
+      <Contact formOnly />
       <Footer />
     </main>
   );

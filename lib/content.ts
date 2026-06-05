@@ -517,6 +517,9 @@ export const FOOTER = {
     { label: "Rent Sports Cars", href: "/rent-sports-cars-dubai" },
     { label: "Rent SUV Cars", href: "/rent-suv-cars-dubai" },
     { label: "Rent Exotics", href: "/rent-luxury-cars-dubai" },
+    { label: "Rent Ferrari", href: "/brands/rent-ferrari-dubai" },
+    { label: "Rent Lamborghini", href: "/brands/rent-lamborghini-dubai" },
+    { label: "Rent Porsche", href: "/brands/rent-porsche-dubai" },
   ],
   // hrefs mirror live luxurysupercarsdubai.com slugs exactly so existing
   // backlinks resolve unchanged on launch.
@@ -533,6 +536,7 @@ export const FOOTER = {
   legal: [
     { label: "Booking T&C's", href: "/booking-tcs" },
     { label: "Privacy Policy", href: "/privacy-policy" },
+    { label: "Cookie Policy", href: "/cookie-policy" },
   ],
   copyright: "© 2026 Luxury Supercar Rentals. All rights reserved.",
 };

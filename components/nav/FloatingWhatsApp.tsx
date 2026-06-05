@@ -62,19 +62,31 @@ export default function FloatingWhatsApp() {
   const [hidden, setHidden] = useState(false);
   const rootRef = useRef<HTMLDivElement | null>(null);
 
-  // Hide entirely when the Contact section is on screen — the form already
-  // sits in the bottom-right and the two would overlap.
+  // Hide entirely when the Contact section OR the footer is on screen — the
+  // contact form sits bottom-right, and over the footer these buttons would
+  // crop the social links. Watching both keeps them clear on every page
+  // (including ones without a #contact section, e.g. /about-us).
   useEffect(() => {
-    const target = document.getElementById("contact");
-    if (!target) return;
+    const targets = [
+      document.getElementById("contact"),
+      document.querySelector("footer"),
+    ].filter(Boolean) as Element[];
+    if (!targets.length) return;
+
+    const onScreen = new Set<Element>();
     const io = new IntersectionObserver(
-      ([entry]) => {
-        setHidden(entry.isIntersecting);
-        if (entry.isIntersecting) setOpen(false);
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) onScreen.add(entry.target);
+          else onScreen.delete(entry.target);
+        }
+        const anyVisible = onScreen.size > 0;
+        setHidden(anyVisible);
+        if (anyVisible) setOpen(false);
       },
       { threshold: 0.15 }
     );
-    io.observe(target);
+    targets.forEach((t) => io.observe(t));
     return () => io.disconnect();
   }, []);
 
@@ -163,9 +175,14 @@ export default function FloatingWhatsApp() {
           href={TEL_HREF}
           aria-label="Call us now"
           title="Call us now"
-          className="inline-flex size-11 shrink-0 items-center justify-center rounded-full bg-white text-[var(--bg-obsidian)] shadow-[0_12px_30px_-8px_rgba(0,0,0,0.45)] transition-colors hover:bg-white/90"
+          className="inline-flex shrink-0 items-center gap-2.5 rounded-full bg-white p-3 md:pl-3.5 md:pr-5 md:py-3 text-[var(--bg-obsidian)] shadow-[0_12px_30px_-8px_rgba(0,0,0,0.45)] transition-colors hover:bg-white/90"
         >
-          <PhoneGlyph size={16} />
+          <span className="inline-flex size-7 items-center justify-center">
+            <PhoneGlyph size={16} />
+          </span>
+          <span className="hidden md:inline text-[15px] font-medium tracking-wide leading-none">
+            Call Us
+          </span>
         </a>
 
         <button

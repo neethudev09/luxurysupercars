@@ -6,6 +6,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import MotionProvider from "@/components/motion/MotionProvider";
 import CursorTrail from "@/components/motion/CursorTrail";
 import FloatingWhatsApp from "@/components/nav/FloatingWhatsApp";
+import ImageProtection from "@/components/ImageProtection";
 import { CurrencyProvider } from "@/components/currency/CurrencyProvider";
 
 // Car detail pages already have an inline "Enquire on WhatsApp" CTA
@@ -31,6 +32,9 @@ export default function SiteChrome({ children }: { children: React.ReactNode }) 
       <MotionProvider>{children}</MotionProvider>
       {!isCarDetail && <FloatingWhatsApp />}
       <CursorTrail />
+      <ImageProtection />
+      {/* Cookie consent banner disabled for now — re-enable later by rendering
+          <CookieConsent /> here. The component and /cookie-policy page are kept. */}
       <div className="grain" aria-hidden />
       <Analytics />
       <SpeedInsights />

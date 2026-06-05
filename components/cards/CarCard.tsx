@@ -6,7 +6,7 @@ import Reveal from "@/components/motion/Reveal";
 import type { Car } from "@/lib/fleet";
 import { carHref } from "@/lib/fleet";
 import { CONTACT } from "@/lib/content";
-import { PriceAmount, CurrencyCode } from "@/components/currency/Price";
+import { PriceAmount, CurrencySymbol } from "@/components/currency/Price";
 
 interface CarCardProps {
   car: Car;
@@ -115,9 +115,12 @@ export default function CarCard({ car, theme = "dark", index = 0 }: CarCardProps
           </h3>
           {car.price > 0 && (
             <span className="shrink-0 text-right">
-              <PriceAmount className="block font-[var(--font-display)] text-[24px] leading-none text-[var(--champagne)]" amount={car.price} />
+              <span className="flex items-baseline justify-end gap-0.5 font-[var(--font-display)] text-[24px] leading-none text-[var(--champagne)]">
+                <CurrencySymbol />
+                <PriceAmount amount={car.price} />
+              </span>
               <span className="font-[var(--font-mono)] text-[10px] uppercase tracking-[0.2em] opacity-70">
-                <CurrencyCode /> / day
+                / day
               </span>
             </span>
           )}
@@ -152,9 +155,10 @@ export default function CarCard({ car, theme = "dark", index = 0 }: CarCardProps
             rel="noreferrer"
             aria-label={`WhatsApp about the ${car.name}`}
             onClick={(e) => e.stopPropagation()}
-            className="pointer-events-auto relative z-10 shrink-0 inline-flex items-center justify-center size-11 rounded-full bg-[#25D366] text-white hover:bg-[#1ebe5d] transition-colors"
+            className="pointer-events-auto relative z-10 shrink-0 inline-flex items-center justify-center gap-2 rounded-full bg-[#25D366] px-4 py-3 text-[15px] font-medium tracking-wide text-white hover:bg-[#1ebe5d] transition-colors"
           >
             <WhatsAppIcon size={18} />
+            WhatsApp
           </a>
         </div>
       </div>

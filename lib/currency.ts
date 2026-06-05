@@ -33,7 +33,7 @@ export const CURRENCY_META: Record<Currency, CurrencyMeta> = {
   AED: { symbol: "AED ", round: 1 },
   USD: { symbol: "$", round: 10 },
   GBP: { symbol: "£", round: 10 },
-  AUD: { symbol: "A$", round: 10 },
+  AUD: { symbol: "$", round: 10 },
   EUR: { symbol: "€", round: 10 },
 };
 

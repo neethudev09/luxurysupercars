@@ -3,12 +3,26 @@ import Image from "next/image";
 import Link from "next/link";
 import SiteNav from "@/components/nav/SiteNav";
 import PageHero from "@/components/sections/PageHero";
-import Requirements from "@/components/sections/Requirements";
-import WhyChooseUs from "@/components/sections/WhyChooseUs";
 import Footer from "@/components/sections/Footer";
 import Reveal from "@/components/motion/Reveal";
 import { SERVICES_PAGE } from "@/lib/content";
-import { PAGE_HERO_IMAGES, SERVICE_IMAGES } from "@/lib/assets";
+import { PAGE_HERO_IMAGES } from "@/lib/assets";
+import {
+  FEATURED_LUXURY,
+  FEATURED_SPORTS,
+  FEATURED_SUVS,
+  FEATURED_CONVERTIBLES,
+} from "@/lib/fleet";
+
+// Working car imagery (Sanity CDN) for the service-card backgrounds — the
+// previous wp-content URLs weren't loading, so we reuse fleet photography
+// that's already rendering elsewhere on the site.
+const SERVICE_BG = [
+  FEATURED_LUXURY[0]?.image,
+  FEATURED_SUVS[0]?.image,
+  FEATURED_SPORTS[0]?.image,
+  FEATURED_CONVERTIBLES[0]?.image,
+];
 
 export const metadata: Metadata = {
   title: SERVICES_PAGE.metaTitle,
@@ -47,14 +61,17 @@ export default function ServicesPage() {
         <div className="container-x relative">
           <ul className="mx-auto grid max-w-[1400px] grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
             {SERVICES_PAGE.items.map((service, i) => (
-              <ServiceCard key={service.slug} service={service} delay={i * 90} />
+              <ServiceCard
+                key={service.slug}
+                service={service}
+                bg={SERVICE_BG[i % SERVICE_BG.length]}
+                delay={i * 90}
+              />
             ))}
           </ul>
         </div>
       </section>
 
-      <Requirements />
-      <WhyChooseUs />
       <Footer />
     </main>
   );
@@ -62,12 +79,13 @@ export default function ServicesPage() {
 
 function ServiceCard({
   service,
+  bg,
   delay,
 }: {
   service: (typeof SERVICES_PAGE.items)[number];
+  bg?: string;
   delay: number;
 }) {
-  const bg = SERVICE_IMAGES[service.slug];
   return (
     <Reveal delay={delay}>
       <li className="rise list-none h-full">

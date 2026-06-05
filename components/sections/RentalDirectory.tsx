@@ -21,6 +21,10 @@ const RENTAL_LINKS: { label: string; href: string }[] = [
   { label: "Rent Range Rover in Dubai",   href: "/brands/rent-range-rover-dubai" },
   { label: "Rent Rolls-Royce in Dubai",   href: "/brands/rent-rolls-royce-dubai" },
   { label: "Rent Maserati in Dubai",      href: "/brands/rent-maserati-dubai" },
+  { label: "Rent Brabus in Dubai",        href: "/brands/rent-brabus-dubai" },
+  { label: "Rent Mansory in Dubai",       href: "/brands/rent-mansory-dubai" },
+  { label: "Rent Porsche in Dubai",       href: "/brands/rent-porsche-dubai" },
+  { label: "Rent Luxury Supercars in Dubai", href: "/our-fleet" },
 ];
 
 export default function RentalDirectory() {
