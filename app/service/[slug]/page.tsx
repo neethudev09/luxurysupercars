@@ -112,10 +112,10 @@ export default async function ServiceDetailPage(
         spotlight="right"
       />
 
-      <section className="relative bg-[var(--bg-obsidian)] border-t border-white/5 py-20 md:py-24 overflow-hidden">
+      <section className="relative bg-[var(--bg-pearl)] border-t border-black/5 py-20 md:py-24 overflow-hidden">
         <div
           aria-hidden
-          className="pointer-events-none absolute left-0 bottom-0 size-[520px] -translate-x-1/3 translate-y-1/3 rounded-full bg-[var(--champagne)]/[0.05] blur-[140px]"
+          className="pointer-events-none absolute left-0 bottom-0 size-[520px] -translate-x-1/3 translate-y-1/3 rounded-full bg-[var(--champagne)]/[0.08] blur-[140px]"
         />
 
         <div className="container-x relative grid md:grid-cols-12 gap-12 md:gap-16">
@@ -125,7 +125,7 @@ export default async function ServiceDetailPage(
                 if (i === 0) {
                   return (
                     <Reveal key={i}>
-                      <p className="rise font-[var(--font-display)] text-[clamp(1.2rem,1.8vw,1.45rem)] leading-[1.5] text-[var(--ink-hi)]">
+                      <p className="rise font-[var(--font-display)] text-[clamp(1.2rem,1.8vw,1.45rem)] leading-[1.5] text-[var(--ink-dark-hi)]">
                         {p}
                       </p>
                     </Reveal>
@@ -133,7 +133,7 @@ export default async function ServiceDetailPage(
                 }
                 return (
                   <Reveal key={i} delay={i * 70}>
-                    <p className="rise text-[16px] leading-[1.78] text-[var(--ink-lo)]">{p}</p>
+                    <p className="rise text-[16px] leading-[1.78] text-[var(--ink-dark-lo)]">{p}</p>
                   </Reveal>
                 );
               })}
@@ -164,17 +164,17 @@ export default async function ServiceDetailPage(
                   <li className="rise">
                     <Link
                       href={`/service/${o.slug}`}
-                      className="group flex items-center gap-4 rounded-xl border border-white/8 bg-[var(--bg-graphite)]/30 px-4 py-4 hover:border-[var(--champagne)]/40 hover:bg-[var(--bg-graphite)]/50 transition-colors"
+                      className="group flex items-center gap-4 rounded-xl border border-black/10 bg-[var(--bg-bone)] px-4 py-4 hover:border-[var(--champagne)] hover:bg-[var(--bg-bone)]/70 transition-colors"
                     >
                       <div className="flex-1 min-w-0">
-                        <p className="font-[var(--font-display)] text-[17px] leading-tight text-[var(--ink-hi)] group-hover:text-[var(--champagne-hi)] transition-colors">
+                        <p className="font-[var(--font-display)] text-[17px] leading-tight text-[var(--ink-dark-hi)] group-hover:text-[var(--champagne)] transition-colors">
                           {o.title}
                         </p>
-                        <p className="font-[var(--font-mono)] text-[10px] uppercase tracking-[0.22em] text-[var(--ink-lo)] mt-1">
+                        <p className="font-[var(--font-mono)] text-[10px] uppercase tracking-[0.22em] text-[var(--ink-dark-lo)] mt-1">
                           Learn more
                         </p>
                       </div>
-                      <svg width="13" height="9" viewBox="0 0 14 10" fill="none" className="text-[var(--ink-lo)] opacity-60 transition-transform group-hover:translate-x-1 group-hover:text-[var(--champagne)]">
+                      <svg width="13" height="9" viewBox="0 0 14 10" fill="none" className="text-[var(--ink-dark-lo)] opacity-60 transition-transform group-hover:translate-x-1 group-hover:text-[var(--champagne)]">
                         <path d="M0 5h12M8 1l4 4-4 4" stroke="currentColor" strokeWidth="1.5" />
                       </svg>
                     </Link>

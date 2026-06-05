@@ -16,8 +16,7 @@ export const TESTIMONIAL_AVATAR =
   "https://luxurysupercarsdubai.com/wp-content/uploads/2025/01/user-dummy-img.png";
 
 export const CATEGORY_ICONS = {
-  luxury:
-    "https://luxurysupercarsdubai.com/wp-content/uploads/2024/12/luxury-car-rental.svg",
+  luxury: "/images/car-types/luxury-bentley.png",
   sports: "/images/car-types/sports.svg",
   convertible:
     "https://luxurysupercarsdubai.com/wp-content/uploads/2024/12/convertible-1.svg",

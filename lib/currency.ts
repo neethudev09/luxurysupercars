@@ -48,15 +48,14 @@ export function convertFromAed(aed: number, currency: Currency): number {
   return Math.round(raw / round) * round;
 }
 
-/** Just the number, with "≈" for non-base currencies. e.g. "12,000" / "≈ 3,270" */
+/** Just the converted number, e.g. "12,000" / "3,270". */
 export function formatAmount(aed: number, currency: Currency): string {
-  const value = convertFromAed(aed, currency).toLocaleString("en-US");
-  return currency === BASE_CURRENCY ? value : `≈ ${value}`;
+  return convertFromAed(aed, currency).toLocaleString("en-US");
 }
 
-/** Full inline price with symbol. e.g. "AED 12,000" / "≈ $3,270" */
+/** Full inline price with symbol. e.g. "AED 12,000" / "$3,270". */
 export function formatPrice(aed: number, currency: Currency): string {
   const value = convertFromAed(aed, currency).toLocaleString("en-US");
   const { symbol } = CURRENCY_META[currency];
-  return currency === BASE_CURRENCY ? `${symbol}${value}` : `≈ ${symbol}${value}`;
+  return `${symbol}${value}`;
 }

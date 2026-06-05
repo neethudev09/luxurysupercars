@@ -33,7 +33,7 @@ export default function Footer() {
               {FOOTER.description}
             </p>
           </div>
-          <div className="col-span-1 md:col-span-3">
+          <div className="col-span-2 md:col-span-3">
             <p className="font-[var(--font-mono)] text-[12px] uppercase tracking-[0.22em] text-[var(--champagne)] mb-4">
               Brands
             </p>
@@ -124,11 +124,11 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 flex flex-wrap items-center justify-between gap-6 border-t border-white/5 pt-6">
+        <div className="mt-12 flex flex-col items-center gap-5 border-t border-white/5 pt-6 text-center md:flex-row md:justify-between md:gap-6 md:text-left">
           <p className="text-[14px] text-[var(--ink-lo)]">
             {FOOTER.copyright}
           </p>
-          <ul className="flex items-center gap-5 text-[14px] text-[var(--ink-lo)]">
+          <ul className="flex flex-wrap items-center justify-center gap-5 text-[14px] text-[var(--ink-lo)]">
             {FOOTER.legal.map((l) => (
               <li key={l.href}><Link href={l.href} className="hover:text-[var(--champagne)]">{l.label}</Link></li>
             ))}

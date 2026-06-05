@@ -52,14 +52,14 @@ export default function ServicesPage() {
         spotlight="left"
       />
 
-      <section className="relative bg-[var(--bg-obsidian)] border-t border-white/5 py-20 md:py-24 overflow-hidden">
+      <section className="relative bg-[var(--bg-pearl)] border-t border-black/5 py-20 md:py-24 overflow-hidden">
         <div
           aria-hidden
-          className="pointer-events-none absolute right-0 top-1/3 size-[520px] translate-x-1/3 rounded-full bg-[var(--champagne)]/[0.05] blur-[140px]"
+          className="pointer-events-none absolute right-0 top-1/3 size-[520px] translate-x-1/3 rounded-full bg-[var(--champagne)]/[0.08] blur-[140px]"
         />
 
         <div className="container-x relative">
-          <ul className="mx-auto grid max-w-[1400px] grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
+          <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
             {SERVICES_PAGE.items.map((service, i) => (
               <ServiceCard
                 key={service.slug}

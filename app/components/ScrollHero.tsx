@@ -70,9 +70,10 @@ export default function ScrollHero() {
         transition: "opacity 200ms ease-out",
       }}
     >
-      {/* Full-bleed hero — fills the viewport (100vw × 100vh) and sits beneath
-          the transparent fixed nav, which floats over the top of the video. */}
-      <div className="sticky top-0 h-screen w-full overflow-hidden">
+      {/* Full-bleed hero — fills the viewport and sits beneath the transparent
+          fixed nav, which floats over the top of the video. 100svh keeps it
+          correct on mobile (where 100vh sits under the browser chrome). */}
+      <div className="sticky top-0 h-[100svh] w-full overflow-hidden">
         <video
           ref={videoRef}
           src="/scroller-header-video.mp4"

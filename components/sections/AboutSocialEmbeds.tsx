@@ -64,7 +64,7 @@ const BLOCKS: Block[] = [
     heading: "PODCASTS",
     layout: "wide",
     icon: "podcasts",
-    videoIds: ["-1W-Vo3F1_I", "4o4XCiiJtm4", "d48kC2D8MwY", "pZ5-_3Oownw"],
+    videoIds: ["-1W-Vo3F1_I", "4o4XCiiJtm4"],
   },
 ];
 
@@ -108,14 +108,18 @@ export default function AboutSocialEmbeds() {
             <div
               className={
                 block.layout === "shorts"
-                  ? "grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-5"
-                  : "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5"
+                  ? "flex snap-x gap-4 overflow-x-auto pb-3 [scrollbar-width:none] md:grid md:grid-cols-4 md:gap-5 md:overflow-visible md:pb-0"
+                  : "flex snap-x gap-4 overflow-x-auto pb-3 [scrollbar-width:none] md:grid md:grid-cols-2 lg:grid-cols-4 md:gap-5 md:overflow-visible md:pb-0"
               }
             >
               {block.videoIds.map((vid, i) => (
                 <Reveal
                   key={vid}
-                  className="rise"
+                  className={
+                    block.layout === "shorts"
+                      ? "rise w-[58%] shrink-0 snap-start sm:w-[40%] md:w-auto"
+                      : "rise w-[82%] shrink-0 snap-start sm:w-[55%] md:w-auto"
+                  }
                   delay={Math.min(i * 70, 280)}
                 >
                   <VideoFacade

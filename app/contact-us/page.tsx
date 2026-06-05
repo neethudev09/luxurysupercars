@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import SiteNav from "@/components/nav/SiteNav";
 import PageHero from "@/components/sections/PageHero";
-import Contact from "@/components/sections/Contact";
+import EnquiryForm from "@/components/contact/EnquiryForm";
 import Footer from "@/components/sections/Footer";
 import Reveal from "@/components/motion/Reveal";
 import MagneticCTA from "@/components/motion/MagneticCTA";
@@ -136,7 +136,7 @@ export default function ContactUsPage() {
                       </p>
                       <MagneticCTA
                         href={a.maps}
-                        className="inline-flex items-center gap-2 rounded-full border border-white/15 px-5 py-2.5 text-[12.5px] text-[var(--ink-hi)] hover:bg-white/5 hover:border-[var(--champagne)] hover:text-[var(--champagne)] transition-colors"
+                        className="inline-flex items-center gap-2 rounded-full border border-white/15 px-5 py-2.5 text-[16.5px] text-[var(--ink-hi)] hover:bg-white/5 hover:border-[var(--champagne)] hover:text-[var(--champagne)] transition-colors"
                       >
                         <span>Open in Maps</span>
                         <svg width="13" height="9" viewBox="0 0 14 10" fill="none">
@@ -148,11 +148,12 @@ export default function ContactUsPage() {
                 </Reveal>
               ))}
             </ul>
+
+            <EnquiryForm className="mt-5" />
           </div>
         </div>
       </section>
 
-      <Contact formOnly />
       <Footer />
     </main>
   );

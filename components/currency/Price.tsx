@@ -41,6 +41,26 @@ export function CurrencyCode({ className }: { className?: string }) {
 }
 
 /**
+ * Renders an AED-denominated spec string (e.g. "AED 5,000" or "AED 20/km")
+ * converted into the active currency, reactively following the switcher. Any
+ * string without a leading AED amount (e.g. "250 km/day", "Included") renders
+ * unchanged.
+ */
+export function ConvertAed({ value, className }: { value: string; className?: string }) {
+  const { currency } = useCurrency();
+  const m = value.match(/^\s*AED\s*([\d,]+)(.*)$/i);
+  if (!m) return <span className={className}>{value}</span>;
+  const aed = parseInt(m[1].replace(/,/g, ""), 10);
+  if (!Number.isFinite(aed)) return <span className={className}>{value}</span>;
+  return (
+    <span className={className} suppressHydrationWarning>
+      {formatPrice(aed, currency)}
+      {m[2]}
+    </span>
+  );
+}
+
+/**
  * The active currency's symbol — "$" / "£" / "€" for foreign currencies, and
  * the new UAE Dirham glyph for AED.
  */

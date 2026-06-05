@@ -118,7 +118,7 @@ export default function AboutFocus() {
             </p>
           </Reveal>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-5">
             {VENTURES.map((v, i) => (
               <Reveal
                 key={v.h3}
@@ -149,7 +149,7 @@ export default function AboutFocus() {
                 <h3 className="font-[var(--font-display)] text-[18px] leading-tight tracking-tight text-[var(--ink-hi)] mb-2">
                   {v.h3}
                 </h3>
-                <p className="text-[17px] leading-[1.65] text-[var(--ink-lo)]">
+                <p className="text-[15px] md:text-[17px] leading-[1.65] text-[var(--ink-lo)]">
                   {v.body}
                 </p>
               </Reveal>

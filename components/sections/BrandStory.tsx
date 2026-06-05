@@ -48,7 +48,7 @@ export default function BrandStory() {
           {BRAND_STORY.stats.map((s, i) => (
             <div
               key={s.label}
-              className={`rise flex flex-col items-center text-center gap-1 py-7 px-2 ${i > 0 ? "md:border-l border-black/10" : ""} ${i === 2 ? "border-l md:border-l" : ""}`}
+              className={`rise flex flex-col items-center text-center gap-1 py-7 px-2 ${i > 0 ? "md:border-l border-black/10" : ""}`}
               style={{ ["--rise-delay" as string]: `${i * 80}ms` }}
             >
               <span className="font-[var(--font-display)] text-[clamp(2rem,4vw,3.2rem)] leading-none text-[var(--ink-dark-hi)]">

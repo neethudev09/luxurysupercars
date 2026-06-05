@@ -63,7 +63,7 @@ export default function FleetSection({
         <Reveal className="mt-10 md:mt-12 flex justify-center md:justify-end">
           <Link
             href={ctaHref}
-            className={`group inline-flex w-full md:w-auto items-center justify-center md:justify-start gap-2.5 rounded-full px-5 py-3.5 md:py-2.5 text-[13.5px] md:text-[12.5px] font-medium tracking-wide transition-all ${
+            className={`group inline-flex w-full md:w-auto items-center justify-center md:justify-start gap-2.5 rounded-full px-5 py-3.5 md:py-2.5 text-[15.5px] md:text-[14.5px] font-medium tracking-wide transition-all ${
               isLight
                 ? "border border-[var(--ink-dark-hi)]/20 text-[var(--ink-dark-hi)] hover:bg-[var(--ink-dark-hi)] hover:text-[var(--bg-bone)]"
                 : "border border-white/15 text-[var(--ink-hi)] hover:bg-[var(--champagne)] hover:text-[var(--bg-obsidian)] hover:border-[var(--champagne)]"

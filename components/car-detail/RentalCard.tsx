@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { Car } from "@/lib/fleet";
 import { CONTACT } from "@/lib/content";
-import { Price } from "@/components/currency/Price";
+import { Price, ConvertAed } from "@/components/currency/Price";
 
 /**
  * Rental card — price headline + live rental terms (deposit / mileage /
@@ -83,7 +83,7 @@ function RentalTermRow({ label, value }: { label: string; value: string }) {
       <span className="font-[var(--font-mono)] text-[10.5px] uppercase tracking-[0.18em] text-[var(--ink-lo)]">
         {label}
       </span>
-      <span className="text-[16px] font-medium text-[var(--ink-hi)]">{value}</span>
+      <ConvertAed value={value} className="text-[16px] font-medium text-[var(--ink-hi)]" />
     </li>
   );
 }
