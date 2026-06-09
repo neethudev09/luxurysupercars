@@ -18,19 +18,144 @@
   },
   "footerDescription": "If you are looking to rent the latest luxury Car in Dubai, luxurysupercarsdubai.com is a one-stop destination for all. You can avail the widest range of the most exotic luxury cars, including everything from the latest Sports Cars, Convertible Cars, SUVs, Supercars, and Prestige Cars, all of which would surely provide you with a fascinating experience.",
   "footer": {
-    "copyright": "",
-    "brands": [],
-    "rentLinks": [],
-    "usefulLinks": [],
-    "legalLinks": []
+    "copyright": "© 2026 Luxury Supercar Rentals. All rights reserved.",
+    "brands": [
+      "Aston Martin",
+      "Audi",
+      "Bentley",
+      "BMW",
+      "Brabus",
+      "Bugatti",
+      "Cadillac",
+      "Ferrari",
+      "Lamborghini",
+      "Land Rover",
+      "Mansory",
+      "Maserati",
+      "McLaren",
+      "Mercedes Benz",
+      "Porsche",
+      "Rolls Royce"
+    ],
+    "rentLinks": [
+      {
+        "label": "Rent Luxury Cars",
+        "href": "/rent-luxury-cars-dubai"
+      },
+      {
+        "label": "Rent Convertible Cars",
+        "href": "/rent-convertible-cars-dubai"
+      },
+      {
+        "label": "Rent Sports Cars",
+        "href": "/rent-sports-cars-dubai"
+      },
+      {
+        "label": "Rent SUV Cars",
+        "href": "/rent-suv-cars-dubai"
+      },
+      {
+        "label": "Rent Exotics",
+        "href": "/rent-luxury-cars-dubai"
+      },
+      {
+        "label": "Rent Ferrari",
+        "href": "/brands/rent-ferrari-dubai"
+      },
+      {
+        "label": "Rent Lamborghini",
+        "href": "/brands/rent-lamborghini-dubai"
+      },
+      {
+        "label": "Rent Porsche",
+        "href": "/brands/rent-porsche-dubai"
+      }
+    ],
+    "usefulLinks": [
+      {
+        "label": "Home",
+        "href": "/"
+      },
+      {
+        "label": "About Us",
+        "href": "/about-us"
+      },
+      {
+        "label": "Our Fleet",
+        "href": "/our-fleet"
+      },
+      {
+        "label": "Services",
+        "href": "/services"
+      },
+      {
+        "label": "Blogs",
+        "href": "/blog"
+      },
+      {
+        "label": "Careers",
+        "href": "/careers"
+      },
+      {
+        "label": "FAQs",
+        "href": "/faq"
+      },
+      {
+        "label": "Contact Us",
+        "href": "/contact-us"
+      }
+    ],
+    "legalLinks": [
+      {
+        "label": "Booking T&C's",
+        "href": "/booking-tcs"
+      },
+      {
+        "label": "Privacy Policy",
+        "href": "/privacy-policy"
+      },
+      {
+        "label": "Cookie Policy",
+        "href": "/cookie-policy"
+      }
+    ]
   },
-  "navLinks": [],
+  "navLinks": [
+    {
+      "label": "Home",
+      "href": "/"
+    },
+    {
+      "label": "About Us",
+      "href": "/about-us"
+    },
+    {
+      "label": "Cars Types",
+      "href": "/our-fleet"
+    },
+    {
+      "label": "Cars Brands",
+      "href": "/our-fleet"
+    },
+    {
+      "label": "Our Fleet",
+      "href": "/our-fleet"
+    },
+    {
+      "label": "Services",
+      "href": "/services"
+    },
+    {
+      "label": "Contact Us",
+      "href": "/contact-us"
+    }
+  ],
   "promo": {
-    "eyebrow": "",
-    "heading": "",
-    "highlight": "",
-    "body": "",
-    "buttonLabel": "",
-    "disclaimer": ""
+    "eyebrow": "Exclusive Offer",
+    "heading": "Get 15% off your rental",
+    "highlight": "15% off",
+    "body": "Drop your email below and our team will be in touch with your exclusive discount.",
+    "buttonLabel": "Claim 15% Off",
+    "disclaimer": "No spam — unsubscribe anytime"
   }
 }

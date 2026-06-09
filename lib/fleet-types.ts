@@ -247,7 +247,7 @@ interface FleetTypeOverride {
   faqHeading?: string;
   faqs?: { q?: string; a?: string }[];
 }
-const overrides = fleetTypeData as Record<string, FleetTypeOverride>;
+const overrides = fleetTypeData as unknown as Record<string, FleetTypeOverride>;
 
 /** Merge a category's CMS edits over its verbatim default (blank → fallback). */
 function mergeFleetType(cat: Exclude<Category, never>): FleetTypeMeta {

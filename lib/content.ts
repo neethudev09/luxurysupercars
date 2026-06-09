@@ -51,7 +51,7 @@ interface HomeData {
   blogHeading?: HomeHeading;
   instagramHeading?: HomeHeading;
 }
-const home = homeData as HomeData;
+const home = homeData as unknown as HomeData;
 
 /** Normalise CMS stat objects to the exact numeric/string shape CountUp needs. */
 const mapStats = (stats: HomeStat[]) =>
@@ -367,7 +367,7 @@ interface PageCms {
   paragraphs?: string[];
   sections?: unknown[];
 }
-const pages = pagesData as Record<string, PageCms | undefined>;
+const pages = pagesData as unknown as Record<string, PageCms | undefined>;
 const pg = (route: string): PageCms => pages[route] ?? {};
 
 // --- Legal-page section mappers (CMS shape → render shape) -----------------
@@ -798,7 +798,7 @@ interface AboutData {
   };
   pressReel?: { items?: AboutPressTile[] };
 }
-const about = aboutData as AboutData;
+const about = aboutData as unknown as AboutData;
 
 /** Asset fallbacks — the current self-hosted About media. */
 const ABOUT_PORTRAIT = "/images/Ahmed-portrait.png";

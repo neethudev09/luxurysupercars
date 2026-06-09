@@ -1,1 +1,132 @@
-{}
+{
+  "aboutMe": {
+    "heading": "About me",
+    "paragraphs": [
+      "I’m Ahmed Amwell, the proud owner of Luxury Supercar Rentals, Dubai’s superior destination for the most luxury and exclusive cars available. Join us as we showcase the latest supercars, share expert insights into the world of luxury automobiles, and take you behind the scenes of our iconic showroom.",
+      "If you are looking to rent the latest luxury Car in Dubai, luxurysupercarsdubai.com is a one-stop destination for all. You can avail the widest range of the most exotic luxury cars, including everything from the latest Sports Cars, Convertible Cars, SUVs, Supercars, and Prestige Cars, all of which would surely provide you with a fascinating experience."
+    ],
+    "portrait": "https://cdn.sanity.io/images/pkpvmml9/production/e4057079da2ff5331eb4c7dd7b441529d6006e6a-1067x1261.png"
+  },
+  "embeds": {
+    "podcasts": {
+      "heading": "PODCASTS",
+      "videos": [
+        "https://www.youtube.com/watch?v=-1W-Vo3F1_I",
+        "https://www.youtube.com/watch?v=4o4XCiiJtm4"
+      ]
+    },
+    "tiktok": {
+      "heading": "TikTok",
+      "videos": [
+        "https://www.youtube.com/watch?v=gIho6aTDC6k",
+        "https://www.youtube.com/watch?v=LEWBL8DzhIU",
+        "https://www.youtube.com/watch?v=3_oc4OdQ-4o",
+        "https://www.youtube.com/watch?v=k-xGgGabnXA"
+      ]
+    },
+    "youtube": {
+      "heading": "YouTube",
+      "videos": [
+        "https://www.youtube.com/watch?v=TjB258kdQFc",
+        "https://www.youtube.com/watch?v=VE48aZyvf7g",
+        "https://www.youtube.com/watch?v=zrIdggcPOk4",
+        "https://www.youtube.com/watch?v=QD87hNbhf-M"
+      ]
+    }
+  },
+  "founder": {
+    "heading": "Ahmed Mansour redefines opulence with luxury super car rentals Dubai",
+    "paragraph": "Within the glowing and glossy world of luxury car rentals, Ahmed Mansour (Ahmed Amwell) stands out as the visionary behind Luxury Super Car Rentals Dubai. A true trailblazer, Luxury Super Car Rentals Dubai is transforming the industry, epitomizing success, and making renting the car of your dreams a hassle-free process.",
+    "signature": "https://cdn.sanity.io/images/pkpvmml9/production/8428f25024c5427afc2daa39ac08bd597faabd79-305x94.avif",
+    "videoUrl": "https://www.youtube.com/watch?v=TjB258kdQFc"
+  },
+  "hero": {
+    "backgroundVideo": null,
+    "heading": "**CEO** of Luxury Supercar Rentals Dubai",
+    "paragraph": "Ahmed has become a distinctive innovator behind luxury and super-car rentals, making a riveting offer to clients around the world to gain a taste of the opulent lifestyle."
+  },
+  "pressReel": {
+    "items": [
+      {
+        "caption": "Luxury Service Award 2024",
+        "category": "Award",
+        "image": "https://cdn.sanity.io/images/pkpvmml9/production/53202090058bef682738e7e59e823d5e59e733ba-433x518.avif"
+      },
+      {
+        "caption": "Featured · Gulf News",
+        "category": "Press",
+        "image": "https://cdn.sanity.io/images/pkpvmml9/production/6d06318db35a8f1720d1ac79b4f1f7816a30b151-393x322.avif"
+      },
+      {
+        "caption": "@luxurysupercarsdubai",
+        "category": "Instagram",
+        "image": "https://cdn.sanity.io/images/pkpvmml9/production/bfb5fa38806d33f43b3a0a1294a2dd9f51b18e31-292x365.avif"
+      },
+      {
+        "caption": "Featured · Khaleej Times",
+        "category": "Press",
+        "image": "https://cdn.sanity.io/images/pkpvmml9/production/c2712b66d431eac5dcd48939f596e2068b564f20-393x283.avif"
+      },
+      {
+        "caption": "Top Luxury Rental — UAE",
+        "category": "Award",
+        "image": "https://cdn.sanity.io/images/pkpvmml9/production/720aae4cd449236ab75e68dd2cc64783a5bb5f30-429x518.avif"
+      },
+      {
+        "caption": "@luxurysupercarsdubai",
+        "category": "Instagram",
+        "image": "https://cdn.sanity.io/images/pkpvmml9/production/94d9179f8bcedf755768623cd8d740ed240384ed-304x304.avif"
+      },
+      {
+        "caption": "Featured · Esquire ME",
+        "category": "Press",
+        "image": "https://cdn.sanity.io/images/pkpvmml9/production/51ccb9e2eec9c8743e5a3587a66c174a7805ddc1-394x326.avif"
+      },
+      {
+        "caption": "@luxurysupercarsdubai",
+        "category": "Instagram",
+        "image": "https://cdn.sanity.io/images/pkpvmml9/production/09816203919ed1aa8180fec55f7bf0d40cca5465-303x303.avif"
+      },
+      {
+        "caption": "@luxurysupercarsdubai",
+        "category": "Instagram",
+        "image": "https://cdn.sanity.io/images/pkpvmml9/production/9f01217ba7eb4c10140da34edb165da1888991ed-292x365.avif"
+      }
+    ]
+  },
+  "ventures": {
+    "eyebrow": "CEO of",
+    "items": [
+      {
+        "body": "The Premier Luxury Supercars Rental in Dubai. With a fleet of more than 100 exclusive super cars to choose from!",
+        "bordered": false,
+        "logo": "https://cdn.sanity.io/images/pkpvmml9/production/f489f548332271e86ce5fd492f5e7385764128af-600x600.png",
+        "title": "Luxury Supercar Rentals"
+      },
+      {
+        "body": "Specialised to provide high-end chauffeur services Dubai with the best 24/7 customer service experience.",
+        "bordered": false,
+        "logo": "https://cdn.sanity.io/images/pkpvmml9/production/347785321becc84f54b93520de6cab60592423b3-600x600.png",
+        "title": "Luxury Chauffeur Services"
+      },
+      {
+        "body": "The Premier Luxury Car Dealership in Dubai. Specialised in buying, selling and trading the world's most exclusive premium cars.",
+        "bordered": false,
+        "logo": "https://cdn.sanity.io/images/pkpvmml9/production/d6a20b251bb4931e5fcec869ef2e689225f41fd7-600x600.png",
+        "title": "Luxury Car Gallery"
+      },
+      {
+        "body": "Specialised Auto Care for luxury supercars and hypercars in Dubai, delivering meticulous detailing, service and finish.",
+        "bordered": false,
+        "logo": "https://cdn.sanity.io/images/pkpvmml9/production/7c6554363fcce7fa32118e94aed5655cc6f5cc74-600x600.png",
+        "title": "Luxury Auto Care"
+      },
+      {
+        "body": "Real Estate Agency Specialized mostly in exclusive and luxurious properties in the UAE.",
+        "bordered": true,
+        "logo": "https://cdn.sanity.io/images/pkpvmml9/production/2627bf1446d77a3c70b6cabac886b8a0de295669-150x150.png",
+        "title": "Luxury Property Experts"
+      }
+    ]
+  }
+}

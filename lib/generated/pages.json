@@ -1,26 +1,326 @@
 {
   "/booking-tcs": {
     "metaTitle": "Booking T&Cs | Luxury Supercars Dubai",
-    "metaDescription": "Booking terms and conditions for Luxury Supercars Dubai — required documents, age requirements, security deposits, payment methods, rental periods, and delivery information."
+    "metaDescription": "Booking terms and conditions for Luxury Supercars Dubai — required documents, age requirements, security deposits, payment methods, rental periods, and delivery information.",
+    "eyebrow": "Legal",
+    "h1": "Booking T&C 'S",
+    "intro": "Terms and Conditions:",
+    "sections": [
+      {
+        "_key": "sec-0",
+        "_type": "termsSection",
+        "groups": [
+          {
+            "_key": "grp-0-0",
+            "_type": "termsGroup",
+            "items": [
+              "Passport",
+              "Valid Driver's License",
+              "International Driver's Permit – required from certain countries."
+            ],
+            "subtitle": "Documents for Residents:"
+          },
+          {
+            "_key": "grp-0-1",
+            "_type": "termsGroup",
+            "items": [
+              "Emirates ID",
+              "UAE Driver's License"
+            ],
+            "subtitle": "Documents for UAE Residents:"
+          },
+          {
+            "_key": "grp-0-2",
+            "_type": "termsGroup",
+            "items": [
+              "Hirer's minimum age for SUVs and Sedans: 18 years old",
+              "Hirer's minimum age for Ultra luxury vehicles: 21 years old"
+            ],
+            "subtitle": "Age Requirement:"
+          },
+          {
+            "_key": "grp-0-3",
+            "_type": "termsGroup",
+            "items": [
+              "A security deposit of 5000 AED is required.",
+              "The security deposit will be refunded after 28 days from the return date to your bank account for any potential traffic fines incurred during the rental period.",
+              "Any outstanding traffic fines and salik toll fees will be deducted from the security deposit."
+            ],
+            "subtitle": "Security Deposit:"
+          },
+          {
+            "_key": "grp-0-4",
+            "_type": "termsGroup",
+            "items": [
+              "Cash – AED, USD, GBP, AUD and Euro are accepted.",
+              "Credit/Debit Card",
+              "Payment Link",
+              "Crypto"
+            ],
+            "subtitle": "Payment Method:"
+          },
+          {
+            "_key": "grp-0-5",
+            "_type": "termsGroup",
+            "items": [
+              "The minimum rental period is 1 day or 24 hours.",
+              "Each rental includes a limit of 250 KMs.",
+              "Late returns may be subject to additional charges.",
+              "Smoking inside the car, off-roading, and using the car on a racetrack are strictly prohibited."
+            ],
+            "subtitle": "Rental Period:"
+          },
+          {
+            "_key": "grp-0-6",
+            "_type": "termsGroup",
+            "items": [
+              "Free delivery and collection are available within Dubai.",
+              "Delivery and collection in other Emirates will be chargeable."
+            ],
+            "subtitle": "Delivery and Collection:"
+          }
+        ],
+        "title": "Requirements:"
+      }
+    ],
+    "subline": "Everything you need to know before you book — required documents, age limits, security deposit, payment methods, rental period, and delivery."
   },
   "/careers": {
     "metaTitle": "Careers at Luxury Group | Join Our Team in Dubai",
-    "metaDescription": "Explore careers at Luxury Group. We're always open to hearing from people who take pride in their work and want to join a professional, well-run luxury automotive business in Dubai."
+    "metaDescription": "Explore careers at Luxury Group. We're always open to hearing from people who take pride in their work and want to join a professional, well-run luxury automotive business in Dubai.",
+    "eyebrow": "Careers",
+    "h1": "Careers at Luxury Group",
+    "h2": "Careers Enquiry",
+    "paragraphs": [
+      "Luxury Group is built around people as much as it is around brands. As the group continues to grow, we're always open to hearing from individuals who take pride in their work and want to be part of a professional, well-run organisation.",
+      "We work across luxury automotive and premium services, and our roles naturally vary as the business evolves. Some positions are hands-on, some are customer-focused, and others support the wider operation behind the scenes. What matters most to us is reliability, attention to detail, and the right attitude.",
+      "If you feel you'd be a good fit for Luxury Group, we'd be happy to hear from you. Use the form below to share your details and a little about your experience. If there's a suitable opportunity, someone from our team will be in touch."
+    ],
+    "subline": "Join a small, ambitious team behind the most extraordinary car rental fleet in Dubai."
   },
   "/contact-us": {
     "metaTitle": "Contact Us | Get in Touch & Book Your Ride",
-    "metaDescription": "Get in touch with Luxury Supercars Dubai to book your ride or learn more about our exotic car rental services. Reach us by phone, email, or visit our Dubai showrooms — open 9am to 9pm, seven days a week."
+    "metaDescription": "Get in touch with Luxury Supercars Dubai to book your ride or learn more about our exotic car rental services. Reach us by phone, email, or visit our Dubai showrooms — open 9am to 9pm, seven days a week.",
+    "body": "If you are looking to rent the latest luxury Car in Dubai, luxurysupercarsdubai.com is a one-stop destination for all. You can avail the widest range of the most exotic luxury cars, including everything from the latest Sports Cars, Convertible Cars, SUVs, Supercars, and Prestige Cars, all of which would surely provide you with a fascinating experience.",
+    "eyebrow": "Contact",
+    "h1": "Contact Us",
+    "h2": "Reach Out to Us for Effortless Communication",
+    "intro": "Get in Touch us! Feel Free to Drop us a note If you Wish to Learn More!"
+  },
+  "/cookie-policy": {
+    "metaTitle": "Cookie Policy | Luxury Supercars Dubai",
+    "metaDescription": "How Luxury Supercars Dubai uses cookies and similar technologies — analytics, advertising, and your preferences.",
+    "eyebrow": "Legal",
+    "h1": "Cookie Policy",
+    "sections": [
+      {
+        "_key": "sec-0",
+        "_type": "cookieSection",
+        "paragraphs": [
+          "Cookies are small text files placed on your device when you visit a website. They are widely used to make sites work, to remember your preferences, and to provide information to the site owners. We also use similar technologies such as tracking pixels and browser storage, which we refer to collectively as “cookies” in this policy."
+        ],
+        "title": "What are cookies?"
+      },
+      {
+        "_key": "sec-1",
+        "_type": "cookieSection",
+        "list": [
+          "Essential — required for the website to function, such as remembering your currency preference.",
+          "Analytics — to understand how visitors use the site so we can improve it. We use Google Analytics (via Google Tag Manager) and Vercel Analytics.",
+          "Advertising — to measure and improve our marketing campaigns. We use Google Ads and the Meta (Facebook) Pixel."
+        ],
+        "paragraphs": [
+          "We use cookies for the following purposes:"
+        ],
+        "title": "How we use cookies"
+      },
+      {
+        "_key": "sec-2",
+        "_type": "cookieSection",
+        "paragraphs": [
+          "Some cookies are set by third-party services that appear on our pages. These include Google (Tag Manager, Analytics and Ads) and Meta Platforms (the Facebook Pixel). These providers may use the data they collect in accordance with their own privacy and cookie policies."
+        ],
+        "title": "Third-party cookies"
+      },
+      {
+        "_key": "sec-3",
+        "_type": "cookieSection",
+        "paragraphs": [
+          "When you first visit the site you can accept or decline non-essential cookies via the banner shown at the bottom of the screen. You can also control or delete cookies through your browser settings at any time. Please note that disabling cookies may affect parts of the site’s functionality."
+        ],
+        "title": "Managing your cookies"
+      },
+      {
+        "_key": "sec-4",
+        "_type": "cookieSection",
+        "paragraphs": [
+          "If you have any questions about how we use cookies, please contact us at info@luxurysupercarsdubai.com."
+        ],
+        "title": "Contact us"
+      }
+    ],
+    "subline": "How Luxury Supercars Dubai uses cookies and similar technologies."
   },
   "/faq": {
     "metaTitle": "FAQs | Luxury Car Rental Dubai Questions Answered",
-    "metaDescription": "Find answers to every question about renting a luxury car in Dubai — age limits, required documents, payment options, deposits, deliveries, and more."
+    "metaDescription": "Find answers to every question about renting a luxury car in Dubai — age limits, required documents, payment options, deposits, deliveries, and more.",
+    "eyebrow": "FAQ",
+    "h1": "Frequently Asked Questions",
+    "subline": "Everything you need to know about renting with Luxury Supercars Dubai — booking, documents, age limits, payment, deliveries and more."
   },
   "/privacy-policy": {
     "metaTitle": "Privacy Policy | Luxury Supercars Dubai",
-    "metaDescription": "How Luxury Supercars Dubai collects, uses, and protects your personal information — consent, cookies, third-party advertising, CCPA and GDPR rights, and children's information."
+    "metaDescription": "How Luxury Supercars Dubai collects, uses, and protects your personal information — consent, cookies, third-party advertising, CCPA and GDPR rights, and children's information.",
+    "eyebrow": "Legal",
+    "h1": "Privacy Policy",
+    "sections": [
+      {
+        "_key": "sec-0",
+        "_type": "policySection",
+        "paragraphs": [
+          "At Luxury Super Cars Dubai, accessible from luxurysupercarsdubai.com, one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by Luxury Super Cars Dubai and how we use it.",
+          "If you have additional questions or require more information about our Privacy Policy, do not hesitate to contact us.",
+          "This Privacy Policy applies only to our online activities and is valid for visitors to our website with regards to the information that they shared and/or collect in Luxury Super Cars Dubai. This policy is not applicable to any information collected offline or via channels other than this website."
+        ],
+        "title": "Privacy Policy for Luxury Super Cars Dubai"
+      },
+      {
+        "_key": "sec-1",
+        "_type": "policySection",
+        "paragraphs": [
+          "By using our website, you hereby consent to our Privacy Policy and agree to its terms."
+        ],
+        "title": "Consent"
+      },
+      {
+        "_key": "sec-2",
+        "_type": "policySection",
+        "paragraphs": [
+          "The personal information that you are asked to provide, and the reasons why you are asked to provide it, will be made clear to you at the point we ask you to provide your personal information.",
+          "If you contact us directly, we may receive additional information about you such as your name, email address, phone number, the contents of the message and/or attachments you may send us, and any other information you may choose to provide.",
+          "When you register for an Account, we may ask for your contact information, including items such as name, company name, address, email address, and telephone number."
+        ],
+        "title": "Information we collect"
+      },
+      {
+        "_key": "sec-3",
+        "_type": "policySection",
+        "list": [
+          "Provide, operate, and maintain our webste",
+          "Improve, personalize, and expand our webste",
+          "Understand and analyze how you use our webste",
+          "Develop new products, services, features, and functionality",
+          "Communicate with you, either directly or through one of our partners, including for customer service, to provide you with updates and other information relating to the webste, and for marketing and promotional purposes",
+          "Send you emails",
+          "Find and prevent fraud"
+        ],
+        "paragraphs": [
+          "We use the information we collect in various ways, including to:"
+        ],
+        "title": "How we use your information"
+      },
+      {
+        "_key": "sec-4",
+        "_type": "policySection",
+        "paragraphs": [
+          "Luxury Super Cars Dubai follows a standard procedure of using log files. These files log visitors when they visit websites. All hosting companies do this and a part of hosting services' analytics. The information collected by log files include internet protocol (IP) addresses, browser type, Internet Service Provider (ISP), date and time stamp, referring/exit pages, and possibly the number of clicks. These are not linked to any information that is personally identifiable. The purpose of the information is for analyzing trends, administering the site, tracking users' movement on the website, and gathering demographic information."
+        ],
+        "title": "Log Files"
+      },
+      {
+        "_key": "sec-5",
+        "_type": "policySection",
+        "paragraphs": [
+          "Like any other website, Luxury Super Cars Dubai uses 'cookies'. These cookies are used to store information including visitors' preferences, and the pages on the website that the visitor accessed or visited. The information is used to optimize the users' experience by customizing our web page content based on visitors' browser type and/or other information.",
+          "For more general information on cookies, please read \"What Are Cookies\"."
+        ],
+        "title": "Cookies and Web Beacons"
+      },
+      {
+        "_key": "sec-6",
+        "_type": "policySection",
+        "paragraphs": [
+          "Google is one of a third-party vendor on our site. It also uses cookies, known as DART cookies, to serve ads to our site visitors based upon their visit to www.website.com and other sites on the internet. However, visitors may choose to decline the use of DART cookies by visiting the Google ad and content network Privacy Policy at the following URL – https://policies.google.com/technologies/ads"
+        ],
+        "title": "Google Double Click DART Cookie"
+      },
+      {
+        "_key": "sec-7",
+        "_type": "policySection",
+        "paragraphs": [
+          "Some of advertisers on our site may use cookies and web beacons. Our advertising partners are listed below. Each of our advertising partners has their own Privacy Policy for their policies on user data. For easier access, we hyperlinked to their Privacy Policies below."
+        ],
+        "title": "Our Advertising Partners"
+      },
+      {
+        "_key": "sec-8",
+        "_type": "policySection",
+        "paragraphs": [
+          "Third-party ad servers or ad networks uses technologies like cookies, JavaScript, or Web Beacons that are used in their respective advertisements and links that appear on Luxury Super Cars Dubai, which are sent directly to users' browser. They automatically receive your IP address when this occurs. These technologies are used to measure the effectiveness of their advertising campaigns and/or to personalize the advertising content that you see on websites that you visit.",
+          "Note that Luxury Super Cars Dubai has no access to or control over these cookies that are used by third-party advertisers."
+        ],
+        "title": "Advertising Partners Privacy Policies"
+      },
+      {
+        "_key": "sec-9",
+        "_type": "policySection",
+        "paragraphs": [
+          "Luxury Super Cars Dubai's Privacy Policy does not apply to other advertisers or websites. Thus, we are advising you to consult the respective Privacy Policies of these third-party ad servers for more detailed information. It may include their practices and instructions about how to opt-out of certain options.",
+          "You can choose to disable cookies through your individual browser options. To know more detailed information about cookie management with specific web browsers, it can be found at the browsers' respective websites."
+        ],
+        "title": "Third Party Privacy Policies"
+      },
+      {
+        "_key": "sec-10",
+        "_type": "policySection",
+        "list": [
+          "Request that a business that collects a consumer's personal data disclose the categories and specific pieces of personal data that a business has collected about consumers.",
+          "Request that a business delete any personal data about the consumer that a business has collected.",
+          "Request that a business that sells a consumer's personal data, not sell the consumer's personal data."
+        ],
+        "paragraphs": [
+          "Under the CCPA, among other rights, California consumers have the right to:"
+        ],
+        "title": "CCPA Privacy Rights (Do Not Sell My Personal Information)",
+        "trailer": [
+          "If you make a request, we have one month to respond to you. If you would like to exercise any of these rights, please contact us."
+        ]
+      },
+      {
+        "_key": "sec-11",
+        "_type": "policySection",
+        "list": [
+          "The right to access – You have the right to request copies of your personal data. We may charge you a small fee for this service.",
+          "The right to rectification – You have the right to request that we correct any information you believe is inaccurate. You also have the right to request that we complete the information you believe is incomplete.",
+          "The right to erasure – You have the right to request that we erase your personal data, under certain conditions.",
+          "The right to restrict processing – You have the right to request that we restrict the processing of your personal data, under certain conditions.",
+          "The right to object to processing – You have the right to object to our processing of your personal data, under certain conditions.",
+          "The right to data portability – You have the right to request that we transfer the data that we have collected to another organization, or directly to you, under certain conditions."
+        ],
+        "paragraphs": [
+          "We would like to make sure you are fully aware of all of your data protection rights. Every user is entitled to the following:"
+        ],
+        "title": "GDPR Data Protection Rights",
+        "trailer": [
+          "If you make a request, we have one month to respond to you. If you would like to exercise any of these rights, please contact us."
+        ]
+      },
+      {
+        "_key": "sec-12",
+        "_type": "policySection",
+        "paragraphs": [
+          "Another part of our priority is adding protection for children while using the internet. We encourage parents and guardians to observe, participate in, and/or monitor and guide their online activity.",
+          "Luxury Super Cars Dubai does not knowingly collect any Personal Identifiable Information from children under the age of 13. If you think that your child provided this kind of information on our website, we strongly encourage you to contact us immediately and we will do our best efforts to promptly remove such information from our records."
+        ],
+        "title": "Children's Information"
+      }
+    ],
+    "subline": "How Luxury Supercars Dubai collects, uses, and protects your personal information."
   },
   "/services": {
     "metaTitle": "Luxury Car Rental Services in Dubai | Luxury Supercars Dubai",
-    "metaDescription": "Explore the full range of services from Luxury Supercars Dubai — long-term rental, self-drive, weddings and special events, and gift vouchers. Premium service across Dubai with 24/7 concierge support."
+    "metaDescription": "Explore the full range of services from Luxury Supercars Dubai — long-term rental, self-drive, weddings and special events, and gift vouchers. Premium service across Dubai with 24/7 concierge support.",
+    "eyebrow": "Services",
+    "h1": "Providing Amazing Service To Our Clients"
   }
 }
