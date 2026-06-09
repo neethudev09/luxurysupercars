@@ -40,7 +40,7 @@ export default function ContactUsPage() {
       <h1 className="sr-only">{CONTACT_PAGE.h1}</h1>
 
       <PageHero
-        eyebrow="Contact"
+        eyebrow={CONTACT_PAGE.eyebrow}
         h1={CONTACT_PAGE.h2}
         subline={CONTACT_PAGE.intro}
         backgroundImage={PAGE_HERO_IMAGES.contact}

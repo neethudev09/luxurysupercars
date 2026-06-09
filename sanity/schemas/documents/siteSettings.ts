@@ -1,5 +1,16 @@
 import { defineField, defineType } from "sanity";
 
+/** A reusable {label, href} link, used by the nav + footer link columns. */
+const linkObject = {
+  type: "object" as const,
+  name: "navLink",
+  fields: [
+    defineField({ name: "label", title: "Label", type: "string" }),
+    defineField({ name: "href", title: "Path or URL", type: "string", description: "e.g. /about-us or https://…" }),
+  ],
+  preview: { select: { title: "label", subtitle: "href" } },
+};
+
 /**
  * Singleton — every site-wide setting that should be editable without
  * a code deploy. The desk structure pins this as a single document
@@ -59,6 +70,52 @@ export const siteSettings = defineType({
       type: "text",
       rows: 4,
       description: "Long-form blurb shown in the site footer.",
+    }),
+    defineField({
+      name: "footer",
+      title: "Footer",
+      type: "object",
+      options: { collapsible: true, collapsed: true },
+      fields: [
+        defineField({ name: "copyright", title: "Copyright line", type: "string" }),
+        defineField({
+          name: "brands",
+          title: "Brand names list",
+          type: "array",
+          of: [{ type: "string" }],
+          description: "The brand names listed in the footer.",
+        }),
+        defineField({ name: "rentLinks", title: "“Rent” column links", type: "array", of: [linkObject] }),
+        defineField({ name: "usefulLinks", title: "“Useful links” column", type: "array", of: [linkObject] }),
+        defineField({ name: "legalLinks", title: "Legal links column", type: "array", of: [linkObject] }),
+      ],
+    }),
+    defineField({
+      name: "navLinks",
+      title: "Main navigation links",
+      type: "array",
+      of: [linkObject],
+      description: "The top navigation menu. Each link needs a label and a path (e.g. /about-us). Leave empty to keep the built-in menu.",
+    }),
+    defineField({
+      name: "promo",
+      title: "Promo pop-up",
+      type: "object",
+      options: { collapsible: true, collapsed: true },
+      description: "The email-capture pop-up shown to first-time visitors.",
+      fields: [
+        defineField({ name: "eyebrow", title: "Eyebrow (small label)", type: "string" }),
+        defineField({ name: "heading", title: "Heading", type: "string" }),
+        defineField({
+          name: "highlight",
+          title: "Highlighted words",
+          type: "string",
+          description: "These exact words inside the heading are shown in gold (e.g. \"15% off\").",
+        }),
+        defineField({ name: "body", title: "Body text", type: "text", rows: 2 }),
+        defineField({ name: "buttonLabel", title: "Button label", type: "string" }),
+        defineField({ name: "disclaimer", title: "Small print under the form", type: "string" }),
+      ],
     }),
   ],
   preview: {

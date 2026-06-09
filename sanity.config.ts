@@ -6,11 +6,25 @@
  * account (invited via Project Settings → Members in sanity.io).
  */
 import { defineConfig } from "sanity";
-import { structureTool } from "sanity/structure";
+import { structureTool, type DefaultDocumentNodeResolver } from "sanity/structure";
 import { visionTool } from "@sanity/vision";
 import { schemaTypes } from "./sanity/schemas";
 import { structure } from "./sanity/structure";
+import { PreviewPane } from "./sanity/components/PreviewPane";
 import { projectId, dataset, apiVersion } from "./sanity/env";
+
+/**
+ * Adds a "Preview" tab (the live page in an iframe) to the collection document
+ * types that have a public URL. Pages get the same tab via sanity/structure.ts.
+ */
+const PREVIEWABLE = ["car", "brand", "blogPost", "service"];
+const defaultDocumentNode: DefaultDocumentNodeResolver = (S, { schemaType }) =>
+  PREVIEWABLE.includes(schemaType)
+    ? S.document().views([
+        S.view.form(),
+        S.view.component(PreviewPane).id("web-preview").title("Preview"),
+      ])
+    : S.document().views([S.view.form()]);
 
 export default defineConfig({
   name: "default",
@@ -19,7 +33,7 @@ export default defineConfig({
   dataset,
   basePath: "/studio",
   plugins: [
-    structureTool({ structure }),
+    structureTool({ structure, defaultDocumentNode }),
     // Vision: ad-hoc GROQ playground at /studio/vision — handy for testing queries.
     visionTool({ defaultApiVersion: apiVersion }),
   ],

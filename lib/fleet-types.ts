@@ -1,14 +1,17 @@
 import type { Category } from "./fleet";
+import fleetTypeData from "./generated/fleet-types.json";
 
 /**
- * Verbatim SEO copy for the four /rent-{type}-cars-dubai pages.
- * Every string here is preserved word-for-word from the live
- * WordPress site so the new pages inherit existing rankings.
+ * SEO copy for the four /rent-{type}-cars-dubai pages.
  *
- * Owner rule: SEO is king — do NOT paraphrase or "clean up"
- * the live copy (including the singular-vs-plural inconsistencies,
- * the embedded "Sports Cars" typo on the convertible price FAQ,
- * the capital "Contact US" H2 on the SUV page, etc.).
+ * The `DEFAULTS` below are the verbatim live WordPress copy, preserved
+ * word-for-word so the pages inherit existing rankings (Owner rule: SEO is
+ * king — do NOT paraphrase or "clean up", including the singular-vs-plural
+ * inconsistencies, the "Sports Cars" typo on the convertible price FAQ, etc.).
+ *
+ * The exported `FLEET_TYPES` merges CMS edits (page-rent-* → fleetTypeContent,
+ * exported to generated/fleet-types.json) over those defaults — an empty CMS
+ * field falls back to the live copy, so an un-migrated doc renders unchanged.
  */
 export interface FleetTypeMeta {
   /** URL slug, e.g. "rent-sports-cars-dubai" */
@@ -31,7 +34,7 @@ export interface FleetTypeMeta {
   faqs: { q: string; a: string }[];
 }
 
-export const FLEET_TYPES: Record<Exclude<Category, never>, FleetTypeMeta> = {
+const DEFAULTS: Record<Exclude<Category, never>, FleetTypeMeta> = {
   sports: {
     slug: "rent-sports-cars-dubai",
     category: "sports",
@@ -232,6 +235,45 @@ export const FLEET_TYPES: Record<Exclude<Category, never>, FleetTypeMeta> = {
       },
     ],
   },
+};
+
+/** CMS overrides (generated/fleet-types.json), keyed by category. */
+interface FleetTypeOverride {
+  metaTitle?: string;
+  metaDescription?: string;
+  visibleTitle?: string;
+  h1?: string;
+  introParagraphs?: string[];
+  faqHeading?: string;
+  faqs?: { q?: string; a?: string }[];
+}
+const overrides = fleetTypeData as Record<string, FleetTypeOverride>;
+
+/** Merge a category's CMS edits over its verbatim default (blank → fallback). */
+function mergeFleetType(cat: Exclude<Category, never>): FleetTypeMeta {
+  const base = DEFAULTS[cat];
+  const o = overrides[cat];
+  if (!o) return base;
+  const faqs = o.faqs
+    ?.map((f) => ({ q: f.q ?? "", a: f.a ?? "" }))
+    .filter((f) => f.q || f.a);
+  return {
+    ...base,
+    title: o.metaTitle || base.title,
+    description: o.metaDescription || base.description,
+    h1: o.h1 || base.h1,
+    visibleTitle: o.visibleTitle || base.visibleTitle,
+    introParagraphs: o.introParagraphs?.length ? o.introParagraphs : base.introParagraphs,
+    faqHeading: o.faqHeading || base.faqHeading,
+    faqs: faqs?.length ? faqs : base.faqs,
+  };
+}
+
+export const FLEET_TYPES: Record<Exclude<Category, never>, FleetTypeMeta> = {
+  sports: mergeFleetType("sports"),
+  convertible: mergeFleetType("convertible"),
+  luxury: mergeFleetType("luxury"),
+  suv: mergeFleetType("suv"),
 };
 
 export const FLEET_TYPE_LIST: FleetTypeMeta[] = Object.values(FLEET_TYPES);

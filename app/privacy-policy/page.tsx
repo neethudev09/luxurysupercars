@@ -42,9 +42,9 @@ export default function PrivacyPolicyPage() {
       <h1 className="sr-only">{PRIVACY_POLICY_PAGE.h1}</h1>
 
       <PageHero
-        eyebrow="Legal"
+        eyebrow={PRIVACY_POLICY_PAGE.eyebrow}
         h1={PRIVACY_POLICY_PAGE.h1}
-        subline="How Luxury Supercars Dubai collects, uses, and protects your personal information."
+        subline={PRIVACY_POLICY_PAGE.subline}
         spotlight="left"
         compact
       />

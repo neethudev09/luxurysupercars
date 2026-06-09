@@ -45,7 +45,7 @@ export default function ServicesPage() {
       <h1 className="sr-only">{SERVICES_PAGE.h1}</h1>
 
       <PageHero
-        eyebrow="Services"
+        eyebrow={SERVICES_PAGE.eyebrow}
         h1={SERVICES_PAGE.h1}
         backgroundImage={PAGE_HERO_IMAGES.services}
         backgroundOpacity={0.22}

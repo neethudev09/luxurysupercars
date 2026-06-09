@@ -8,6 +8,7 @@
  */
 import { createClient, type SanityClient } from "@sanity/client";
 import { config as loadEnv } from "dotenv";
+import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -83,6 +84,41 @@ export async function uploadImageFromUrl(
     return ref;
   } catch (e) {
     console.warn(`  [image] fetch failed for ${url}: ${(e as Error).message}`);
+    return null;
+  }
+}
+
+export interface SanityAssetRef {
+  _type: "image" | "file";
+  asset: { _type: "reference"; _ref: string };
+}
+const LOCAL_ASSET_CACHE = new Map<string, SanityAssetRef>();
+
+/**
+ * Upload a file from the repo's public/ folder as a Sanity asset and return a
+ * reference. Pass a public-absolute path (e.g. "/images/Ahmed-portrait.png").
+ * `kind` is "image" for image fields or "file" for file fields (e.g. video).
+ * Idempotent within a run.
+ */
+export async function uploadLocalAsset(
+  publicPath: string,
+  kind: "image" | "file" = "image",
+): Promise<SanityAssetRef | null> {
+  if (!publicPath) return null;
+  if (LOCAL_ASSET_CACHE.has(publicPath)) return LOCAL_ASSET_CACHE.get(publicPath)!;
+  try {
+    const abs = resolve(__dirname, "../../public", publicPath.replace(/^\//, ""));
+    const buf = readFileSync(abs);
+    const filename = publicPath.split("/").pop() || "asset";
+    const asset = await client.assets.upload(kind, buf, { filename });
+    const ref: SanityAssetRef = {
+      _type: kind,
+      asset: { _type: "reference", _ref: asset._id },
+    };
+    LOCAL_ASSET_CACHE.set(publicPath, ref);
+    return ref;
+  } catch (e) {
+    console.warn(`  [asset] failed for ${publicPath}: ${(e as Error).message}`);
     return null;
   }
 }

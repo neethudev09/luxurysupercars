@@ -1,11 +1,14 @@
 import Image from "next/image";
 import MaskHeading from "@/components/motion/MaskHeading";
 import Reveal from "@/components/motion/Reveal";
+import { ABOUT_FOUNDER } from "@/lib/content";
 
-// Ahmed Amwell's signature, sourced from the live /about-us/ page. The off-white
-// section means the dark ink reads as-is (no invert needed).
-const SIGNATURE_SRC =
-  "https://luxurysupercarsdubai.com/wp-content/uploads/2024/12/signature-img.avif";
+// Ahmed Amwell's signature (CMS-managed, falls back to the live asset). The
+// off-white section means the dark ink reads as-is (no invert needed).
+const SIGNATURE_SRC = ABOUT_FOUNDER.signature;
+
+// Looping, muted, controls-off founder embed — playlist=id makes it loop.
+const founderEmbedSrc = `https://www.youtube-nocookie.com/embed/${ABOUT_FOUNDER.videoId}?autoplay=1&mute=1&loop=1&playlist=${ABOUT_FOUNDER.videoId}&playsinline=1&controls=0&modestbranding=1&rel=0`;
 
 /**
  * Founder bio + video. H2 + body paragraph are verbatim from live /about-us/
@@ -37,7 +40,7 @@ export default function AboutVideo() {
           <Reveal delay={150} className="mt-9 w-full md:mt-11">
             <div className="relative aspect-video w-full overflow-hidden rounded-2xl border border-black/10 bg-black shadow-[0_24px_70px_-20px_rgba(0,0,0,0.35)]">
               <iframe
-                src="https://www.youtube-nocookie.com/embed/TjB258kdQFc?autoplay=1&mute=1&loop=1&playlist=TjB258kdQFc&playsinline=1&controls=0&modestbranding=1&rel=0"
+                src={founderEmbedSrc}
                 title="Ahmed Amwell · CEO of Luxury Supercar Rentals Dubai"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowFullScreen
@@ -48,7 +51,7 @@ export default function AboutVideo() {
           </Reveal>
 
           <MaskHeading
-            text="Ahmed Mansour redefines opulence with luxury super car rentals Dubai"
+            text={ABOUT_FOUNDER.heading}
             as="h2"
             breakAfterBold={false}
             className="mt-11 font-[var(--font-display)] text-[clamp(1.7rem,3.4vw,2.6rem)] leading-[1.12] tracking-[-0.018em] text-[var(--ink-dark-hi)] text-balance md:mt-14"
@@ -56,11 +59,7 @@ export default function AboutVideo() {
           />
           <Reveal>
             <p className="mx-auto mt-7 max-w-2xl text-[17px] leading-[1.85] text-[var(--ink-dark-lo)]">
-              Within the glowing and glossy world of luxury car rentals, Ahmed
-              Mansour (Ahmed Amwell) stands out as the visionary behind Luxury
-              Super Car Rentals Dubai. A true trailblazer, Luxury Super Car
-              Rentals Dubai is transforming the industry, epitomizing success,
-              and making renting the car of your dreams a hassle-free process.
+              {ABOUT_FOUNDER.paragraph}
             </p>
           </Reveal>
         </div>

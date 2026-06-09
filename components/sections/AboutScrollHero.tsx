@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import MaskHeading from "@/components/motion/MaskHeading";
 import Reveal from "@/components/motion/Reveal";
+import { ABOUT_HERO } from "@/lib/content";
 
 export default function AboutScrollHero() {
   const videoRef = useRef<HTMLVideoElement | null>(null);
@@ -33,7 +34,7 @@ export default function AboutScrollHero() {
     >
       <video
         ref={videoRef}
-        src="/ahmed-trim.mp4"
+        src={ABOUT_HERO.backgroundVideo}
         autoPlay
         muted
         loop
@@ -53,7 +54,7 @@ export default function AboutScrollHero() {
           <div className="grid md:grid-cols-12 gap-8 md:gap-12 items-end">
             <div className="md:col-span-7">
               <MaskHeading
-                text="**CEO** of Luxury Supercar Rentals Dubai"
+                text={ABOUT_HERO.heading}
                 as="h2"
                 breakAfterBold={false}
                 className="font-[var(--font-display)] text-[clamp(2rem,4.4vw,3.4rem)] leading-[1.1] tracking-[-0.022em] text-white text-balance"
@@ -64,9 +65,7 @@ export default function AboutScrollHero() {
             <div className="md:col-span-5">
               <Reveal delay={400}>
                 <p className="font-[var(--font-display)] text-[clamp(1.2rem,1.8vw,1.55rem)] leading-[1.45] tracking-tight text-white">
-                  Ahmed has become a distinctive innovator behind luxury and
-                  super-car rentals, making a riveting offer to clients
-                  around the world to gain a taste of the opulent lifestyle.
+                  {ABOUT_HERO.paragraph}
                 </p>
               </Reveal>
             </div>

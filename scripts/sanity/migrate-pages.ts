@@ -155,6 +155,20 @@ async function main() {
         noIndex: false,
       },
     },
+    {
+      _id: "page-cookie-policy",
+      _type: "page",
+      routePath: "/cookie-policy",
+      title: "Cookie policy",
+      heroEyebrow: "Legal",
+      heroH1: "Cookie Policy",
+      seo: {
+        title: "Cookie Policy | Luxury Supercars Dubai",
+        description:
+          "How Luxury Supercars Dubai uses cookies and similar technologies — analytics, advertising, and your preferences.",
+        noIndex: false,
+      },
+    },
     /* ------------------------- category pages ----------------------- */
     {
       _id: "page-rent-sports",

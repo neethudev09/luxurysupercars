@@ -16,5 +16,21 @@
     "youtube": "https://www.youtube.com/@Ahmed.Amwell",
     "tiktok": "https://www.tiktok.com/@luxurysupercarsdubai/"
   },
-  "footerDescription": "If you are looking to rent the latest luxury Car in Dubai, luxurysupercarsdubai.com is a one-stop destination for all. You can avail the widest range of the most exotic luxury cars, including everything from the latest Sports Cars, Convertible Cars, SUVs, Supercars, and Prestige Cars, all of which would surely provide you with a fascinating experience."
+  "footerDescription": "If you are looking to rent the latest luxury Car in Dubai, luxurysupercarsdubai.com is a one-stop destination for all. You can avail the widest range of the most exotic luxury cars, including everything from the latest Sports Cars, Convertible Cars, SUVs, Supercars, and Prestige Cars, all of which would surely provide you with a fascinating experience.",
+  "footer": {
+    "copyright": "",
+    "brands": [],
+    "rentLinks": [],
+    "usefulLinks": [],
+    "legalLinks": []
+  },
+  "navLinks": [],
+  "promo": {
+    "eyebrow": "",
+    "heading": "",
+    "highlight": "",
+    "body": "",
+    "buttonLabel": "",
+    "disclaimer": ""
+  }
 }

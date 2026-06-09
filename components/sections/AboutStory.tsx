@@ -14,7 +14,7 @@ export default function AboutStory() {
       <div className="relative w-full min-h-[100vh] overflow-hidden">
         {/* Background — Lamborghini Revuelto editorial shot */}
         <Image
-          src="https://luxurysupercarsdubai.com/wp-content/uploads/2025/08/DSCF9336-scaled.jpg"
+          src="/images/legacy/2025/08/DSCF9336-scaled.jpg"
           alt="Lamborghini Revuelto — Luxury Supercar Rentals Dubai"
           fill
           priority

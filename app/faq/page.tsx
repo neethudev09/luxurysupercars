@@ -41,9 +41,9 @@ export default function FaqPage() {
       <h1 className="sr-only">{FAQ_PAGE.h1}</h1>
 
       <PageHero
-        eyebrow="FAQ"
+        eyebrow={FAQ_PAGE.eyebrow}
         h1={FAQ_PAGE.h1}
-        subline="Everything you need to know about renting with Luxury Supercars Dubai — booking, documents, age limits, payment, deliveries and more."
+        subline={FAQ_PAGE.subline}
         backgroundImage={PAGE_HERO_IMAGES.faq}
         backgroundOpacity={0.22}
         spotlight="right"

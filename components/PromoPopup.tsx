@@ -2,10 +2,25 @@
 
 import { useActionState, useEffect, useState } from "react";
 import { subscribeEmail, type SubscribeState } from "@/app/actions/subscribe";
+import { PROMO } from "@/lib/content";
 
 const STORAGE_KEY = "lsr-promo-seen";
 const DELAY_MS = 10_000;
 const INITIAL_STATE: SubscribeState = { ok: false, message: "" };
+
+/** Render the promo heading, wrapping the highlighted words in gold. */
+function PromoHeading() {
+  const { heading, highlight } = PROMO;
+  const idx = highlight ? heading.indexOf(highlight) : -1;
+  if (idx === -1) return <>{heading}</>;
+  return (
+    <>
+      {heading.slice(0, idx)}
+      <span className="text-[var(--champagne)]">{highlight}</span>
+      {heading.slice(idx + highlight.length)}
+    </>
+  );
+}
 
 /**
  * Entry promo pop-up. Appears once, 10s after a visitor's first arrival (a
@@ -85,12 +100,12 @@ export default function PromoPopup() {
         </button>
 
         <div className="relative">
-          <p className="eyebrow mb-4">Exclusive Offer</p>
+          <p className="eyebrow mb-4">{PROMO.eyebrow}</p>
           <h2 className="font-[var(--font-display)] text-[clamp(1.6rem,3vw,2.1rem)] leading-[1.1] tracking-[-0.018em] text-[var(--ink-hi)]">
-            Get <span className="text-[var(--champagne)]">15% off</span> your rental
+            <PromoHeading />
           </h2>
           <p className="mt-3 text-[15px] leading-[1.6] text-[var(--ink-lo)]">
-            Drop your email below and our team will be in touch with your exclusive discount.
+            {PROMO.body}
           </p>
 
           {state.ok ? (
@@ -112,7 +127,7 @@ export default function PromoPopup() {
                 disabled={pending}
                 className="inline-flex items-center justify-center gap-2 rounded-full bg-[var(--champagne)] px-6 py-3 text-[15px] font-medium text-[var(--bg-obsidian)] hover:bg-[var(--champagne-hi)] transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
               >
-                {pending ? "Submitting…" : "Claim 15% Off"}
+                {pending ? "Submitting…" : PROMO.buttonLabel}
               </button>
               {state.message && !state.ok && (
                 <p role="status" className="text-[13px] text-red-400">
@@ -120,7 +135,7 @@ export default function PromoPopup() {
                 </p>
               )}
               <p className="text-center font-[var(--font-mono)] text-[10.5px] uppercase tracking-[0.18em] text-[var(--ink-lo)]/70">
-                No spam — unsubscribe anytime
+                {PROMO.disclaimer}
               </p>
             </form>
           )}

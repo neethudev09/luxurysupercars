@@ -47,25 +47,14 @@ const LEGACY_REDIRECTS = [
 
 const nextConfig: NextConfig = {
   images: {
+    // Only the Sanity CDN is allowed. The old WordPress + old-Vercel image
+    // hosts were removed once every asset was migrated to public/images/ or
+    // Sanity (scripts/migrate-images.mjs). If anything ever hot-links the old
+    // site again, the build fails loudly instead of shipping a dead image.
     remotePatterns: [
       {
-        protocol: "https",
-        hostname: "luxurysupercarsdubai.com",
-        pathname: "/wp-content/uploads/**",
-      },
-      {
-        protocol: "https",
-        hostname: "luxurysupercarsdubai.com",
-        pathname: "/pagespeed_static/**",
-      },
-      {
-        protocol: "https",
-        hostname: "luxury-supercars-dubai.vercel.app",
-        pathname: "/**",
-      },
-      {
-        // Sanity asset CDN — all car galleries + blog hero images now
-        // resolve here after the build-time export from Sanity.
+        // Sanity asset CDN — all car galleries + blog hero images resolve
+        // here after the build-time export from Sanity.
         protocol: "https",
         hostname: "cdn.sanity.io",
         pathname: "/images/**",

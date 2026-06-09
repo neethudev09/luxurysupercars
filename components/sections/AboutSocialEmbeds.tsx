@@ -3,6 +3,7 @@
 import { useState } from "react";
 import MaskHeading from "@/components/motion/MaskHeading";
 import Reveal from "@/components/motion/Reveal";
+import { ABOUT_EMBEDS } from "@/lib/content";
 
 type Block = {
   id: string;
@@ -41,32 +42,9 @@ function BlockIcon({ name, size = 32 }: { name: Block["icon"]; size?: number }) 
   );
 }
 
-const BLOCKS: Block[] = [
-  {
-    id: "tiktok",
-    label: "TikTok",
-    heading: "TikTok",
-    layout: "shorts",
-    icon: "tiktok",
-    videoIds: ["gIho6aTDC6k", "LEWBL8DzhIU", "3_oc4OdQ-4o", "k-xGgGabnXA"],
-  },
-  {
-    id: "youtube",
-    label: "YouTube",
-    heading: "YouTube",
-    layout: "wide",
-    icon: "youtube",
-    videoIds: ["TjB258kdQFc", "VE48aZyvf7g", "zrIdggcPOk4", "QD87hNbhf-M"],
-  },
-  {
-    id: "podcasts",
-    label: "Podcasts",
-    heading: "PODCASTS",
-    layout: "wide",
-    icon: "podcasts",
-    videoIds: ["-1W-Vo3F1_I", "4o4XCiiJtm4"],
-  },
-];
+// Rails (heading + which videos appear) are CMS-driven — see ABOUT_EMBEDS in
+// lib/content.ts. A rail whose video list is emptied in the CMS is dropped.
+const BLOCKS: Block[] = ABOUT_EMBEDS;
 
 function thumbUrl(id: string) {
   // maxresdefault (1280x720) is far sharper than hqdefault once cropped into

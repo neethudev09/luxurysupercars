@@ -10,7 +10,7 @@ export default function JsonLd() {
     "@type": "AutoRental",
     name: "Luxury Supercars Dubai",
     url: SITE,
-    image: `${SITE}/wp-content/uploads/2024/11/image-1.png`,
+    image: `${SITE}/images/legacy/2024/11/image-1.png`,
     // Verbatim from live site's LocalBusiness schema description
     description:
       "If you are looking to rent the latest luxury Car in Dubai, luxurysupercarsdubai.com is a one-stop destination for all. You can avail the widest range of the most exotic luxury cars, including everything from the latest Sports Cars, Convertible Cars, SUVs, Supercars, and Prestige Cars, all of which would surely provide you with a fascinating experience.",

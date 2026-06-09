@@ -44,9 +44,9 @@ export default function BookingTermsPage() {
       <h1 className="sr-only">{BOOKING_TERMS_PAGE.h1}</h1>
 
       <PageHero
-        eyebrow="Legal"
+        eyebrow={BOOKING_TERMS_PAGE.eyebrow}
         h1={BOOKING_TERMS_PAGE.h1}
-        subline="Everything you need to know before you book — required documents, age limits, security deposit, payment methods, rental period, and delivery."
+        subline={BOOKING_TERMS_PAGE.subline}
         spotlight="left"
         compact
       />

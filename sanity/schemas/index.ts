@@ -10,6 +10,10 @@ import type { SchemaTypeDefinition } from "sanity";
 
 // Shared objects
 import { seo } from "./objects/seo";
+import { homeContent } from "./objects/homeContent";
+import { aboutContent } from "./objects/aboutContent";
+import { fleetTypeContent } from "./objects/fleetTypeContent";
+import { standalonePageObjects } from "./objects/standalonePages";
 
 // Document types
 import { siteSettings } from "./documents/siteSettings";
@@ -24,6 +28,10 @@ import { blogPost } from "./documents/blogPost";
 export const schemaTypes: SchemaTypeDefinition[] = [
   // shared
   seo,
+  homeContent,
+  aboutContent,
+  fleetTypeContent,
+  ...standalonePageObjects,
   // singletons + documents
   siteSettings,
   page,

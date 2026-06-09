@@ -46,9 +46,9 @@ export default function CareersPage() {
       <h1 className="sr-only">{CAREERS_PAGE.h1}</h1>
 
       <PageHero
-        eyebrow="Careers"
+        eyebrow={CAREERS_PAGE.eyebrow}
         h1={CAREERS_PAGE.h1}
-        subline="Join a small, ambitious team behind the most extraordinary car rental fleet in Dubai."
+        subline={CAREERS_PAGE.subline}
         backgroundImage={PAGE_HERO_IMAGES.careers}
         backgroundOpacity={0.28}
         spotlight="left"

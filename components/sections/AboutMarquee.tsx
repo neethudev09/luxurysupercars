@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { ABOUT_PRESS } from "@/lib/content";
 
 type Tile = {
   category: "Award" | "Press" | "Instagram";
@@ -6,60 +7,15 @@ type Tile = {
   image: string;
 };
 
-// Image assets pulled verbatim from the live /about-us/ page. Captions
-// are decorative — the live site's SEO-load-bearing H2s
-// ("PRIZES & AWARDS", "PRESS ARTICLES", "INSTAGRAM") are rendered as
-// sr-only headings above the reel so search engines pick them up
-// regardless of the visual layout.
-const TILES: Tile[] = [
-  {
-    category: "Award",
-    caption: "Luxury Service Award 2024",
-    image: "https://luxurysupercarsdubai.com/wp-content/uploads/2024/12/a.avif",
-  },
-  {
-    category: "Press",
-    caption: "Featured · Gulf News",
-    image: "https://luxurysupercarsdubai.com/wp-content/uploads/2024/12/Article-1.avif",
-  },
-  {
-    category: "Instagram",
-    caption: "@luxurysupercarsdubai",
-    image: "https://luxurysupercarsdubai.com/wp-content/uploads/2024/12/instagram-1.avif",
-  },
-  {
-    category: "Press",
-    caption: "Featured · Khaleej Times",
-    image: "https://luxurysupercarsdubai.com/wp-content/uploads/2024/12/Article-2.avif",
-  },
-  {
-    category: "Award",
-    caption: "Top Luxury Rental — UAE",
-    image: "https://luxurysupercarsdubai.com/wp-content/uploads/2024/12/award.avif",
-  },
-  {
-    category: "Instagram",
-    caption: "@luxurysupercarsdubai",
-    image: "https://luxurysupercarsdubai.com/wp-content/uploads/2024/12/instagram-2.avif",
-  },
-  {
-    category: "Press",
-    caption: "Featured · Esquire ME",
-    image: "https://luxurysupercarsdubai.com/wp-content/uploads/2024/12/Article-3.avif",
-  },
-  {
-    category: "Instagram",
-    caption: "@luxurysupercarsdubai",
-    image: "https://luxurysupercarsdubai.com/wp-content/uploads/2024/12/instagram-3.avif",
-  },
-  {
-    category: "Instagram",
-    caption: "@luxurysupercarsdubai",
-    image: "https://luxurysupercarsdubai.com/wp-content/uploads/2024/12/instagram-4.avif",
-  },
-];
+// Tiles (caption + image + label) are CMS-managed — see ABOUT_PRESS in
+// lib/content.ts. The live site's SEO-load-bearing H2s ("PRIZES & AWARDS",
+// "PRESS ARTICLES", "INSTAGRAM") are rendered as sr-only headings below so
+// search engines pick them up regardless of which tiles are shown.
+const TILES: Tile[] = ABOUT_PRESS.items;
 
 export default function AboutMarquee() {
+  // Emptying the reel in the CMS hides the whole strip.
+  if (TILES.length === 0) return null;
   // Duplicate the list so the CSS keyframe loops seamlessly.
   const reel = [...TILES, ...TILES];
 

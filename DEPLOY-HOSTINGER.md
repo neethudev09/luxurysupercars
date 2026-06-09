@@ -131,6 +131,39 @@ jobs:
 ```
 Setup: generate an SSH keypair; paste the **public** key into the new site's **SSH Keys** field in CloudPanel (Settings tab); add the **private** key as the GitHub repo secret `VPS_SSH_KEY`. After that, day-to-day updates are just `git push` — same as Vercel today.
 
+### Content publishing — making Sanity (CMS) edits go live
+
+The site bakes its CMS content in at **build time** — `npm run build` runs the Sanity → JSON export (`scripts/sanity/export-to-json.ts`). So an edit published in the Studio only appears on the live site after a **rebuild + `pm2 reload`**. (This is different from a *code* change, which arrives via `git push`.)
+
+Editors get an in-Studio **Preview** tab and a "publish → rebuild" webhook — see [`sanity/PUBLISHING.md`](sanity/PUBLISHING.md). **Important:** the webhook URL in that guide is a **Vercel Deploy Hook**, which rebuilds *only the Vercel staging site*. On this VPS you need the equivalent trigger below. At cutover, repoint (or add) the Sanity webhook to this; the Vercel one can stay for staging or be removed.
+
+**Recommended — Sanity webhook → GitHub → the deploy workflow** (reuses the push-to-deploy Action above; nothing extra exposed on the VPS):
+
+1. Add a `repository_dispatch` trigger to `.github/workflows/deploy.yml`:
+   ```yaml
+   on:
+     push:
+       branches: [main]
+     repository_dispatch:
+       types: [sanity-publish]
+   ```
+   The same `git pull && npm ci && npm run build && pm2 reload lsr` re-runs the content export, so it picks up newly-published content even though no code changed.
+
+2. Create a **GitHub fine-grained PAT** with **Contents: read and write** on this repo (used only to trigger the workflow).
+
+3. In **sanity.io/manage → API → Webhooks**, create a webhook:
+   - **URL:** `https://api.github.com/repos/orchestra-ventures/Luxury-Supercar-Rental/dispatches`
+   - **HTTP method:** `POST`
+   - **Headers:** `Authorization: Bearer <the PAT>` and `Accept: application/vnd.github+json`
+   - **Projection (body):** `{"event_type": "sanity-publish"}`
+   - **Filter:** `!(_id in path("drafts.**"))`  — fire on **Publish** only, not every draft keystroke.
+
+   A Publish now triggers the deploy workflow → the VPS rebuilds in ~1–2 min → the edit is live.
+
+**Simpler alternative (no GitHub):** run a tiny deploy webhook on the box (the [`webhook`](https://github.com/adnanh/webhook) package or a small PM2 service) that runs the rebuild script on a POST carrying a shared secret, and point the Sanity webhook at that HTTPS URL. Keeps everything on the VPS, but you're exposing a deploy endpoint — protect it with a secret.
+
+**Fallback (no webhook):** a cron that runs the rebuild every 10–15 min — dead simple, but content lags up to ~15 min.
+
 ### Housekeeping
 - **Firewall:** currently 0 rules — restrict inbound to **22, 80, 443**.
 - Keep **VPS snapshots** running (nightly).

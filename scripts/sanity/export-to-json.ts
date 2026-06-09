@@ -70,6 +70,21 @@ function text(v: unknown): string {
   return v == null ? "" : String(v);
 }
 
+/**
+ * Rewrite inline images in migrated HTML that still hot-link the old
+ * WordPress site (any host: luxurysupercarsdubai.com OR the now-dead agency
+ * subdomain) to the self-hosted copies under public/images/legacy/. The
+ * files are downloaded by scripts/migrate-images.mjs. This runs on every
+ * export, so the dead URLs can never reappear in the build output and no
+ * Sanity content edit is required.
+ */
+function rewriteLegacyImageUrls(html: string): string {
+  return html.replace(
+    /https?:\/\/[A-Za-z0-9.\-]+\/wp-content\/uploads\//g,
+    "/images/legacy/",
+  );
+}
+
 /* -------------------------------------------------------------------------- */
 /*  Cars → lib/fleet-data.json                                                */
 /* -------------------------------------------------------------------------- */
@@ -232,7 +247,7 @@ function mapBlogPost(p: SanityBlogPost) {
     h1: str(p.h1) || p.title,
     date: formatDate(p.publishedAt),
     excerpt: str(p.excerpt) || "",
-    bodyHtml: p.bodyHtml || "",
+    bodyHtml: rewriteLegacyImageUrls(p.bodyHtml || ""),
   };
 }
 
@@ -259,10 +274,36 @@ interface SanitySiteSettings {
     tiktok?: string;
   };
   footerDescription?: string;
+  footer?: {
+    copyright?: string;
+    brands?: string[];
+    rentLinks?: SanityLink[];
+    usefulLinks?: SanityLink[];
+    legalLinks?: SanityLink[];
+  };
+  navLinks?: SanityLink[];
+  promo?: {
+    eyebrow?: string;
+    heading?: string;
+    highlight?: string;
+    body?: string;
+    buttonLabel?: string;
+    disclaimer?: string;
+  };
+}
+
+interface SanityLink { label?: string; href?: string }
+function mapLinks(links: SanityLink[] | undefined) {
+  return (links || [])
+    .map((l) => ({ label: text(l.label), href: text(l.href) }))
+    .filter((l) => l.label && l.href);
 }
 
 const SITE_SETTINGS_QUERY = `*[_id == "siteSettings"][0]{
-  title, description, contact, social, footerDescription
+  title, description, contact, social, footerDescription,
+  footer{ copyright, brands, rentLinks[]{ label, href }, usefulLinks[]{ label, href }, legalLinks[]{ label, href } },
+  navLinks[]{ label, href },
+  promo
 }`;
 
 function mapSiteSettings(s: SanitySiteSettings) {
@@ -285,6 +326,22 @@ function mapSiteSettings(s: SanitySiteSettings) {
       tiktok: text(s.social?.tiktok),
     },
     footerDescription: text(s.footerDescription),
+    footer: {
+      copyright: text(s.footer?.copyright),
+      brands: (s.footer?.brands || []).map((b) => text(b)).filter(Boolean),
+      rentLinks: mapLinks(s.footer?.rentLinks),
+      usefulLinks: mapLinks(s.footer?.usefulLinks),
+      legalLinks: mapLinks(s.footer?.legalLinks),
+    },
+    navLinks: mapLinks(s.navLinks),
+    promo: {
+      eyebrow: text(s.promo?.eyebrow),
+      heading: text(s.promo?.heading),
+      highlight: text(s.promo?.highlight),
+      body: text(s.promo?.body),
+      buttonLabel: text(s.promo?.buttonLabel),
+      disclaimer: text(s.promo?.disclaimer),
+    },
   };
 }
 
@@ -494,6 +551,131 @@ function mapBrand(b: SanityBrand) {
 }
 
 /* -------------------------------------------------------------------------- */
+/*  Homepage content → lib/generated/home.json                                */
+/* -------------------------------------------------------------------------- */
+
+/**
+ * The Home page document's `homeContent` block (objects/homeContent.ts),
+ * passed through verbatim. lib/content.ts reads each field with a fallback
+ * to the verbatim live copy, so a missing block or empty field never
+ * blanks the homepage. Deliberately NOT a requireRows gate — a missing
+ * block just falls back to the live wording at render time.
+ */
+const HOME_QUERY = `*[_id == "page-home"][0].homeContent`;
+
+/**
+ * The About page document's `aboutContent` block. Unlike the homepage block
+ * this is a projection, not a raw passthrough, because the About fields carry
+ * uploaded media — image/file assets are dereferenced to their CDN URLs
+ * (same `asset->url` pattern as cars/blog). lib/content.ts reads each field
+ * with a fallback to the current self-hosted asset.
+ */
+const ABOUT_QUERY = `*[_id == "page-about-us"][0].aboutContent{
+  "hero": hero{ heading, paragraph, "backgroundVideo": backgroundVideo.asset->url },
+  "founder": founder{ heading, paragraph, videoUrl, "signature": signature.asset->url },
+  "aboutMe": aboutMe{ heading, paragraphs, "portrait": portrait.asset->url },
+  "ventures": ventures{ eyebrow, items[]{ title, body, bordered, "logo": logo.asset->url } },
+  embeds,
+  "pressReel": pressReel{ items[]{ category, caption, "image": image.asset->url } }
+}`;
+
+/**
+ * The four fleet-category page documents — meta (from the shared SEO panel) +
+ * fleetTypeContent — keyed by category in lib/generated/fleet-types.json so
+ * lib/fleet-types.ts can merge each over its verbatim live default.
+ */
+const FLEET_ID_TO_CATEGORY: Record<string, string> = {
+  "page-rent-sports": "sports",
+  "page-rent-convertible": "convertible",
+  "page-rent-luxury": "luxury",
+  "page-rent-suv": "suv",
+};
+const FLEET_TYPES_QUERY = `*[_id in ["page-rent-sports","page-rent-convertible","page-rent-luxury","page-rent-suv"]]{
+  _id,
+  "metaTitle": seo.title,
+  "metaDescription": seo.description,
+  "content": fleetTypeContent{ visibleTitle, h1, introParagraphs, faqHeading, faqs[]{ question, answer } }
+}`;
+
+interface SanityFleetPage {
+  _id: string;
+  metaTitle?: string;
+  metaDescription?: string;
+  content?: {
+    visibleTitle?: string;
+    h1?: string;
+    introParagraphs?: string[];
+    faqHeading?: string;
+    faqs?: { question?: string; answer?: string }[];
+  };
+}
+
+function mapFleetPages(pages: SanityFleetPage[]): Record<string, unknown> {
+  const out: Record<string, unknown> = {};
+  for (const p of pages || []) {
+    const cat = FLEET_ID_TO_CATEGORY[p._id];
+    if (!cat) continue;
+    out[cat] = {
+      metaTitle: str(p.metaTitle),
+      metaDescription: str(p.metaDescription),
+      visibleTitle: str(p.content?.visibleTitle),
+      h1: str(p.content?.h1),
+      introParagraphs: (p.content?.introParagraphs || []).map((s) => text(s)).filter(Boolean),
+      faqHeading: str(p.content?.faqHeading),
+      faqs: (p.content?.faqs || [])
+        .map((f) => ({ q: text(f.question), a: text(f.answer) }))
+        .filter((f) => f.q || f.a),
+    };
+  }
+  return out;
+}
+
+/**
+ * The six standalone pages — meta (from the SEO panel) + each page's content
+ * block — keyed by route in lib/generated/pages.json. lib/content.ts merges
+ * each over its verbatim live default. The block is passed through verbatim
+ * (the renderer reads only the fields it needs).
+ */
+const STANDALONE_ROUTE: Record<string, { route: string; key: string }> = {
+  "page-contact-us": { route: "/contact-us", key: "contactPageContent" },
+  "page-careers": { route: "/careers", key: "careersPageContent" },
+  "page-services": { route: "/services", key: "servicesPageContent" },
+  "page-faq": { route: "/faq", key: "faqPageContent" },
+  "page-booking-tcs": { route: "/booking-tcs", key: "bookingTermsContent" },
+  "page-privacy-policy": { route: "/privacy-policy", key: "privacyPolicyContent" },
+  "page-cookie-policy": { route: "/cookie-policy", key: "cookiePolicyContent" },
+};
+const STANDALONE_QUERY = `*[_id in ${JSON.stringify(Object.keys(STANDALONE_ROUTE))}]{
+  _id,
+  "metaTitle": seo.title,
+  "metaDescription": seo.description,
+  contactPageContent, careersPageContent, servicesPageContent,
+  faqPageContent, bookingTermsContent, privacyPolicyContent, cookiePolicyContent
+}`;
+
+interface SanityStandalonePage {
+  _id: string;
+  metaTitle?: string;
+  metaDescription?: string;
+  [key: string]: unknown;
+}
+
+function mapStandalonePages(pages: SanityStandalonePage[]): Record<string, unknown> {
+  const out: Record<string, unknown> = {};
+  for (const p of pages || []) {
+    const m = STANDALONE_ROUTE[p._id];
+    if (!m) continue;
+    const content = (p[m.key] as Record<string, unknown> | null) || {};
+    out[m.route] = {
+      metaTitle: str(p.metaTitle),
+      metaDescription: str(p.metaDescription),
+      ...content,
+    };
+  }
+  return out;
+}
+
+/* -------------------------------------------------------------------------- */
 /*  Main                                                                      */
 /* -------------------------------------------------------------------------- */
 
@@ -504,7 +686,7 @@ function writeJson(relPath: string, data: unknown) {
 async function main() {
   console.log("[export] fetching from Sanity…");
 
-  const [cars, posts, siteSettings, testimonials, faqs, services, brands] =
+  const [cars, posts, siteSettings, testimonials, faqs, services, brands, home, about, fleetPages, standalonePages] =
     await Promise.all([
       client.fetch<SanityCar[]>(CAR_QUERY),
       client.fetch<SanityBlogPost[]>(BLOG_QUERY),
@@ -513,6 +695,10 @@ async function main() {
       client.fetch<SanityFaq[]>(FAQ_QUERY),
       client.fetch<SanityService[]>(SERVICE_QUERY),
       client.fetch<SanityBrand[]>(BRAND_QUERY),
+      client.fetch<Record<string, unknown> | null>(HOME_QUERY),
+      client.fetch<Record<string, unknown> | null>(ABOUT_QUERY),
+      client.fetch<SanityFleetPage[]>(FLEET_TYPES_QUERY),
+      client.fetch<SanityStandalonePage[]>(STANDALONE_QUERY),
     ]);
 
   // Fail-safe: if ANY type comes back empty, abort without writing — a
@@ -569,6 +755,14 @@ async function main() {
   writeJson("lib/generated/faq.json", faqOut);
   writeJson("lib/generated/services.json", servicesOut);
   writeJson("lib/generated/brands.json", brandsOut);
+  // Homepage content — passthrough; `{}` if the Home doc has no block yet.
+  writeJson("lib/generated/home.json", home && typeof home === "object" ? home : {});
+  // About page content — same passthrough contract.
+  writeJson("lib/generated/about.json", about && typeof about === "object" ? about : {});
+  // Fleet-category page content — keyed by category.
+  writeJson("lib/generated/fleet-types.json", mapFleetPages(fleetPages));
+  // Standalone-page content — keyed by route.
+  writeJson("lib/generated/pages.json", mapStandalonePages(standalonePages));
 
   const homepageFaqs = faqOut.filter((f) => f.showOnHomepage).length;
   console.log(`[export] wrote lib/fleet-data.json            (${fleet.length} cars)`);
@@ -581,6 +775,10 @@ async function main() {
   console.log(`[export] wrote lib/generated/faq.json          (${faqOut.length} entries, ${homepageFaqs} on homepage)`);
   console.log(`[export] wrote lib/generated/services.json     (${servicesOut.length} services)`);
   console.log(`[export] wrote lib/generated/brands.json       (${brands.length} brands)`);
+  console.log(`[export] wrote lib/generated/home.json         (${home ? "homepage content" : "empty — using fallback copy"})`);
+  console.log(`[export] wrote lib/generated/about.json        (${about ? "about content" : "empty — using fallback copy"})`);
+  console.log(`[export] wrote lib/generated/fleet-types.json  (${Object.keys(mapFleetPages(fleetPages)).length} category pages)`);
+  console.log(`[export] wrote lib/generated/pages.json        (${Object.keys(mapStandalonePages(standalonePages)).length} standalone pages)`);
 }
 
 main().catch((e) => {
