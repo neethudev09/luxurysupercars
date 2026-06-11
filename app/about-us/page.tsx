@@ -7,7 +7,7 @@ import AboutMarquee from "@/components/sections/AboutMarquee";
 import AboutSocialEmbeds from "@/components/sections/AboutSocialEmbeds";
 import Footer from "@/components/sections/Footer";
 
-/**
+/** 
  * SEO copy preserved verbatim from luxurysupercarsdubai.com/about-us/.
  * Page structure follows the carent reference layout: hero → image-fade
  * story → bio + video → stats → brands → focus block → showcase grid.
