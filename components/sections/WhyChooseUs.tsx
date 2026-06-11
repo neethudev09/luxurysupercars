@@ -25,6 +25,7 @@ export default function WhyChooseUs() {
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowFullScreen
               loading="lazy"
+              referrerPolicy="strict-origin-when-cross-origin"
               className="absolute inset-0 size-full pointer-events-none"
             />
           </div>

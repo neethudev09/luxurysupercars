@@ -45,6 +45,7 @@ export default function AboutVideo() {
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowFullScreen
                 loading="lazy"
+                referrerPolicy="strict-origin-when-cross-origin"
                 className="pointer-events-none absolute inset-0 h-full w-full"
               />
             </div>
