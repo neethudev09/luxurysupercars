@@ -137,7 +137,7 @@ export default function CarCard({ car, theme = "dark", index = 0 }: CarCardProps
           {/* Decorative "View Details" pill — the whole card is the click target */}
           <span
             aria-hidden
-            className={`flex-1 inline-flex items-center justify-center gap-2 rounded-full px-4 py-3 text-[15px] font-medium tracking-wide transition-all ${
+            className={`flex-1 inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full px-4 py-3 text-[15px] font-medium tracking-wide transition-all ${
               isLight
                 ? "bg-[var(--ink-dark-hi)] text-[var(--bg-bone)] group-hover:bg-[var(--champagne)] group-hover:text-[var(--bg-obsidian)]"
                 : "bg-white/8 text-[var(--ink-hi)] group-hover:bg-[var(--champagne)] group-hover:text-[var(--bg-obsidian)]"
@@ -155,7 +155,7 @@ export default function CarCard({ car, theme = "dark", index = 0 }: CarCardProps
             rel="noreferrer"
             aria-label={`WhatsApp about the ${car.name}`}
             onClick={(e) => e.stopPropagation()}
-            className="pointer-events-auto relative z-10 shrink-0 inline-flex items-center justify-center gap-2 rounded-full bg-[#25D366] px-4 py-3 text-[15px] font-medium tracking-wide text-white hover:bg-[#1ebe5d] transition-colors"
+            className="pointer-events-auto relative z-10 shrink-0 inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full bg-[#25D366] px-4 py-3 text-[15px] font-medium tracking-wide text-white hover:bg-[#1ebe5d] transition-colors"
           >
             <WhatsAppIcon size={18} />
             WhatsApp
