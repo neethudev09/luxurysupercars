@@ -412,7 +412,11 @@ export const CONTACT_PAGE = {
   body:
     contactCms.body ||
     "If you are looking to rent the latest luxury Car in Dubai, luxurysupercarsdubai.com is a one-stop destination for all. You can avail the widest range of the most exotic luxury cars, including everything from the latest Sports Cars, Convertible Cars, SUVs, Supercars, and Prestige Cars, all of which would surely provide you with a fascinating experience.",
-  hours: "9 am – 9 pm (Monday–Sunday)",
+  // Operation hours are CMS-managed via siteSettings → Contact details →
+  // Operation hours; falls back to the verbatim live copy when blank.
+  hours:
+    (siteSettingsData.contact as { operationHours?: string }).operationHours ||
+    "9 am – 9 pm (Monday–Sunday)",
 };
 
 // Live: /services/ — currently a small directory of 4 sub-services, each at

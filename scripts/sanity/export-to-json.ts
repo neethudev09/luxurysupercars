@@ -265,6 +265,7 @@ interface SanitySiteSettings {
     email?: string;
     address?: string;
     altAddress?: string;
+    operationHours?: string;
   };
   social?: {
     facebook?: string;
@@ -317,6 +318,7 @@ function mapSiteSettings(s: SanitySiteSettings) {
       email: text(s.contact?.email),
       address: text(s.contact?.address),
       altAddress: text(s.contact?.altAddress),
+      operationHours: text(s.contact?.operationHours),
     },
     social: {
       facebook: text(s.social?.facebook),
