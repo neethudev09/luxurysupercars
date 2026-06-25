@@ -53,7 +53,7 @@ export default async function BlogIndexPage({
   return (
     <main>
       <SiteNav />
-      <h1 className="sr-only">{visibleH1}</h1>
+       {/* <h1 className="sr-only">{visibleH1}</h1> */}
 
       <PageHero
         eyebrow="Journal"

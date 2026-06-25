@@ -39,7 +39,7 @@ export default function PrivacyPolicyPage() {
   return (
     <main>
       <SiteNav />
-      <h1 className="sr-only">{PRIVACY_POLICY_PAGE.h1}</h1>
+       {/* <h1 className="sr-only">{PRIVACY_POLICY_PAGE.h1}</h1> */}
 
       <PageHero
         eyebrow={PRIVACY_POLICY_PAGE.eyebrow}

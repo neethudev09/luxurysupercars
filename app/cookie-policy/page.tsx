@@ -23,7 +23,7 @@ export default function CookiePolicyPage() {
   return (
     <main>
       <SiteNav />
-      <h1 className="sr-only">{COOKIE_POLICY_PAGE.h1}</h1>
+       {/*<h1 className="sr-only">{COOKIE_POLICY_PAGE.h1}</h1>*/}
 
       <PageHero
         eyebrow={COOKIE_POLICY_PAGE.eyebrow}

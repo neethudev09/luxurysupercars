@@ -43,7 +43,7 @@ export default function CareersPage() {
   return (
     <main>
       <SiteNav />
-      <h1 className="sr-only">{CAREERS_PAGE.h1}</h1>
+      {/* <h1 className="sr-only">{CAREERS_PAGE.h1}</h1> */}
 
       <PageHero
         eyebrow={CAREERS_PAGE.eyebrow}

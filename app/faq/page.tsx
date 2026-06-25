@@ -38,7 +38,7 @@ export default function FaqPage() {
   return (
     <main>
       <SiteNav />
-      <h1 className="sr-only">{FAQ_PAGE.h1}</h1>
+      {/* <h1 className="sr-only">{FAQ_PAGE.h1}</h1> */}
 
       <PageHero
         eyebrow={FAQ_PAGE.eyebrow}

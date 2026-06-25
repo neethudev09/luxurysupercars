@@ -14,9 +14,23 @@ export default function robots(): MetadataRoute.Robots {
     };
   }
 
-  return {
-    rules: [{ userAgent: "*", allow: "/" }],
-    sitemap: `${PRODUCTION_ORIGIN}/sitemap.xml`,
-    host: PRODUCTION_ORIGIN,
-  };
+return {
+  rules: [
+    {
+      userAgent: "*",
+      allow: "/",
+      disallow: [
+        "*/feed/",
+        "/comments/feed/",
+        "/*?add-to-cart=",
+        "/*?lang=",
+        "/wp-includes/",
+        "/wp-content/",
+        "/_next/image",
+      ],
+    },
+  ],
+  sitemap: `${PRODUCTION_ORIGIN}/sitemap.xml`,
+  host: PRODUCTION_ORIGIN,
+};
 }

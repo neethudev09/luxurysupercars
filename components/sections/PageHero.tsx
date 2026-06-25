@@ -37,8 +37,12 @@ export interface PageHeroProps {
   /** Visible heading text. Supports `**bold**` markers for gold-emph spans. */
   h1: string;
   /** Optional shorter sub-line rendered below the h1. */
+  h2?: string;
+  /** Optional shorter sub-line rendered below the h2. */
   subline?: string;
   /** Optional background image URL. Renders at 30% opacity with a dark wash. */
+  hideH1?: boolean;
+   /** Hide H1 visually but keep it for SEO */
   backgroundImage?: string;
   /** Override the image opacity (default 0.3). */
   backgroundOpacity?: number;
@@ -48,6 +52,7 @@ export interface PageHeroProps {
   stats?: PageHeroStat[];
   /** Tighter top padding (e.g. for very long h1s). */
   compact?: boolean;
+  
 }
 
 const SPOTLIGHT_POS: Record<Exclude<SpotlightVariant, "none">, string> = {
@@ -59,7 +64,9 @@ const SPOTLIGHT_POS: Record<Exclude<SpotlightVariant, "none">, string> = {
 export default function PageHero({
   eyebrow,
   h1,
+  h2,
   subline,
+  hideH1 = false,
   backgroundImage,
   backgroundOpacity = 0.3,
   spotlight = "right",
@@ -103,24 +110,35 @@ export default function PageHero({
           </p>
         </Reveal>
 
-        <div className="max-w-5xl">
-          <MaskHeading
-            text={h1}
-            as="h1"
-            animate
-            breakAfterBold={false}
-            className="font-[var(--font-display)] text-[clamp(2.2rem,6vw,5rem)] leading-[1] tracking-[-0.022em] text-[var(--ink-hi)] text-balance"
-            staggerMs={55}
-          />
-        </div>
+        {hideH1 ? (
+  <h1 className="sr-only">{h1}</h1>
+) : (
+  <div className="max-w-5xl">
+    <MaskHeading
+      text={h1}
+      as="h1"
+      animate
+      breakAfterBold={false}
+      className="font-[var(--font-display)] text-[clamp(2.2rem,6vw,5rem)] leading-[1] tracking-[-0.022em] text-[var(--ink-hi)] text-balance"
+      staggerMs={55}
+    />
+  </div>
+)}
+    {h2 && (
+  <Reveal>
+    <h2 className="rise mt-4 max-w-5xl font-[var(--font-display)] text-[clamp(2.2rem,6vw,5rem)] leading-[1] tracking-[-0.022em] text-[var(--ink-hi)] text-balance">
+      {h2}
+    </h2>
+  </Reveal>
+)}
 
-        {subline && (
-          <Reveal>
-            <p className="rise mt-6 max-w-2xl text-[clamp(1.05rem,1.5vw,1.25rem)] leading-[1.45] text-[var(--ink-lo)]">
-              {subline}
-            </p>
-          </Reveal>
-        )}
+{subline && (
+  <Reveal>
+    <p className="rise mt-6 max-w-2xl text-[clamp(1.05rem,1.5vw,1.25rem)] leading-[1.45] text-[var(--ink-lo)]">
+      {subline}
+    </p>
+  </Reveal>
+)}
 
         {stats && stats.length > 0 && (
           <Reveal>

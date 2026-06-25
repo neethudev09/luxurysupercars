@@ -42,7 +42,7 @@ export default function ServicesPage() {
   return (
     <main>
       <SiteNav />
-      <h1 className="sr-only">{SERVICES_PAGE.h1}</h1>
+    {/*  <h1 className="sr-only">{SERVICES_PAGE.h1}</h1> */}
 
       <PageHero
         eyebrow={SERVICES_PAGE.eyebrow}

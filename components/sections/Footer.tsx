@@ -84,9 +84,9 @@ export default function Footer() {
               <li><a href={`tel:${CONTACT.secondaryPhone.replace(/\s/g, "")}`} className="hover:text-[var(--champagne)] transition-colors">{CONTACT.secondaryPhone}</a></li>
               <li><a href={`tel:${CONTACT.landline.replace(/\s/g, "")}`} className="hover:text-[var(--champagne)] transition-colors">{CONTACT.landline}</a></li>
               <li><a href={`mailto:${CONTACT.email}`} className="hover:text-[var(--champagne)] transition-colors">{CONTACT.email}</a></li>
-              <li className="mt-2 text-[14.5px]">
+             <li className="mt-2 text-[14.5px]">
                 <a
-                  href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(CONTACT.address)}`}
+                  href="https://maps.app.goo.gl/mHS6dXvKu8dbx57r6"
                   target="_blank"
                   rel="noreferrer"
                   className="text-[var(--ink-lo)] hover:text-[var(--champagne)] transition-colors"

@@ -102,7 +102,7 @@ export default async function ServiceDetailPage(
   return (
     <main>
       <SiteNav />
-      <h1 className="sr-only">{service.h1}</h1>
+    {/*   <h1 className="sr-only">{service.h1}</h1>*/}
 
       <PageHero
         eyebrow="Service"

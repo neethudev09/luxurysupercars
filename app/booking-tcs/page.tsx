@@ -41,7 +41,7 @@ export default function BookingTermsPage() {
   return (
     <main>
       <SiteNav />
-      <h1 className="sr-only">{BOOKING_TERMS_PAGE.h1}</h1>
+       {/* <h1 className="sr-only">{BOOKING_TERMS_PAGE.h1}</h1> */}
 
       <PageHero
         eyebrow={BOOKING_TERMS_PAGE.eyebrow}
