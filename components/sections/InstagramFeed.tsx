@@ -108,12 +108,14 @@ export default function InstagramFeed() {
         </div>
 
     <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
-          <button
-            type="button"
-            className="inline-flex items-center gap-2 rounded-full border border-[var(--ink-dark-hi)]/25 px-5 py-2.5 text-[12.5px] font-medium hover:bg-[var(--ink-dark-hi)] hover:text-[var(--bg-bone)] transition-colors"
-          >
-            Load More
-          </button>
+         <a
+  href="https://www.instagram.com/luxurysupercarsdubai/"
+  target="_blank"
+  rel="noreferrer"
+  className="inline-flex items-center gap-2 rounded-full border border-[var(--ink-dark-hi)]/25 px-5 py-2.5 text-[12.5px] font-medium hover:bg-[var(--ink-dark-hi)] hover:text-[var(--bg-bone)] transition-colors"
+>
+  Load More
+</a>
 
          <a
   href="https://www.instagram.com/luxurysupercarsdubai/"
