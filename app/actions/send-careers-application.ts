@@ -61,18 +61,20 @@ function renderEmailSection(title: string, rows: string) {
   }
 
   return `
-    <tr>
-      <td style="padding:22px 0 8px;">
-        <div style="color:#b8944f;font-size:11px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;">${escapeHtml(title)}</div>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;border-top:1px solid #e8e2d5;">
-          ${rows}
-        </table>
-      </td>
-    </tr>
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;margin:0 0 22px;">
+      <tr>
+        <td style="padding:0 0 8px;">
+          <div style="color:#b8944f;font-size:11px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;">${escapeHtml(title)}</div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;border-top:1px solid #e8e2d5;">
+            ${rows}
+          </table>
+        </td>
+      </tr>
+    </table>
   `;
 }
 
@@ -82,12 +84,14 @@ function renderMultilineBlock(label: string, value?: string) {
   }
 
   return `
-    <tr>
-      <td style="padding:18px 0 0;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;margin:0 0 22px;">
+      <tr>
+        <td style="padding:0;">
         <div style="color:#7a7a7a;font-size:13px;line-height:18px;">${escapeHtml(label)}</div>
         <div style="margin-top:8px;padding:14px 16px;background:#f8f6f0;border:1px solid #ebe3d4;border-radius:8px;color:#171717;font-size:14px;line-height:22px;white-space:pre-wrap;">${escapeHtml(value)}</div>
-      </td>
-    </tr>
+        </td>
+      </tr>
+    </table>
   `;
 }
 
