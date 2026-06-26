@@ -1,10 +1,30 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { COUNTRY_CODES, DEFAULT_DIAL, flagEmoji } from "@/lib/country-codes";
+import { COUNTRY_CODES, DEFAULT_DIAL } from "@/lib/country-codes";
 
 const DEFAULT_ISO =
   COUNTRY_CODES.find((c) => c.dial === DEFAULT_DIAL)?.iso ?? "AE";
+
+function flagImageUrl(iso: string, size: 20 | 40 = 20) {
+  return `https://flagcdn.com/w${size}/${iso.toLowerCase()}.png`;
+}
+
+function CountryFlag({ iso, name }: { iso: string; name: string }) {
+  return (
+    <img
+      src={flagImageUrl(iso)}
+      srcSet={`${flagImageUrl(iso, 40)} 2x`}
+      width={20}
+      height={15}
+      alt=""
+      aria-hidden
+      className="h-[15px] w-5 shrink-0 rounded-[2px] object-cover"
+      loading="lazy"
+      title={name}
+    />
+  );
+}
 
 /**
  * Country dialling-code picker for the enquiry form. Unlike a native <select>,
@@ -12,7 +32,13 @@ const DEFAULT_ISO =
  * open list shows the full country names (with a search box). The chosen dial
  * code is submitted via a hidden input named `countryCode`.
  */
-export default function PhoneCountrySelect() {
+type PhoneCountrySelectProps = {
+  variant?: "underline" | "box";
+};
+
+export default function PhoneCountrySelect({
+  variant = "underline",
+}: PhoneCountrySelectProps) {
   const [open, setOpen] = useState(false);
   const [iso, setIso] = useState(DEFAULT_ISO);
   const [query, setQuery] = useState("");
@@ -27,6 +53,8 @@ export default function PhoneCountrySelect() {
         return c.name.toLowerCase().includes(q) || c.dial.includes(q);
       })
     : COUNTRY_CODES;
+
+  const isBox = variant === "box";
 
   useEffect(() => {
     if (!open) return;
@@ -47,7 +75,10 @@ export default function PhoneCountrySelect() {
   }, [open]);
 
   return (
-    <div ref={rootRef} className="relative w-[6.5rem] shrink-0">
+    <div
+      ref={rootRef}
+      className={`relative shrink-0 ${isBox ? "w-[7.25rem]" : "w-[6.5rem]"}`}
+    >
       <input type="hidden" name="countryCode" value={selected.dial} />
       <button
         type="button"
@@ -55,9 +86,13 @@ export default function PhoneCountrySelect() {
         aria-expanded={open}
         aria-label={`Country code: ${selected.name} ${selected.dial}`}
         onClick={() => setOpen((v) => !v)}
-        className="flex w-full items-center gap-1.5 border-b border-white/15 py-2 text-[16px] text-[var(--ink-hi)] outline-none focus:border-[var(--champagne)] transition-colors"
+        className={
+          isBox
+            ? "flex h-[46px] w-full items-center gap-1.5 rounded-xl border border-white/10 bg-white/[0.04] px-3 text-[14px] text-[var(--ink-hi)] outline-none transition-colors focus:border-[var(--champagne)]/60"
+            : "flex w-full items-center gap-1.5 border-b border-white/15 py-2 text-[16px] text-[var(--ink-hi)] outline-none transition-colors focus:border-[var(--champagne)]"
+        }
       >
-        <span aria-hidden>{flagEmoji(selected.iso)}</span>
+        <CountryFlag iso={selected.iso} name={selected.name} />
         <span>{selected.dial}</span>
         <svg
           className="ml-auto text-[var(--ink-lo)]"
@@ -99,7 +134,7 @@ export default function PhoneCountrySelect() {
                       : "text-[var(--ink-hi)]"
                   }`}
                 >
-                  <span aria-hidden>{flagEmoji(c.iso)}</span>
+                  <CountryFlag iso={c.iso} name={c.name} />
                   <span className="w-[3.5rem] shrink-0 font-[var(--font-mono)] text-[var(--ink-lo)]">
                     {c.dial}
                   </span>

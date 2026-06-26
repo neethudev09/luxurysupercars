@@ -8,9 +8,9 @@ import Reveal from "@/components/motion/Reveal";
 export default function Contact({ formOnly = false }: { formOnly?: boolean }) {
   return (
     <section id="contact" className={`bg-[var(--bg-obsidian)] overflow-hidden ${formOnly ? "pb-20 md:pb-28" : "py-20 md:py-28 border-t border-white/5"}`}>
-      <div className={formOnly ? "container-x" : "container-x grid md:grid-cols-12 gap-12 md:gap-20"}>
+      <div className={formOnly ? "container-x" : "container-x grid min-w-0 gap-12 md:grid-cols-12 md:gap-20"}>
         {!formOnly && (
-          <div className="md:col-span-5 flex flex-col gap-8">
+          <div className="flex min-w-0 flex-col gap-8 md:col-span-5">
             <div>
               <MaskHeading
                 text="Let's put you **behind the wheel**"
@@ -51,7 +51,7 @@ export default function Contact({ formOnly = false }: { formOnly?: boolean }) {
           </div>
         )}
 
-        <div className={formOnly ? "mx-auto w-full max-w-2xl" : "md:col-span-5 md:col-start-8"}>
+        <div className={formOnly ? "mx-auto w-full min-w-0 max-w-2xl" : "min-w-0 md:col-span-5 md:col-start-8"}>
           <EnquiryForm />
         </div>
       </div>

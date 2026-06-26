@@ -1,21 +1,69 @@
 "use client";
 
-import { type ReactNode, useActionState } from "react";
+import { type FormEvent, type ReactNode, useActionState, useState } from "react";
 import {
   sendCareersApplication,
   type CareersApplicationState,
 } from "@/app/actions/send-careers-application";
+import PhoneCountrySelect from "@/components/contact/PhoneCountrySelect";
 
 const INITIAL_STATE: CareersApplicationState = { ok: false, message: "" };
+
+const FIELD_LABELS: Record<string, string> = {
+  fullName: "full name",
+  nationality: "nationality",
+  email: "email address",
+  phone: "phone / WhatsApp number",
+  currentLocation: "current location",
+  position: "position applying for",
+  experienceYears: "years of relevant experience",
+  luxuryVehicleExperience: "luxury/performance vehicle experience",
+  experienceSummary: "brief summary of your experience",
+  currentlyEmployed: "current employment status",
+  uaeEligible: "UAE work eligibility",
+  cv: "CV",
+  linkedin: "LinkedIn profile",
+};
 
 export default function CareersForm() {
   const [state, action, pending] = useActionState(
     sendCareersApplication,
     INITIAL_STATE,
   );
+  const [clientMessage, setClientMessage] = useState("");
+
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    const invalidField = Array.from(event.currentTarget.elements).find(
+      (field) =>
+        (field instanceof HTMLInputElement ||
+          field instanceof HTMLTextAreaElement) &&
+        !field.disabled &&
+        !field.validity.valid,
+    ) as HTMLInputElement | HTMLTextAreaElement | undefined;
+
+    if (!invalidField) {
+      setClientMessage("");
+      return;
+    }
+
+    event.preventDefault();
+
+    const fieldLabel = FIELD_LABELS[invalidField.name] || "this field";
+    const message = getValidationMessage(invalidField, fieldLabel);
+    setClientMessage(message);
+    invalidField.scrollIntoView({ behavior: "smooth", block: "center" });
+    invalidField.focus({ preventScroll: true });
+  }
 
   return (
-    <form className="space-y-5" action={action}>
+    <form
+      className="space-y-5"
+      action={action}
+      noValidate
+      onChange={() => setClientMessage("")}
+      onInput={() => setClientMessage("")}
+      onSubmit={handleSubmit}
+    >
       <div>
         <p className="font-[var(--font-mono)] text-[11px] uppercase tracking-[0.28em] text-[var(--champagne)] mb-3">
           Careers Application
@@ -28,11 +76,20 @@ export default function CareersForm() {
         </p>
       </div>
 
+      {clientMessage && (
+        <p
+          role="alert"
+          className="rounded-xl border border-red-400/25 bg-red-500/10 px-4 py-3 text-[14px] leading-[1.5] text-red-200"
+        >
+          {clientMessage}
+        </p>
+      )}
+
       <FormSection title="Personal Details">
         <Input label="Full Name *" name="fullName" required />
         <Input label="Nationality *" name="nationality" required />
         <Input label="Email Address *" name="email" type="email" required />
-        <Input label="Phone / WhatsApp Number *" name="phone" required />
+        <PhoneInput />
         <Input label="Current Location *" name="currentLocation" required className="md:col-span-2" />
       </FormSection>
 
@@ -162,6 +219,52 @@ function Input({
       />
     </label>
   );
+}
+
+function PhoneInput() {
+  return (
+    <div className="min-w-0">
+      <label
+        htmlFor="phone"
+        className="mb-2 block text-[13px] font-medium text-[var(--ink-hi)]"
+      >
+        Phone / WhatsApp Number *
+      </label>
+
+      <div className="flex gap-2">
+        <PhoneCountrySelect variant="box" />
+        <input
+          id="phone"
+          name="phone"
+          type="tel"
+          required
+          autoComplete="tel"
+          className="min-w-0 flex-1 rounded-xl border border-white/10 bg-white/[0.04] px-4 py-3 text-[14px] text-[var(--ink-hi)] placeholder:text-[var(--ink-lo)] focus:border-[var(--champagne)]/60 focus:outline-none"
+        />
+      </div>
+    </div>
+  );
+}
+
+function getValidationMessage(
+  field: HTMLInputElement | HTMLTextAreaElement,
+  label: string,
+) {
+  if (field.validity.typeMismatch) {
+    return field.type === "email"
+      ? "Please enter a valid email address."
+      : `Please enter a valid ${label}.`;
+  }
+
+  if (field.type === "radio") {
+    return `Please choose ${label}.`;
+  }
+
+  if (field.type === "file") {
+    return `Please upload your ${label}.`;
+  }
+
+  return `Please fill out ${label}.`;
 }
 
 function Textarea({

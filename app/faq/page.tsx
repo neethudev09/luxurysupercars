@@ -53,6 +53,7 @@ export default function FaqPage() {
         heading="FAQs"
         subheading="**Everything** you need to know about renting with **Luxury Supercars Dubai**"
         items={[...FAQ_PAGE.items]}
+        cta={null}
       />
 
       <section className="relative bg-[var(--bg-obsidian)] border-t border-white/5 py-20 md:py-24 overflow-hidden">

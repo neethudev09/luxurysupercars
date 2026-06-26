@@ -1,7 +1,7 @@
-import Link from "next/link";
 import type { Car } from "@/lib/fleet";
 import { CONTACT } from "@/lib/content";
 import { Price, ConvertAed } from "@/components/currency/Price";
+import FleetEnquiryDialog from "./FleetEnquiryDialog";
 
 /**
  * Rental card — price headline + live rental terms (deposit / mileage /
@@ -42,15 +42,17 @@ export default function RentalCard({ car, className = "" }: { car: Car; classNam
       </ul>
 
       <div className="mt-6 flex flex-col gap-2.5">
-        <Link
-          href="#enquire"
-          className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-6 py-3 text-[15px] font-medium tracking-wide text-[var(--bg-obsidian)] hover:bg-white/90 transition-colors"
+        <FleetEnquiryDialog
+          carName={car.name}
+          brandName={car.brandName}
+          pagePath={`/${car.brand}/${car.slug}`}
+          buttonClassName="inline-flex cursor-pointer items-center justify-center gap-2 rounded-full bg-white px-6 py-3 text-[15px] font-medium tracking-wide text-[var(--bg-obsidian)] transition-colors hover:bg-white/90"
         >
           Enquire Now
           <svg width="14" height="10" viewBox="0 0 14 10" fill="none">
             <path d="M0 5h12M8 1l4 4-4 4" stroke="currentColor" strokeWidth="1.5" />
           </svg>
-        </Link>
+        </FleetEnquiryDialog>
         <a
           href={waHref}
           target="_blank"

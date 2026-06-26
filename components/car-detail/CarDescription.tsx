@@ -43,8 +43,30 @@ function defaultDescription(car: Car): string[] {
   ];
 }
 
+function removeLegacyContactText(paragraphs: string[]) {
+  const legacyLines = [
+    /^call:\s*\+971 565 266 295$/i,
+    /^email:\s*\[email(?:\s|\u00a0)protected\]$/i,
+    /^enquiry form$/i,
+  ];
+
+  return paragraphs
+    .map((paragraph) =>
+      paragraph
+        .split(/\r?\n/)
+        .filter(
+          (line) => !legacyLines.some((pattern) => pattern.test(line.trim())),
+        )
+        .join("\n")
+        .trim(),
+    )
+    .filter(Boolean);
+}
+
 export default function CarDescription({ car }: { car: Car }) {
-  const paragraphs = car.description?.length ? car.description : defaultDescription(car);
+  const paragraphs = removeLegacyContactText(
+    car.description?.length ? car.description : defaultDescription(car),
+  );
 
   return (
     <section className="bg-[var(--bg-pearl)] text-[var(--ink-dark-hi)] py-20 md:py-24">

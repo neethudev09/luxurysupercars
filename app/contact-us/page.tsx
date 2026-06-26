@@ -55,9 +55,9 @@ export default function ContactUsPage() {
           className="pointer-events-none absolute left-0 bottom-0 size-[520px] -translate-x-1/3 translate-y-1/3 rounded-full bg-[var(--champagne)]/[0.05] blur-[140px]"
         />
 
-        <div className="container-x relative grid md:grid-cols-12 gap-12 md:gap-16">
+        <div className="container-x relative grid min-w-0 gap-12 md:grid-cols-12 md:gap-16">
           {/* LEFT COLUMN */}
-          <div className="md:col-span-5">
+          <div className="min-w-0 md:col-span-5">
             <Reveal>
               <p className="rise font-[var(--font-mono)] text-[11px] uppercase tracking-[0.28em] text-[var(--champagne)] mb-5">
                 Our Contact
@@ -136,7 +136,7 @@ export default function ContactUsPage() {
           </div>
 
           {/* RIGHT COLUMN */}
-          <div className="md:col-span-6 md:col-start-7">
+          <div className="min-w-0 md:col-span-6 md:col-start-7">
             <Reveal>
               <p className="rise font-[var(--font-mono)] text-[11px] uppercase tracking-[0.28em] text-[var(--champagne)] mb-5">
                 Locations

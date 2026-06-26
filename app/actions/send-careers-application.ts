@@ -91,12 +91,16 @@ function renderMultilineBlock(label: string, value?: string) {
   `;
 }
 
-function buildCareersEmailHtml(data: Record<string, string>, cvName: string) {
+function buildCareersEmailHtml(
+  data: Record<string, string>,
+  cvName: string,
+  phone: string,
+) {
   const personalRows = [
     renderEmailRow("Full name", data.fullName),
     renderEmailRow("Nationality", data.nationality),
     renderEmailRow("Email", data.email),
-    renderEmailRow("Phone / WhatsApp", data.phone),
+    renderEmailRow("Phone / WhatsApp", phone),
     renderEmailRow("Current location", data.currentLocation),
   ].join("");
 
@@ -215,11 +219,12 @@ async function handleCareersApplication(
   }
 
   const subject = `New careers application: ${data.fullName} - ${data.position}`;
+  const phone = [data.countryCode, data.phone].filter(Boolean).join(" ");
   const lines = [
     `Full name: ${data.fullName}`,
     `Nationality: ${data.nationality}`,
     `Email: ${data.email}`,
-    `Phone / WhatsApp: ${data.phone}`,
+    `Phone / WhatsApp: ${phone}`,
     `Current location: ${data.currentLocation}`,
     "",
     `Position applying for: ${data.position}`,
@@ -241,7 +246,7 @@ async function handleCareersApplication(
   ].filter(Boolean);
 
   const text = lines.join("\n");
-  const html = buildCareersEmailHtml(data, cv.name);
+  const html = buildCareersEmailHtml(data, cv.name, phone);
 
   const apiKey = process.env.RESEND_API_KEY;
   const from =

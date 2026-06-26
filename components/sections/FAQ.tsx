@@ -18,14 +18,17 @@ interface FAQProps {
   subheading?: string;
   /** Override the Q&A list. */
   items?: FAQItem[];
+  /** Optional read-more CTA. Set to null to hide it. */
+  cta?: { href: string; label: string } | null;
 }
 
-export default function FAQ({ heading, subheading, items }: FAQProps = {}) {
+export default function FAQ({ heading, subheading, items, cta }: FAQProps = {}) {
   const [openIdx, setOpenIdx] = useState<number | null>(0);
 
   const resolvedHeading = heading ?? "FAQs";
   const resolvedSubheading = subheading ?? FAQ_CONTENT.h3;
   const resolvedItems = items ?? FAQ_CONTENT.items;
+  const resolvedCta = cta === undefined ? { href: "/faq", label: "Read More" } : cta;
 
   return (
     <section id={FAQ_CONTENT.id} className="bg-[var(--bg-pearl)] text-[var(--ink-dark-hi)] py-20 md:py-24">
@@ -42,15 +45,17 @@ export default function FAQ({ heading, subheading, items }: FAQProps = {}) {
               className="font-[var(--font-display)] text-[clamp(1.2rem,2vw,1.6rem)] leading-[1.25] text-[var(--ink-dark-lo)] mt-2 text-balance"
               staggerMs={35}
             />
-            <a
-              href="#contact"
-              className="mt-8 hidden md:inline-flex items-center gap-2 rounded-full border border-[var(--ink-dark-hi)]/30 px-5 py-2.5 text-[12.5px] font-medium hover:bg-[var(--ink-dark-hi)] hover:text-[var(--bg-bone)] transition-colors"
-            >
-              Read More
-              <svg width="14" height="10" viewBox="0 0 14 10" fill="none">
-                <path d="M0 5h12M8 1l4 4-4 4" stroke="currentColor" strokeWidth="1.4" />
-              </svg>
-            </a>
+            {resolvedCta && (
+              <a
+                href={resolvedCta.href}
+                className="mt-8 hidden md:inline-flex items-center gap-2 rounded-full border border-[var(--ink-dark-hi)]/30 px-5 py-2.5 text-[12.5px] font-medium hover:bg-[var(--ink-dark-hi)] hover:text-[var(--bg-bone)] transition-colors"
+              >
+                {resolvedCta.label}
+                <svg width="14" height="10" viewBox="0 0 14 10" fill="none">
+                  <path d="M0 5h12M8 1l4 4-4 4" stroke="currentColor" strokeWidth="1.4" />
+                </svg>
+              </a>
+            )}
           </div>
 
           <div className="md:col-span-7">
@@ -106,15 +111,17 @@ export default function FAQ({ heading, subheading, items }: FAQProps = {}) {
                 );
               })}
             </ul>
-            <a
-              href="#contact"
-              className="mt-8 inline-flex md:hidden items-center gap-2 rounded-full border border-[var(--ink-dark-hi)]/30 px-5 py-2.5 text-[12.5px] font-medium hover:bg-[var(--ink-dark-hi)] hover:text-[var(--bg-bone)] transition-colors"
-            >
-              Read More
-              <svg width="14" height="10" viewBox="0 0 14 10" fill="none">
-                <path d="M0 5h12M8 1l4 4-4 4" stroke="currentColor" strokeWidth="1.4" />
-              </svg>
-            </a>
+            {resolvedCta && (
+              <a
+                href={resolvedCta.href}
+                className="mt-8 inline-flex md:hidden items-center gap-2 rounded-full border border-[var(--ink-dark-hi)]/30 px-5 py-2.5 text-[12.5px] font-medium hover:bg-[var(--ink-dark-hi)] hover:text-[var(--bg-bone)] transition-colors"
+              >
+                {resolvedCta.label}
+                <svg width="14" height="10" viewBox="0 0 14 10" fill="none">
+                  <path d="M0 5h12M8 1l4 4-4 4" stroke="currentColor" strokeWidth="1.4" />
+                </svg>
+              </a>
+            )}
           </div>
         </div>
       </div>

@@ -15,6 +15,7 @@ import CarDescription from "./CarDescription";
 import RelatedCars from "./RelatedCars";
 import StickyEnquireBar from "./StickyEnquireBar";
 import RentalCard from "./RentalCard";
+import FleetEnquiryDialog from "./FleetEnquiryDialog";
 import FAQ from "@/components/sections/FAQ";
 
 /**
@@ -154,15 +155,17 @@ export default function CarDetail({ car, related }: CarDetailProps) {
             Free delivery anywhere in Dubai, 24/7 concierge, transparent pricing. Reach out and we&apos;ll have the keys waiting.
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-            <Link
-              href="/#contact"
-              className="inline-flex items-center gap-2 rounded-full bg-white px-7 py-3 text-[15px] font-medium tracking-wide text-[var(--bg-obsidian)] hover:bg-white/90 transition-colors"
+            <FleetEnquiryDialog
+              carName={car.name}
+              brandName={car.brandName}
+              pagePath={`/${car.brand}/${car.slug}`}
+              buttonClassName="inline-flex cursor-pointer items-center gap-2 rounded-full bg-white px-7 py-3 text-[15px] font-medium tracking-wide text-[var(--bg-obsidian)] transition-colors hover:bg-white/90"
             >
               Send enquiry
               <svg width="14" height="10" viewBox="0 0 14 10" fill="none">
                 <path d="M0 5h12M8 1l4 4-4 4" stroke="currentColor" strokeWidth="1.5" />
               </svg>
-            </Link>
+            </FleetEnquiryDialog>
             <a
               href={waHref}
               target="_blank"
