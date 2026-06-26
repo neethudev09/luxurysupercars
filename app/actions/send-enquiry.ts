@@ -36,7 +36,7 @@ const SITE_URL =
 const EMAIL_LOGO_URL = `${SITE_URL}/images/branding/logo.png`;
 const WHATSAPP_NUMBER = CONTACT.primaryPhone;
 const WHATSAPP_URL = `https://wa.me/${CONTACT.primaryPhone.replace(/\D/g, "")}`;
-const ADMIN_ENQUIRY_EMAIL = "developer@luxurysupercarsdubai.com";
+const ADMIN_ENQUIRY_EMAIL = "info@luxurysupercarsdubai.com";
 const ENQUIRY_FROM = "LSR Enquiries <onboarding@resend.dev>";
 const ENQUIRY_BCC: string = "";
 

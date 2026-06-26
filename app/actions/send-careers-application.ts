@@ -15,8 +15,7 @@ export type CareersApplicationState = {
 
 export type EnquiryFormState = CareersApplicationState;
 
-const CAREERS_TO =
-  process.env.CAREERS_TO || "developer@luxurysupercarsdubai.com";
+const CAREERS_TO = "hr@luxurysupercarsdubai.com";
 const MAX_CV_BYTES = 7 * 1024 * 1024;
 
 const REQUIRED_FIELDS = [
