@@ -15,7 +15,8 @@ export type CareersApplicationState = {
 
 export type EnquiryFormState = CareersApplicationState;
 
-const CAREERS_TO = "developer@luxurysupercarsdubai.com";
+const CAREERS_TO =
+  process.env.CAREERS_TO || "developer@luxurysupercarsdubai.com";
 const MAX_CV_BYTES = 7 * 1024 * 1024;
 
 const REQUIRED_FIELDS = [
@@ -39,6 +40,123 @@ function escapeHtml(s: string) {
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&#039;");
+}
+
+function renderEmailRow(label: string, value?: string) {
+  if (!value) {
+    return "";
+  }
+
+  return `
+    <tr>
+      <td style="padding:10px 0;color:#7a7a7a;font-size:13px;line-height:18px;vertical-align:top;width:42%;">${escapeHtml(label)}</td>
+      <td style="padding:10px 0;color:#171717;font-size:14px;line-height:20px;font-weight:600;vertical-align:top;">${escapeHtml(value)}</td>
+    </tr>
+  `;
+}
+
+function renderEmailSection(title: string, rows: string) {
+  if (!rows.trim()) {
+    return "";
+  }
+
+  return `
+    <tr>
+      <td style="padding:22px 0 8px;">
+        <div style="color:#b8944f;font-size:11px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;">${escapeHtml(title)}</div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;border-top:1px solid #e8e2d5;">
+          ${rows}
+        </table>
+      </td>
+    </tr>
+  `;
+}
+
+function renderMultilineBlock(label: string, value?: string) {
+  if (!value) {
+    return "";
+  }
+
+  return `
+    <tr>
+      <td style="padding:18px 0 0;">
+        <div style="color:#7a7a7a;font-size:13px;line-height:18px;">${escapeHtml(label)}</div>
+        <div style="margin-top:8px;padding:14px 16px;background:#f8f6f0;border:1px solid #ebe3d4;border-radius:8px;color:#171717;font-size:14px;line-height:22px;white-space:pre-wrap;">${escapeHtml(value)}</div>
+      </td>
+    </tr>
+  `;
+}
+
+function buildCareersEmailHtml(data: Record<string, string>, cvName: string) {
+  const personalRows = [
+    renderEmailRow("Full name", data.fullName),
+    renderEmailRow("Nationality", data.nationality),
+    renderEmailRow("Email", data.email),
+    renderEmailRow("Phone / WhatsApp", data.phone),
+    renderEmailRow("Current location", data.currentLocation),
+  ].join("");
+
+  const experienceRows = [
+    renderEmailRow("Position applying for", data.position),
+    renderEmailRow("Years of relevant experience", data.experienceYears),
+    renderEmailRow(
+      "Luxury/performance vehicle experience",
+      data.luxuryVehicleExperience,
+    ),
+  ].join("");
+
+  const availabilityRows = [
+    renderEmailRow("Currently employed", data.currentlyEmployed),
+    renderEmailRow("Notice period", data.noticePeriod),
+    renderEmailRow("Eligible to work in the UAE", data.uaeEligible),
+  ].join("");
+
+  const documentsRows = [
+    renderEmailRow("CV file", cvName),
+    renderEmailRow("LinkedIn profile", data.linkedin),
+  ].join("");
+
+  return `
+    <!doctype html>
+    <html>
+      <body style="margin:0;background:#f4f1eb;padding:24px;font-family:Arial,Helvetica,sans-serif;">
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
+          <tr>
+            <td align="center">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;max-width:680px;background:#ffffff;border:1px solid #e6dece;border-radius:14px;overflow:hidden;">
+                <tr>
+                  <td style="background:#141414;padding:28px 32px;">
+                    <div style="color:#d3aa5b;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;">Luxury Supercar Rentals</div>
+                    <h1 style="margin:12px 0 0;color:#ffffff;font-size:24px;line-height:32px;font-weight:700;">New careers application</h1>
+                    <p style="margin:8px 0 0;color:#d7d0c4;font-size:15px;line-height:22px;">${escapeHtml(data.fullName)} has applied for ${escapeHtml(data.position)}.</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding:28px 32px 32px;">
+                    ${renderEmailSection("Personal details", personalRows)}
+                    ${renderEmailSection("Position and experience", experienceRows)}
+                    ${renderMultilineBlock("Experience summary", data.experienceSummary)}
+                    ${renderEmailSection("Availability", availabilityRows)}
+                    ${renderEmailSection("Documents", documentsRows)}
+                    ${renderMultilineBlock("Why they would like to join Luxury Group", data.whyJoin)}
+                  </td>
+                </tr>
+                <tr>
+                  <td style="background:#fbfaf7;border-top:1px solid #eee7da;padding:18px 32px;color:#8a806f;font-size:12px;line-height:18px;">
+                    This application was submitted from the Luxury Supercars Dubai careers form. The CV is attached to this email.
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </body>
+    </html>
+  `;
 }
 
 function isUploadedFile(value: FormDataEntryValue | null): value is File {
@@ -123,7 +241,7 @@ async function handleCareersApplication(
   ].filter(Boolean);
 
   const text = lines.join("\n");
-  const html = `<pre style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace">${escapeHtml(text)}</pre>`;
+  const html = buildCareersEmailHtml(data, cv.name);
 
   const apiKey = process.env.RESEND_API_KEY;
   const from =

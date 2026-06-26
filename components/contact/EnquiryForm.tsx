@@ -23,8 +23,14 @@ export default function EnquiryForm({ className = "" }: { className?: string }) 
         How Can We Help You?
       </h3>
       <div className="grid md:grid-cols-2 gap-5">
-        <Field label="Full name" name="name" placeholder="John Smith" />
-        <Field label="Email" name="email" type="email" placeholder="you@email.com" />
+        <Field label="Full name" name="name" placeholder="John Smith" required />
+        <Field
+          label="Email"
+          name="email"
+          type="email"
+          placeholder="you@email.com"
+          required
+        />
         <div className="flex flex-col gap-1.5">
           <label htmlFor="phone" className="font-[var(--font-mono)] text-[12px] uppercase tracking-[0.18em] text-[var(--ink-lo)]">
             Mobile
@@ -36,6 +42,8 @@ export default function EnquiryForm({ className = "" }: { className?: string }) 
               name="phone"
               type="tel"
               placeholder="56 526 6295"
+              required
+              autoComplete="tel"
               className="flex-1 min-w-0 bg-transparent border-b border-white/15 py-2 text-[16px] text-[var(--ink-hi)] placeholder:text-[var(--ink-lo)]/60 outline-none focus:border-[var(--champagne)] transition-colors [color-scheme:dark]"
             />
           </div>
@@ -81,7 +89,7 @@ export default function EnquiryForm({ className = "" }: { className?: string }) 
         <button
           type="submit"
           disabled={pending}
-          className="inline-flex items-center gap-2.5 rounded-full bg-[var(--champagne)] text-[var(--bg-obsidian)] px-7 py-3 text-[17px] font-medium hover:bg-[var(--champagne-hi)] transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+          className="inline-flex cursor-pointer items-center gap-2.5 rounded-full bg-[var(--champagne)] text-[var(--bg-obsidian)] px-7 py-3 text-[17px] font-medium hover:bg-[var(--champagne-hi)] transition-colors disabled:cursor-not-allowed disabled:opacity-60"
         >
           {pending ? "Sending…" : "Send enquiry"}
           {!pending && (
@@ -108,11 +116,13 @@ function Field({
   name,
   type = "text",
   placeholder,
+  required = false,
 }: {
   label: string;
   name: string;
   type?: string;
   placeholder?: string;
+  required?: boolean;
 }) {
   return (
     <div className="flex flex-col gap-1.5">
@@ -124,6 +134,10 @@ function Field({
         name={name}
         type={type}
         placeholder={placeholder}
+        required={required}
+        autoComplete={
+          name === "name" ? "name" : name === "email" ? "email" : undefined
+        }
         className="bg-transparent border-b border-white/15 py-2 text-[16px] text-[var(--ink-hi)] placeholder:text-[var(--ink-lo)]/60 outline-none focus:border-[var(--champagne)] transition-colors [color-scheme:dark]"
       />
     </div>
