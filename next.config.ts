@@ -304,6 +304,11 @@ const BLOG_REDIRECTS = [
 
 
 const nextConfig: NextConfig = {
+  experimental: {
+    serverActions: {
+      bodySizeLimit: "8mb",
+    },
+  },
   images: {
     // Only the Sanity CDN is allowed. The old WordPress + old-Vercel image
     // hosts were removed once every asset was migrated to public/images/ or

@@ -16,6 +16,7 @@ export type CareersApplicationState = {
 export type EnquiryFormState = CareersApplicationState;
 
 const CAREERS_TO = "developer@luxurysupercarsdubai.com";
+const MAX_CV_BYTES = 7 * 1024 * 1024;
 
 const REQUIRED_FIELDS = [
   ["fullName", "full name"],
@@ -86,6 +87,13 @@ async function handleCareersApplication(
   const cv = form.get("cv");
   if (!isUploadedFile(cv) || cv.size === 0) {
     return { ok: false, message: "Please upload your CV." };
+  }
+
+  if (cv.size > MAX_CV_BYTES) {
+    return {
+      ok: false,
+      message: "Please upload a CV smaller than 7MB.",
+    };
   }
 
   const subject = `New careers application: ${data.fullName} - ${data.position}`;
