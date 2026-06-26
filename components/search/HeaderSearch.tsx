@@ -70,7 +70,7 @@ export default function HeaderSearch({ onResultClick }: { onResultClick?: () => 
             <div className="max-h-[420px] overflow-y-auto p-2">
               {results.map((car) => (
                 <Link
-                  key={car.key}
+                  key={`${car.brand}-${car.slug}`}
                   href={`/${car.brand}/${car.slug}`}
                   onClick={() => {
                     setOpen(false);
