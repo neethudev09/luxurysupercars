@@ -24,6 +24,13 @@ const REQUIRED = [
   ["phone", "mobile number"],
 ] as const;
 
+const WEBSITE_REQUIRED = [
+  ["brand", "brand"],
+  ["dateFrom", "date from"],
+  ["dateTo", "date to"],
+  ["message", "message"],
+] as const;
+
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL || "https://luxurysupercarsdubai.com";
 const EMAIL_LOGO_URL = `${SITE_URL}/images/branding/logo.png`;
@@ -220,6 +227,14 @@ export async function sendEnquiry(
   for (const [field, label] of REQUIRED) {
     if (!data[field]) {
       return { ok: false, message: `Please provide your ${label}.` };
+    }
+  }
+
+  if (data.enquiryType !== "fleet") {
+    for (const [field, label] of WEBSITE_REQUIRED) {
+      if (!data[field]) {
+        return { ok: false, message: `Please provide your ${label}.` };
+      }
     }
   }
 

@@ -70,9 +70,9 @@ export default function EnquiryForm({ className = "" }: { className?: string }) 
         </p>
       )}
       <div className="grid min-w-0 gap-5 md:grid-cols-2">
-        <Field label="Full name" name="name" placeholder="John Smith" required />
+        <Field label="Full name *" name="name" placeholder="John Smith" required />
         <Field
-          label="Email"
+          label="Email *"
           name="email"
           type="email"
           placeholder="you@email.com"
@@ -80,7 +80,7 @@ export default function EnquiryForm({ className = "" }: { className?: string }) 
         />
         <div className="flex min-w-0 flex-col gap-1.5">
           <label htmlFor="phone" className="font-[var(--font-mono)] text-[12px] uppercase tracking-[0.18em] text-[var(--ink-lo)]">
-            Mobile
+            Mobile *
           </label>
           <div className="flex min-w-0 items-end gap-2">
             <PhoneCountrySelect />
@@ -97,12 +97,13 @@ export default function EnquiryForm({ className = "" }: { className?: string }) 
         </div>
         <div className="flex min-w-0 flex-col gap-1.5">
           <label htmlFor="brand" className="font-[var(--font-mono)] text-[12px] uppercase tracking-[0.18em] text-[var(--ink-lo)]">
-            Select Brand
+            Select Brand *
           </label>
           <select
             id="brand"
             name="brand"
             defaultValue=""
+            required
             className="w-full min-w-0 bg-transparent border-b border-white/15 py-2 text-[16px] text-[var(--ink-hi)] outline-none focus:border-[var(--champagne)] transition-colors [color-scheme:dark]"
           >
             <option value="" disabled className="bg-[var(--bg-obsidian)]">Choose a brand</option>
@@ -113,16 +114,17 @@ export default function EnquiryForm({ className = "" }: { className?: string }) 
             ))}
           </select>
         </div>
-        <Field label="Date from" name="dateFrom" type="date" />
-        <Field label="Date to" name="dateTo" type="date" />
+        <Field label="Date from *" name="dateFrom" type="date" required />
+        <Field label="Date to *" name="dateTo" type="date" required />
         <div className="flex min-w-0 flex-col gap-1.5 md:col-span-2">
           <label htmlFor="message" className="font-[var(--font-mono)] text-[12px] uppercase tracking-[0.18em] text-[var(--ink-lo)]">
-            Message
+            Message *
           </label>
           <textarea
             id="message"
             name="message"
             rows={4}
+            required
             placeholder="Tell us about your trip, dates, and dream car…"
             className="w-full min-w-0 bg-transparent border-b border-white/15 py-2 text-[16px] text-[var(--ink-hi)] placeholder:text-[var(--ink-lo)]/60 outline-none focus:border-[var(--champagne)] transition-colors resize-none [color-scheme:dark]"
           />
