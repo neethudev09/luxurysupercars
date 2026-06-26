@@ -9,10 +9,8 @@ import { CONTACT } from "@/lib/content";
  * otherwise records the enquiry to server logs so the form is wired
  * end-to-end during dev/staging.
  *
- * Add to .env.local + Vercel project envs to enable email delivery:
+ * Add to .env.local + live project envs to enable email delivery:
  *   RESEND_API_KEY=re_xxx
- *   ENQUIRY_TO=info@luxurysupercarsdubai.com
- *   ENQUIRY_FROM="LSR Enquiries <enquiries@notifications.luxurysupercarsdubai.com>"
  */
 
 export type EnquiryFormState = {
@@ -31,8 +29,9 @@ const SITE_URL =
 const EMAIL_LOGO_URL = `${SITE_URL}/images/branding/logo.png`;
 const WHATSAPP_NUMBER = CONTACT.primaryPhone;
 const WHATSAPP_URL = `https://wa.me/${CONTACT.primaryPhone.replace(/\D/g, "")}`;
-const ENQUIRY_BCC =
-  process.env.ENQUIRY_BCC || "developer@luxurysupercarsdubai.com";
+const ADMIN_ENQUIRY_EMAIL = "developer@luxurysupercarsdubai.com";
+const ENQUIRY_FROM = "LSR Enquiries <onboarding@resend.dev>";
+const ENQUIRY_BCC: string = "";
 
 function escapeHtml(s: string) {
   return s
@@ -251,8 +250,8 @@ export async function sendEnquiry(
   const html = buildEnquiryEmailHtml(data, phone);
 
   const apiKey = process.env.RESEND_API_KEY;
-  const to = process.env.ENQUIRY_TO || "info@luxurysupercarsdubai.com";
-  const from = process.env.ENQUIRY_FROM || "LSR Enquiries <onboarding@resend.dev>";
+  const to = ADMIN_ENQUIRY_EMAIL;
+  const from = ENQUIRY_FROM;
 
   if (!apiKey) {
     // Dev / staging fallback — log only.
