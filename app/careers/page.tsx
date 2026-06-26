@@ -100,7 +100,7 @@ export default function CareersPage() {
                     Share your details using the enquiry form below and someone from our team will be in touch if there&apos;s a suitable opportunity.
                   </p>
                   <MagneticCTA
-                    href="#contact"
+                    href="/contact-us"
                     className="inline-flex items-center gap-2 rounded-full bg-[var(--champagne)] text-[var(--bg-obsidian)] px-6 py-3 text-[15px] font-medium hover:bg-[var(--champagne-hi)] transition-colors"
                   >
                     <span>Submit enquiry</span>
