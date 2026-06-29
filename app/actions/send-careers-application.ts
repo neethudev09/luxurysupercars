@@ -5,7 +5,7 @@
  *
  * Add to .env.local + Vercel project envs to enable email delivery:
  *   RESEND_API_KEY=re_xxx
- *   CAREERS_FROM="LSR Careers <careers@notifications.luxurysupercarsdubai.com>"
+ *   CAREERS_FROM="LSR Careers <careers@enquiries.luxurysupercarsdubai.com>"
  */
 
 export type CareersApplicationState = {
@@ -15,7 +15,8 @@ export type CareersApplicationState = {
 
 export type EnquiryFormState = CareersApplicationState;
 
-const CAREERS_TO = "developer@luxurysupercarsdubai.com";
+const CAREERS_TO = process.env.CAREERS_TO;
+const CAREERS_FROM = process.env.CAREERS_FROM;
 const MAX_CV_BYTES = 7 * 1024 * 1024;
 
 const REQUIRED_FIELDS = [
@@ -252,15 +253,18 @@ async function handleCareersApplication(
   const html = buildCareersEmailHtml(data, cv.name, phone);
 
   const apiKey = process.env.RESEND_API_KEY;
-  const from =
-    process.env.CAREERS_FROM ||
-    process.env.ENQUIRY_FROM ||
-    "LSR Careers <onboarding@resend.dev>";
+  const to = CAREERS_TO;
+  const from = CAREERS_FROM;
 
-  if (!apiKey) {
+  if (!apiKey || !to || !from) {
     console.log("[careers-application]", {
       subject,
-      to: CAREERS_TO,
+      to,
+      missingConfig: {
+        RESEND_API_KEY: !apiKey,
+        CAREERS_TO: !to,
+        CAREERS_FROM: !from,
+      },
       cv: { name: cv.name, size: cv.size, type: cv.type },
       ...data,
     });
@@ -281,7 +285,7 @@ async function handleCareersApplication(
       },
       body: JSON.stringify({
         from,
-        to: [CAREERS_TO],
+        to: [to],
         reply_to: data.email,
         subject,
         text,

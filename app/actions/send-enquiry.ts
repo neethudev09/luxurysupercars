@@ -36,9 +36,9 @@ const SITE_URL =
 const EMAIL_LOGO_URL = `${SITE_URL}/images/branding/logo.png`;
 const WHATSAPP_NUMBER = CONTACT.primaryPhone;
 const WHATSAPP_URL = `https://wa.me/${CONTACT.primaryPhone.replace(/\D/g, "")}`;
-const ADMIN_ENQUIRY_EMAIL = "developer@luxurysupercarsdubai.com";
-const ENQUIRY_FROM = "LSR Enquiries <onboarding@resend.dev>";
-const ENQUIRY_BCC: string = "";
+const ENQUIRY_TO = process.env.ENQUIRY_TO;
+const ENQUIRY_FROM = process.env.ENQUIRY_FROM;
+const ENQUIRY_BCC = process.env.ENQUIRY_BCC || "";
 
 function escapeHtml(s: string) {
   return s
@@ -265,12 +265,21 @@ export async function sendEnquiry(
   const html = buildEnquiryEmailHtml(data, phone);
 
   const apiKey = process.env.RESEND_API_KEY;
-  const to = ADMIN_ENQUIRY_EMAIL;
+  const to = ENQUIRY_TO;
   const from = ENQUIRY_FROM;
 
-  if (!apiKey) {
-    // Dev / staging fallback — log only.
-    console.log("[enquiry]", { subject, phone, ...data });
+  if (!apiKey || !to || !from) {
+    // Dev / staging fallback - log only.
+    console.log("[enquiry]", {
+      subject,
+      phone,
+      missingConfig: {
+        RESEND_API_KEY: !apiKey,
+        ENQUIRY_TO: !to,
+        ENQUIRY_FROM: !from,
+      },
+      ...data,
+    });
     return {
       ok: true,
       message: successMessage,
