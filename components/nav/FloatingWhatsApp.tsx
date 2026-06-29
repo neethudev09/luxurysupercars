@@ -7,6 +7,7 @@ import { CONTACT } from "@/lib/content";
 type Agent = {
   name: string;
   language: string;
+  flags: { code: string; label: string }[];
   phone: string; // any human-readable format; non-digits get stripped for wa.me
   message?: string;
 };
@@ -16,15 +17,35 @@ type Agent = {
 const TEAM: Agent[] = [
   {
     name: "Aleona",
-    language: "Russian",
-    phone: CONTACT.primaryPhone,
+    language: "Russian, Ukrainian, English",
+    flags: [
+      { code: "ru", label: "Russia" },
+      { code: "ua", label: "Ukraine" },
+      { code: "gb", label: "United Kingdom" },
+    ],
+    phone: "+971 50 204 5552",
     message: "Hi Aleona, I'd like to enquire about renting a car.",
   },
   {
     name: "Ryan",
-    language: "English",
+    language: "French, Arabic",
+    flags: [
+      { code: "sa", label: "Saudi Arabia" },
+      { code: "lb", label: "Lebanon" },
+      { code: "ae", label: "United Arab Emirates" },
+      { code: "fr", label: "France" },
+    ],
     phone: CONTACT.primaryPhone,
     message: "Hi Ryan, I'd like to enquire about renting a car.",
+  },
+  {
+    name: "Claire",
+    language: "English",
+    flags: [
+      { code: "gb", label: "United Kingdom" },
+    ],
+    phone: "+971 56 578 3875",
+    message: "Hi Claire, I'd like to enquire about renting a car.",
   },
 ];
 
@@ -153,8 +174,27 @@ export default function FloatingWhatsApp() {
                     <WhatsAppGlyph size={16} />
                   </span>
                   <span className="min-w-0 flex-1">
-                    <span className="block text-[16px] font-semibold leading-tight text-[var(--ink-dark-hi)]">
-                      {agent.name}
+                    <span className="flex flex-wrap items-center gap-x-1.5 gap-y-0.5 text-[16px] font-semibold leading-tight text-[var(--ink-dark-hi)]">
+                      <span>{agent.name}</span>
+                      <span
+                        className="inline-flex flex-wrap items-center gap-1 text-[14px] leading-none"
+                        aria-label={`${agent.name} language and region flags: ${agent.flags
+                          .map((flag) => flag.label)
+                          .join(", ")}`}
+                      >
+                        {agent.flags.map((flag) => (
+                          <img
+                            key={flag.code}
+                            src={`https://flagcdn.com/w20/${flag.code}.png`}
+                            srcSet={`https://flagcdn.com/w40/${flag.code}.png 2x`}
+                            width={20}
+                            height={15}
+                            alt=""
+                            aria-hidden
+                            className="h-[13px] w-[18px] rounded-[2px] object-cover shadow-[0_0_0_1px_rgba(0,0,0,0.08)]"
+                          />
+                        ))}
+                      </span>
                     </span>
                     <span className="block text-[12px] leading-tight text-[var(--ink-dark-lo)]">
                       {agent.language}
