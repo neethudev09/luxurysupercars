@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import MaskHeading from "@/components/motion/MaskHeading";
 import Reveal from "@/components/motion/Reveal";
-import type { BlogPost } from "@/lib/blog";
+import { blogImageAlt, type BlogPost } from "@/lib/blog";
 
 interface BlogFeaturedHeroProps {
   /** The lead/newest post — gets the large editorial card. */
@@ -38,7 +38,7 @@ export default function BlogFeaturedHero({ featured, secondary }: BlogFeaturedHe
               {featured.ogImage ? (
                 <Image
                   src={featured.ogImage}
-                  alt={featured.h1 || featured.title}
+                  alt={blogImageAlt(featured)}
                   fill
                   priority
                   sizes="(min-width: 768px) 50vw, 100vw"
@@ -93,7 +93,7 @@ export default function BlogFeaturedHero({ featured, secondary }: BlogFeaturedHe
                         {post.ogImage && (
                           <Image
                             src={post.ogImage}
-                            alt={post.h1 || post.title}
+                            alt={blogImageAlt(post)}
                             fill
                             sizes="(min-width: 768px) 180px, 140px"
                             className="object-cover transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.05]"

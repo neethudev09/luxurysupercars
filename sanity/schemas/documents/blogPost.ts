@@ -52,6 +52,21 @@ export const blogPost = defineType({
       title: "Hero image",
       type: "image",
       options: { hotspot: true },
+      fields: [
+        defineField({
+          name: "alt",
+          title: "Alt text",
+          type: "string",
+          description: "Describe the image for SEO and accessibility.",
+          validation: (Rule) =>
+            Rule.custom((value, context) => {
+              const parent = context.parent as { asset?: unknown } | undefined;
+              return parent?.asset && !value
+                ? "Add alt text for the blog hero image."
+                : true;
+            }),
+        }),
+      ],
     }),
     defineField({
       name: "body",

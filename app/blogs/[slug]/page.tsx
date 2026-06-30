@@ -9,7 +9,7 @@ import ShareStrip from "@/components/sections/ShareStrip";
 import Reveal from "@/components/motion/Reveal";
 import MaskHeading from "@/components/motion/MaskHeading";
 import MagneticCTA from "@/components/motion/MagneticCTA";
-import { BLOG_POSTS, getPost, getRelatedPosts } from "@/lib/blog";
+import { BLOG_POSTS, blogImageAlt, getPost, getRelatedPosts } from "@/lib/blog";
 import { SITE_URL } from "@/lib/site";
 
 type Params = { slug: string };
@@ -42,6 +42,7 @@ export async function generateMetadata(
               url: post.ogImage,
               width: post.ogImageWidth,
               height: post.ogImageHeight,
+              alt: blogImageAlt(post),
             },
           ]
         : undefined,
@@ -89,7 +90,6 @@ export default async function BlogPostPage(
       <section className="isolate relative bg-[var(--bg-obsidian)] text-[var(--ink-hi)] pt-[120px] pb-14 md:pt-[170px] md:pb-20 overflow-hidden">
         {post.ogImage && (
           <div
-            aria-hidden
             className="pointer-events-none absolute inset-y-0 right-0 z-0 w-full md:w-[60%] lg:w-[55%]"
             style={{
               WebkitMaskImage:
@@ -100,7 +100,7 @@ export default async function BlogPostPage(
           >
             <Image
               src={post.ogImage}
-              alt=""
+              alt={blogImageAlt(post)}
               fill
               priority
               sizes="(min-width: 1024px) 55vw, (min-width: 768px) 60vw, 100vw"
@@ -223,7 +223,7 @@ export default async function BlogPostPage(
                             <div className="relative size-16 shrink-0 overflow-hidden rounded-lg">
                               <Image
                                 src={r.ogImage}
-                                alt=""
+                                alt={blogImageAlt(r)}
                                 fill
                                 sizes="64px"
                                 className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"

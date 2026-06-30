@@ -168,7 +168,7 @@ export default function FloatingWhatsApp() {
                   href={waLink(agent)}
                   target="_blank"
                   rel="noreferrer"
-                  className="group/agent relative flex items-center gap-3 rounded-xl bg-[var(--bg-bone)] px-3 py-3 transition-colors hover:bg-[var(--bg-bone)]/70"
+                  className="group/agent relative flex cursor-pointer items-center gap-3 rounded-xl bg-[var(--bg-bone)] px-3 py-3 transition-colors hover:bg-[var(--bg-bone)]/70"
                 >
                   <span className="inline-flex size-9 shrink-0 items-center justify-center rounded-full bg-[#25D366] text-white">
                     <WhatsAppGlyph size={16} />
@@ -215,7 +215,7 @@ export default function FloatingWhatsApp() {
           href={TEL_HREF}
           aria-label="Call us now"
           title="Call us now"
-          className="inline-flex shrink-0 items-center gap-2.5 rounded-full bg-white p-3 md:pl-3.5 md:pr-5 md:py-3 text-[var(--bg-obsidian)] shadow-[0_12px_30px_-8px_rgba(0,0,0,0.45)] transition-colors hover:bg-white/90"
+          className="inline-flex shrink-0 cursor-pointer items-center gap-2.5 rounded-full bg-white p-3 md:pl-3.5 md:pr-5 md:py-3 text-[var(--bg-obsidian)] shadow-[0_12px_30px_-8px_rgba(0,0,0,0.45)] transition-colors hover:bg-white/90"
         >
           <span className="inline-flex size-7 items-center justify-center">
             <PhoneGlyph size={16} />
@@ -230,7 +230,7 @@ export default function FloatingWhatsApp() {
         aria-label={open ? "Close WhatsApp menu" : "Open WhatsApp menu"}
         aria-expanded={open}
         onClick={() => setOpen((v) => !v)}
-        className="group inline-flex items-center gap-2.5 rounded-full bg-[#25D366] p-3 md:pl-3.5 md:pr-5 md:py-3 text-white shadow-[0_12px_30px_-8px_rgba(37,211,102,0.55)] hover:bg-[#1ebd5b] hover:shadow-[0_18px_40px_-10px_rgba(37,211,102,0.7)] transition-colors"
+        className="group inline-flex cursor-pointer items-center gap-2.5 rounded-full bg-[#25D366] p-3 md:pl-3.5 md:pr-5 md:py-3 text-white shadow-[0_12px_30px_-8px_rgba(37,211,102,0.55)] hover:bg-[#1ebd5b] hover:shadow-[0_18px_40px_-10px_rgba(37,211,102,0.7)] transition-colors"
       >
         <span className="relative inline-flex size-7 items-center justify-center overflow-hidden rounded-full bg-white/15">
           <AnimatePresence mode="wait" initial={false}>

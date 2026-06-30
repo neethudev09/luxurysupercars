@@ -209,7 +209,7 @@ interface SanityBlogPost {
   publishedAt?: string;
   excerpt?: string;
   bodyHtml?: string;
-  heroImage?: SanityImage;
+  heroImage?: SanityImage & { alt?: string };
   seo?: { title?: string; description?: string };
 }
 
@@ -219,7 +219,7 @@ const BLOG_QUERY = `*[_type == "blogPost" && defined(slug.current)]{
   publishedAt,
   excerpt,
   bodyHtml,
-  "heroImage": heroImage.asset->{ url, "width": metadata.dimensions.width, "height": metadata.dimensions.height },
+  "heroImage": heroImage{ alt, "url": asset->url, "width": asset->metadata.dimensions.width, "height": asset->metadata.dimensions.height },
   seo
 } | order(publishedAt desc)`;
 
@@ -242,6 +242,7 @@ function mapBlogPost(p: SanityBlogPost) {
     ogTitle: p.title,
     ogDescription: str(p.seo?.description) || "",
     ogImage: hero,
+    ogImageAlt: str(p.heroImage?.alt) || str(p.h1) || p.title,
     ogImageWidth: num(p.heroImage?.width),
     ogImageHeight: num(p.heroImage?.height),
     h1: str(p.h1) || p.title,

@@ -23,6 +23,7 @@ interface BlogPostRaw {
   ogTitle: string;
   ogDescription: string;
   ogImage: string;
+  ogImageAlt?: string;
   ogImageWidth?: number;
   ogImageHeight?: number;
   h1: string;
@@ -47,8 +48,11 @@ async function main() {
     const raw = posts[i];
     process.stdout.write(`  [${i + 1}/${posts.length}] ${raw.slug}\n`);
 
-    const heroImage = raw.ogImage
+    const heroImageRef = raw.ogImage
       ? await uploadImageFromUrl(raw.ogImage, `${raw.slug}-hero.jpg`)
+      : null;
+    const heroImage = heroImageRef
+      ? { ...heroImageRef, alt: raw.ogImageAlt || raw.h1 || raw.title }
       : null;
 
     docs.push({

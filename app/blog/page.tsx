@@ -6,7 +6,7 @@ import PageHero from "@/components/sections/PageHero";
 import BlogFeaturedHero from "@/components/sections/BlogFeaturedHero";
 import Footer from "@/components/sections/Footer";
 import Reveal from "@/components/motion/Reveal";
-import { BLOG_POSTS } from "@/lib/blog";
+import { BLOG_POSTS, blogImageAlt } from "@/lib/blog";
 
 export const metadata: Metadata = {
   title: "Blog | Insights & News on Super Car Rentals in Dubai",
@@ -76,7 +76,7 @@ export default async function BlogIndexPage({
                     {post.ogImage ? (
                       <Image
                         src={post.ogImage}
-                        alt={post.h1 || post.title}
+                        alt={blogImageAlt(post)}
                         fill
                         sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 90vw"
                         className="object-cover transition-transform duration-[1400ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.05]"

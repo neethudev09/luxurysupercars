@@ -17,6 +17,7 @@ export type BlogPost = {
   ogTitle: string;
   ogDescription: string;
   ogImage: string;
+  ogImageAlt?: string;
   ogImageWidth?: number;
   ogImageHeight?: number;
   h1: string;
@@ -37,4 +38,8 @@ export function getPost(slug: string): BlogPost | undefined {
 
 export function getRelatedPosts(slug: string, limit = 3): BlogPost[] {
   return BLOG_POSTS.filter((p) => p.slug !== slug).slice(0, limit);
+}
+
+export function blogImageAlt(post: Pick<BlogPost, "ogImageAlt" | "h1" | "title">): string {
+  return post.ogImageAlt || post.h1 || post.title;
 }
