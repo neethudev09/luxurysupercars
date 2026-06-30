@@ -85,7 +85,7 @@ export default function Testimonials() {
                     ))}
                   </div>
                   <span className="font-[var(--font-mono)] text-[10px] uppercase tracking-[0.22em] text-[var(--ink-dark-lo)]">
-                    Based on <CountUp value={377} /> reviews
+                    Based on <CountUp value={486} /> reviews
                   </span>
                 </div>
               </div>

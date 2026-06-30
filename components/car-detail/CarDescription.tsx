@@ -39,7 +39,7 @@ function defaultDescription(car: Car): string[] {
   return [
     lead,
     `At Luxury Supercars Dubai, every ${car.name} rental includes free delivery anywhere across Dubai, full insurance, 24/7 concierge support, and the flexibility to extend by the hour, day, or week. Whether you're touring Palm Jumeirah, attending a high-profile event, or making the drive from Downtown to the Hajar Mountains, our team handles every detail so you can focus on the road.${priceClause}`,
-    `Dubai is a city built for cars like the ${car.name} — wide arterial roads, dramatic skyline backdrops, and the open desert just minutes away. Whether this is your first time renting an exotic in the UAE or you're a returning client, the team at Luxury Supercars Dubai brings over a decade of experience curating bespoke rental experiences for visitors, residents, and business travellers alike. Reserve your ${car.name} today and discover why we're consistently rated 4.9★ across 377+ Google reviews.`,
+    `Dubai is a city built for cars like the ${car.name} — wide arterial roads, dramatic skyline backdrops, and the open desert just minutes away. Whether this is your first time renting an exotic in the UAE or you're a returning client, the team at Luxury Supercars Dubai brings over a decade of experience curating bespoke rental experiences for visitors, residents, and business travellers alike. Reserve your ${car.name} today and discover why we're consistently rated 4.9★ across 486 Google reviews.`,
   ];
 }
 

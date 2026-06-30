@@ -4,12 +4,12 @@ const STATS: { value: string; suffix?: string; label: string }[] = [
   { value: "100", suffix: "+", label: "Exclusive supercars in fleet" },
   { value: "10", suffix: " yrs", label: "Concierge experience" },
   { value: "24", suffix: "/7", label: "On-call support" },
-  { value: "4.9", suffix: "★", label: "Google reviews · 377+ ratings" },
+  { value: "4.9", suffix: "★", label: "Google reviews · 486 ratings" },
 ];
 
 /**
  * Stat row — quick-glance numbers under the bio. The "100+ fleet" and
- * "4.9★ rating" values are verbatim from the live site marketing copy.
+ * Rating values are kept in sync with the latest Google review summary.
  */
 export default function AboutStats() {
   return (

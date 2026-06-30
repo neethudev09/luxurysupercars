@@ -53,6 +53,12 @@ interface HomeData {
 }
 const home = homeData as unknown as HomeData;
 
+export const GOOGLE_REVIEW_SUMMARY = {
+  stars: 4.9,
+  count: 486,
+  url: "https://www.google.com/search?q=luxury+supercars+dubai",
+};
+
 /** Normalise CMS stat objects to the exact numeric/string shape CountUp needs. */
 const mapStats = (stats: HomeStat[]) =>
   stats.map((s) => ({
@@ -138,7 +144,7 @@ export const HERO = {
     "Dubai's Most Trusted Supercar Rentals. Premium Services with 24/7 Support and Free Delivery Across Dubai.",
   ctaPrimary: home.hero?.ctaPrimary || "Rent A Car",
   ctaSecondary: home.hero?.ctaSecondary || "Contact Us",
-  rating: { stars: home.hero?.ratingStars ?? 4.9, count: home.hero?.ratingCount ?? 377 },
+  rating: { stars: GOOGLE_REVIEW_SUMMARY.stars, count: GOOGLE_REVIEW_SUMMARY.count },
 };
 
 export const FLEET_SECTIONS = {
@@ -193,11 +199,19 @@ export const BRAND_STORY = {
         "Dubai is a city synonymous with opulence, and there's no better way to explore its iconic landmarks and breathtaking skyline than behind the wheel of a prestigious luxury car. At Luxury Supercars Dubai, we feature an exclusive collection from top-tier brands like Lamborghini, Ferrari, Porsche, Bentley, and Mercedes-Benz. Whether you're here for business, leisure, or a special event, our fleet of the latest models ensures a driving experience that epitomizes comfort, performance, and elegance.",
       ],
   stats: home.brandStory?.stats?.length
-    ? mapStats(home.brandStory.stats)
+    ? mapStats(home.brandStory.stats).map((stat) => {
+        if (stat.label.toLowerCase().includes("google rating")) {
+          return { ...stat, value: GOOGLE_REVIEW_SUMMARY.stars, decimals: 1 };
+        }
+        if (stat.label.toLowerCase() === "reviews") {
+          return { ...stat, value: GOOGLE_REVIEW_SUMMARY.count, decimals: 0 };
+        }
+        return stat;
+      })
     : [
         { value: 14, decimals: 0, suffix: "+", label: "Brands" },
-        { value: 4.9, decimals: 1, suffix: "★", label: "Google rating" },
-        { value: 377, decimals: 0, suffix: "", label: "Reviews" },
+        { value: GOOGLE_REVIEW_SUMMARY.stars, decimals: 1, suffix: "★", label: "Google rating" },
+        { value: GOOGLE_REVIEW_SUMMARY.count, decimals: 0, suffix: "", label: "Reviews" },
         { value: 24, decimals: 0, suffix: "/7", label: "Support" },
       ],
 };

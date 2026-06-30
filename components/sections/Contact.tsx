@@ -5,6 +5,8 @@ import EnquiryForm from "@/components/contact/EnquiryForm";
 import MaskHeading from "@/components/motion/MaskHeading";
 import Reveal from "@/components/motion/Reveal";
 
+const SHOWROOM_MAP_URL = "https://maps.app.goo.gl/iSSMGBpsur7Lo8vp6";
+
 export default function Contact({ formOnly = false }: { formOnly?: boolean }) {
   return (
     <section id="contact" className={`bg-[var(--bg-obsidian)] overflow-hidden ${formOnly ? "pb-20 md:pb-28" : "py-20 md:py-28 border-t border-white/5"}`}>
@@ -29,11 +31,13 @@ export default function Contact({ formOnly = false }: { formOnly?: boolean }) {
                 { label: "Secondary", value: CONTACT.secondaryPhone, href: `tel:${CONTACT.secondaryPhone.replace(/\s/g, "")}` },
                 { label: "Landline", value: CONTACT.landline, href: `tel:${CONTACT.landline.replace(/\s/g, "")}` },
                 { label: "Email", value: CONTACT.email, href: `mailto:${CONTACT.email}` },
-                { label: "Showroom", value: CONTACT.address, href: "#" },
+                { label: "Showroom", value: CONTACT.address, href: SHOWROOM_MAP_URL },
               ].map((r) => (
                 <a
                   key={r.label}
                   href={r.href}
+                  target={r.href.startsWith("http") ? "_blank" : undefined}
+                  rel={r.href.startsWith("http") ? "noreferrer" : undefined}
                   className="group flex items-center justify-between py-4 text-[16px] hover:text-[var(--champagne)] transition-colors"
                 >
                   <span className="font-[var(--font-mono)] text-[12px] uppercase tracking-[0.22em] text-[var(--ink-lo)] w-28">
