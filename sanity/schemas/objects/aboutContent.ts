@@ -59,6 +59,12 @@ export const aboutContent = defineType({
         }),
         defineField({ name: "paragraph", title: "Paragraph", type: "text", rows: 3 }),
         defineField({
+          name: "backgroundVideoUrl",
+          title: "Background video URL",
+          type: "string",
+          description: "Paste a Vimeo, YouTube, or direct MP4/WebM URL. This is used before the uploaded file below.",
+        }),
+        defineField({
           name: "backgroundVideo",
           title: "Background video",
           type: "file",

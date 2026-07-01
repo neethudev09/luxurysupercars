@@ -574,7 +574,7 @@ const HOME_QUERY = `*[_id == "page-home"][0].homeContent`;
  * with a fallback to the current self-hosted asset.
  */
 const ABOUT_QUERY = `*[_id == "page-about-us"][0].aboutContent{
-  "hero": hero{ heading, paragraph, "backgroundVideo": backgroundVideo.asset->url },
+  "hero": hero{ heading, paragraph, backgroundVideoUrl, "backgroundVideo": backgroundVideo.asset->url },
   "founder": founder{ heading, paragraph, videoUrl, "signature": signature.asset->url },
   "aboutMe": aboutMe{ heading, paragraphs, "portrait": portrait.asset->url },
   "ventures": ventures{ eyebrow, items[]{ title, body, bordered, "logo": logo.asset->url } },

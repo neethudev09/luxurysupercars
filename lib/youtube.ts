@@ -31,7 +31,7 @@ export function youTubeIds(list: readonly (string | undefined | null)[] | undefi
 }
 
 type FounderVideoEmbed = {
-  provider: "youtube" | "vimeo";
+  provider: "youtube" | "vimeo" | "file";
   id: string;
   src: string;
 };
@@ -96,6 +96,18 @@ function vimeoEmbed(id: string, hash?: string): FounderVideoEmbed {
   };
 }
 
+function fileVideo(src: string): FounderVideoEmbed {
+  return {
+    provider: "file",
+    id: src,
+    src,
+  };
+}
+
+function isDirectVideoUrl(input: string): boolean {
+  return /\.(mp4|webm|mov)(?:[?#].*)?$/i.test(input);
+}
+
 export function founderVideoEmbed(
   input: string | undefined | null,
   fallbackYoutubeId = "TjB258kdQFc",
@@ -110,4 +122,18 @@ export function founderVideoEmbed(
   if (vimeo) return vimeoEmbed(vimeo.id, vimeo.hash);
 
   return youtubeEmbed(fallbackYoutubeId);
+}
+
+export function backgroundVideoEmbed(input: string): FounderVideoEmbed {
+  const source = input.trim();
+  const youtubeId = youTubeId(source);
+
+  if (YOUTUBE_ID_RE.test(youtubeId)) return youtubeEmbed(youtubeId);
+
+  const vimeo = vimeoParts(source);
+  if (vimeo) return vimeoEmbed(vimeo.id, vimeo.hash);
+
+  if (source) return fileVideo(source);
+
+  return fileVideo("/ahmed-trim.mp4");
 }

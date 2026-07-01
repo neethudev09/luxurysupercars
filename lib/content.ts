@@ -16,7 +16,7 @@ import servicesData from "./generated/services.json";
 import homeData from "./generated/home.json";
 import aboutData from "./generated/about.json";
 import pagesData from "./generated/pages.json";
-import { founderVideoEmbed, youTubeIds } from "./youtube";
+import { backgroundVideoEmbed, founderVideoEmbed, youTubeIds } from "./youtube";
 
 /**
  * Homepage editorial content from Sanity (page-home → homeContent),
@@ -805,7 +805,7 @@ export const FOOTER = {
 interface AboutVentureItem { title?: string; body?: string; logo?: string; bordered?: boolean }
 interface AboutPressTile { category?: string; caption?: string; image?: string }
 interface AboutData {
-  hero?: { heading?: string; paragraph?: string; backgroundVideo?: string };
+  hero?: { heading?: string; paragraph?: string; backgroundVideo?: string; backgroundVideoUrl?: string };
   founder?: { heading?: string; paragraph?: string; videoUrl?: string; signature?: string };
   aboutMe?: { heading?: string; paragraphs?: string[]; portrait?: string };
   ventures?: { eyebrow?: string; items?: AboutVentureItem[] };
@@ -828,7 +828,8 @@ export const ABOUT_HERO = {
   paragraph:
     about.hero?.paragraph ||
     "Ahmed has become a distinctive innovator behind luxury and super-car rentals, making a riveting offer to clients around the world to gain a taste of the opulent lifestyle.",
-  backgroundVideo: about.hero?.backgroundVideo || ABOUT_HERO_VIDEO,
+  backgroundVideo: about.hero?.backgroundVideoUrl || about.hero?.backgroundVideo || ABOUT_HERO_VIDEO,
+  video: backgroundVideoEmbed(about.hero?.backgroundVideoUrl || about.hero?.backgroundVideo || ABOUT_HERO_VIDEO),
 };
 
 export const ABOUT_FOUNDER = {

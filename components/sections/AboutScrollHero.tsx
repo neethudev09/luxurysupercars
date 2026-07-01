@@ -8,6 +8,7 @@ import { ABOUT_HERO } from "@/lib/content";
 export default function AboutScrollHero() {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [mounted, setMounted] = useState(false);
+  const isFileVideo = ABOUT_HERO.video.provider === "file";
 
   useEffect(() => {
     const id = requestAnimationFrame(() => setMounted(true));
@@ -22,7 +23,7 @@ export default function AboutScrollHero() {
     video.play().catch(() => {
       /* autoplay may be blocked — the first frame still shows as a poster */
     });
-  }, []);
+  }, [isFileVideo]);
 
   return (
     <div
@@ -32,16 +33,27 @@ export default function AboutScrollHero() {
         transition: "opacity 200ms ease-out",
       }}
     >
-      <video
-        ref={videoRef}
-        src={ABOUT_HERO.backgroundVideo}
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="auto"
-        className="absolute inset-0 h-full w-full object-cover"
-      />
+      {isFileVideo ? (
+        <video
+          ref={videoRef}
+          src={ABOUT_HERO.video.src}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+      ) : (
+        <iframe
+          src={ABOUT_HERO.video.src}
+          title="About Luxury Supercars Dubai"
+          allow="autoplay; fullscreen; picture-in-picture"
+          loading="eager"
+          referrerPolicy="strict-origin-when-cross-origin"
+          className="pointer-events-none absolute left-1/2 top-1/2 h-[56.25vw] min-h-full w-[177.78vh] min-w-full -translate-x-1/2 -translate-y-1/2 border-0"
+        />
+      )}
 
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/15" />
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/85 via-black/15 to-transparent" />
