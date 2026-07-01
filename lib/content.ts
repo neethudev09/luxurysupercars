@@ -16,7 +16,7 @@ import servicesData from "./generated/services.json";
 import homeData from "./generated/home.json";
 import aboutData from "./generated/about.json";
 import pagesData from "./generated/pages.json";
-import { youTubeId, youTubeIds } from "./youtube";
+import { founderVideoEmbed, youTubeIds } from "./youtube";
 
 /**
  * Homepage editorial content from Sanity (page-home → homeContent),
@@ -838,7 +838,8 @@ export const ABOUT_FOUNDER = {
   paragraph:
     about.founder?.paragraph ||
     "Within the glowing and glossy world of luxury car rentals, Ahmed Mansour (Ahmed Amwell) stands out as the visionary behind Luxury Super Car Rentals Dubai. A true trailblazer, Luxury Super Car Rentals Dubai is transforming the industry, epitomizing success, and making renting the car of your dreams a hassle-free process.",
-  videoId: youTubeId(about.founder?.videoUrl || "TjB258kdQFc"),
+  videoUrl: about.founder?.videoUrl || "https://www.youtube.com/watch?v=TjB258kdQFc",
+  video: founderVideoEmbed(about.founder?.videoUrl, "TjB258kdQFc"),
   signature: about.founder?.signature || ABOUT_SIGNATURE,
 };
 

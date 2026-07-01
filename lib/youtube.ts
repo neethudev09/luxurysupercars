@@ -29,3 +29,85 @@ export function youTubeId(input: string | undefined | null): string {
 export function youTubeIds(list: readonly (string | undefined | null)[] | undefined): string[] {
   return (list ?? []).map(youTubeId).filter(Boolean);
 }
+
+type FounderVideoEmbed = {
+  provider: "youtube" | "vimeo";
+  id: string;
+  src: string;
+};
+
+const YOUTUBE_ID_RE = /^[a-zA-Z0-9_-]{11}$/;
+
+function vimeoParts(input: string): { id: string; hash?: string } | null {
+  const s = input.trim();
+  if (/^\d+$/.test(s)) return { id: s };
+
+  const match = s.match(/vimeo\.com\/(?:video\/)?(\d+)(?:\/([a-zA-Z0-9]+))?/);
+  if (!match) return null;
+
+  let hash = match[2];
+  try {
+    const url = new URL(s);
+    hash = url.searchParams.get("h") || hash;
+  } catch {
+    // Plain IDs or partial URLs are handled by the regex above.
+  }
+
+  return { id: match[1], hash };
+}
+
+function youtubeEmbed(id: string): FounderVideoEmbed {
+  const params = new URLSearchParams({
+    autoplay: "1",
+    mute: "1",
+    loop: "1",
+    playlist: id,
+    playsinline: "1",
+    controls: "0",
+    modestbranding: "1",
+    rel: "0",
+  });
+
+  return {
+    provider: "youtube",
+    id,
+    src: `https://www.youtube-nocookie.com/embed/${id}?${params.toString()}`,
+  };
+}
+
+function vimeoEmbed(id: string, hash?: string): FounderVideoEmbed {
+  const params = new URLSearchParams({
+    autoplay: "1",
+    muted: "1",
+    loop: "1",
+    background: "1",
+    autopause: "0",
+    playsinline: "1",
+    title: "0",
+    byline: "0",
+    portrait: "0",
+  });
+  if (hash) params.set("h", hash);
+
+  return {
+    provider: "vimeo",
+    id,
+    src: `https://player.vimeo.com/video/${id}?${params.toString()}`,
+  };
+}
+
+export function founderVideoEmbed(
+  input: string | undefined | null,
+  fallbackYoutubeId = "TjB258kdQFc",
+): FounderVideoEmbed {
+  const raw = String(input || "").trim();
+  const source = raw || fallbackYoutubeId;
+  const youtubeId = youTubeId(source);
+
+  if (YOUTUBE_ID_RE.test(youtubeId)) return youtubeEmbed(youtubeId);
+
+  const vimeo = vimeoParts(source);
+  if (vimeo) return vimeoEmbed(vimeo.id, vimeo.hash);
+
+  return youtubeEmbed(fallbackYoutubeId);
+}

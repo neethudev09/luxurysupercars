@@ -7,8 +7,8 @@ import { ABOUT_FOUNDER } from "@/lib/content";
 // off-white section means the dark ink reads as-is (no invert needed).
 const SIGNATURE_SRC = ABOUT_FOUNDER.signature;
 
-// Looping, muted, controls-off founder embed — playlist=id makes it loop.
-const founderEmbedSrc = `https://www.youtube-nocookie.com/embed/${ABOUT_FOUNDER.videoId}?autoplay=1&mute=1&loop=1&playlist=${ABOUT_FOUNDER.videoId}&playsinline=1&controls=0&modestbranding=1&rel=0`;
+// Looping, muted, controls-off founder embed from Sanity.
+const founderEmbedSrc = ABOUT_FOUNDER.video.src;
 
 /**
  * Founder bio + video. H2 + body paragraph are verbatim from live /about-us/

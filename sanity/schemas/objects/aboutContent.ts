@@ -79,9 +79,9 @@ export const aboutContent = defineType({
         defineField({ name: "paragraph", title: "Paragraph", type: "text", rows: 4 }),
         defineField({
           name: "videoUrl",
-          title: "Video (YouTube link)",
+          title: "Video (YouTube or Vimeo link)",
           type: "string",
-          description: "Paste the full YouTube link (or just the video ID).",
+          description: "Paste the full YouTube or Vimeo link.",
         }),
         defineField({
           name: "signature",

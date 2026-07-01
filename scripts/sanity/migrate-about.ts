@@ -75,7 +75,7 @@ async function main() {
     founder: {
       heading: ABOUT_FOUNDER.heading,
       paragraph: ABOUT_FOUNDER.paragraph,
-      videoUrl: watch(ABOUT_FOUNDER.videoId),
+      videoUrl: ABOUT_FOUNDER.videoUrl,
       ...(signature ? { signature } : {}),
     },
     aboutMe: {
