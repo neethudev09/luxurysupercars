@@ -3,27 +3,45 @@
 import { useEffect } from "react";
 
 /**
- * Light deterrent against casual image saving — blocks the right-click context
- * menu and drag-to-save on every <img> on the site. Not a hard protection
- * (anyone determined can still pull from the network tab), but it stops the
- * obvious "right-click → Save image" path the owner asked to close off.
+ * Light deterrent against casual content saving. This blocks right-click,
+ * copy/cut, and drag-to-save on the public site while keeping form fields
+ * usable. It is not hard protection, but it closes the obvious copy paths.
  */
 export default function ImageProtection() {
   useEffect(() => {
-    const isImage = (t: EventTarget | null) =>
-      t instanceof HTMLElement && t.tagName === "IMG";
+    const isEditable = (target: EventTarget | null) => {
+      if (!(target instanceof HTMLElement)) return false;
+      return Boolean(
+        target.closest(
+          'input, textarea, select, [contenteditable="true"], [data-allow-copy="true"]',
+        ),
+      );
+    };
+
+    const isImage = (target: EventTarget | null) =>
+      target instanceof HTMLElement && target.tagName === "IMG";
 
     const onContextMenu = (e: MouseEvent) => {
-      if (isImage(e.target)) e.preventDefault();
+      if (!isEditable(e.target)) e.preventDefault();
+    };
+    const onCopy = (e: ClipboardEvent) => {
+      if (!isEditable(e.target)) e.preventDefault();
+    };
+    const onCut = (e: ClipboardEvent) => {
+      if (!isEditable(e.target)) e.preventDefault();
     };
     const onDragStart = (e: DragEvent) => {
       if (isImage(e.target)) e.preventDefault();
     };
 
     document.addEventListener("contextmenu", onContextMenu);
+    document.addEventListener("copy", onCopy);
+    document.addEventListener("cut", onCut);
     document.addEventListener("dragstart", onDragStart);
     return () => {
       document.removeEventListener("contextmenu", onContextMenu);
+      document.removeEventListener("copy", onCopy);
+      document.removeEventListener("cut", onCut);
       document.removeEventListener("dragstart", onDragStart);
     };
   }, []);

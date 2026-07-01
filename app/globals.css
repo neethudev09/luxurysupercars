@@ -61,6 +61,17 @@ html {
 body {
   font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
   font-feature-settings: "ss01", "cv11";
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+input,
+textarea,
+select,
+[contenteditable="true"],
+[data-allow-copy="true"] {
+  -webkit-user-select: text;
+  user-select: text;
 }
 
 ::selection {

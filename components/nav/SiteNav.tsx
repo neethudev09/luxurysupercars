@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -9,18 +9,66 @@ import { CONTACT, NAV_LINKS, SOCIAL } from "@/lib/content";
 import { SITE_LOGO, BRAND_LOGOS, NAV_CAR_TYPES } from "@/lib/assets";
 import { useCurrency } from "@/components/currency/CurrencyProvider";
 import { CURRENCIES, type Currency } from "@/lib/currency";
+import type { Category } from "@/lib/fleet";
 
 const PRIMARY_LINKS = NAV_LINKS;
 
 const SHOW_CURRENCY_SELECTOR = true;
 
+const CATEGORY_LABELS: Record<Category, string> = {
+  sports: "Sports Cars",
+  convertible: "Convertible Cars",
+  luxury: "Luxury Cars",
+  suv: "SUV Cars",
+};
+
+const CAR_TYPE_SEARCH_LINKS: Array<{
+  label: string;
+  href: string;
+  keywords: string;
+}> = [
+  {
+    label: "Sports Cars",
+    href: "/rent-sports-cars-dubai",
+    keywords: "sports sport supercar supercars exotic performance fast coupe",
+  },
+  {
+    label: "Convertible Cars",
+    href: "/rent-convertible-cars-dubai",
+    keywords: "convertible cabriolet spyder spider cabrio open roof",
+  },
+  {
+    label: "Luxury Cars",
+    href: "/rent-luxury-cars-dubai",
+    keywords: "luxury premium sedan rolls bentley mercedes business vip",
+  },
+  {
+    label: "SUV Cars",
+    href: "/rent-suv-cars-dubai",
+    keywords: "suv 4x4 family g wagon range rover urus cullinan",
+  },
+];
+
+interface FleetSearchCar {
+  name: string;
+  brandName: string;
+  category: Category;
+  href: string;
+  search: string;
+}
+
 export default function SiteNav() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchCars, setSearchCars] = useState<FleetSearchCar[]>([]);
+  const [searchLoaded, setSearchLoaded] = useState(false);
   const [hoverMenu, setHoverMenu] = useState<"type" | "brand" | null>(null);
   const [mobileExpanded, setMobileExpanded] = useState<"type" | "brand" | null>(null);
   const { currency, setCurrency } = useCurrency();
+  const searchInputRef = useRef<HTMLInputElement | null>(null);
 
   // Mega-menu hover bridge: the dropdown panels are now centred on the viewport
   // (fixed positioning), so there's a gap between the trigger link and the
@@ -47,27 +95,82 @@ export default function SiteNav() {
   }, []);
 
   useEffect(() => {
-    if (open) document.body.style.overflow = "hidden";
+    if (open || searchOpen) document.body.style.overflow = "hidden";
     else document.body.style.overflow = "";
     return () => {
       document.body.style.overflow = "";
     };
-  }, [open]);
+  }, [open, searchOpen]);
 
   // Route change cleanup: ensures the mobile menu's body-scroll lock can never
   // bleed onto the destination page if React commits the navigation before the
   // open=false effect runs.
   useEffect(() => {
     setOpen(false);
+    setSearchOpen(false);
+    setSearchQuery("");
     setMobileExpanded(null);
     document.body.style.overflow = "";
   }, [pathname]);
+
+  useEffect(() => {
+    if (!searchOpen) return;
+    const focusTimer = window.setTimeout(() => searchInputRef.current?.focus(), 90);
+    return () => window.clearTimeout(focusTimer);
+  }, [searchOpen]);
+
+  useEffect(() => {
+    if (!searchOpen || searchLoaded) return;
+
+    let cancelled = false;
+    fetch("/api/fleet-search")
+      .then((response) => (response.ok ? response.json() : []))
+      .then((cars: FleetSearchCar[]) => {
+        if (cancelled) return;
+        setSearchCars(Array.isArray(cars) ? cars : []);
+        setSearchLoaded(true);
+      })
+      .catch(() => {
+        if (cancelled) return;
+        setSearchCars([]);
+        setSearchLoaded(true);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [searchOpen, searchLoaded]);
 
   const closeMobileMenu = () => {
     document.body.style.overflow = "";
     setOpen(false);
     setMobileExpanded(null);
   };
+
+  const openMobileSearch = () => {
+    setOpen(false);
+    setMobileExpanded(null);
+    setSearchOpen(true);
+  };
+
+  const closeMobileSearch = () => {
+    setSearchOpen(false);
+    setSearchQuery("");
+  };
+
+  const normalizedSearch = searchQuery.trim().toLowerCase();
+
+  const typeMatches = useMemo(() => {
+    if (!normalizedSearch) return CAR_TYPE_SEARCH_LINKS;
+    return CAR_TYPE_SEARCH_LINKS.filter((item) =>
+      `${item.label} ${item.keywords}`.toLowerCase().includes(normalizedSearch),
+    );
+  }, [normalizedSearch]);
+
+  const carMatches = useMemo(() => {
+    if (!normalizedSearch) return searchCars.slice(0, 7);
+    return searchCars.filter((car) => car.search.includes(normalizedSearch)).slice(0, 8);
+  }, [normalizedSearch, searchCars]);
 
   return (
     <>
@@ -240,18 +343,171 @@ export default function SiteNav() {
             </svg>
           </Link>
 
-          {/* Mobile menu button */}
-          <button
-            type="button"
-            aria-label="Open menu"
-            onClick={() => setOpen(true)}
-            className="lg:hidden flex flex-col gap-1.5 p-2"
-          >
-            <span className="block w-6 h-px bg-[var(--ink-hi)]" />
-            <span className="block w-6 h-px bg-[var(--ink-hi)]" />
-          </button>
+          <div className="relative z-[51] flex items-center gap-2 lg:hidden">
+            <button
+              type="button"
+              aria-label="Search fleet"
+              onClick={openMobileSearch}
+              className="inline-flex size-11 cursor-pointer items-center justify-center rounded-full border border-white/10 text-[var(--ink-hi)] transition-colors hover:border-[var(--champagne)] hover:text-[var(--champagne)]"
+            >
+              <SearchIcon />
+            </button>
+
+            {/* Mobile menu button */}
+            <button
+              type="button"
+              aria-label="Open menu"
+              onClick={() => setOpen(true)}
+              className="flex cursor-pointer flex-col gap-1.5 p-2"
+            >
+              <span className="block w-6 h-px bg-[var(--ink-hi)]" />
+              <span className="block w-6 h-px bg-[var(--ink-hi)]" />
+            </button>
+          </div>
         </div>
       </header>
+
+      <AnimatePresence>
+        {searchOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            className="fixed inset-0 z-[70] overflow-y-auto bg-[var(--bg-obsidian)] text-[var(--ink-hi)] lg:hidden"
+          >
+            <div className="w-full px-6 md:px-10 flex h-[80px] items-center justify-between">
+              <Link
+                href="/"
+                aria-label="Luxury Supercars Dubai - home"
+                onClick={closeMobileSearch}
+                className="relative block h-18 w-auto shrink-0"
+              >
+                <Image
+                  src={SITE_LOGO}
+                  alt="Luxury Supercars Dubai"
+                  width={360}
+                  height={72}
+                  className="h-18 w-auto object-contain"
+                />
+              </Link>
+              <button
+                type="button"
+                aria-label="Close search"
+                onClick={closeMobileSearch}
+                className="inline-flex size-11 cursor-pointer items-center justify-center rounded-full border border-white/10 text-[var(--ink-hi)]"
+              >
+                <svg width="20" height="20" viewBox="0 0 22 22" fill="none">
+                  <path d="M3 3l16 16M19 3L3 19" stroke="currentColor" strokeWidth="1.4" />
+                </svg>
+              </button>
+            </div>
+
+            <div className="container-x pb-10 pt-4">
+              <p className="font-[var(--font-mono)] text-[11px] uppercase tracking-[0.24em] text-[var(--champagne)]">
+                Search Fleet
+              </p>
+              <div className="mt-4 flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.06] px-4 py-3.5">
+                <span className="text-[var(--champagne)]">
+                  <SearchIcon />
+                </span>
+                <input
+                  ref={searchInputRef}
+                  value={searchQuery}
+                  onChange={(event) => setSearchQuery(event.target.value)}
+                  type="search"
+                  inputMode="search"
+                  placeholder="Search Ferrari, SUV, convertible..."
+                  className="min-w-0 flex-1 bg-transparent text-[18px] text-[var(--ink-hi)] outline-none placeholder:text-[var(--ink-lo)]"
+                />
+              </div>
+
+              <div className="mt-7">
+                <p className="font-[var(--font-mono)] text-[10px] uppercase tracking-[0.22em] text-[var(--ink-lo)]">
+                  Car Types
+                </p>
+                <div className="mt-3 grid grid-cols-2 gap-2.5">
+                  {typeMatches.map((item) => (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      onClick={closeMobileSearch}
+                      className="cursor-pointer rounded-xl border border-white/10 bg-white/[0.04] px-3 py-3 text-[14px] font-medium text-[var(--ink-hi)] transition-colors hover:border-[var(--champagne)] hover:text-[var(--champagne)]"
+                    >
+                      {item.label}
+                    </Link>
+                  ))}
+                  {typeMatches.length === 0 && (
+                    <Link
+                      href="/our-fleet"
+                      onClick={closeMobileSearch}
+                      className="col-span-2 cursor-pointer rounded-xl border border-white/10 bg-white/[0.04] px-3 py-3 text-[14px] font-medium text-[var(--ink-hi)]"
+                    >
+                      View full fleet
+                    </Link>
+                  )}
+                </div>
+              </div>
+
+              <div className="mt-8">
+                <div className="flex items-center justify-between gap-4">
+                  <p className="font-[var(--font-mono)] text-[10px] uppercase tracking-[0.22em] text-[var(--ink-lo)]">
+                    Cars
+                  </p>
+                  <Link
+                    href="/our-fleet"
+                    onClick={closeMobileSearch}
+                    className="cursor-pointer text-[13px] text-[var(--champagne)]"
+                  >
+                    All fleet
+                  </Link>
+                </div>
+
+                <div className="mt-3 flex flex-col divide-y divide-white/8 rounded-2xl border border-white/10 bg-white/[0.04]">
+                  {!searchLoaded && (
+                    <div className="px-4 py-5 text-[14px] leading-6 text-[var(--ink-lo)]">
+                      Loading fleet...
+                    </div>
+                  )}
+
+                  {searchLoaded && carMatches.map((car) => (
+                    <Link
+                      key={car.href}
+                      href={car.href}
+                      onClick={closeMobileSearch}
+                      className="group flex cursor-pointer items-center justify-between gap-4 px-4 py-4 transition-colors hover:bg-white/[0.06]"
+                    >
+                      <span className="min-w-0">
+                        <span className="block truncate text-[16px] font-semibold text-[var(--ink-hi)]">
+                          {car.name}
+                        </span>
+                        <span className="mt-1 block truncate text-[13px] text-[var(--ink-lo)]">
+                          {car.brandName} / {CATEGORY_LABELS[car.category]}
+                        </span>
+                      </span>
+                      <svg
+                        width="14"
+                        height="10"
+                        viewBox="0 0 14 10"
+                        fill="none"
+                        className="shrink-0 text-[var(--champagne)] transition-transform group-hover:translate-x-1"
+                      >
+                        <path d="M0 5h12M8 1l4 4-4 4" stroke="currentColor" strokeWidth="1.4" />
+                      </svg>
+                    </Link>
+                  ))}
+
+                  {searchLoaded && carMatches.length === 0 && (
+                    <div className="px-4 py-5 text-[14px] leading-6 text-[var(--ink-lo)]">
+                      No exact match. View the full fleet or try another car name.
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <AnimatePresence>
         {open && (
@@ -281,7 +537,7 @@ export default function SiteNav() {
                 type="button"
                 aria-label="Close menu"
                 onClick={() => setOpen(false)}
-                className="p-2 text-[var(--ink-hi)]"
+                className="cursor-pointer p-2 text-[var(--ink-hi)]"
               >
                 <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
                   <path d="M3 3l16 16M19 3L3 19" stroke="currentColor" strokeWidth="1.4" />
@@ -313,7 +569,7 @@ export default function SiteNav() {
                           setMobileExpanded(expanded ? null : (key as "type" | "brand"))
                         }
                         aria-expanded={expanded}
-                        className="flex w-full items-center justify-between py-4 border-b border-white/5 font-[var(--font-display)] text-3xl text-left text-[var(--ink-hi)] hover:text-[var(--champagne-hi)] transition-colors"
+                        className="flex w-full cursor-pointer items-center justify-between py-4 border-b border-white/5 font-[var(--font-display)] text-3xl text-left text-[var(--ink-hi)] hover:text-[var(--champagne-hi)] transition-colors"
                       >
                         {link.label}
                         <svg
@@ -498,6 +754,15 @@ function PhoneIcon() {
         strokeWidth="1.1"
         strokeLinejoin="round"
       />
+    </svg>
+  );
+}
+
+function SearchIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden>
+      <circle cx="8" cy="8" r="5.25" stroke="currentColor" strokeWidth="1.5" />
+      <path d="M12 12l3.4 3.4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
     </svg>
   );
 }

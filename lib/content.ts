@@ -225,15 +225,15 @@ export const REQUIREMENTS = {
     : [
         {
           title: "AGE",
-          body: "You should be at least 21 years old.",
+          body: "Drivers must be at least 21 years old. Some supercars require drivers to be 25+.",
         },
         {
           title: "Driving License",
-          body: "You should have a valid UAE driving license if you are UAE resident or You should have an International driving license.",
+          body: "UAE residents need a valid UAE driving licence. Tourists must present a valid licence and, if required, an International Driving Permit (IDP).",
         },
         {
-          title: "Free Delivery",
-          body: "We offer a free delivery to our customers to their desired location.",
+          title: "Free delivery",
+          body: "We provide free delivery across Dubai. Delivery charges apply to other Emirates.",
         },
       ],
 };
@@ -286,16 +286,16 @@ export const WHY_US = {
  */
 const HOMEPAGE_FAQ_FALLBACK = [
   {
-    q: "What is the age limit to rent a vehicle from LuxurySuperCarsDubai.com?",
+    q: "What is the age limit to rent a vehicle from Luxury Supercars Dubai?",
     a: "The age limit to benefit from our services is between 21 and 65 years. Additionally, we require our clients to possess a valid driving license for a minimum period of 1 year.",
   },
   {
     q: "What documents will I be asked to submit when hiring a car?",
-    a: "The documents required by Luxury Super Cars Dubai are inclusive of: Credit Card, Copy of Passport with visa page, Copy of your valid UAE driving license / Valid International License.",
+    a: "For UAE residents: a copy of Emirates ID and UAE Driver's License (front and back). For GCC residents: GCC ID and GCC Driver's License. For tourists: passport copy and a valid driver's license. An IDP is required for certain countries.",
   },
   {
     q: "How can I pay for my car rental?",
-    a: "We have multiple payment options, including Visa, MasterCard, cash, American Express, online banking, and Bitcoin.",
+    a: "We accept cash in all currencies, credit/debit cards (Visa, MasterCard, and AMEX), and crypto.",
   },
   {
     q: "Is a deposit required to rent a vehicle?",
