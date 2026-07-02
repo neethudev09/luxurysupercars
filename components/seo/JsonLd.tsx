@@ -18,10 +18,15 @@ export default function JsonLd() {
     email: CONTACT.email,
     address: {
       "@type": "PostalAddress",
-      streetAddress: "87 4th St, Al Qouz Ind.third",
-      addressLocality: "Al Quoz",
+      streetAddress: "87 4th St, Al Quoz Industrial Third",
+      addressLocality: "Al Quoz, Dubai",
       addressRegion: "Dubai",
       addressCountry: "AE",
+    },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: 25.1277886,
+      longitude: 55.21408,
     },
     aggregateRating: {
       "@type": "AggregateRating",

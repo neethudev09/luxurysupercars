@@ -14,6 +14,41 @@ import { SITE_URL } from "@/lib/site";
 
 type Params = { slug: string };
 
+const CONTACT_EMAIL = "info@luxurysupercarsdubai.com";
+
+const BLOG_CONTACT_ICON_STYLE =
+  "display:inline-flex;width:1.35em;margin-right:0.35em;vertical-align:-0.18em;color:var(--champagne);";
+
+const BLOG_CONTACT_ICONS = {
+  phone: `<span aria-hidden="true" style="${BLOG_CONTACT_ICON_STYLE}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.8 19.8 0 0 1 3.1 5.18 2 2 0 0 1 5.11 3h3a2 2 0 0 1 2 1.72c.12.91.32 1.8.57 2.65a2 2 0 0 1-.45 2.11L9.1 10.6a16 16 0 0 0 4.3 4.3l1.12-1.13a2 2 0 0 1 2.11-.45c.85.25 1.74.45 2.65.57A2 2 0 0 1 22 16.92z"/></svg></span>`,
+  email: `<span aria-hidden="true" style="${BLOG_CONTACT_ICON_STYLE}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span>`,
+  location: `<span aria-hidden="true" style="${BLOG_CONTACT_ICON_STYLE}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 5-8 12-8 12s-8-7-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg></span>`,
+};
+
+function normalizeBlogBodyHtml(bodyHtml: string) {
+  return bodyHtml
+    .replace(
+      /<span style="font-weight: 400;">\?\?\?\?<\/span>(\s*<a href="tel:[^"]*"[^>]*>)/g,
+      `${BLOG_CONTACT_ICONS.phone}$1`,
+    )
+    .replace(
+      /<span style="font-weight: 400;">\?\?\?\?<\/span>(\s*<a href="(?:mailto:|\/cdn-cgi\/l\/email-protection)[^"]*"[^>]*>)/g,
+      `${BLOG_CONTACT_ICONS.email}$1`,
+    )
+    .replace(
+      /<span style="font-weight: 400;">\?\?\?\?<\/span>(\s*<a href="https:\/\/maps\.app\.goo\.gl\/[^"]*"[^>]*>)/g,
+      `${BLOG_CONTACT_ICONS.location}$1`,
+    )
+    .replace(
+      /<a\b([^>]*?)href="\/cdn-cgi\/l\/email-protection#[^"]*"([^>]*)>[\s\S]*?<\/a>/g,
+      `<a$1href="mailto:${CONTACT_EMAIL}"$2>${CONTACT_EMAIL}</a>`,
+    )
+    .replace(
+      /<span class="__cf_email__"[^>]*>\[email(?:&nbsp;|\s)protected\]<\/span>/g,
+      CONTACT_EMAIL,
+    );
+}
+
 export function generateStaticParams(): Params[] {
   return BLOG_POSTS.map((p) => ({ slug: p.slug }));
 }
@@ -164,7 +199,7 @@ export default async function BlogPostPage(
 
           <article
             className="md:col-span-8 lg:col-span-7 prose-blog max-w-none text-[var(--ink-lo)]"
-            dangerouslySetInnerHTML={{ __html: post.bodyHtml }}
+            dangerouslySetInnerHTML={{ __html: normalizeBlogBodyHtml(post.bodyHtml) }}
           />
 
           <aside className="md:col-span-3 lg:col-span-4 flex flex-col gap-8">
