@@ -3,7 +3,7 @@
  * that hard-codes the old address or older mixed spellings.
  *
  * Canonical address:
- *   87 4th St, Al Quoz Industrial Third, Dubai, UAE
+ *   87 4th St - Al Qouz Ind.third - Al Quoz - Dubai
  *
  * Touches:
  *   - siteSettings.contact.address (drives footer + contact page)
@@ -11,7 +11,7 @@
  */
 import { client } from "./lib";
 
-const NEW_ADDRESS = "87 4th St, Al Quoz Industrial Third, Dubai, UAE";
+const NEW_ADDRESS = "87 4th St - Al Qouz Ind.third - Al Quoz - Dubai";
 const MOJIBAKE_DASH = "\u00e2\u20ac\u201c";
 const EN_DASH = "\u2013";
 

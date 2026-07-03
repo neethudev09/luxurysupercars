@@ -25,7 +25,7 @@ export const metadata: Metadata = {
 const ADDRESSES = [
   {
     label: "Showroom",
-    value: "87 4th St, Al Quoz Industrial Third, Dubai, UAE",
+    value: "87 4th St - Al Qouz Ind.third - Al Quoz - Dubai",
     maps: "https://www.google.com/maps/search/?api=1&query=Luxury+Supercars+Rental+LLC+Dubai",
   },
 ];
