@@ -242,7 +242,7 @@
     "ogImage": "https://cdn.sanity.io/images/pkpvmml9/production/959401340f3a3f1ced52cb4da42b849b116cb2a5-1600x1198.jpg",
     "ogImageWidth": 1600,
     "ogImageHeight": 1198,
-    "price": 2000,
+    "price": 1800,
     "priceCurrency": "AED",
     "image": "https://cdn.sanity.io/images/pkpvmml9/production/959401340f3a3f1ced52cb4da42b849b116cb2a5-1600x1198.jpg",
     "gallery": [
@@ -929,7 +929,7 @@
     "ogImage": "https://cdn.sanity.io/images/pkpvmml9/production/3243f947d049d055762b43036e6a593e1e9db292-1600x1214.jpg",
     "ogImageWidth": 1600,
     "ogImageHeight": 1214,
-    "price": 2200,
+    "price": 2000,
     "priceCurrency": "AED",
     "image": "https://cdn.sanity.io/images/pkpvmml9/production/3243f947d049d055762b43036e6a593e1e9db292-1600x1214.jpg",
     "gallery": [
@@ -1046,7 +1046,7 @@
     "ogImage": "https://cdn.sanity.io/images/pkpvmml9/production/5b3ccc8760af39082424fbf7a6ef661e7e8bc049-2560x1954.jpg",
     "ogImageWidth": 2560,
     "ogImageHeight": 1954,
-    "price": 2200,
+    "price": 2000,
     "priceCurrency": "AED",
     "image": "https://cdn.sanity.io/images/pkpvmml9/production/5b3ccc8760af39082424fbf7a6ef661e7e8bc049-2560x1954.jpg",
     "gallery": [
@@ -1165,7 +1165,7 @@
     "ogImage": "https://cdn.sanity.io/images/pkpvmml9/production/1fc0ca8eca7b548d8db33031272dbe4482fa0e43-2560x1920.jpg",
     "ogImageWidth": 2560,
     "ogImageHeight": 1920,
-    "price": 5000,
+    "price": 4500,
     "priceCurrency": "AED",
     "image": "https://cdn.sanity.io/images/pkpvmml9/production/1fc0ca8eca7b548d8db33031272dbe4482fa0e43-2560x1920.jpg",
     "gallery": [
@@ -1520,7 +1520,7 @@
     "ogImage": "https://cdn.sanity.io/images/pkpvmml9/production/5a5bbd14823e9d421ac7b5564ad92d01676115a9-1600x1200.webp",
     "ogImageWidth": 1600,
     "ogImageHeight": 1200,
-    "price": 1500,
+    "price": 1300,
     "priceCurrency": "AED",
     "image": "https://cdn.sanity.io/images/pkpvmml9/production/5a5bbd14823e9d421ac7b5564ad92d01676115a9-1600x1200.webp",
     "gallery": [
@@ -2440,7 +2440,7 @@
     "ogImage": "https://cdn.sanity.io/images/pkpvmml9/production/fd3553a804246121edf11dfc2078b26a43ae175e-1600x1200.webp",
     "ogImageWidth": 1600,
     "ogImageHeight": 1200,
-    "price": 1500,
+    "price": 1300,
     "priceCurrency": "AED",
     "image": "https://cdn.sanity.io/images/pkpvmml9/production/fd3553a804246121edf11dfc2078b26a43ae175e-1600x1200.webp",
     "gallery": [
@@ -2566,7 +2566,7 @@
     "ogImage": "https://cdn.sanity.io/images/pkpvmml9/production/c784bd3f5da46b62af9d1b2d180a3aae38215807-1600x1274.jpg",
     "ogImageWidth": 1600,
     "ogImageHeight": 1274,
-    "price": 4500,
+    "price": 4000,
     "priceCurrency": "AED",
     "image": "https://cdn.sanity.io/images/pkpvmml9/production/c784bd3f5da46b62af9d1b2d180a3aae38215807-1600x1274.jpg",
     "gallery": [
@@ -3533,7 +3533,7 @@
     "ogImage": "https://cdn.sanity.io/images/pkpvmml9/production/f17f7a756fbe5a34777761686069a7e8a29f9a01-2560x1920.jpg",
     "ogImageWidth": 2560,
     "ogImageHeight": 1920,
-    "price": 3500,
+    "price": 3300,
     "priceCurrency": "AED",
     "image": "https://cdn.sanity.io/images/pkpvmml9/production/f17f7a756fbe5a34777761686069a7e8a29f9a01-2560x1920.jpg",
     "gallery": [
@@ -3666,7 +3666,7 @@
     "ogImage": "https://cdn.sanity.io/images/pkpvmml9/production/586c5cc89da72f014b0def2140166141da3fad46-1024x768.webp",
     "ogImageWidth": 1024,
     "ogImageHeight": 768,
-    "price": 7500,
+    "price": 9000,
     "priceCurrency": "AED",
     "image": "https://cdn.sanity.io/images/pkpvmml9/production/586c5cc89da72f014b0def2140166141da3fad46-1024x768.webp",
     "gallery": [
@@ -3978,7 +3978,7 @@
     "ogImage": "https://cdn.sanity.io/images/pkpvmml9/production/92fa9dbb723c04df9f858058016d5422e371fd9f-1280x960.webp",
     "ogImageWidth": 1280,
     "ogImageHeight": 960,
-    "price": 2800,
+    "price": 2500,
     "priceCurrency": "AED",
     "image": "https://cdn.sanity.io/images/pkpvmml9/production/92fa9dbb723c04df9f858058016d5422e371fd9f-1280x960.webp",
     "gallery": [
@@ -4313,7 +4313,7 @@
     "ogImage": "https://cdn.sanity.io/images/pkpvmml9/production/6d6adf88efb9b43b2d8639774726bb30edb828b0-1280x960.webp",
     "ogImageWidth": 1280,
     "ogImageHeight": 960,
-    "price": 3300,
+    "price": 3000,
     "priceCurrency": "AED",
     "image": "https://cdn.sanity.io/images/pkpvmml9/production/6d6adf88efb9b43b2d8639774726bb30edb828b0-1280x960.webp",
     "gallery": [
@@ -4552,7 +4552,7 @@
     "ogImage": "https://cdn.sanity.io/images/pkpvmml9/production/2810d12b56469c2dc71e7f859741d44dc532e0fb-1600x1212.jpg",
     "ogImageWidth": 1600,
     "ogImageHeight": 1212,
-    "price": 3300,
+    "price": 3000,
     "priceCurrency": "AED",
     "image": "https://cdn.sanity.io/images/pkpvmml9/production/2810d12b56469c2dc71e7f859741d44dc532e0fb-1600x1212.jpg",
     "gallery": [
@@ -5434,7 +5434,7 @@
     "ogImage": "https://cdn.sanity.io/images/pkpvmml9/production/34dc17b79054b166d4c043c5739cb103ac9cad6a-1600x1218.jpg",
     "ogImageWidth": 1600,
     "ogImageHeight": 1218,
-    "price": 3000,
+    "price": 2800,
     "priceCurrency": "AED",
     "image": "https://cdn.sanity.io/images/pkpvmml9/production/34dc17b79054b166d4c043c5739cb103ac9cad6a-1600x1218.jpg",
     "gallery": [
@@ -5558,7 +5558,7 @@
     "ogImage": "https://cdn.sanity.io/images/pkpvmml9/production/7d859f7adaa96b40e6dc34fc86fdd91b0a2896c7-1280x960.jpg",
     "ogImageWidth": 1280,
     "ogImageHeight": 960,
-    "price": 4500,
+    "price": 4000,
     "priceCurrency": "AED",
     "image": "https://cdn.sanity.io/images/pkpvmml9/production/7d859f7adaa96b40e6dc34fc86fdd91b0a2896c7-1280x960.jpg",
     "gallery": [
@@ -5681,7 +5681,7 @@
     "ogImage": "https://cdn.sanity.io/images/pkpvmml9/production/2587633a562d231063737ded0a7b88e4b2e94d8e-1280x972.jpg",
     "ogImageWidth": 1280,
     "ogImageHeight": 972,
-    "price": 3000,
+    "price": 2800,
     "priceCurrency": "AED",
     "image": "https://cdn.sanity.io/images/pkpvmml9/production/2587633a562d231063737ded0a7b88e4b2e94d8e-1280x972.jpg",
     "gallery": [
@@ -6693,7 +6693,7 @@
     "ogImage": "https://cdn.sanity.io/images/pkpvmml9/production/6885889ea33c847e1fba3aa201fcaea9b1c09053-2560x1920.jpg",
     "ogImageWidth": 2560,
     "ogImageHeight": 1920,
-    "price": 5000,
+    "price": 4500,
     "priceCurrency": "AED",
     "image": "https://cdn.sanity.io/images/pkpvmml9/production/6885889ea33c847e1fba3aa201fcaea9b1c09053-2560x1920.jpg",
     "gallery": [
@@ -6844,7 +6844,7 @@
     "ogImage": "https://cdn.sanity.io/images/pkpvmml9/production/2dd2f55b432fcf05da6b047ab4f56e1039b70bdf-2560x1966.jpg",
     "ogImageWidth": 2560,
     "ogImageHeight": 1966,
-    "price": 5000,
+    "price": 4500,
     "priceCurrency": "AED",
     "image": "https://cdn.sanity.io/images/pkpvmml9/production/2dd2f55b432fcf05da6b047ab4f56e1039b70bdf-2560x1966.jpg",
     "gallery": [
@@ -7218,7 +7218,7 @@
     "ogImage": "https://cdn.sanity.io/images/pkpvmml9/production/cfa0930dc3d6051f4a0d0734c84d015f8e36f994-1600x1213.jpg",
     "ogImageWidth": 1600,
     "ogImageHeight": 1213,
-    "price": 3800,
+    "price": 3500,
     "priceCurrency": "AED",
     "image": "https://cdn.sanity.io/images/pkpvmml9/production/cfa0930dc3d6051f4a0d0734c84d015f8e36f994-1600x1213.jpg",
     "gallery": [
@@ -7335,7 +7335,7 @@
     "ogImage": "https://cdn.sanity.io/images/pkpvmml9/production/8d385af8933d28aad6430998705729309d23e7fa-1600x1225.jpg",
     "ogImageWidth": 1600,
     "ogImageHeight": 1225,
-    "price": 3800,
+    "price": 3500,
     "priceCurrency": "AED",
     "image": "https://cdn.sanity.io/images/pkpvmml9/production/8d385af8933d28aad6430998705729309d23e7fa-1600x1225.jpg",
     "gallery": [
@@ -7467,7 +7467,7 @@
     "ogImage": "https://cdn.sanity.io/images/pkpvmml9/production/b6e88356761cc0d0d817a769ad1cb8355672bdc9-2560x1971.jpg",
     "ogImageWidth": 2560,
     "ogImageHeight": 1971,
-    "price": 1800,
+    "price": 1500,
     "priceCurrency": "AED",
     "image": "https://cdn.sanity.io/images/pkpvmml9/production/b6e88356761cc0d0d817a769ad1cb8355672bdc9-2560x1971.jpg",
     "gallery": [
@@ -8263,7 +8263,7 @@
     "ogImage": "https://cdn.sanity.io/images/pkpvmml9/production/69c592ec93450d760d8c55cdeb676afc5dedf5a4-1200x900.webp",
     "ogImageWidth": 1200,
     "ogImageHeight": 900,
-    "price": 2500,
+    "price": 2000,
     "priceCurrency": "AED",
     "image": "https://cdn.sanity.io/images/pkpvmml9/production/69c592ec93450d760d8c55cdeb676afc5dedf5a4-1200x900.webp",
     "gallery": [
@@ -8399,7 +8399,7 @@
     "ogImage": "https://cdn.sanity.io/images/pkpvmml9/production/bec261ac8f80e66437c098541c81d8f4c0947878-1600x1200.jpg",
     "ogImageWidth": 1600,
     "ogImageHeight": 1200,
-    "price": 2500,
+    "price": 2200,
     "priceCurrency": "AED",
     "image": "https://cdn.sanity.io/images/pkpvmml9/production/bec261ac8f80e66437c098541c81d8f4c0947878-1600x1200.jpg",
     "gallery": [
@@ -9290,7 +9290,7 @@
     "ogImage": "https://cdn.sanity.io/images/pkpvmml9/production/93c03335dd07517a3072404fa7a68e141f76a6b8-1600x1200.jpg",
     "ogImageWidth": 1600,
     "ogImageHeight": 1200,
-    "price": 2500,
+    "price": 2000,
     "priceCurrency": "AED",
     "image": "https://cdn.sanity.io/images/pkpvmml9/production/93c03335dd07517a3072404fa7a68e141f76a6b8-1600x1200.jpg",
     "gallery": [
@@ -9511,7 +9511,7 @@
     "ogImage": "https://cdn.sanity.io/images/pkpvmml9/production/c1580a33b83444acfb42e45ceddca2f862310039-1280x960.jpg",
     "ogImageWidth": 1280,
     "ogImageHeight": 960,
-    "price": 1600,
+    "price": 1500,
     "priceCurrency": "AED",
     "image": "https://cdn.sanity.io/images/pkpvmml9/production/c1580a33b83444acfb42e45ceddca2f862310039-1280x960.jpg",
     "gallery": [
@@ -9966,7 +9966,7 @@
     "ogImage": "https://cdn.sanity.io/images/pkpvmml9/production/11f8d5bf420277d8eb06be054a511533d24a70e7-2560x1991.jpg",
     "ogImageWidth": 2560,
     "ogImageHeight": 1991,
-    "price": 3500,
+    "price": 3000,
     "priceCurrency": "AED",
     "image": "https://cdn.sanity.io/images/pkpvmml9/production/11f8d5bf420277d8eb06be054a511533d24a70e7-2560x1991.jpg",
     "gallery": [
@@ -10326,7 +10326,7 @@
     "ogImage": "https://cdn.sanity.io/images/pkpvmml9/production/9cf9b630981639d1b87e8e49bb38308640c278f6-1600x1200.jpg",
     "ogImageWidth": 1600,
     "ogImageHeight": 1200,
-    "price": 1800,
+    "price": 1500,
     "priceCurrency": "AED",
     "image": "https://cdn.sanity.io/images/pkpvmml9/production/9cf9b630981639d1b87e8e49bb38308640c278f6-1600x1200.jpg",
     "gallery": [
@@ -10464,7 +10464,7 @@
     "ogImage": "https://cdn.sanity.io/images/pkpvmml9/production/fedfa5c009673d5555a0fcf105022f976971f48a-2560x1920.jpg",
     "ogImageWidth": 2560,
     "ogImageHeight": 1920,
-    "price": 2500,
+    "price": 2000,
     "priceCurrency": "AED",
     "image": "https://cdn.sanity.io/images/pkpvmml9/production/fedfa5c009673d5555a0fcf105022f976971f48a-2560x1920.jpg",
     "gallery": [
@@ -10600,7 +10600,7 @@
     "ogImage": "https://cdn.sanity.io/images/pkpvmml9/production/28e632218650a1268d563770e41a8673d179d8fa-1600x1208.webp",
     "ogImageWidth": 1600,
     "ogImageHeight": 1208,
-    "price": 4800,
+    "price": 4000,
     "priceCurrency": "AED",
     "image": "https://cdn.sanity.io/images/pkpvmml9/production/28e632218650a1268d563770e41a8673d179d8fa-1600x1208.webp",
     "gallery": [
@@ -10719,7 +10719,7 @@
     "ogImage": "https://cdn.sanity.io/images/pkpvmml9/production/a1f69dceec6cac4b83e89a915e3fe78d01030dd7-1600x1242.jpg",
     "ogImageWidth": 1600,
     "ogImageHeight": 1242,
-    "price": 6000,
+    "price": 5500,
     "priceCurrency": "AED",
     "image": "https://cdn.sanity.io/images/pkpvmml9/production/a1f69dceec6cac4b83e89a915e3fe78d01030dd7-1600x1242.jpg",
     "gallery": [
@@ -10833,7 +10833,7 @@
     "ogImage": "https://cdn.sanity.io/images/pkpvmml9/production/9f01dfe6fef31470f3eb117155430a77d4d80a74-1600x1200.webp",
     "ogImageWidth": 1600,
     "ogImageHeight": 1200,
-    "price": 5000,
+    "price": 4500,
     "priceCurrency": "AED",
     "image": "https://cdn.sanity.io/images/pkpvmml9/production/9f01dfe6fef31470f3eb117155430a77d4d80a74-1600x1200.webp",
     "gallery": [
