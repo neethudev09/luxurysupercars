@@ -1,14 +1,16 @@
 "use client";
 
-import React from "react";
-import dynamic from "next/dynamic";
+/**
+ * Embedded Sanity Studio route. Catches every path under /studio and
+ * hands it off to NextStudio, which mounts the full Studio SPA.
+ *
+ * - Editors log in at luxurysupercarsdubai.com/studio
+ * - GROQ playground at /studio/vision
+ * - Config lives in sanity.config.ts (project root)
+ */
+import { NextStudio } from "next-sanity/studio";
+import config from "@/sanity.config";
 import { isConfigured } from "@/sanity/env";
-
-const NextStudio = dynamic(
-  () => import("next-sanity/studio").then((m) => m.NextStudio),
-  { ssr: false },
-);
-const config = () => import("@/sanity.config").then((m) => m.default);
 
 export default function StudioPage() {
   if (!isConfigured) {
@@ -39,12 +41,5 @@ export default function StudioPage() {
       </main>
     );
   }
-  return <StudioLoader />;
-}
-
-function StudioLoader() {
-  const [cfg, setCfg] = React.useState<any>(null);
-  React.useEffect(() => { config().then(setCfg); }, []);
-  if (!cfg) return null;
-  return <NextStudio config={cfg} />;
+  return <NextStudio config={config} />;
 }
