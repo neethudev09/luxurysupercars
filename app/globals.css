@@ -100,6 +100,10 @@ body.content-protected [data-allow-copy="true"] {
   .grain { display: none; }
 }
 
+@media (max-width: 768px) {
+  .grain { display: none; }
+}
+
 /* ============================================================
    CURSOR TRAIL (champagne dot + ring follow the mouse)
    ============================================================ */

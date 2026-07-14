@@ -1,16 +1,9 @@
+import dynamic from "next/dynamic";
 import SiteNav from "@/components/nav/SiteNav";
 import ScrollHero from "@/app/components/ScrollHero";
 import BrandMarquee from "@/components/sections/BrandMarquee";
 import FleetSection from "@/components/sections/FleetSection";
 import BrandStory from "@/components/sections/BrandStory";
-import Requirements from "@/components/sections/Requirements";
-import RentalDirectory from "@/components/sections/RentalDirectory";
-import Testimonials from "@/components/sections/Testimonials";
-import WhyChooseUs from "@/components/sections/WhyChooseUs";
-import FAQ from "@/components/sections/FAQ";
-import BlogStrip from "@/components/sections/BlogStrip";
-import InstagramFeed from "@/components/sections/InstagramFeed";
-import Contact from "@/components/sections/Contact";
 import Footer from "@/components/sections/Footer";
 
 import { FLEET_SECTIONS } from "@/lib/content";
@@ -20,6 +13,15 @@ import {
   FEATURED_LUXURY,
   FEATURED_SUVS,
 } from "@/lib/fleet";
+
+const Requirements = dynamic(() => import("@/components/sections/Requirements"), { ssr: true });
+const RentalDirectory = dynamic(() => import("@/components/sections/RentalDirectory"), { ssr: true });
+const Testimonials = dynamic(() => import("@/components/sections/Testimonials"), { ssr: true });
+const WhyChooseUs = dynamic(() => import("@/components/sections/WhyChooseUs"), { ssr: true });
+const FAQ = dynamic(() => import("@/components/sections/FAQ"), { ssr: true });
+const BlogStrip = dynamic(() => import("@/components/sections/BlogStrip"), { ssr: true });
+const InstagramFeed = dynamic(() => import("@/components/sections/InstagramFeed"), { ssr: true });
+const Contact = dynamic(() => import("@/components/sections/Contact"), { ssr: true });
 
 export default function Home() {
   return (

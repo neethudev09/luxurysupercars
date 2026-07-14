@@ -30,10 +30,12 @@ export default function CursorTrail() {
     let ringY = mouseY;
     let raf = 0;
     let hovering = false;
+    let running = false;
 
     const onMove = (e: MouseEvent) => {
       mouseX = e.clientX;
       mouseY = e.clientY;
+      ensureRunning();
       const target = e.target as HTMLElement | null;
       hovering = !!target?.closest('a, button, [role="button"], input, textarea, select, label');
     };
@@ -48,19 +50,33 @@ export default function CursorTrail() {
     };
 
     const tick = () => {
+      const prevDotX = dotX;
+      const prevDotY = dotY;
       dotX += (mouseX - dotX) * 0.55;
       dotY += (mouseY - dotY) * 0.55;
       ringX += (mouseX - ringX) * 0.18;
       ringY += (mouseY - ringY) * 0.18;
       dot.style.transform = `translate3d(${dotX}px, ${dotY}px, 0) translate(-50%, -50%)`;
       ring.style.transform = `translate3d(${ringX}px, ${ringY}px, 0) translate(-50%, -50%) scale(${hovering ? 1.8 : 1})`;
-      raf = requestAnimationFrame(tick);
+      const settled = Math.abs(dotX - prevDotX) < 0.01 && Math.abs(dotY - prevDotY) < 0.01;
+      if (settled) {
+        running = false;
+      } else {
+        raf = requestAnimationFrame(tick);
+      }
+    };
+
+    const ensureRunning = () => {
+      if (!running) {
+        running = true;
+        raf = requestAnimationFrame(tick);
+      }
     };
 
     window.addEventListener("mousemove", onMove, { passive: true });
     document.addEventListener("mouseleave", onLeave);
     document.addEventListener("mouseenter", onEnter);
-    raf = requestAnimationFrame(tick);
+    ensureRunning();
 
     return () => {
       window.removeEventListener("mousemove", onMove);

@@ -22,12 +22,13 @@ export default function ScrollHero() {
 
     let raf = 0;
     let primed = false;
+    let ticking = false;
+    let lastScrollY = -1;
 
-    // Seconds of the clip to skip before the scroll-scrub begins. The source is
-    // already trimmed to start on the right frame, so scrub the whole thing from 0.
     const START_OFFSET = 0;
 
-    const tick = () => {
+    const scrub = () => {
+      ticking = false;
       const duration = video.duration;
       if (Number.isFinite(duration) && duration > 0) {
         if (!primed) {
@@ -54,11 +55,25 @@ export default function ScrollHero() {
           }
         }
       }
-      raf = requestAnimationFrame(tick);
     };
 
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
+    const onScroll = () => {
+      const y = window.scrollY;
+      if (y === lastScrollY) return;
+      lastScrollY = y;
+      if (!ticking) {
+        ticking = true;
+        raf = requestAnimationFrame(scrub);
+      }
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("scroll", onScroll);
+    };
   }, []);
 
   return (
@@ -77,6 +92,7 @@ export default function ScrollHero() {
         <video
           ref={videoRef}
           src="/scroller-header-video.mp4"
+          poster="/images/hero-poster.webp"
           muted
           playsInline
           preload="auto"

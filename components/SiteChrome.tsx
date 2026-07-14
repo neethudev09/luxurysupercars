@@ -1,18 +1,17 @@
 "use client";
 
 import { usePathname } from "next/navigation";
+import dynamic from "next/dynamic";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import MotionProvider from "@/components/motion/MotionProvider";
-import CursorTrail from "@/components/motion/CursorTrail";
-import FloatingWhatsApp from "@/components/nav/FloatingWhatsApp";
+import { CurrencyProvider } from "@/components/currency/CurrencyProvider";
 import ImageProtection from "@/components/ImageProtection";
 import PromoPopup from "@/components/PromoPopup";
-import { CurrencyProvider } from "@/components/currency/CurrencyProvider";
 
-// Car detail pages already have an inline "Enquire on WhatsApp" CTA
-// inside the rental card — surfacing the global floating bubble too
-// would be redundant.
+const CursorTrail = dynamic(() => import("@/components/motion/CursorTrail"), { ssr: false });
+const FloatingWhatsApp = dynamic(() => import("@/components/nav/FloatingWhatsApp"), { ssr: false });
+
 const CAR_DETAIL_RE = /^\/rent-[a-z-]+-dubai\/[^/]+\/?$/;
 
 /**

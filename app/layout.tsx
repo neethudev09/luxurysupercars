@@ -4,6 +4,7 @@ import "./globals.css";
 import SiteChrome from "@/components/SiteChrome";
 import JsonLd from "@/components/seo/JsonLd";
 import Analytics from "@/components/analytics/Analytics";
+import FontLoader from "@/components/FontLoader";
 import { SITE_URL } from "@/lib/site";
 
 const inter = Inter({
@@ -54,14 +55,13 @@ export default function RootLayout({
     >
       <head>
         <link rel="preconnect" href="https://api.fontshare.com" crossOrigin="anonymous" />
-        <link
-          rel="stylesheet"
-          href="https://api.fontshare.com/v2/css?f[]=switzer@400,500,600,700&display=swap"
-        />
+        <link rel="preload" as="image" href="/images/hero-poster.webp" />
+        <link rel="preload" as="video" href="/scroller-header-video.mp4" />
       </head>
       <body>
         <Analytics />
         <JsonLd />
+        <FontLoader />
         <SiteChrome>{children}</SiteChrome>
       </body>
     </html>

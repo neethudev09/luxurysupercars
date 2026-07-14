@@ -324,6 +324,22 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async headers() {
+    return [
+      {
+        source: "/(.*)\\.(js|css|woff2|png|jpe?g|gif|webp|avif|svg|mp4|webm|ico)",
+        headers: [
+          { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
+        ],
+      },
+      {
+        source: "/(.*)\\.html",
+        headers: [
+          { key: "Cache-Control", value: "no-cache, must-revalidate" },
+        ],
+      },
+    ];
+  },
   async redirects() {
     return [
     {
