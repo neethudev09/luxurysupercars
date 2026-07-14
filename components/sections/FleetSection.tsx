@@ -17,7 +17,6 @@ interface FleetSectionProps {
 
 export default function FleetSection({
   id,
-  eyebrow,
   heading,
   body,
   cars,

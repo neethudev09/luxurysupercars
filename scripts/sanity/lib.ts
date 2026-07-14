@@ -17,24 +17,20 @@ import { fileURLToPath } from "node:url";
 const __dirname = fileURLToPath(new URL(".", import.meta.url));
 loadEnv({ path: resolve(__dirname, "../../.env.local") });
 
-const projectId = required("NEXT_PUBLIC_SANITY_PROJECT_ID");
-const dataset = required("NEXT_PUBLIC_SANITY_DATASET");
-const token = required("SANITY_API_TOKEN");
+const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
+const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || "production";
+const token = process.env.SANITY_API_TOKEN;
 const apiVersion = process.env.NEXT_PUBLIC_SANITY_API_VERSION || "2025-05-01";
 
+export const isConfigured = Boolean(projectId && token);
+
 export const client: SanityClient = createClient({
-  projectId,
-  dataset,
-  token,
+  projectId: projectId || "missing",
+  dataset: dataset || "production",
+  token: token || "",
   apiVersion,
   useCdn: false,
 });
-
-function required(name: string): string {
-  const v = process.env[name];
-  if (!v) throw new Error(`Missing ${name} (add to .env.local)`);
-  return v;
-}
 
 /* -------------------------------------------------------------------------- */
 /*  Image uploads                                                             */

@@ -12,6 +12,7 @@ function flagImageUrl(iso: string, size: 20 | 40 = 20) {
 
 function CountryFlag({ iso, name }: { iso: string; name: string }) {
   return (
+    // eslint-disable-next-line @next/next/no-img-element
     <img
       src={flagImageUrl(iso)}
       srcSet={`${flagImageUrl(iso, 40)} 2x`}

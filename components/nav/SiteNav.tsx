@@ -106,6 +106,7 @@ export default function SiteNav() {
   // bleed onto the destination page if React commits the navigation before the
   // open=false effect runs.
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setOpen(false);
     setSearchOpen(false);
     setSearchQuery("");

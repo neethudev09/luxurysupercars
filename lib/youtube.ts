@@ -104,10 +104,6 @@ function fileVideo(src: string): FounderVideoEmbed {
   };
 }
 
-function isDirectVideoUrl(input: string): boolean {
-  return /\.(mp4|webm|mov)(?:[?#].*)?$/i.test(input);
-}
-
 export function founderVideoEmbed(
   input: string | undefined | null,
   fallbackYoutubeId = "TjB258kdQFc",

@@ -34,6 +34,7 @@ export default function CountUp({
     const finalDisplay = `${prefix}${value.toFixed(decimals)}${suffix}`;
 
     if (reduced) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setDisplay(finalDisplay);
       return;
     }

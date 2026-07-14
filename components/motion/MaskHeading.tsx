@@ -1,6 +1,18 @@
 "use client";
 
-import { ElementType, Fragment, useEffect, useRef, useState } from "react";
+import { ElementType, Fragment, useEffect, useRef, useState, useSyncExternalStore } from "react";
+
+function subscribeReducedMotion(cb: () => void) {
+  const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+  mq.addEventListener("change", cb);
+  return () => mq.removeEventListener("change", cb);
+}
+function getReducedMotionSnapshot() {
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
+function getReducedMotionServerSnapshot() {
+  return false;
+}
 
 /**
  * Renders heading text with **bold** markers as champagne-emph spans.
@@ -32,24 +44,19 @@ export default function MaskHeading({
   animate = false,
 }: MaskHeadingProps) {
   const ref = useRef<HTMLElement | null>(null);
-  const [revealed, setRevealed] = useState(false);
+  const prefersReduced = useSyncExternalStore(subscribeReducedMotion, getReducedMotionSnapshot, getReducedMotionServerSnapshot);
+  const [ioRevealed, setIoRevealed] = useState(false);
+  const revealed = !animate || prefersReduced || ioRevealed;
 
   useEffect(() => {
-    if (!animate) return;
+    if (!animate || prefersReduced) return;
     const node = ref.current;
     if (!node) return;
-    if (
-      typeof window !== "undefined" &&
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    ) {
-      setRevealed(true);
-      return;
-    }
     const io = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
           if (entry.isIntersecting) {
-            setRevealed(true);
+            setIoRevealed(true);
             if (once) io.unobserve(entry.target);
           }
         }
@@ -58,7 +65,7 @@ export default function MaskHeading({
     );
     io.observe(node);
     return () => io.disconnect();
-  }, [animate, once]);
+  }, [animate, prefersReduced, once]);
 
   // Split by **bold** markers, preserving order
   const tokens = text.split(/(\*\*[^*]+\*\*)/g).filter(Boolean);

@@ -1,5 +1,4 @@
 import type { Car } from "@/lib/fleet";
-import Reveal from "@/components/motion/Reveal";
 import MaskHeading from "@/components/motion/MaskHeading";
 
 const ICON: Record<string, React.ReactNode> = {

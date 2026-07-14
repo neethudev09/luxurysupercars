@@ -12,6 +12,7 @@ export default function CursorTrail() {
     const noFine = !window.matchMedia("(hover: hover) and (pointer: fine)").matches;
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (noFine || reduced) return;
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setEnabled(true);
   }, []);
 

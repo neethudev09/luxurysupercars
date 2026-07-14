@@ -183,6 +183,7 @@ export default function FloatingWhatsApp() {
                           .join(", ")}`}
                       >
                         {agent.flags.map((flag) => (
+                          // eslint-disable-next-line @next/next/no-img-element
                           <img
                             key={flag.code}
                             src={`https://flagcdn.com/w20/${flag.code}.png`}

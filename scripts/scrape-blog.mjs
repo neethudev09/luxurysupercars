@@ -7,7 +7,7 @@
  * The redesign mirrors live SEO verbatim — title, meta description, OG
  * tags, hero image, headings, and body HTML are all preserved.
  */
-import { writeFileSync, readFileSync, existsSync } from "node:fs";
+import { writeFileSync, readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import * as cheerio from "cheerio";

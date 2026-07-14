@@ -61,15 +61,18 @@ html {
 body {
   font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
   font-feature-settings: "ss01", "cv11";
+}
+
+body.content-protected {
   -webkit-user-select: none;
   user-select: none;
 }
 
-input,
-textarea,
-select,
-[contenteditable="true"],
-[data-allow-copy="true"] {
+body.content-protected input,
+body.content-protected textarea,
+body.content-protected select,
+body.content-protected [contenteditable="true"],
+body.content-protected [data-allow-copy="true"] {
   -webkit-user-select: text;
   user-select: text;
 }

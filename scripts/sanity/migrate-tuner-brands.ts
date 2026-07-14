@@ -69,7 +69,7 @@ async function main() {
   // 3) For each car, determine the desired tuner set by keyword match.
   const desired = new Map<string, string[]>(); // car _id → [brandId]
   const summary: Record<string, string[]> = {};
-  for (const { keyword, brandId } of KEYWORD_TUNERS) summary[brandId] = [];
+  for (const { brandId } of KEYWORD_TUNERS) summary[brandId] = [];
 
   for (const c of cars) {
     const lc = c.name.toLowerCase();

@@ -26,7 +26,7 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { client } from "./lib";
+import { client, isConfigured } from "./lib";
 
 const ROOT = resolve(fileURLToPath(new URL(".", import.meta.url)), "../..");
 const SITE = "https://luxurysupercarsdubai.com";
@@ -687,6 +687,10 @@ function writeJson(relPath: string, data: unknown) {
 }
 
 async function main() {
+  if (!isConfigured) {
+    console.log("[export] Sanity not configured (missing env vars) — skipping. Existing JSON files left untouched.");
+    return;
+  }
   console.log("[export] fetching from Sanity…");
 
   const [cars, posts, siteSettings, testimonials, faqs, services, brands, home, about, fleetPages, standalonePages] =

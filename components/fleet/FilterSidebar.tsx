@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import type { Tag, Category } from "@/lib/fleet";
+import type { Category } from "@/lib/fleet";
 import type { FleetFilterState } from "@/lib/fleet-filter";
 import {
   countActiveFilters,

@@ -9,6 +9,12 @@ import { useEffect } from "react";
  */
 export default function ImageProtection() {
   useEffect(() => {
+    const host = window.location.hostname;
+    const isLocalhost = host === "localhost" || host === "127.0.0.1" || host === "::1";
+    if (process.env.NODE_ENV !== "production" || isLocalhost) return;
+
+    document.body.classList.add("content-protected");
+
     const isEditable = (target: EventTarget | null) => {
       if (!(target instanceof HTMLElement)) return false;
       return Boolean(
@@ -39,6 +45,7 @@ export default function ImageProtection() {
     document.addEventListener("cut", onCut);
     document.addEventListener("dragstart", onDragStart);
     return () => {
+      document.body.classList.remove("content-protected");
       document.removeEventListener("contextmenu", onContextMenu);
       document.removeEventListener("copy", onCopy);
       document.removeEventListener("cut", onCut);

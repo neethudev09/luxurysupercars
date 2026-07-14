@@ -42,15 +42,6 @@ export const EMPTY_FILTERS: FleetFilterState = {
 /*  URL <-> STATE                                                      */
 /* ------------------------------------------------------------------ */
 
-const ARRAY_KEYS = [
-  "categories",
-  "brands",
-  "tags",
-  "doors",
-  "seats",
-  "colors",
-] as const;
-
 export function filtersFromSearchParams(
   params: URLSearchParams | Record<string, string | string[] | undefined>,
 ): FleetFilterState {

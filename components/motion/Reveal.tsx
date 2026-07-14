@@ -1,7 +1,19 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { ElementType, ReactNode } from "react";
+
+function subscribeReducedMotion(cb: () => void) {
+  const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+  mq.addEventListener("change", cb);
+  return () => mq.removeEventListener("change", cb);
+}
+function getReducedMotionSnapshot() {
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
+function getReducedMotionServerSnapshot() {
+  return false;
+}
 
 interface RevealProps {
   children: ReactNode;
@@ -23,28 +35,23 @@ export default function Reveal({
   once = true,
 }: RevealProps) {
   const ref = useRef<HTMLElement | null>(null);
-  const [revealed, setRevealed] = useState(false);
+  const prefersReduced = useSyncExternalStore(subscribeReducedMotion, getReducedMotionSnapshot, getReducedMotionServerSnapshot);
+  const [ioRevealed, setIoRevealed] = useState(false);
+  const revealed = prefersReduced || ioRevealed;
 
   useEffect(() => {
+    if (prefersReduced) return;
     const node = ref.current;
     if (!node) return;
-
-    if (
-      typeof window !== "undefined" &&
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    ) {
-      setRevealed(true);
-      return;
-    }
 
     const io = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
           if (entry.isIntersecting) {
-            setRevealed(true);
+            setIoRevealed(true);
             if (once) io.unobserve(entry.target);
           } else if (!once) {
-            setRevealed(false);
+            setIoRevealed(false);
           }
         }
       },
@@ -52,7 +59,7 @@ export default function Reveal({
     );
     io.observe(node);
     return () => io.disconnect();
-  }, [threshold, rootMargin, once]);
+  }, [prefersReduced, threshold, rootMargin, once]);
 
   const TagAny = Tag as ElementType;
 
