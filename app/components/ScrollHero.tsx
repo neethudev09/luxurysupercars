@@ -9,8 +9,10 @@ export default function ScrollHero() {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [mounted, setMounted] = useState(false);
+  const [isMobile, setIsMobile] = useState(true);
 
   useEffect(() => {
+    setIsMobile(window.matchMedia("(pointer: coarse)").matches || window.innerWidth < 768);
     const id = requestAnimationFrame(() => setMounted(true));
     return () => cancelAnimationFrame(id);
   }, []);
@@ -18,7 +20,7 @@ export default function ScrollHero() {
   useEffect(() => {
     const container = containerRef.current;
     const video = videoRef.current;
-    if (!container || !video) return;
+    if (!container || !video || isMobile) return;
 
     let raf = 0;
     let primed = false;
@@ -74,7 +76,7 @@ export default function ScrollHero() {
       cancelAnimationFrame(raf);
       window.removeEventListener("scroll", onScroll);
     };
-  }, []);
+  }, [isMobile]);
 
   return (
     <div
@@ -85,24 +87,28 @@ export default function ScrollHero() {
         transition: "opacity 200ms ease-out",
       }}
     >
-      {/* Full-bleed hero — fills the viewport and sits beneath the transparent
-          fixed nav, which floats over the top of the video. 100svh keeps it
-          correct on mobile (where 100vh sits under the browser chrome). */}
       <div className="sticky top-0 h-[100svh] w-full overflow-hidden">
-        <video
-          ref={videoRef}
-          src="/scroller-header-video.mp4"
-          poster="/images/hero-poster.webp"
-          muted
-          playsInline
-          preload="auto"
-          className="absolute inset-0 h-full w-full object-cover"
-        />
+        {isMobile ? (
+          <img
+            src="/images/hero-poster.webp"
+            alt="Luxury Supercar Rentals Dubai"
+            fetchPriority="high"
+            className="absolute inset-0 h-full w-full object-cover"
+          />
+        ) : (
+          <video
+            ref={videoRef}
+            src="/scroller-header-video.mp4"
+            poster="/images/hero-poster.webp"
+            muted
+            playsInline
+            preload="auto"
+            className="absolute inset-0 h-full w-full object-cover"
+          />
+        )}
 
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/15" />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/85 via-black/15 to-transparent" />
-        {/* Bottom fade to the page background so the video dissolves into the
-            black and flows seamlessly into the brand slider below. */}
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-[var(--bg-obsidian)] via-[var(--bg-obsidian)]/70 to-transparent" />
 
         <div className="absolute inset-0 flex flex-col items-start justify-end text-left px-6 md:px-12 pt-24 pb-12 md:pb-24">
