@@ -41,7 +41,7 @@ export default function Analytics() {
       </noscript>
 
       {/* Google Tag Manager */}
-      <Script id="gtm-init" strategy="lazyOnload">
+      <Script id="gtm-init" strategy="afterInteractive">
         {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
@@ -52,9 +52,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       {/* Google tag (gtag.js) — Google Ads */}
       <Script
         src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ADS_ID}`}
-        strategy="lazyOnload"
+        strategy="afterInteractive"
       />
-      <Script id="gtag-init" strategy="lazyOnload">
+      <Script id="gtag-init" strategy="afterInteractive">
         {`window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
@@ -62,7 +62,7 @@ gtag('config', '${GOOGLE_ADS_ID}');`}
       </Script>
 
       {/* Meta Pixel — 1) stub the queue 2) load SDK via src 3) init+track */}
-      <Script id="meta-pixel-stub" strategy="lazyOnload">
+      <Script id="meta-pixel-stub" strategy="afterInteractive">
         {`!function(f,b,e,v,n,t,s)
 {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
 n.callMethod.apply(n,arguments):n.queue.push(arguments)};
@@ -72,9 +72,9 @@ n.queue=[]}(window,document,'script',
       </Script>
       <Script
         src="https://connect.facebook.net/en_US/fbevents.js"
-        strategy="lazyOnload"
+        strategy="afterInteractive"
       />
-      <Script id="meta-pixel-init" strategy="lazyOnload">
+      <Script id="meta-pixel-init" strategy="afterInteractive">
         {`fbq('init', '${META_PIXEL_ID}');
 fbq('track', 'PageView');`}
       </Script>
