@@ -56,7 +56,6 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://api.fontshare.com" crossOrigin="anonymous" />
         <link rel="preload" as="image" href="/images/hero-poster.webp" />
-        <link rel="preload" as="video" href="/scroller-header-video.mp4" />
       </head>
       <body>
         <Analytics />

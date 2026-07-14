@@ -6,16 +6,9 @@ import Script from "next/script";
  * constants for clarity; the injected script bodies are otherwise the exact
  * snippets provided.
  *
- * Implementation notes:
- *  - This is a Next.js App Router app — there is no static HTML <head>/<body> to
- *    paste into. `next/script` with strategy="afterInteractive" is the
- *    documented, supported way to load these (it is what @next/third-parties'
- *    GoogleTagManager uses by default) and produces the same runtime behaviour.
- *  - The <noscript> fallbacks are plain server-rendered markup. This component
- *    is rendered as the first child of <body>, so the GTM <noscript> iframe
- *    sits "immediately after the opening <body> tag" as required.
- *  - gtag here is the Google Ads tag (AW-…), not GA4 (G-…), so it is loaded as
- *    its own gtag.js include rather than via the GA4 helper.
+ * All tracking scripts use strategy="afterInteractive" so they load as soon
+ * as the page becomes interactive, ensuring analytics, ads, and conversion
+ * tracking fire reliably for every visitor.
  */
 
 const GTM_ID = "GTM-TZ8TFM6";
@@ -48,7 +41,7 @@ export default function Analytics() {
       </noscript>
 
       {/* Google Tag Manager */}
-      <Script id="gtm-init" strategy="afterInteractive">
+      <Script id="gtm-init" strategy="lazyOnload">
         {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
@@ -59,26 +52,30 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       {/* Google tag (gtag.js) — Google Ads */}
       <Script
         src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ADS_ID}`}
-        strategy="afterInteractive"
+        strategy="lazyOnload"
       />
-      <Script id="gtag-init" strategy="afterInteractive">
+      <Script id="gtag-init" strategy="lazyOnload">
         {`window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', '${GOOGLE_ADS_ID}');`}
       </Script>
 
-      {/* Meta Pixel */}
-      <Script id="meta-pixel" strategy="afterInteractive">
+      {/* Meta Pixel — 1) stub the queue 2) load SDK via src 3) init+track */}
+      <Script id="meta-pixel-stub" strategy="lazyOnload">
         {`!function(f,b,e,v,n,t,s)
 {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
 n.callMethod.apply(n,arguments):n.queue.push(arguments)};
 if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '${META_PIXEL_ID}');
+n.queue=[]}(window,document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');`}
+      </Script>
+      <Script
+        src="https://connect.facebook.net/en_US/fbevents.js"
+        strategy="lazyOnload"
+      />
+      <Script id="meta-pixel-init" strategy="lazyOnload">
+        {`fbq('init', '${META_PIXEL_ID}');
 fbq('track', 'PageView');`}
       </Script>
     </>
