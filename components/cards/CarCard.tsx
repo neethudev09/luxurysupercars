@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Reveal from "@/components/motion/Reveal";
 import type { Car } from "@/lib/fleet";
-import { carHref } from "@/lib/fleet";
+import { carHref } from "@/lib/carHref";
 import { CONTACT } from "@/lib/content";
 import { PriceAmount, CurrencySymbol } from "@/components/currency/Price";
 
