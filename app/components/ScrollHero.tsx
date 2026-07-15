@@ -89,16 +89,23 @@ export default function ScrollHero() {
     >
       <div className="sticky top-0 h-[100svh] w-full overflow-hidden">
         {isMobile ? (
-          <video
-            src="/luxurysupercarsdubai-video.webm"
-            poster="/images/hero-poster.webp"
-            muted
-            playsInline
-            autoPlay
-            loop
-            preload="metadata"
-            className="absolute inset-0 h-full w-full object-cover"
-          />
+          <>
+            <img
+              src="/images/hero-poster.webp"
+              alt=""
+              fetchPriority="high"
+              className="absolute inset-0 h-full w-full object-cover"
+            />
+            <video
+              src="/luxurysupercarsdubai-video.webm"
+              muted
+              playsInline
+              autoPlay
+              loop
+              preload="none"
+              className="absolute inset-0 h-full w-full object-cover"
+            />
+          </>
         ) : (
           <video
             ref={videoRef}
