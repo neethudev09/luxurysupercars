@@ -9,7 +9,7 @@ export default function ScrollHero() {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [mounted, setMounted] = useState(false);
-  const [isMobile, setIsMobile] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     setIsMobile(window.matchMedia("(pointer: coarse)").matches || window.innerWidth < 768);
