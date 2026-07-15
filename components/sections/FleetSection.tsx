@@ -1,15 +1,15 @@
 import Link from "next/link";
 import CarCard from "@/components/cards/CarCard";
-import type { CardCar } from "@/components/cards/CarCard";
 import MaskHeading from "@/components/motion/MaskHeading";
 import Reveal from "@/components/motion/Reveal";
+import type { Car } from "@/lib/fleet";
 
 interface FleetSectionProps {
   id: string;
   eyebrow: string;
   heading: string;
   body: string;
-  cars: CardCar[];
+  cars: Car[];
   ctaLabel: string;
   ctaHref?: string;
   theme?: "dark" | "light";

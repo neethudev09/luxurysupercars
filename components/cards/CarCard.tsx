@@ -3,26 +3,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import Reveal from "@/components/motion/Reveal";
-import { carHref } from "@/lib/carHref";
+import type { Car } from "@/lib/fleet";
+import { carHref } from "@/lib/fleet";
 import { CONTACT } from "@/lib/content";
 import { PriceAmount, CurrencySymbol } from "@/components/currency/Price";
 
-export interface CardCar {
-  name: string;
-  slug: string;
-  brand: string;
-  brandName: string;
-  price: number;
-  image: string;
-  category: string;
-  engine?: string;
-  zeroToHundred?: string;
-  doors: number;
-  seats: number;
-}
-
 interface CarCardProps {
-  car: CardCar;
+  car: Car;
   theme?: "dark" | "light";
   index?: number;
 }
