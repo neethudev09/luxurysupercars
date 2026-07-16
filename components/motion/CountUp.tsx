@@ -2,63 +2,76 @@
 
 import { useEffect, useRef, useState } from "react";
 
-interface CountUpProps {
+type CountUpProps = {
   value: number;
   decimals?: number;
-  suffix?: string;
   prefix?: string;
+  suffix?: string;
   duration?: number;
   className?: string;
-}
+};
 
 export default function CountUp({
   value,
   decimals = 0,
-  suffix = "",
   prefix = "",
-  duration = 1600,
+  suffix = "",
+  duration = 1500,
   className = "",
 }: CountUpProps) {
-  const ref = useRef<HTMLSpanElement | null>(null);
+  const ref = useRef<HTMLSpanElement>(null);
+
   const finalDisplay = `${prefix}${value.toFixed(decimals)}${suffix}`;
   const [display, setDisplay] = useState(finalDisplay);
-  const startedRef = useRef(false);
 
   useEffect(() => {
-    const node = ref.current;
-    if (!node) return;
+    const element = ref.current;
+    if (!element) return;
 
-    const reduced =
-      typeof window !== "undefined" &&
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let animationFrame = 0;
+    let started = false;
 
-    if (reduced) return;
+    const startAnimation = () => {
+      if (started) return;
+      started = true;
 
-    const io = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting && !startedRef.current) {
-            startedRef.current = true;
-            setDisplay(`${prefix}0${suffix}`);
-            const t0 = performance.now();
-            const tick = (now: number) => {
-              const p = Math.min(1, (now - t0) / duration);
-              const eased = 1 - Math.pow(1 - p, 3);
-              const v = value * eased;
-              setDisplay(`${prefix}${v.toFixed(decimals)}${suffix}`);
-              if (p < 1) requestAnimationFrame(tick);
-              else setDisplay(finalDisplay);
-            };
-            requestAnimationFrame(tick);
-            io.unobserve(entry.target);
-          }
+      const startTime = performance.now();
+
+      const animate = (currentTime: number) => {
+        const progress = Math.min((currentTime - startTime) / duration, 1);
+        const currentValue = value * progress;
+
+        setDisplay(
+          `${prefix}${currentValue.toFixed(decimals)}${suffix}`
+        );
+
+        if (progress < 1) {
+          animationFrame = requestAnimationFrame(animate);
+        } else {
+          setDisplay(finalDisplay);
+        }
+      };
+
+      animationFrame = requestAnimationFrame(animate);
+    };
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          startAnimation();
+          observer.disconnect();
         }
       },
-      { threshold: 0.5 }
+      { threshold: 0.25 }
     );
-    io.observe(node);
-    return () => io.disconnect();
-  }, [value, decimals, suffix, prefix, duration, finalDisplay]);
+
+    observer.observe(element);
+
+    return () => {
+      observer.disconnect();
+      cancelAnimationFrame(animationFrame);
+    };
+  }, [value, decimals, prefix, suffix, duration, finalDisplay]);
 
   return (
     <span ref={ref} className={className} suppressHydrationWarning>
