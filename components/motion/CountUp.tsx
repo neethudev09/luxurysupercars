@@ -34,30 +34,38 @@ export default function CountUp({
 
     if (reduced) return;
 
-    const io = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting && !startedRef.current) {
-            startedRef.current = true;
-            setDisplay(`${prefix}0${suffix}`);
-            const t0 = performance.now();
-            const tick = (now: number) => {
-              const p = Math.min(1, (now - t0) / duration);
-              const eased = 1 - Math.pow(1 - p, 3);
-              const v = value * eased;
-              setDisplay(`${prefix}${v.toFixed(decimals)}${suffix}`);
-              if (p < 1) requestAnimationFrame(tick);
-              else setDisplay(finalDisplay);
-            };
-            requestAnimationFrame(tick);
-            io.unobserve(entry.target);
+    let io: IntersectionObserver | null = null;
+
+    const id = requestAnimationFrame(() => {
+      io = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (entry.isIntersecting && !startedRef.current) {
+              startedRef.current = true;
+              setDisplay(`${prefix}0${suffix}`);
+              const t0 = performance.now();
+              const tick = (now: number) => {
+                const p = Math.min(1, (now - t0) / duration);
+                const eased = 1 - Math.pow(1 - p, 3);
+                const v = value * eased;
+                setDisplay(`${prefix}${v.toFixed(decimals)}${suffix}`);
+                if (p < 1) requestAnimationFrame(tick);
+                else setDisplay(finalDisplay);
+              };
+              requestAnimationFrame(tick);
+              io!.unobserve(entry.target);
+            }
           }
-        }
-      },
-      { threshold: 0.5 }
-    );
-    io.observe(node);
-    return () => io.disconnect();
+        },
+        { threshold: 0.5 }
+      );
+      io.observe(node);
+    });
+
+    return () => {
+      cancelAnimationFrame(id);
+      io?.disconnect();
+    };
   }, [value, decimals, suffix, prefix, duration, finalDisplay]);
 
   return (
