@@ -20,7 +20,8 @@ export default function CountUp({
   className = "",
 }: CountUpProps) {
   const ref = useRef<HTMLSpanElement | null>(null);
-  const [display, setDisplay] = useState<string>(`${prefix}0${suffix}`);
+  const finalDisplay = `${prefix}${value.toFixed(decimals)}${suffix}`;
+  const [display, setDisplay] = useState(finalDisplay);
   const startedRef = useRef(false);
 
   useEffect(() => {
@@ -31,13 +32,9 @@ export default function CountUp({
       typeof window !== "undefined" &&
       window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    const finalDisplay = `${prefix}${value.toFixed(decimals)}${suffix}`;
+    if (reduced) return;
 
-    if (reduced) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setDisplay(finalDisplay);
-      return;
-    }
+    const id = requestAnimationFrame(() => setDisplay(`${prefix}0${suffix}`));
 
     const io = new IntersectionObserver(
       (entries) => {
@@ -61,8 +58,11 @@ export default function CountUp({
       { threshold: 0.5 }
     );
     io.observe(node);
-    return () => io.disconnect();
-  }, [value, decimals, suffix, prefix, duration]);
+    return () => {
+      cancelAnimationFrame(id);
+      io.disconnect();
+    };
+  }, [value, decimals, suffix, prefix, duration, finalDisplay]);
 
   return (
     <span ref={ref} className={className}>
