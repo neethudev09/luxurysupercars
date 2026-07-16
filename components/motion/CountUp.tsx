@@ -22,14 +22,8 @@ export default function CountUp({
   const ref = useRef<HTMLSpanElement>(null);
   const finalDisplay = `${prefix}${value.toFixed(decimals)}${suffix}`;
   const [display, setDisplay] = useState(finalDisplay);
-  const [hydrated, setHydrated] = useState(false);
-
-  // eslint-disable-next-line react-hooks/set-state-in-effect
-  useEffect(() => { setHydrated(true); }, []);
 
   useEffect(() => {
-    if (!hydrated) return;
-
     const element = ref.current;
     if (!element) return;
 
@@ -75,10 +69,10 @@ export default function CountUp({
       observer.disconnect();
       cancelAnimationFrame(animationFrame);
     };
-  }, [hydrated, value, decimals, prefix, suffix, duration, finalDisplay]);
+  }, [value, decimals, prefix, suffix, duration, finalDisplay]);
 
   return (
-    <span ref={ref} className={className}>
+    <span ref={ref} className={className} suppressHydrationWarning>
       {display}
     </span>
   );
