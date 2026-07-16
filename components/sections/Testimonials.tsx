@@ -1,7 +1,16 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import MaskHeading from "@/components/motion/MaskHeading";
 import Reveal from "@/components/motion/Reveal";
 import CountUp from "@/components/motion/CountUp";
 import { TESTIMONIALS } from "@/lib/content";
+
+interface LiveReview {
+  rating: number;
+  totalReviews: number;
+  reviews: { name: string; text: string; rating: number; timeAgo: string }[];
+}
 
 function GoogleLogo({ size = 14 }: { size?: number }) {
   return (
@@ -44,8 +53,26 @@ function QuoteCard({ name, quote }: { name: string; quote: string }) {
 }
 
 export default function Testimonials() {
+  const [live, setLive] = useState<LiveReview | null>(null);
+
+  useEffect(() => {
+    fetch("/api/reviews")
+      .then((r) => r.json())
+      .then((d) => {
+        if (d.reviews?.length) setLive(d);
+      })
+      .catch(() => {});
+  }, []);
+
   const namedTrack = [...TESTIMONIALS.named, ...TESTIMONIALS.named, ...TESTIMONIALS.named];
-  const googleTrack = [...TESTIMONIALS.google, ...TESTIMONIALS.google, ...TESTIMONIALS.google];
+
+  const googleSource = live?.reviews?.length
+    ? live.reviews.map((r) => ({ name: r.name, quote: r.text }))
+    : TESTIMONIALS.google;
+  const googleTrack = [...googleSource, ...googleSource, ...googleSource];
+
+  const displayRating = live?.rating ?? 4.9;
+  const displayCount = live?.totalReviews ?? 486;
 
   return (
     <section
@@ -64,7 +91,6 @@ export default function Testimonials() {
           </div>
           <Reveal className="rise md:col-span-4 flex md:justify-end">
             <div className="flex flex-col gap-3">
-              {/* Google brand bar above the stat */}
               <div className="inline-flex items-center gap-2 self-start md:self-end">
                 <GoogleLogo size={18} />
                 <span className="font-sans font-semibold text-[17px] tracking-[-0.01em] text-[#202124]">
@@ -76,7 +102,7 @@ export default function Testimonials() {
               </div>
               <div className="flex items-center gap-4">
                 <span className="font-[var(--font-display)] text-[3.5rem] leading-none text-[var(--ink-dark-hi)]">
-                  <CountUp value={4.9} decimals={1} />
+                  <CountUp value={displayRating} decimals={1} />
                 </span>
                 <div className="flex flex-col gap-1">
                   <div className="flex gap-0.5 text-[#F5B400] text-[16px] leading-none">
@@ -85,7 +111,7 @@ export default function Testimonials() {
                     ))}
                   </div>
                   <span className="font-[var(--font-mono)] text-[10px] uppercase tracking-[0.22em] text-[var(--ink-dark-lo)]">
-                    Based on <CountUp value={486} /> reviews
+                    Based on <CountUp value={displayCount} /> reviews
                   </span>
                 </div>
               </div>

@@ -12,9 +12,17 @@ export default function ScrollHero() {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    setIsMobile(window.matchMedia("(pointer: coarse)").matches || window.innerWidth < 768);
-    const id = requestAnimationFrame(() => setMounted(true));
-    return () => cancelAnimationFrame(id);
+    const mq = window.matchMedia("(pointer: coarse)");
+    const check = () => setIsMobile(mq.matches || window.innerWidth < 768);
+    mq.addEventListener("change", check);
+    const id = requestAnimationFrame(() => {
+      check();
+      setMounted(true);
+    });
+    return () => {
+      mq.removeEventListener("change", check);
+      cancelAnimationFrame(id);
+    };
   }, []);
 
   useEffect(() => {

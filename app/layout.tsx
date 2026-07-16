@@ -52,12 +52,13 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${inter.variable} ${jetbrains.variable}`}
+      suppressHydrationWarning
     >
       <head>
         <link rel="preconnect" href="https://api.fontshare.com" crossOrigin="anonymous" />
         <link rel="preload" as="image" href="/images/hero-poster.webp" />
       </head>
-      <body>
+      <body suppressHydrationWarning>
         <Analytics />
         <JsonLd />
         <FontLoader />

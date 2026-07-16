@@ -12,8 +12,12 @@ export default function CarJsonLd({ car }: { car: Car }) {
     "@context": "https://schema.org",
     "@type": "Car",
     name: car.name,
+    brand: car.brandName,
     image: car.image,
     url,
+    ...(car.description?.length
+      ? { description: car.description.join(" ") }
+      : {}),
   };
   if (car.engine || car.horsepower) {
     json.vehicleEngine = {

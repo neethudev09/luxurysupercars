@@ -2,8 +2,6 @@
 
 import { usePathname } from "next/navigation";
 import dynamic from "next/dynamic";
-import { Analytics } from "@vercel/analytics/react";
-import { SpeedInsights } from "@vercel/speed-insights/next";
 import MotionProvider from "@/components/motion/MotionProvider";
 import { CurrencyProvider } from "@/components/currency/CurrencyProvider";
 import ImageProtection from "@/components/ImageProtection";
@@ -37,8 +35,6 @@ export default function SiteChrome({ children }: { children: React.ReactNode }) 
       {/* Cookie consent banner disabled for now — re-enable later by rendering
           <CookieConsent /> here. The component and /cookie-policy page are kept. */}
       <div className="grain" aria-hidden />
-      <Analytics />
-      <SpeedInsights />
     </CurrencyProvider>
   );
 }
