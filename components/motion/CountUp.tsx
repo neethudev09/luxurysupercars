@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 type CountUpProps = {
   value: number;
@@ -21,11 +21,10 @@ export default function CountUp({
 }: CountUpProps) {
   const ref = useRef<HTMLSpanElement>(null);
   const finalDisplay = `${prefix}${value.toFixed(decimals)}${suffix}`;
-  const [display, setDisplay] = useState(finalDisplay);
 
   useEffect(() => {
-    const element = ref.current;
-    if (!element) return;
+    const el = ref.current;
+    if (!el) return;
 
     let animationFrame = 0;
     let started = false;
@@ -34,19 +33,17 @@ export default function CountUp({
       if (started) return;
       started = true;
 
-      setDisplay(`${prefix}0${suffix}`);
       const startTime = performance.now();
 
       const animate = (currentTime: number) => {
         const progress = Math.min((currentTime - startTime) / duration, 1);
         const currentValue = value * progress;
-
-        setDisplay(`${prefix}${currentValue.toFixed(decimals)}${suffix}`);
+        el.textContent = `${prefix}${currentValue.toFixed(decimals)}${suffix}`;
 
         if (progress < 1) {
           animationFrame = requestAnimationFrame(animate);
         } else {
-          setDisplay(finalDisplay);
+          el.textContent = finalDisplay;
         }
       };
 
@@ -56,6 +53,7 @@ export default function CountUp({
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
+          el.textContent = `${prefix}0${suffix}`;
           startAnimation();
           observer.disconnect();
         }
@@ -63,7 +61,7 @@ export default function CountUp({
       { threshold: 0.25 }
     );
 
-    observer.observe(element);
+    observer.observe(el);
 
     return () => {
       observer.disconnect();
@@ -72,8 +70,8 @@ export default function CountUp({
   }, [value, decimals, prefix, suffix, duration, finalDisplay]);
 
   return (
-    <span ref={ref} className={className} suppressHydrationWarning>
-      {display}
+    <span ref={ref} className={className}>
+      {finalDisplay}
     </span>
   );
 }
