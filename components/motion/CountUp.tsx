@@ -20,11 +20,16 @@ export default function CountUp({
   className = "",
 }: CountUpProps) {
   const ref = useRef<HTMLSpanElement>(null);
-
   const finalDisplay = `${prefix}${value.toFixed(decimals)}${suffix}`;
   const [display, setDisplay] = useState(finalDisplay);
+  const [hydrated, setHydrated] = useState(false);
+
+  // eslint-disable-next-line react-hooks/set-state-in-effect
+  useEffect(() => { setHydrated(true); }, []);
 
   useEffect(() => {
+    if (!hydrated) return;
+
     const element = ref.current;
     if (!element) return;
 
@@ -35,15 +40,14 @@ export default function CountUp({
       if (started) return;
       started = true;
 
+      setDisplay(`${prefix}0${suffix}`);
       const startTime = performance.now();
 
       const animate = (currentTime: number) => {
         const progress = Math.min((currentTime - startTime) / duration, 1);
         const currentValue = value * progress;
 
-        setDisplay(
-          `${prefix}${currentValue.toFixed(decimals)}${suffix}`
-        );
+        setDisplay(`${prefix}${currentValue.toFixed(decimals)}${suffix}`);
 
         if (progress < 1) {
           animationFrame = requestAnimationFrame(animate);
@@ -71,10 +75,10 @@ export default function CountUp({
       observer.disconnect();
       cancelAnimationFrame(animationFrame);
     };
-  }, [value, decimals, prefix, suffix, duration, finalDisplay]);
+  }, [hydrated, value, decimals, prefix, suffix, duration, finalDisplay]);
 
   return (
-    <span ref={ref} className={className} suppressHydrationWarning>
+    <span ref={ref} className={className}>
       {display}
     </span>
   );
