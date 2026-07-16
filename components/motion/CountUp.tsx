@@ -7,7 +7,7 @@ interface CountUpProps {
   decimals?: number;
   suffix?: string;
   prefix?: string;
-  duration?: number; // ms
+  duration?: number;
   className?: string;
 }
 
@@ -34,13 +34,12 @@ export default function CountUp({
 
     if (reduced) return;
 
-    const id = requestAnimationFrame(() => setDisplay(`${prefix}0${suffix}`));
-
     const io = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
           if (entry.isIntersecting && !startedRef.current) {
             startedRef.current = true;
+            setDisplay(`${prefix}0${suffix}`);
             const t0 = performance.now();
             const tick = (now: number) => {
               const p = Math.min(1, (now - t0) / duration);
@@ -58,10 +57,7 @@ export default function CountUp({
       { threshold: 0.5 }
     );
     io.observe(node);
-    return () => {
-      cancelAnimationFrame(id);
-      io.disconnect();
-    };
+    return () => io.disconnect();
   }, [value, decimals, suffix, prefix, duration, finalDisplay]);
 
   return (
