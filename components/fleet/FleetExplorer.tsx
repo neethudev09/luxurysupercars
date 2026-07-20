@@ -61,6 +61,7 @@ function FleetExplorerInner({
   hideTypeFilter = false,
   hideBrandFilter = false,
 }: FleetExplorerProps) {
+  const brandName = hideBrandFilter && cars.length > 0 ? cars[0].brandName : undefined;
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -92,11 +93,15 @@ function FleetExplorerInner({
             </span>
             <div className="flex flex-col gap-0.5 pb-1.5">
               <span className="font-[var(--font-mono)] text-[10.5px] tracking-[0.22em] uppercase text-[var(--ink-lo)]">
-                {filtered.length === 1 ? "Vehicle" : "Vehicles"} · matched
+                {brandName
+                  ? `${filtered.length} ${brandName} ${filtered.length === 1 ? "Model" : "Models"} Available`
+                  : `${filtered.length === 1 ? "Vehicle" : "Vehicles"} · matched`}
               </span>
-              <span className="font-[var(--font-mono)] text-[10.5px] tracking-[0.22em] uppercase text-[var(--ink-lo)]/60">
-                of {cars.length} in fleet
-              </span>
+              {!brandName && (
+                <span className="font-[var(--font-mono)] text-[10.5px] tracking-[0.22em] uppercase text-[var(--ink-lo)]/60">
+                  of {cars.length} in fleet
+                </span>
+              )}
             </div>
           </div>
 
