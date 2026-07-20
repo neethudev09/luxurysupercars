@@ -3,6 +3,7 @@ import { FLEET_BRAND_SLUGS } from "@/lib/fleet-brands";
 import { UNIQUE_CARS, carHref } from "@/lib/fleet";
 import { BLOG_POSTS } from "@/lib/blog";
 import { SERVICES_PAGE } from "@/lib/content";
+import { getAllLocations } from "@/lib/locations";
 import { SITE_URL } from "@/lib/site";
 
 const ORIGIN = SITE_URL;
@@ -62,11 +63,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
+  // Location pages — /locations + /locations/{slug}
+  const locationPages: MetadataRoute.Sitemap = getAllLocations().map((l) => ({
+    url: `${ORIGIN}/locations/${l.slug}`,
+    changeFrequency: "weekly",
+    priority: 0.8,
+  }));
+
   return [
+    { url: `${ORIGIN}/locations`, changeFrequency: "weekly", priority: 0.8 },
     ...staticPages.map((p) => ({ lastModified: now, ...p })),
     ...servicePages.map((p) => ({ lastModified: now, ...p })),
     ...brandPages.map((p) => ({ lastModified: now, ...p })),
     ...carPages.map((p) => ({ lastModified: now, ...p })),
     ...blogPages,
+    ...locationPages.map((p) => ({ lastModified: now, ...p })),
   ];
 }

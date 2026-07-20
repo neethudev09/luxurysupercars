@@ -75,6 +75,7 @@ export const structure: StructureResolver = (S) =>
       // --- Primary collections ----------------------------------------
       S.documentTypeListItem("car").title("Fleet (cars)"),
       S.documentTypeListItem("brand").title("Brands"),
+      S.documentTypeListItem("location").title("Locations"),
       S.documentTypeListItem("blogPost").title("Blog posts"),
 
       S.divider(),

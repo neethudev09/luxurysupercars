@@ -24,6 +24,7 @@ import { service } from "./documents/service";
 import { brand } from "./documents/brand";
 import { car } from "./documents/car";
 import { blogPost } from "./documents/blogPost";
+import { location } from "./documents/location";
 
 export const schemaTypes: SchemaTypeDefinition[] = [
   // shared
@@ -38,6 +39,7 @@ export const schemaTypes: SchemaTypeDefinition[] = [
   brand,
   car,
   blogPost,
+  location,
   faq,
   testimonial,
   service,

@@ -554,6 +554,76 @@ function mapBrand(b: SanityBrand) {
 }
 
 /* -------------------------------------------------------------------------- */
+/*  Locations → lib/generated/locations.json                                  */
+/* -------------------------------------------------------------------------- */
+
+interface SanityLocationLink { name?: string; href?: string }
+interface SanityLocationFaq { question?: string; answer?: string }
+
+interface SanityLocation {
+  name: string;
+  slug: string;
+  h1: string;
+  intro?: string;
+  coordinates?: { lat?: number; lng?: number };
+  whyRent?: string[];
+  hotels?: string[];
+  attractions?: string[];
+  landmarks?: string[];
+  popularBrands?: SanityLocationLink[];
+  faqs?: SanityLocationFaq[];
+  nearby?: SanityLocationLink[];
+  seo?: { title?: string; description?: string };
+}
+
+const LOCATION_QUERY = `*[_type == "location" && defined(slug.current)] | order(name asc){
+  name,
+  "slug": slug.current,
+  h1,
+  intro,
+  coordinates,
+  whyRent,
+  hotels,
+  attractions,
+  landmarks,
+  popularBrands[]{ name, href },
+  faqs[]{ question, answer },
+  nearby[]{ name, href },
+  seo
+}`;
+
+function mapLocation(l: SanityLocation) {
+  const stringArray = (v: unknown): string[] =>
+    Array.isArray(v) ? v.map((x) => text(x)).filter(Boolean) : [];
+  const linkArray = (v: SanityLocationLink[] | undefined) =>
+    (v || [])
+      .map((x) => ({ name: text(x.name), href: text(x.href) }))
+      .filter((x) => x.name && x.href);
+
+  return {
+    slug: l.slug,
+    name: l.name,
+    title: text(l.seo?.title),
+    description: text(l.seo?.description),
+    h1: l.h1,
+    intro: text(l.intro),
+    coordinates: {
+      lat: num(l.coordinates?.lat) ?? 0,
+      lng: num(l.coordinates?.lng) ?? 0,
+    },
+    whyRent: stringArray(l.whyRent),
+    hotels: stringArray(l.hotels),
+    attractions: stringArray(l.attractions),
+    landmarks: stringArray(l.landmarks),
+    popularBrands: linkArray(l.popularBrands),
+    faqs: (l.faqs || [])
+      .map((f) => ({ q: text(f.question), a: text(f.answer) }))
+      .filter((f) => f.q && f.a),
+    nearby: linkArray(l.nearby),
+  };
+}
+
+/* -------------------------------------------------------------------------- */
 /*  Homepage content → lib/generated/home.json                                */
 /* -------------------------------------------------------------------------- */
 
@@ -693,7 +763,7 @@ async function main() {
   }
   console.log("[export] fetching from Sanity…");
 
-  const [cars, posts, siteSettings, testimonials, faqs, services, brands, home, about, fleetPages, standalonePages] =
+  const [cars, posts, siteSettings, testimonials, faqs, services, brands, locations, home, about, fleetPages, standalonePages] =
     await Promise.all([
       client.fetch<SanityCar[]>(CAR_QUERY),
       client.fetch<SanityBlogPost[]>(BLOG_QUERY),
@@ -702,6 +772,7 @@ async function main() {
       client.fetch<SanityFaq[]>(FAQ_QUERY),
       client.fetch<SanityService[]>(SERVICE_QUERY),
       client.fetch<SanityBrand[]>(BRAND_QUERY),
+      client.fetch<SanityLocation[]>(LOCATION_QUERY),
       client.fetch<Record<string, unknown> | null>(HOME_QUERY),
       client.fetch<Record<string, unknown> | null>(ABOUT_QUERY),
       client.fetch<SanityFleetPage[]>(FLEET_TYPES_QUERY),
@@ -721,6 +792,13 @@ async function main() {
   requireRows("FAQs", faqs);
   requireRows("services", services);
   requireRows("brands", brands);
+  // Locations: soft-check. On the very first deploy after the schema
+  // is introduced, migrate-locations.ts may not have been run yet —
+  // don't abort the whole export in that case; lib/locations.ts falls
+  // back to its embedded static data if the generated file is empty.
+  if (!Array.isArray(locations) || locations.length === 0) {
+    console.warn("[export] no locations returned from Sanity — writing empty file; run migrate-locations.ts to populate.");
+  }
   if (!siteSettings || typeof siteSettings !== "object") {
     throw new Error("No siteSettings returned from Sanity — aborting (existing JSON left untouched).");
   }
@@ -747,6 +825,7 @@ async function main() {
   const faqOut = faqs.map(mapFaq);
   const servicesOut = services.map(mapService);
   const brandsOut = Object.fromEntries(brands.map((b) => [b.slug, mapBrand(b)]));
+  const locationsOut = (locations || []).map(mapLocation);
 
   mkdirSync(resolve(ROOT, "lib/generated"), { recursive: true });
 
@@ -762,6 +841,7 @@ async function main() {
   writeJson("lib/generated/faq.json", faqOut);
   writeJson("lib/generated/services.json", servicesOut);
   writeJson("lib/generated/brands.json", brandsOut);
+  writeJson("lib/generated/locations.json", locationsOut);
   // Homepage content — passthrough; `{}` if the Home doc has no block yet.
   writeJson("lib/generated/home.json", home && typeof home === "object" ? home : {});
   // About page content — same passthrough contract.
@@ -782,6 +862,7 @@ async function main() {
   console.log(`[export] wrote lib/generated/faq.json          (${faqOut.length} entries, ${homepageFaqs} on homepage)`);
   console.log(`[export] wrote lib/generated/services.json     (${servicesOut.length} services)`);
   console.log(`[export] wrote lib/generated/brands.json       (${brands.length} brands)`);
+  console.log(`[export] wrote lib/generated/locations.json    (${locationsOut.length} locations)`);
   console.log(`[export] wrote lib/generated/home.json         (${home ? "homepage content" : "empty — using fallback copy"})`);
   console.log(`[export] wrote lib/generated/about.json        (${about ? "about content" : "empty — using fallback copy"})`);
   console.log(`[export] wrote lib/generated/fleet-types.json  (${Object.keys(mapFleetPages(fleetPages)).length} category pages)`);
