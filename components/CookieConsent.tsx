@@ -6,11 +6,8 @@ import Link from "next/link";
 const STORAGE_KEY = "lsr-cookie-consent";
 
 /**
- * Cookie consent banner. The site loads Google Tag Manager, Google Ads and the
- * Meta Pixel (see components/analytics/Analytics.tsx), all of which set cookies,
- * so a notice + accept/decline choice is shown until the visitor responds. The
- * choice is persisted in localStorage; wiring it through to Google Consent Mode
- * (to actually gate the tags before consent) is a follow-up.
+ * Cookie consent banner. Persists acceptance in localStorage; shown once per
+ * visitor until they dismiss it.
  */
 export default function CookieConsent() {
   const [visible, setVisible] = useState(false);
@@ -42,30 +39,22 @@ export default function CookieConsent() {
       className="fixed bottom-5 left-5 z-[58] w-[min(24rem,calc(100vw-2.5rem))] rounded-2xl border border-white/10 bg-[var(--bg-graphite)]/95 p-5 shadow-[0_24px_60px_-20px_rgba(0,0,0,0.6)] backdrop-blur-xl animate-[fadeUp_240ms_cubic-bezier(0.22,1,0.36,1)]"
     >
       <p className="text-[14px] leading-[1.6] text-[var(--ink-lo)]">
-        We use cookies to run analytics and ads that help us improve your
-        experience. See our{" "}
+        We use cookies to ensure you get the best experience on our website.{" "}
         <Link
           href="/cookie-policy"
           className="text-[var(--champagne)] underline-offset-2 hover:underline"
         >
-          Cookie Policy
+          Learn more
         </Link>
         .
       </p>
-      <div className="mt-4 flex items-center gap-2.5">
+      <div className="mt-4">
         <button
           type="button"
           onClick={() => choose("accepted")}
           className="inline-flex items-center justify-center rounded-full bg-[var(--champagne)] px-5 py-2.5 text-[14px] font-medium text-[var(--bg-obsidian)] hover:bg-[var(--champagne-hi)] transition-colors"
         >
-          Accept
-        </button>
-        <button
-          type="button"
-          onClick={() => choose("declined")}
-          className="inline-flex items-center justify-center rounded-full border border-white/15 px-5 py-2.5 text-[14px] font-medium text-[var(--ink-hi)] hover:border-[var(--champagne)] hover:text-[var(--champagne)] transition-colors"
-        >
-          Decline
+          OK
         </button>
       </div>
     </div>

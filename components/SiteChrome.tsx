@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import dynamic from "next/dynamic";
 import MotionProvider from "@/components/motion/MotionProvider";
 import { CurrencyProvider } from "@/components/currency/CurrencyProvider";
+import CookieConsent from "@/components/CookieConsent";
 import ImageProtection from "@/components/ImageProtection";
 import PromoPopup from "@/components/PromoPopup";
 
@@ -32,8 +33,7 @@ export default function SiteChrome({ children }: { children: React.ReactNode }) 
       <CursorTrail />
       <ImageProtection />
       <PromoPopup />
-      {/* Cookie consent banner disabled for now — re-enable later by rendering
-          <CookieConsent /> here. The component and /cookie-policy page are kept. */}
+      <CookieConsent />
       <div className="grain" aria-hidden />
     </CurrencyProvider>
   );
