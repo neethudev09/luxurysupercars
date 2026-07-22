@@ -42,18 +42,20 @@ async function main() {
 
 type BodyBlock =
   | { kind: "paragraph"; text: string }
+  | { kind: "rich-paragraph"; segments: { text: string; href?: string }[] }
   | { kind: "list"; items: string[] }
   | { kind: "table"; headers: string[]; rows: string[][] };
 
 function blockToPortableText(b: BodyBlock): unknown[] {
-  if (b.kind === "paragraph") {
+  if (b.kind === "paragraph" || b.kind === "rich-paragraph") {
+    const text = b.kind === "rich-paragraph" ? b.segments.map((s) => s.text).join("") : b.text;
     return [
       {
         _type: "block",
-        _key: key("p", b.text.slice(0, 20)),
+        _key: key("p", text.slice(0, 20)),
         style: "normal",
         markDefs: [],
-        children: [{ _type: "span", _key: key("s", b.text.slice(0, 10)), text: b.text, marks: [] }],
+        children: [{ _type: "span", _key: key("s", text.slice(0, 10)), text, marks: [] }],
       },
     ];
   }

@@ -4,14 +4,17 @@ import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import useEmblaCarousel from "embla-carousel-react";
+import { getBrandLogo } from "@/lib/assets";
 
 interface CarGalleryProps {
   images: string[];
   alt: string;
   category: string;
+  brand: string;
 }
 
-export default function CarGallery({ images, alt, category }: CarGalleryProps) {
+export default function CarGallery({ images, alt, category, brand }: CarGalleryProps) {
+  const brandLogo = getBrandLogo(brand);
   const [emblaRef, emblaApi] = useEmblaCarousel({
     loop: images.length > 1,
     align: "center",
@@ -91,14 +94,27 @@ export default function CarGallery({ images, alt, category }: CarGalleryProps) {
           </div>
         </div>
 
+        {/* Brand logo */}
+        {brandLogo && (
+          <div className="pointer-events-none absolute top-4 left-4 z-10 size-14 md:size-20 flex items-center justify-center p-2 md:p-3">
+            <Image
+              src={brandLogo.src}
+              alt={`${brandLogo.name} logo`}
+              width={80}
+              height={40}
+              className="object-contain w-full h-full"
+            />
+          </div>
+        )}
+
         {/* Category chip */}
-        <div className="pointer-events-none absolute top-4 left-4 inline-flex items-center gap-1.5 rounded-full bg-black/55 backdrop-blur px-3 py-1.5 text-[11px] uppercase tracking-[0.18em] text-[var(--champagne)]">
+        <div className="pointer-events-none absolute top-4 right-4 inline-flex items-center gap-1.5 rounded-full bg-black/55 backdrop-blur px-3 py-1.5 text-[11px] uppercase tracking-[0.18em] text-[var(--champagne)]">
           {category}
         </div>
 
         {/* Counter */}
         {showControls && (
-          <div className="pointer-events-none absolute top-4 right-4 inline-flex items-center rounded-full bg-black/55 backdrop-blur px-3 py-1.5 font-[var(--font-mono)] text-[11px] tracking-[0.12em] text-white/90">
+          <div className="pointer-events-none absolute bottom-4 right-4 z-10 inline-flex items-center rounded-full bg-black/55 backdrop-blur px-3 py-1.5 font-[var(--font-mono)] text-[11px] tracking-[0.12em] text-white/90">
             {String(selectedIndex + 1).padStart(2, "0")}{" / "}{String(images.length).padStart(2, "0")}
           </div>
         )}

@@ -2821,29 +2821,9 @@
         "height": 1920
       },
       {
-        "url": "https://cdn.sanity.io/images/pkpvmml9/production/50af184ba92f403dc582f026791cc2abfae9b2d2-300x225.jpg",
-        "width": 300,
-        "height": 225
-      },
-      {
-        "url": "https://cdn.sanity.io/images/pkpvmml9/production/df8c0cbc46eac2a4f43ecf6db6a29fb929f03dcd-300x225.jpg",
-        "width": 300,
-        "height": 225
-      },
-      {
         "url": "https://cdn.sanity.io/images/pkpvmml9/production/5f21cd00765c1da0faceaaff63118b2886820306-2560x1920.jpg",
         "width": 2560,
         "height": 1920
-      },
-      {
-        "url": "https://cdn.sanity.io/images/pkpvmml9/production/927dbc3a05bc8abba7a1b5c35a2b3518b1c40b64-300x225.jpg",
-        "width": 300,
-        "height": 225
-      },
-      {
-        "url": "https://cdn.sanity.io/images/pkpvmml9/production/4556e6b3bafe4cca5c07defd6daaaf63abfda3ce-300x225.jpg",
-        "width": 300,
-        "height": 225
       }
     ],
     "categories": [
@@ -3155,7 +3135,7 @@
     "ogImage": "https://cdn.sanity.io/images/pkpvmml9/production/b80c1c64b3cdac6438e7326b009669fb321a951c-1024x768.webp",
     "ogImageWidth": 1024,
     "ogImageHeight": 768,
-    "price": 3800,
+    "price": 3500,
     "priceCurrency": "AED",
     "image": "https://cdn.sanity.io/images/pkpvmml9/production/b80c1c64b3cdac6438e7326b009669fb321a951c-1024x768.webp",
     "gallery": [
@@ -3375,7 +3355,7 @@
     "ogImage": "https://cdn.sanity.io/images/pkpvmml9/production/7433399c91e7224a7b575136ddd718e137583207-2560x1937.jpg",
     "ogImageWidth": 2560,
     "ogImageHeight": 1937,
-    "price": 11000,
+    "price": 10000,
     "priceCurrency": "AED",
     "image": "https://cdn.sanity.io/images/pkpvmml9/production/7433399c91e7224a7b575136ddd718e137583207-2560x1937.jpg",
     "gallery": [
@@ -3654,7 +3634,7 @@
     "key": "rent-ferrari-dubai/ferrari-sf90-stradale",
     "brand": "rent-ferrari-dubai",
     "slug": "ferrari-sf90-stradale",
-    "name": "Ferrari SF90 Stradale",
+    "name": "Ferrari SF90 Spyder",
     "brandName": "Ferrari",
     "tuners": [],
     "url": "https://luxurysupercarsdubai.com/rent-ferrari-dubai/ferrari-sf90-stradale/",
@@ -4729,7 +4709,7 @@
     "ogImage": "https://cdn.sanity.io/images/pkpvmml9/production/3cd01583dae16757e2035560901aef7562bb6247-2560x1920.webp",
     "ogImageWidth": 2560,
     "ogImageHeight": 1920,
-    "price": 3300,
+    "price": 3000,
     "priceCurrency": "AED",
     "image": "https://cdn.sanity.io/images/pkpvmml9/production/3cd01583dae16757e2035560901aef7562bb6247-2560x1920.webp",
     "gallery": [
@@ -5211,7 +5191,7 @@
     "ogImage": "https://cdn.sanity.io/images/pkpvmml9/production/61ce475c6aaa5511b52a8b1efb23a7224d1da8f9-2560x1920.jpg",
     "ogImageWidth": 2560,
     "ogImageHeight": 1920,
-    "price": 12000,
+    "price": 11000,
     "priceCurrency": "AED",
     "image": "https://cdn.sanity.io/images/pkpvmml9/production/61ce475c6aaa5511b52a8b1efb23a7224d1da8f9-2560x1920.jpg",
     "gallery": [
@@ -5347,7 +5327,7 @@
     "ogImage": "https://cdn.sanity.io/images/pkpvmml9/production/324b89d3f34db4169f6f30b336e536bf24a0a64c-2560x1622.webp",
     "ogImageWidth": 2560,
     "ogImageHeight": 1622,
-    "price": 3000,
+    "price": 2800,
     "priceCurrency": "AED",
     "image": "https://cdn.sanity.io/images/pkpvmml9/production/324b89d3f34db4169f6f30b336e536bf24a0a64c-2560x1622.webp",
     "gallery": [
@@ -5813,7 +5793,7 @@
     "ogImage": "https://cdn.sanity.io/images/pkpvmml9/production/3424c84a5ffcb8f622decb9f4ebfc2482f070baf-1280x960.jpg",
     "ogImageWidth": 1280,
     "ogImageHeight": 960,
-    "price": 3000,
+    "price": 2800,
     "priceCurrency": "AED",
     "image": "https://cdn.sanity.io/images/pkpvmml9/production/3424c84a5ffcb8f622decb9f4ebfc2482f070baf-1280x960.jpg",
     "gallery": [
@@ -10589,7 +10569,7 @@
     "brand": "rent-rolls-royce-dubai",
     "slug": "rolls-royce-cullinan",
     "name": "Rolls Royce Cullinan",
-    "brandName": "Rolls-Royce",
+    "brandName": "Rolls Royce",
     "tuners": [],
     "url": "https://luxurysupercarsdubai.com/rent-rolls-royce-dubai/rolls-royce-cullinan/",
     "canonical": "https://luxurysupercarsdubai.com/rent-rolls-royce-dubai/rolls-royce-cullinan/",
@@ -10706,7 +10686,7 @@
     "brand": "rent-rolls-royce-dubai",
     "slug": "rolls-royce-cullinan-mansory",
     "name": "Rolls Royce Cullinan Mansory",
-    "brandName": "Rolls-Royce",
+    "brandName": "Rolls Royce",
     "tuners": [
       "rent-mansory-dubai"
     ],
@@ -10820,7 +10800,7 @@
     "brand": "rent-rolls-royce-dubai",
     "slug": "rolls-royce-cullinan-mansory-black",
     "name": "Rolls Royce Cullinan Mansory Black",
-    "brandName": "Rolls-Royce",
+    "brandName": "Rolls Royce",
     "tuners": [
       "rent-mansory-dubai"
     ],
@@ -10939,7 +10919,7 @@
     "brand": "rent-rolls-royce-dubai",
     "slug": "rolls-royce-dawn-black",
     "name": "Rolls Royce Dawn Black",
-    "brandName": "Rolls-Royce",
+    "brandName": "Rolls Royce",
     "tuners": [],
     "url": "https://luxurysupercarsdubai.com/rent-rolls-royce-dubai/rolls-royce-dawn-black/",
     "canonical": "https://luxurysupercarsdubai.com/rent-rolls-royce-dubai/rolls-royce-dawn-black/",
@@ -11041,7 +11021,7 @@
     "brand": "rent-rolls-royce-dubai",
     "slug": "rolls-royce-dawn-white",
     "name": "Rolls Royce Dawn White",
-    "brandName": "Rolls-Royce",
+    "brandName": "Rolls Royce",
     "tuners": [],
     "url": "https://luxurysupercarsdubai.com/rent-rolls-royce-dubai/rolls-royce-dawn-white/",
     "canonical": "https://luxurysupercarsdubai.com/rent-rolls-royce-dubai/rolls-royce-dawn-white/",
@@ -11133,7 +11113,7 @@
     "brand": "rent-rolls-royce-dubai",
     "slug": "rolls-royce-wraith-black-badge",
     "name": "Rolls Royce Wraith Black Badge",
-    "brandName": "Rolls-Royce",
+    "brandName": "Rolls Royce",
     "tuners": [],
     "url": "https://luxurysupercarsdubai.com/rent-rolls-royce-dubai/rolls-royce-wraith-black-badge/",
     "canonical": "https://luxurysupercarsdubai.com/rent-rolls-royce-dubai/rolls-royce-wraith-black-badge/",

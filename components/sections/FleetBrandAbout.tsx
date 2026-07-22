@@ -1,3 +1,4 @@
+import Link from "next/link";
 import MaskHeading from "@/components/motion/MaskHeading";
 import Reveal from "@/components/motion/Reveal";
 import type { BrandSection, BrandSectionBlock } from "@/lib/fleet-brands";
@@ -49,7 +50,7 @@ export default function FleetBrandAbout({
                   staggerMs={40}
                 />
               </div>
-              <div className="md:col-span-7 space-y-6">
+              <div className="md:col-span-7 space-y-10">
                 {s.body.map((block, i) => (
                   <BlockRenderer key={i} block={block} delay={100 + i * 50} />
                 ))}
@@ -68,6 +69,27 @@ function BlockRenderer({ block, delay }: { block: BrandSectionBlock; delay: numb
       <Reveal delay={delay}>
         <p className="text-[16.5px] leading-[1.85] text-[var(--ink-lo)]">
           {block.text}
+        </p>
+      </Reveal>
+    );
+  }
+  if (block.kind === "rich-paragraph") {
+    return (
+      <Reveal delay={delay}>
+        <p className="text-[16.5px] leading-[1.85] text-[var(--ink-lo)]">
+          {block.segments.map((seg, i) =>
+            seg.href ? (
+              <Link
+                key={i}
+                href={seg.href}
+                className="text-[var(--champagne)] hover:text-[var(--champagne-hi)] underline underline-offset-2 transition-colors"
+              >
+                {seg.text}
+              </Link>
+            ) : (
+              <span key={i}>{seg.text}</span>
+            )
+          )}
         </p>
       </Reveal>
     );

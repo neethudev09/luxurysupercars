@@ -1,24 +1,28 @@
 /**
- * Content rewrite for 5 brands — Aston Martin, Audi, Bentley, Brabus, Rolls-Royce.
+ * Content rewrite for 8 brands — BMW, Cadillac, Mansory, Maserati, McLaren,
+ * Mercedes-Benz, Porsche, Range Rover.
  *
- * Follows the same pattern as update-ferrari-brand.ts:
+ * Follows the same pattern as migrate-five-brands.ts:
  * - 12 sections (intro, prices, why-book, rates, models, requirements,
  *   why-choose, tips, deposit, conditions, included, book)
  * - 16 EEAT FAQs
  * - Owner name, deposit, age, review count consistent
  *
- * Run: npx tsx scripts/sanity/migrate-five-brands.ts
+ * Run: npx tsx scripts/sanity/migrate-eight-brands.ts
  * Requires SANITY_API_TOKEN in .env.local
  */
 import { paragraphBlock, listBlock, pricingTable, key } from "./blocks";
 import { batchCreateOrReplace, isConfigured } from "./lib";
 
 type BrandSlug =
-  | "rent-aston-martin-dubai"
-  | "rent-audi-dubai"
-  | "rent-bentley-dubai"
-  | "rent-brabus-dubai"
-  | "rent-rolls-royce-dubai";
+  | "rent-bmw-dubai"
+  | "rent-cadillac-dubai"
+  | "rent-mansory-dubai"
+  | "rent-maserati-dubai"
+  | "rent-mclaren-dubai"
+  | "rent-mercedes-benz-dubai"
+  | "rent-porsche-dubai"
+  | "rent-range-rover-dubai";
 
 interface BrandConfig {
   slug: BrandSlug;
@@ -28,98 +32,157 @@ interface BrandConfig {
   models: { name: string; daily: number; weekly: number; monthly: number }[];
 }
 
-/* -------------------------------------------------------------------------- */
-/*  Brand configurations (models + SEO + pricing)                              */
-/* -------------------------------------------------------------------------- */
-
 const BRANDS: BrandConfig[] = [
   {
-    slug: "rent-aston-martin-dubai",
-    displayName: "Aston Martin",
-    h1: "Rent Aston Martin in Dubai",
+    slug: "rent-bmw-dubai",
+    displayName: "BMW",
+    h1: "Rent BMW in Dubai",
     seo: {
-      title: "Rent Aston Martin Dubai | Luxury Aston Martin Rental From AED 1,800/Day",
+      title: "Rent BMW Dubai | BMW Rental Dubai From AED 1,300/Day",
       description:
-        "Rent Aston Martin in Dubai from AED 1,800/day. Choose Aston Martin DBX 707 and Vantage with free delivery across Dubai and UAE.",
+        "Rent BMW in Dubai from AED 1,300/day. Choose BMW 7 Series, M3, M4, M5, X6 M and X7 with free delivery across Dubai and UAE.",
     },
     models: [
-      { name: "Aston Martin Vantage", daily: 1800, weekly: 10500, monthly: 35000 },
-      { name: "Aston Martin DBX 707", daily: 2500, weekly: 17000, monthly: 60000 },
+      { name: "BMW 735i", daily: 1300, weekly: 9000, monthly: 30000 },
+      { name: "BMW M3 Competition", daily: 1300, weekly: 7800, monthly: 26000 },
+      { name: "BMW M4 Competition", daily: 1400, weekly: 8400, monthly: 28000 },
+      { name: "BMW M5 Competition", daily: 2000, weekly: 12500, monthly: 50000 },
+      { name: "BMW X6 M Competition", daily: 1500, weekly: 8400, monthly: 35000 },
+      { name: "BMW X6 M Competition Red", daily: 1500, weekly: 8400, monthly: 35000 },
+      { name: "BMW X7 M50i", daily: 1300, weekly: 6000, monthly: 20000 },
+      { name: "BMW X7 M60i", daily: 1500, weekly: 9000, monthly: 30000 },
     ],
   },
   {
-    slug: "rent-audi-dubai",
-    displayName: "Audi",
-    h1: "Rent Audi in Dubai",
+    slug: "rent-cadillac-dubai",
+    displayName: "Cadillac",
+    h1: "Rent Cadillac in Dubai",
     seo: {
-      title: "Rent Audi Dubai | Audi Rental Dubai From AED 1,000/Day",
+      title: "Rent Cadillac Dubai | Cadillac Rental Dubai From AED 1,300/Day",
       description:
-        "Rent Audi in Dubai from AED 1,000/day. Choose Audi R8 Spyder, RS3, RS5, RS6, RS7 and SQ7 with free delivery across Dubai and UAE.",
+        "Rent Cadillac in Dubai from AED 1,300/day. Choose Cadillac Escalade Sports Platinum with free delivery across Dubai and UAE.",
     },
     models: [
-      { name: "Audi RS3", daily: 1000, weekly: 6000, monthly: 20000 },
-      { name: "Audi RS5", daily: 1500, weekly: 9000, monthly: 30000 },
-      { name: "Audi R8 Spyder", daily: 1800, weekly: 10500, monthly: 36000 },
-      { name: "Audi RS6", daily: 1800, weekly: 10500, monthly: 36000 },
-      { name: "Audi SQ7", daily: 1800, weekly: 10500, monthly: 36000 },
-      { name: "Audi RS7", daily: 2000, weekly: 12000, monthly: 40000 },
+      { name: "Cadillac Escalade Sports Platinum", daily: 1300, weekly: 7800, monthly: 26000 },
     ],
   },
   {
-    slug: "rent-bentley-dubai",
-    displayName: "Bentley",
-    h1: "Rent Bentley in Dubai",
+    slug: "rent-mansory-dubai",
+    displayName: "Mansory",
+    h1: "Rent Mansory in Dubai",
     seo: {
-      title: "Rent Bentley Dubai | Luxury Bentley Rental From AED 2,000/Day",
+      title: "Rent Mansory Dubai | Mansory Rental Dubai From AED 2,000/Day",
       description:
-        "Rent Bentley in Dubai from AED 2,000/day. Choose Bentley Bentayga, Continental GT and Continental GTC with free delivery across Dubai and UAE.",
+        "Rent Mansory-tuned luxury cars in Dubai from AED 2,000/day. Choose Bentley, Lamborghini, Range Rover and Rolls-Royce Mansory modifications with free delivery across Dubai and UAE.",
     },
     models: [
-      { name: "Bentley Bentayga", daily: 2000, weekly: 12000, monthly: 40000 },
-      { name: "Bentley Bentayga Brown", daily: 2000, weekly: 12000, monthly: 40000 },
-      { name: "Bentley Continental GT", daily: 2200, weekly: 13000, monthly: 44000 },
-      { name: "Bentley Continental GTC", daily: 2500, weekly: 15000, monthly: 50000 },
+      { name: "Range Rover Vogue Mansory", daily: 2000, weekly: 12000, monthly: 40000 },
+      { name: "Lamborghini Urus Mansory", daily: 4000, weekly: 24000, monthly: 80000 },
       { name: "Bentley Bentayga Mansory", daily: 4500, weekly: 27000, monthly: 90000 },
-    ],
-  },
-  {
-    slug: "rent-brabus-dubai",
-    displayName: "Brabus",
-    h1: "Rent Brabus in Dubai",
-    seo: {
-      title: "Rent Brabus Dubai | Brabus Rental Dubai From AED 2,000/Day",
-      description:
-        "Rent Brabus in Dubai from AED 2,000/day. Choose Brabus-tuned Mercedes G-Wagen, GLS and other performance SUVs with free delivery across Dubai and UAE.",
-    },
-    models: [
-      { name: "Mercedes Brabus G63 700 Widestar", daily: 3000, weekly: 18000, monthly: 60000 },
-      { name: "Mercedes Brabus G63 800 Widestar", daily: 3000, weekly: 18000, monthly: 60000 },
-      { name: "Mercedes AMG GLS63 S Brabus", daily: 2000, weekly: 12000, monthly: 40000 },
-    ],
-  },
-  {
-    slug: "rent-rolls-royce-dubai",
-    displayName: "Rolls Royce",
-    h1: "Rent Rolls-Royce in Dubai",
-    seo: {
-      title: "Rent Rolls Royce Dubai | Luxury Rolls Royce Rental From AED 2,000/Day",
-      description:
-        "Rent Rolls-Royce in Dubai from AED 2,000/day. Choose Cullinan, Dawn and Wraith with free delivery across Dubai and UAE.",
-    },
-    models: [
-      { name: "Rolls Royce Wraith Black Badge", daily: 2000, weekly: 12000, monthly: 40000 },
-      { name: "Rolls Royce Dawn Black", daily: 3000, weekly: 18000, monthly: 60000 },
-      { name: "Rolls Royce Dawn White", daily: 3000, weekly: 18000, monthly: 60000 },
-      { name: "Rolls Royce Cullinan", daily: 4000, weekly: 24000, monthly: 80000 },
       { name: "Rolls Royce Cullinan Mansory Black", daily: 4500, weekly: 27000, monthly: 90000 },
       { name: "Rolls Royce Cullinan Mansory", daily: 5500, weekly: 33000, monthly: 110000 },
     ],
   },
+  {
+    slug: "rent-maserati-dubai",
+    displayName: "Maserati",
+    h1: "Rent Maserati in Dubai",
+    seo: {
+      title: "Rent Maserati Dubai | Maserati Rental Dubai From AED 2,000/Day",
+      description:
+        "Rent Maserati in Dubai from AED 2,000/day. Choose Maserati MC20 with free delivery across Dubai and UAE.",
+    },
+    models: [
+      { name: "Maserati MC20", daily: 2000, weekly: 12000, monthly: 40000 },
+    ],
+  },
+  {
+    slug: "rent-mclaren-dubai",
+    displayName: "McLaren",
+    h1: "Rent McLaren in Dubai",
+    seo: {
+      title: "Rent McLaren Dubai | McLaren Rental Dubai From AED 2,500/Day",
+      description:
+        "Rent McLaren in Dubai from AED 2,500/day. Choose McLaren 765LT, 720S, Artura and more with free delivery across Dubai and UAE.",
+    },
+    models: [
+      { name: "McLaren 570S", daily: 2500, weekly: 15000, monthly: 50000 },
+      { name: "McLaren 570S Spyder", daily: 2500, weekly: 15000, monthly: 50000 },
+      { name: "McLaren Artura", daily: 3000, weekly: 18000, monthly: 60000 },
+      { name: "McLaren 720S Performance", daily: 3500, weekly: 21000, monthly: 70000 },
+      { name: "McLaren 720S Spyder White", daily: 3500, weekly: 21000, monthly: 70000 },
+      { name: "McLaren Artura Spyder", daily: 3500, weekly: 21000, monthly: 70000 },
+      { name: "McLaren Artura Spyder White", daily: 3500, weekly: 21000, monthly: 70000 },
+      { name: "McLaren 720S", daily: 4000, weekly: 24000, monthly: 80000 },
+      { name: "McLaren 720S Novitec Spyder", daily: 4000, weekly: 24000, monthly: 80000 },
+      { name: "McLaren 750S Spyder", daily: 4500, weekly: 27000, monthly: 90000 },
+      { name: "McLaren 750S Spyder (Tiffany Blue)", daily: 4500, weekly: 27000, monthly: 90000 },
+      { name: "McLaren 765LT", daily: 5000, weekly: 30000, monthly: 100000 },
+    ],
+  },
+  {
+    slug: "rent-mercedes-benz-dubai",
+    displayName: "Mercedes-Benz",
+    h1: "Rent Mercedes Benz in Dubai",
+    seo: {
+      title: "Rent Mercedes-Benz Dubai | Mercedes-Benz Rental Dubai From AED 1,000/Day",
+      description:
+        "Rent Mercedes-Benz in Dubai from AED 1,000/day. Choose AMG G63, GT63, GLS Maybach and more with free delivery across Dubai and UAE.",
+    },
+    models: [
+      { name: "Mercedes Benz AMG GLC 63S Coupe", daily: 1300, weekly: 7800, monthly: 26000 },
+      { name: "Mercedes Benz AMG GLE63s", daily: 1300, weekly: 7800, monthly: 26000 },
+      { name: "Mercedes GLC 63S AMG Coupe", daily: 1300, weekly: 7800, monthly: 26000 },
+      { name: "Mercedes Benz AMG C63", daily: 1500, weekly: 9000, monthly: 30000 },
+      { name: "Mercedes Benz AMG GT63 S", daily: 1500, weekly: 9000, monthly: 30000 },
+      { name: "Mercedes Benz AMG G63 (Matte Black)", daily: 1800, weekly: 10800, monthly: 36000 },
+      { name: "Mercedes Benz AMG G63 Matte Gray", daily: 1800, weekly: 10800, monthly: 36000 },
+      { name: "Mercedes Benz G63 AMG", daily: 1800, weekly: 10800, monthly: 36000 },
+      { name: "Mercedes Benz G63 AMG Black", daily: 1800, weekly: 10800, monthly: 36000 },
+      { name: "Mercedes Benz G63 AMG White", daily: 1800, weekly: 10800, monthly: 36000 },
+      { name: "Mercedes V250 VIP Line", daily: 1800, weekly: 10800, monthly: 36000 },
+      { name: "Mercedes Benz AMG GLS63 S BRABUS", daily: 2000, weekly: 12000, monthly: 40000 },
+      { name: "Mercedes GLS600 Maybach", daily: 2000, weekly: 12000, monthly: 40000 },
+      { name: "Mercedes Benz AMG GT63 Coupe", daily: 2200, weekly: 13200, monthly: 44000 },
+      { name: "Mercedes Benz AMG G63 800 Widestar", daily: 3000, weekly: 18000, monthly: 60000 },
+      { name: "Mercedes Brabus G63 700 Widestar", daily: 3000, weekly: 18000, monthly: 60000 },
+      { name: "Mercedes Brabus G63 800 Widestar", daily: 3000, weekly: 18000, monthly: 60000 },
+    ],
+  },
+  {
+    slug: "rent-porsche-dubai",
+    displayName: "Porsche",
+    h1: "Rent Porsche in Dubai",
+    seo: {
+      title: "Rent Porsche Dubai | Porsche Rental Dubai From AED 1,000/Day",
+      description:
+        "Rent Porsche in Dubai from AED 1,000/day. Choose Porsche 911 GT3 RS, Turbo S, Cayenne and Macan with free delivery across Dubai and UAE.",
+    },
+    models: [
+      { name: "Porsche Macan Sports", daily: 1000, weekly: 6000, monthly: 20000 },
+      { name: "Porsche Cayenne Coupe", daily: 1300, weekly: 7800, monthly: 26000 },
+      { name: "Porsche 911 Carrera S Spyder", daily: 1500, weekly: 9000, monthly: 30000 },
+      { name: "Porsche 911 GT3", daily: 3000, weekly: 18000, monthly: 60000 },
+      { name: "Porsche 911 Turbo S", daily: 3000, weekly: 18000, monthly: 60000 },
+      { name: "Porsche 911 GT3 2026 (White)", daily: 3500, weekly: 21000, monthly: 70000 },
+      { name: "Porsche 911 GT3 RS", daily: 6500, weekly: 39000, monthly: 130000 },
+    ],
+  },
+  {
+    slug: "rent-range-rover-dubai",
+    displayName: "Range Rover",
+    h1: "Rent Range Rover in Dubai",
+    seo: {
+      title: "Rent Range Rover Dubai | Range Rover Rental Dubai From AED 1,500/Day",
+      description:
+        "Rent Range Rover in Dubai from AED 1,500/day. Choose Range Rover Vogue HSE and Vogue Mansory with free delivery across Dubai and UAE.",
+    },
+    models: [
+      { name: "Range Rover Vogue HSE", daily: 1500, weekly: 9000, monthly: 30000 },
+      { name: "Range Rover Vogue Mansory", daily: 2000, weekly: 12000, monthly: 40000 },
+    ],
+  },
 ];
-
-/* -------------------------------------------------------------------------- */
-/*  Shared content helpers (brand-agnostic)                                    */
-/* -------------------------------------------------------------------------- */
 
 const PHONE = "+971 56 526 6295";
 const SHOWROOM = "87 4th St - Al Qouz Ind.third - Al Quoz - Dubai";
@@ -127,18 +190,18 @@ const OWNER = "Ahmed Mansour (Ahmed Amwell)";
 
 function conditionsList(): ReturnType<typeof listBlock> {
   return listBlock([
-    `Minimum age: 21 years old with a valid driving license.`,
-    `No security deposit required for selected models. A refundable AED 5,000 deposit applies to certain high-value or limited models.`,
-    `Mileage allowance: 250 km per day. Additional kilometres are charged at AED 20/km.`,
-    `Payment via Visa or MasterCard incurs a 3% fee; American Express incurs a 5% fee.`,
-    `Smoking inside the vehicle is strictly prohibited. A cleaning fee of AED 1,500 applies if this is violated.`,
-    `No cleaning charges are applied if the vehicle is returned in proper condition.`,
-    `Salik tolls and traffic fines will be deducted from the security deposit.`,
-    `All prices listed exclude VAT at 5%.`,
-    `The vehicle must be returned with the same fuel level as at pickup. Refuelling costs plus a service fee apply if the tank is low.`,
-    `The standard rental period is 24 hours. Late returns are charged at the applicable hourly or daily rate.`,
-    `Extensions must be requested and confirmed before the agreed return time. Availability determines whether an extension is possible.`,
-    `Off-roading, drifting, stunt driving and track use are prohibited. Violation may result in fines and liability for any damage caused.`,
+    "Minimum age: 21 years old with a valid driving license.",
+    "No security deposit required for selected models. A refundable AED 5,000 deposit applies to certain high-value or limited models.",
+    "Mileage allowance: 250 km per day. Additional kilometres are charged at AED 20/km.",
+    "Payment via Visa or MasterCard incurs a 3% fee; American Express incurs a 5% fee.",
+    "Smoking inside the vehicle is strictly prohibited. A cleaning fee of AED 1,500 applies if this is violated.",
+    "No cleaning charges are applied if the vehicle is returned in proper condition.",
+    "Salik tolls and traffic fines will be deducted from the security deposit.",
+    "All prices listed exclude VAT at 5%.",
+    "The vehicle must be returned with the same fuel level as at pickup. Refuelling costs plus a service fee apply if the tank is low.",
+    "The standard rental period is 24 hours. Late returns are charged at the applicable hourly or daily rate.",
+    "Extensions must be requested and confirmed before the agreed return time. Availability determines whether an extension is possible.",
+    "Off-roading, drifting, stunt driving and track use are prohibited. Violation may result in fines and liability for any damage caused.",
   ]);
 }
 
@@ -157,29 +220,12 @@ function whatsIncludedList(): ReturnType<typeof listBlock> {
 
 function tipsList(): ReturnType<typeof listBlock> {
   return listBlock([
-    `Compare rates across models — daily prices range depending on the model and specification.`,
-    `Longer rentals reduce the per-day cost. Weekly and monthly packages offer better value for extended stays.`,
-    `Inspect the vehicle at pickup or delivery and note any existing marks on the condition report.`,
-    `Book in advance, especially during peak seasons (November–March, public holidays, major events), to secure your preferred model.`,
-    `Read the rental agreement carefully — it details mileage limits, insurance coverage, deposit terms and return conditions.`,
+    "Compare rates across models — daily prices range depending on the model and specification.",
+    "Longer rentals reduce the per-day cost. Weekly and monthly packages offer better value for extended stays.",
+    "Inspect the vehicle at pickup or delivery and note any existing marks on the condition report.",
+    "Book in advance, especially during peak seasons (November–March, public holidays, major events), to secure your preferred model.",
+    "Read the rental agreement carefully — it details mileage limits, insurance coverage, deposit terms and return conditions.",
   ]);
-}
-
-/* -------------------------------------------------------------------------- */
-/*  Per-brand helpers                                                          */
-/* -------------------------------------------------------------------------- */
-
-function seo(displayName: string, minPrice: number): { title: string; description: string } {
-  const brand = displayName === "Rolls Royce" ? "Rolls-Royce" : displayName;
-  const formattedMin = minPrice.toLocaleString();
-  const slug = brand.toLowerCase().replace(/\s+/g, "-");
-  const rental = brand === "Brabus" ? "Brabus-tuned" : brand;
-  // Return the brand-specific SEO from the config instead
-  // This is unused; SEO is defined per-brand in BRANDS array.
-  return {
-    title: `Rent ${brand} Dubai | Luxury ${brand} Rental From AED ${formattedMin}/Day`,
-    description: `Rent ${brand} in Dubai from AED ${formattedMin}/day. Choose with free delivery across Dubai and UAE.`,
-  };
 }
 
 function buildPriceTable(displayName: string, models: BrandConfig["models"]) {
@@ -197,10 +243,7 @@ function buildPriceTable(displayName: string, models: BrandConfig["models"]) {
 function buildModelList(displayName: string, models: BrandConfig["models"]) {
   return listBlock(
     models.map((m) => {
-      const modelName = m.name;
-      // Normalise display name for the text
-      const article = ["Audi", "Aston"].includes(displayName.split(" ")[0]) ? "an" : "a";
-      return `Rent the ${modelName} in Dubai — from AED ${m.daily.toLocaleString()}/day`;
+      return `Rent the ${m.name} in Dubai — from AED ${m.daily.toLocaleString()}/day`;
     }),
   );
 }
@@ -212,19 +255,13 @@ function modelParagraph(displayName: string, models: BrandConfig["models"]): str
   return `Luxury Supercar Rentals offers the following ${displayName} models: ${list}. Availability changes — contact ${PHONE} for current stock.`;
 }
 
-/* -------------------------------------------------------------------------- */
-/*  Document factory                                                           */
-/* -------------------------------------------------------------------------- */
-
 function buildDoc(config: BrandConfig) {
   const { slug, displayName, h1, seo, models } = config;
   const minPrice = Math.min(...models.map((m) => m.daily));
   const maxPrice = Math.max(...models.map((m) => m.daily));
-  // For Brabus which has models under Mercedes but also has a brand page
   const label = displayName;
   const brandLower = displayName.toLowerCase();
 
-  /* ---- Section 1: Intro ---- */
   const section1 = {
     _type: "brandSection" as const,
     _key: key("section", `${slug}-intro`),
@@ -242,7 +279,6 @@ function buildDoc(config: BrandConfig) {
     ],
   };
 
-  /* ---- Section 2: Price table ---- */
   const section2 = {
     _type: "brandSection" as const,
     _key: key("section", `${slug}-prices`),
@@ -255,11 +291,10 @@ function buildDoc(config: BrandConfig) {
       paragraphBlock(
         `Prices are subject to availability and may change during peak periods (New Year, Dubai Shopping Festival, major events). Please confirm the final rate and any applicable deposit before booking.`,
       ),
-      paragraphBlock(`Last updated: July 2026.`),
+      paragraphBlock("Last updated: July 2026."),
     ],
   };
 
-  /* ---- Section 3: Why Book with Us ---- */
   const section3 = {
     _type: "brandSection" as const,
     _key: key("section", `${slug}-why-book`),
@@ -269,14 +304,14 @@ function buildDoc(config: BrandConfig) {
         `Choose from ${brandLower} models with daily, weekly and monthly rental options and delivery across Dubai. Here is what every booking includes:`,
       ),
       ...listBlock([
-        `Cars owned or directly managed by Luxury Supercar Rentals — not outsourced`,
-        `Basic insurance included with every rental`,
-        `250 km per day mileage allowance`,
-        `Free delivery and collection across Dubai`,
-        `24/7 WhatsApp and phone support`,
-        `Daily, weekly and monthly booking options`,
-        `Clear deposit policy — no deposit on selected models`,
-        `Showroom located at 87 4th St - Al Qouz Ind.third - Al Quoz - Dubai`,
+        "Cars owned or directly managed by Luxury Supercar Rentals — not outsourced",
+        "Basic insurance included with every rental",
+        "250 km per day mileage allowance",
+        "Free delivery and collection across Dubai",
+        "24/7 WhatsApp and phone support",
+        "Daily, weekly and monthly booking options",
+        "Clear deposit policy — no deposit on selected models",
+        "Showroom located at 87 4th St - Al Qouz Ind.third - Al Quoz - Dubai",
       ]),
       paragraphBlock(
         `Luxury Supercar Rentals is owned and managed by ${OWNER}, a recognised automotive enthusiast and creator whose hands-on approach means every car in the fleet is personally selected and maintained. This direct ownership model allows us to offer competitive rates without compromising on quality.`,
@@ -284,7 +319,6 @@ function buildDoc(config: BrandConfig) {
     ],
   };
 
-  /* ---- Section 4: Rates ---- */
   const section4 = {
     _type: "brandSection" as const,
     _key: key("section", `${slug}-rates`),
@@ -302,7 +336,6 @@ function buildDoc(config: BrandConfig) {
     ],
   };
 
-  /* ---- Section 5: Top Models ---- */
   const section5 = {
     _type: "brandSection" as const,
     _key: key("section", `${slug}-top-models`),
@@ -314,7 +347,6 @@ function buildDoc(config: BrandConfig) {
     ],
   };
 
-  /* ---- Section 6: Requirements ---- */
   const section6 = {
     _type: "brandSection" as const,
     _key: key("section", `${slug}-requirements`),
@@ -322,8 +354,8 @@ function buildDoc(config: BrandConfig) {
     body: [
       paragraphBlock(`To rent a ${label} in Dubai, you must meet the following document and age requirements:`),
       ...listBlock([
-        `For UAE residents: Valid Emirates ID or passport, plus a UAE driving license. You must be at least 21 years old.`,
-        `For tourists: Valid passport, visit visa, driving license from your country of residence, and an International Driving Permit (IDP) where required. You must be at least 21 years old.`,
+        "For UAE residents: Valid Emirates ID or passport, plus a UAE driving license. You must be at least 21 years old.",
+        "For tourists: Valid passport, visit visa, driving license from your country of residence, and an International Driving Permit (IDP) where required. You must be at least 21 years old.",
       ]),
       paragraphBlock(
         `A refundable security deposit may apply to selected models. The deposit is returned at the end of the rental period, subject to the vehicle being returned in the same condition with no outstanding fines or damages. Contact our team to confirm deposit requirements for your preferred model.`,
@@ -331,7 +363,6 @@ function buildDoc(config: BrandConfig) {
     ],
   };
 
-  /* ---- Section 7: Why Choose Us ---- */
   const section7 = {
     _type: "brandSection" as const,
     _key: key("section", `${slug}-why-choose`),
@@ -341,15 +372,14 @@ function buildDoc(config: BrandConfig) {
         `Luxury Supercar Rentals offers a hand-picked selection of ${label} models maintained to the highest standard. Every car in our fleet is owned and managed directly by the company, giving us full control over condition, availability and pricing.`,
       ),
       paragraphBlock(
-        `Rental terms are transparent: basic insurance is included, the mileage allowance is 250 km per day, and delivery is free across Dubai. Payment can be made via bank transfer, cash, credit or debit card, and cryptocurrency.`,
+        "Rental terms are transparent: basic insurance is included, the mileage allowance is 250 km per day, and delivery is free across Dubai. Payment can be made via bank transfer, cash, credit or debit card, and cryptocurrency.",
       ),
       paragraphBlock(
-        `Our verified rating of 4.9 stars from 486 Google reviews reflects the quality of service our clients have experienced. The Luxury Supercar Rentals showroom is located at 87 4th St - Al Qouz Ind.third - Al Quoz - Dubai — you are welcome to view any vehicle before booking.`,
+        "Our verified rating of 4.9 stars from 486 Google reviews reflects the quality of service our clients have experienced. The Luxury Supercar Rentals showroom is located at 87 4th St - Al Qouz Ind.third - Al Quoz - Dubai — you are welcome to view any vehicle before booking.",
       ),
     ],
   };
 
-  /* ---- Section 8: Tips ---- */
   const section8 = {
     _type: "brandSection" as const,
     _key: key("section", `${slug}-tips`),
@@ -360,7 +390,6 @@ function buildDoc(config: BrandConfig) {
     ],
   };
 
-  /* ---- Section 9: Deposit Policy ---- */
   const section9 = {
     _type: "brandSection" as const,
     _key: key("section", `${slug}-deposit`),
@@ -370,12 +399,11 @@ function buildDoc(config: BrandConfig) {
         `No security deposit is required for selected ${label} models. A refundable security deposit may apply to certain high-value or limited models. Please confirm the applicable terms before booking.`,
       ),
       paragraphBlock(
-        `For models that require a deposit, the amount is AED 5,000, payable via credit or debit card or cash. The deposit is refunded via bank transfer within 28 days of the vehicle's return, provided there are no damages, traffic fines or outstanding charges.`,
+        "For models that require a deposit, the amount is AED 5,000, payable via credit or debit card or cash. The deposit is refunded via bank transfer within 28 days of the vehicle's return, provided there are no damages, traffic fines or outstanding charges.",
       ),
     ],
   };
 
-  /* ---- Section 10: Conditions ---- */
   const section10 = {
     _type: "brandSection" as const,
     _key: key("section", `${slug}-conditions`),
@@ -386,7 +414,6 @@ function buildDoc(config: BrandConfig) {
     ],
   };
 
-  /* ---- Section 11: What's Included ---- */
   const section11 = {
     _type: "brandSection" as const,
     _key: key("section", `${slug}-included`),
@@ -394,7 +421,6 @@ function buildDoc(config: BrandConfig) {
     body: [...whatsIncludedList()],
   };
 
-  /* ---- Section 12: Book ---- */
   const section12 = {
     _type: "brandSection" as const,
     _key: key("section", `${slug}-book`),
@@ -407,7 +433,6 @@ function buildDoc(config: BrandConfig) {
     ],
   };
 
-  /* ---- FAQs ---- */
   const faqs = [
     {
       _type: "brandFaq" as const,
@@ -434,14 +459,14 @@ function buildDoc(config: BrandConfig) {
       _key: key("faq", `${slug}-documents`),
       question: `What documents do I need to rent a ${label} in Dubai?`,
       answer:
-        `UAE residents need a valid Emirates ID or passport and a UAE driving license. Tourists need a valid passport, visit visa, their home-country driving license, and an International Driving Permit (IDP) if required by their country of origin. All renters must be at least 20 years old.`,
+        "UAE residents need a valid Emirates ID or passport and a UAE driving license. Tourists need a valid passport, visit visa, their home-country driving license, and an International Driving Permit (IDP) if required by their country of origin. All renters must be at least 21 years old.",
     },
     {
       _type: "brandFaq" as const,
       _key: key("faq", `${slug}-us-license`),
       question: `Can I rent a ${label} in Dubai with a US driver\u2019s license?`,
       answer:
-        `Yes. A valid US driver\u2019s license is accepted for renting a ${label} in Dubai. An International Driving Permit (IDP) is generally not required for US license holders. You must be at least 20 years old and present a valid passport. UAE residents need a UAE driving license.`,
+        `Yes. A valid US driver\u2019s license is accepted for renting a ${label} in Dubai. An International Driving Permit (IDP) is generally not required for US license holders. You must be at least 21 years old and present a valid passport. UAE residents need a UAE driving license.`,
     },
     {
       _type: "brandFaq" as const,
@@ -476,7 +501,7 @@ function buildDoc(config: BrandConfig) {
       _key: key("faq", `${slug}-included`),
       question: `What is and isn\u2019t included in a ${label} rental price?`,
       answer:
-        `Included: basic insurance, 250 km/day mileage, free delivery across Dubai, 24/7 support. Not included: VAT (5%), additional mileage (AED 20/km), Salik tolls, traffic fines, late return fees, and a cleaning fee of AED 1,500 if smoking inside the vehicle is detected. Parking fees during the rental period are also the renter\u2019s responsibility.`,
+        "Included: basic insurance, 250 km/day mileage, free delivery across Dubai, 24/7 support. Not included: VAT (5%), additional mileage (AED 20/km), Salik tolls, traffic fines, late return fees, and a cleaning fee of AED 1,500 if smoking inside the vehicle is detected. Parking fees during the rental period are also the renter\u2019s responsibility.",
     },
     {
       _type: "brandFaq" as const,
@@ -490,21 +515,21 @@ function buildDoc(config: BrandConfig) {
       _key: key("faq", `${slug}-fuel`),
       question: `What is the fuel policy for ${label} rentals in Dubai?`,
       answer:
-        `The vehicle must be returned with the same fuel level as at pickup. If the fuel level is lower, the cost of refuelling plus a service fee will be deducted from the security deposit.`,
+        "The vehicle must be returned with the same fuel level as at pickup. If the fuel level is lower, the cost of refuelling plus a service fee will be deducted from the security deposit.",
     },
     {
       _type: "brandFaq" as const,
       _key: key("faq", `${slug}-abu-dhabi`),
       question: `Can I drive a rental ${label} to Abu Dhabi?`,
       answer:
-        `Yes, driving to Abu Dhabi is permitted. Salik toll charges and any traffic fines incurred during the rental period will be deducted from the security deposit. Confirm any geographic restrictions at the time of booking.`,
+        "Yes, driving to Abu Dhabi is permitted. Salik toll charges and any traffic fines incurred during the rental period will be deducted from the security deposit. Confirm any geographic restrictions at the time of booking.",
     },
     {
       _type: "brandFaq" as const,
       _key: key("faq", `${slug}-delivery`),
-      question: `Is delivery available at Dubai Airport or my hotel?`,
+      question: "Is delivery available at Dubai Airport or my hotel?",
       answer:
-        `Yes, free delivery and collection are available across Dubai, including Dubai International Airport (DXB), Al Maktoum International Airport (DWC), and all Dubai hotels. Delivery is coordinated with your flight or check-in schedule.`,
+        "Yes, free delivery and collection are available across Dubai, including Dubai International Airport (DXB), Al Maktoum International Airport (DWC), and all Dubai hotels. Delivery is coordinated with your flight or check-in schedule.",
     },
     {
       _type: "brandFaq" as const,
@@ -534,10 +559,6 @@ function buildDoc(config: BrandConfig) {
   };
 }
 
-/* -------------------------------------------------------------------------- */
-/*  Main                                                                       */
-/* -------------------------------------------------------------------------- */
-
 async function main() {
   if (!isConfigured) {
     console.error(
@@ -548,7 +569,7 @@ async function main() {
   }
 
   const docs = BRANDS.map(buildDoc);
-  await batchCreateOrReplace(docs, { label: "five-brands" });
+  await batchCreateOrReplace(docs, { label: "eight-brands" });
   console.log(`\u2713 ${docs.length} brands updated in Sanity: ${BRANDS.map((b) => b.displayName).join(", ")}`);
 }
 

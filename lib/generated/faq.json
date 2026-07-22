@@ -19,7 +19,7 @@
   },
   {
     "q": "What documents will I be asked to submit when hiring a car?",
-    "a": "For UAE residents: a copy of Emirates ID and UAE Driver's License (front and back). For GCC residents: GCC ID and GCC Driver's License. For tourists: passport copy and a valid driver's license. An IDP is required for certain countries.",
+    "a": "For UAE residents: a copy of the Emirates ID and UAE Driver's License (front and back). \nFor GCC residents: GCC ID and GCC Driver's License.\nFor tourists: a passport copy and a valid driver's license. An IDP is required for certain countries.",
     "category": "documents",
     "showOnHomepage": true
   },
@@ -91,13 +91,13 @@
   },
   {
     "q": "Can I book more than one vehicle at once?",
-    "a": "Yes, you can book multiple vehicles simultaneously with Luxury Supercars Dubai. Simply select your desired cars and make the booking.",
+    "a": "Yes, you can book multiple vehicles simultaneously with LuxurySuperCarsDubai.com. Simply select your desired cars and make the booking.",
     "category": "booking",
     "showOnHomepage": false
   },
   {
     "q": "Are there any additional charges on Dubai luxury car rental?",
-    "a": "No, Luxury Supercars Dubai does not charge any additional fees apart from the rental price you pay for your chosen car. All our rates are transparent and include all taxes and service fees.",
+    "a": "No, LuxurySuperCarsDubai.com does not charge any additional fees apart from the rental price you pay for your chosen car. All our rates are transparent and include all taxes and service fees.",
     "category": "booking",
     "showOnHomepage": false
   },
@@ -121,13 +121,13 @@
   },
   {
     "q": "What documents are required to hire a car from Luxury Supercar Rentals?",
-    "a": "For UAE residents: a copy of Emirates ID and UAE Driver's License (front and back). For GCC residents: GCC ID and GCC Driver's License. For tourists: passport copy and a valid driver's license. An IDP is required for certain countries.",
+    "a": "Copy of Passport with visa page. Copy of your valid UAE driving license / Valid International License. Credit Card",
     "category": "documents",
     "showOnHomepage": false
   },
   {
     "q": "What payment options do you have?",
-    "a": "We accept cash in all currencies, credit/debit cards (Visa, MasterCard, and AMEX), and crypto.",
+    "a": "You can use any of the following payment methods to pay for your rental: • Cash • Visa • MasterCard • American Express • Online Banking • Bitcoin",
     "category": "payment",
     "showOnHomepage": false
   },

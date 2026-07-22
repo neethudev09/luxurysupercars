@@ -7,6 +7,7 @@ import type { Car } from "@/lib/fleet";
 import { carHref } from "@/lib/fleet";
 import { CONTACT } from "@/lib/content";
 import { PriceAmount, CurrencySymbol } from "@/components/currency/Price";
+import { getBrandLogo } from "@/lib/assets";
 
 interface CarCardProps {
   car: Car;
@@ -71,6 +72,7 @@ export default function CarCard({ car, theme = "dark", index = 0 }: CarCardProps
     `Hi, I'm interested in renting the ${car.name}. Could you share availability and pricing?`
   );
   const waHref = `https://wa.me/${waNumber}?text=${waMessage}`;
+  const brandLogo = getBrandLogo(car.brand);
 
   return (
     <Reveal
@@ -105,6 +107,17 @@ export default function CarCard({ car, theme = "dark", index = 0 }: CarCardProps
           priority={index === 0}
           className="object-cover transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.06]"
         />
+        {brandLogo && (
+          <div className="absolute top-3 left-3 z-10 size-16 md:size-20 flex items-center justify-center p-2.5">
+            <Image
+              src={brandLogo.src}
+              alt={`${car.brandName} logo`}
+              width={80}
+              height={40}
+              className="object-contain w-full h-full"
+            />
+          </div>
+        )}
         <div className={`absolute inset-0 bg-gradient-to-t ${isLight ? "from-black/40" : "from-black/70"} via-transparent to-transparent`} />
       </div>
 

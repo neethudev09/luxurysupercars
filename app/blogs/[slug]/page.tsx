@@ -4,11 +4,11 @@ import Link from "next/link";
 import Script from "next/script";
 import { notFound } from "next/navigation";
 import SiteNav from "@/components/nav/SiteNav";
-import Footer from "@/components/sections/Footer";
 import ShareStrip from "@/components/sections/ShareStrip";
 import Reveal from "@/components/motion/Reveal";
 import MaskHeading from "@/components/motion/MaskHeading";
 import MagneticCTA from "@/components/motion/MagneticCTA";
+import Footer from "@/components/sections/Footer";
 import { BLOG_POSTS, blogImageAlt, getPost, getRelatedPosts } from "@/lib/blog";
 import { SITE_URL } from "@/lib/site";
 
@@ -286,7 +286,6 @@ export default async function BlogPostPage(
         </div>
       </section>
 
-      <Footer />
 
       <Script
         id={`blog-jsonld-${post.slug}`}
@@ -294,6 +293,7 @@ export default async function BlogPostPage(
         strategy="afterInteractive"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
+      <Footer />
     </main>
   );
 }

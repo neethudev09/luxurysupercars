@@ -121,7 +121,7 @@ export default function ScrollHero() {
             poster="/images/hero-poster.webp"
             muted
             playsInline
-            preload="auto"
+            preload="metadata"
             className="absolute inset-0 h-full w-full object-cover"
           />
         )}

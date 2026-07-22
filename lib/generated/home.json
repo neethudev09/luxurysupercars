@@ -93,20 +93,20 @@
       {
         "_key": "req-0",
         "_type": "requirement",
-        "body": "Drivers must be at least 21 years old. Some supercars require drivers to be 25+.",
+        "body": "Drivers must be at least 21 years old.\nSome supercars require drivers to be 25+.",
         "title": "AGE"
       },
       {
         "_key": "req-1",
         "_type": "requirement",
-        "body": "UAE residents need a valid UAE driving licence. Tourists must present a valid licence and, if required, an International Driving Permit (IDP).",
+        "body": "UAE residents need a valid UAE driving licence.\nTourists must present a valid licence and, if required, an International Driving Permit (IDP).",
         "title": "Driving License"
       },
       {
         "_key": "req-2",
         "_type": "requirement",
         "body": "We provide free delivery across Dubai. Delivery charges apply to other Emirates.",
-        "title": "Free delivery"
+        "title": "Free Delivery"
       }
     ]
   },

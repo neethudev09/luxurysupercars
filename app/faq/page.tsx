@@ -3,11 +3,12 @@ import Script from "next/script";
 import SiteNav from "@/components/nav/SiteNav";
 import PageHero from "@/components/sections/PageHero";
 import FAQ from "@/components/sections/FAQ";
-import Footer from "@/components/sections/Footer";
+
 import Reveal from "@/components/motion/Reveal";
 import MagneticCTA from "@/components/motion/MagneticCTA";
 import MaskHeading from "@/components/motion/MaskHeading";
 import { FAQ_PAGE } from "@/lib/content";
+import Footer from "@/components/sections/Footer";
 import { PAGE_HERO_IMAGES } from "@/lib/assets";
 
 export const metadata: Metadata = {
@@ -102,13 +103,13 @@ export default function FaqPage() {
         </div>
       </section>
 
-      <Footer />
       <Script
         id="faq-page-jsonld"
         type="application/ld+json"
         strategy="afterInteractive"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_JSON_LD) }}
       />
+      <Footer />
     </main>
   );
 }

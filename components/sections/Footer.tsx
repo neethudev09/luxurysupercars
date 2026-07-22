@@ -66,13 +66,18 @@ export default function Footer() {
               Useful Links
             </p>
             <ul className="flex flex-col gap-1.5 text-[15px] text-[var(--ink-hi)]/80">
-              {FOOTER.useful.map((u) => (
+              {FOOTER.useful.filter((u) => u.href !== "/").map((u) => (
                 <li key={u.href}>
                   <Link href={u.href} className="hover:text-[var(--champagne)] transition-colors">
                     {u.label}
                   </Link>
                 </li>
               ))}
+              <li>
+                <Link href="/locations" className="hover:text-[var(--champagne)] transition-colors">
+                  Delivery Areas
+                </Link>
+              </li>
             </ul>
           </div>
           <div className="col-span-2 md:col-span-2">

@@ -7,6 +7,7 @@ import LocationBody from "@/components/sections/LocationBody";
 import LocationMap from "@/components/sections/LocationMap";
 import FAQ from "@/components/sections/FAQ";
 import { getLocation, getAllLocations, LOCATION_SLUGS } from "@/lib/locations";
+import Footer from "@/components/sections/Footer";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -100,6 +101,7 @@ export default async function LocationPage({ params }: Props) {
         strategy="afterInteractive"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(locationJsonLd) }}
       />
+      <Footer />
     </main>
   );
 }

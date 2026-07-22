@@ -16,8 +16,14 @@
  */
 import brandsData from "./generated/brands.json";
 
+export interface InlineSegment {
+  text: string;
+  href?: string;
+}
+
 export type BrandSectionBlock =
   | { kind: "paragraph"; text: string }
+  | { kind: "rich-paragraph"; segments: InlineSegment[] }
   | { kind: "list"; items: string[] }
   | { kind: "table"; headers: string[]; rows: string[][] };
 
@@ -33,6 +39,7 @@ export interface FleetBrandMeta {
   description: string;
   h1: string;
   visibleTitle: string;
+  quickAnswer?: string;
   sections: BrandSection[];
   faqs: { q: string; a: string }[];
   faqHeading: string | null;

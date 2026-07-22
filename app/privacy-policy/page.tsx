@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import SiteNav from "@/components/nav/SiteNav";
 import PageHero from "@/components/sections/PageHero";
 import StickyToc from "@/components/sections/StickyToc";
-import Footer from "@/components/sections/Footer";
 import MaskHeading from "@/components/motion/MaskHeading";
 import { PRIVACY_POLICY_PAGE } from "@/lib/content";
+import Footer from "@/components/sections/Footer";
 
 export const metadata: Metadata = {
   title: PRIVACY_POLICY_PAGE.metaTitle,

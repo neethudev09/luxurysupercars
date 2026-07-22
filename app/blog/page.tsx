@@ -4,9 +4,9 @@ import Link from "next/link";
 import SiteNav from "@/components/nav/SiteNav";
 import PageHero from "@/components/sections/PageHero";
 import BlogFeaturedHero from "@/components/sections/BlogFeaturedHero";
-import Footer from "@/components/sections/Footer";
 import Reveal from "@/components/motion/Reveal";
 import { BLOG_POSTS, blogImageAlt } from "@/lib/blog";
+import Footer from "@/components/sections/Footer";
 
 export const metadata: Metadata = {
   title: "Blog | Insights & News on Super Car Rentals in Dubai",

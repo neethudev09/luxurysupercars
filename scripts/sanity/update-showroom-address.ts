@@ -1,9 +1,8 @@
 /**
- * One-off: owner moved the Dubai showroom. Patches every Sanity field
- * that hard-codes the old address or older mixed spellings.
+ * One-off: standardises showroom address across all Sanity records.
  *
- * Canonical address:
- *   87 4th St - Al Qouz Ind.third - Al Quoz - Dubai
+ * Canonical address (used everywhere):
+ *   87 4th St, Al Quoz Industrial Area 3, Al Quoz, Dubai
  *
  * Touches:
  *   - siteSettings.contact.address (drives footer + contact page)
@@ -22,6 +21,8 @@ const REPLACEMENTS: Array<[string, string]> = [
   ["87 4th St, Al Qouz Ind.third, Al Quoz, Dubai", NEW_ADDRESS],
   ["87 4th St - Al Qouz Ind.third - Al Quoz - Dubai", NEW_ADDRESS],
   ["87 4th St - Al Quoz Industrial Area 3 - Dubai", NEW_ADDRESS],
+  ["87 4th St, Al Quoz, Dubai", NEW_ADDRESS],
+  ["87 4th St - Al Quoz - Dubai", NEW_ADDRESS],
   [`59MJ+F95 ${EN_DASH} 87 4th St ${EN_DASH} Al Qouz Ind.third ${EN_DASH} Al Quoz ${EN_DASH} Dubai`, NEW_ADDRESS],
   [`59MJ+F95 ${EN_DASH} 87 4th St ${EN_DASH} Al Quoz ${EN_DASH} Dubai`, NEW_ADDRESS],
   [`59MJ+F95 ${MOJIBAKE_DASH} 87 4th St ${MOJIBAKE_DASH} Al Qouz Ind.third ${MOJIBAKE_DASH} Al Quoz ${MOJIBAKE_DASH} Dubai`, NEW_ADDRESS],

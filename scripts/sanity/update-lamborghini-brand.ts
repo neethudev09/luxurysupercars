@@ -16,7 +16,7 @@ import { batchCreateOrReplace, isConfigured } from "./lib";
 
 const SLUG = "rent-lamborghini-dubai";
 const PHONE = "+971 56 526 6295";
-const SHOWROOM = "87 4th St, Al Quoz Industrial Area 3, Al Quoz, Dubai";
+const SHOWROOM = "87 4th St - Al Qouz Ind.third - Al Quoz - Dubai";
 const OWNER = "Ahmed Mansour (Ahmed Amwell)";
 
 const doc = {
@@ -104,7 +104,7 @@ const doc = {
           "24/7 WhatsApp and phone support",
           "Daily, weekly and monthly booking options",
           "Clear deposit policy — no deposit on selected models",
-          "Showroom located at 87 4th St, Al Quoz, Dubai",
+          "Showroom located at 87 4th St - Al Qouz Ind.third - Al Quoz - Dubai",
         ]),
         paragraphBlock(
           `Luxury Supercar Rentals is owned and managed by ${OWNER}, a recognised automotive enthusiast and creator whose hands-on approach means every car in the fleet is personally selected and maintained. This direct ownership model allows us to offer competitive rates without compromising on quality.`,
@@ -196,7 +196,7 @@ const doc = {
           "Rental terms are transparent: basic insurance is included, the mileage allowance is 250 km per day, and delivery is free across Dubai. Payment can be made via bank transfer, cash, credit or debit card, and cryptocurrency.",
         ),
         paragraphBlock(
-          "Our verified rating of 4.9 stars from 486 Google reviews reflects the quality of service our clients have experienced. The Luxury Supercar Rentals showroom is located at 87 4th St, Al Quoz, Dubai — you are welcome to view any vehicle before booking.",
+          "Our verified rating of 4.9 stars from 486 Google reviews reflects the quality of service our clients have experienced. The Luxury Supercar Rentals showroom is located at 87 4th St - Al Qouz Ind.third - Al Quoz - Dubai — you are welcome to view any vehicle before booking.",
         ),
       ],
     },

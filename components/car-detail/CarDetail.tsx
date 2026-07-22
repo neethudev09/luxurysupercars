@@ -5,7 +5,6 @@ import { getCarGallery } from "@/lib/fleet";
 import { CONTACT } from "@/lib/content";
 import { getBrandLogo } from "@/lib/assets";
 import SiteNav from "@/components/nav/SiteNav";
-import Footer from "@/components/sections/Footer";
 import MaskHeading from "@/components/motion/MaskHeading";
 import Reveal from "@/components/motion/Reveal";
 import CarGallery from "./CarGallery";
@@ -81,6 +80,7 @@ export default function CarDetail({ car, related }: CarDetailProps) {
           images={getCarGallery(car)}
           alt={`${car.name} — ${car.color ?? car.category} luxury car rental Dubai`}
           category={car.category}
+          brand={car.brand}
         />
       </div>
 
@@ -187,7 +187,6 @@ export default function CarDetail({ car, related }: CarDetailProps) {
         </div>
       </section>
 
-      <Footer />
 
       {/* Persistent car CTA — fixed to the bottom, overlaid on content */}
       <StickyEnquireBar car={car} />

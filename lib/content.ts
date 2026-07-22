@@ -291,7 +291,7 @@ const HOMEPAGE_FAQ_FALLBACK = [
   },
   {
     q: "What documents will I be asked to submit when hiring a car?",
-    a: "For UAE residents: a copy of Emirates ID and UAE Driver's License (front and back). For GCC residents: GCC ID and GCC Driver's License. For tourists: passport copy and a valid driver's license. An IDP is required for certain countries.",
+    a: "For UAE residents: a copy of the Emirates ID and UAE Driver's License (front and back). For GCC residents: GCC ID and GCC Driver's License. For tourists: a passport copy and a valid driver's license. An IDP is required for certain countries.",
   },
   {
     q: "How can I pay for my car rental?",
@@ -767,10 +767,10 @@ const FOOTER_RENT_DEFAULT = [
 // hrefs mirror live luxurysupercarsdubai.com slugs exactly so existing
 // backlinks resolve unchanged on launch.
 const FOOTER_USEFUL_DEFAULT = [
-  { label: "Home", href: "/" },
   { label: "About Us", href: "/about-us" },
   { label: "Our Fleet", href: "/our-fleet" },
   { label: "Services", href: "/services" },
+  { label: "Delivery Areas", href: "/locations" },
   { label: "Blogs", href: "/blog" },
   { label: "Careers", href: "/careers" },
   { label: "FAQs", href: "/faq" },

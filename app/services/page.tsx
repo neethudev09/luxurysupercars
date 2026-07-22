@@ -3,10 +3,10 @@ import Image from "next/image";
 import Link from "next/link";
 import SiteNav from "@/components/nav/SiteNav";
 import PageHero from "@/components/sections/PageHero";
-import Footer from "@/components/sections/Footer";
 import Reveal from "@/components/motion/Reveal";
 import { SERVICES_PAGE } from "@/lib/content";
 import { PAGE_HERO_IMAGES } from "@/lib/assets";
+import Footer from "@/components/sections/Footer";
 import {
   FEATURED_LUXURY,
   FEATURED_SPORTS,

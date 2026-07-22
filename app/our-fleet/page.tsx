@@ -4,8 +4,8 @@ import BrandsSection from "@/components/sections/BrandsSection";
 import FleetExplorer from "@/components/fleet/FleetExplorer";
 import Testimonials from "@/components/sections/Testimonials";
 import FAQ from "@/components/sections/FAQ";
-import Footer from "@/components/sections/Footer";
 import { UNIQUE_CARS } from "@/lib/fleet";
+import Footer from "@/components/sections/Footer";
 
 export const metadata: Metadata = {
   title: "Our Luxury Car Rental Fleet | Luxury Supercars Dubai",

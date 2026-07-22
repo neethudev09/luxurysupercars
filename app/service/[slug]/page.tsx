@@ -4,11 +4,11 @@ import { notFound } from "next/navigation";
 import SiteNav from "@/components/nav/SiteNav";
 import PageHero from "@/components/sections/PageHero";
 import FleetSection from "@/components/sections/FleetSection";
-import Footer from "@/components/sections/Footer";
 import Reveal from "@/components/motion/Reveal";
 import MagneticCTA from "@/components/motion/MagneticCTA";
 import { SERVICES_PAGE } from "@/lib/content";
 import { SERVICE_IMAGES } from "@/lib/assets";
+import Footer from "@/components/sections/Footer";
 import { SPORTS_CARS, CONVERTIBLE_CARS, LUXURY_CARS, SUV_CARS } from "@/lib/fleet";
 
 type Params = { slug: string };

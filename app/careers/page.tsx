@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import SiteNav from "@/components/nav/SiteNav";
 import PageHero from "@/components/sections/PageHero";
-import Footer from "@/components/sections/Footer";
 import Reveal from "@/components/motion/Reveal";
 import MaskHeading from "@/components/motion/MaskHeading";
 import { CAREERS_PAGE } from "@/lib/content";
 import { PAGE_HERO_IMAGES } from "@/lib/assets";
 import CareersForm from "@/components/careers/CareersForm";
+import Footer from "@/components/sections/Footer";
 
 export const metadata: Metadata = {
   title: CAREERS_PAGE.metaTitle,

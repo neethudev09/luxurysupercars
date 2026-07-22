@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import CarDetail from "@/components/car-detail/CarDetail";
 import CarJsonLd from "@/components/car-detail/CarJsonLd";
+import Footer from "@/components/sections/Footer";
 import {
   UNIQUE_CARS,
   getCarByPath,
@@ -80,6 +81,7 @@ export default async function CarPage({
     <>
       <CarJsonLd car={car} />
       <CarDetail car={car} related={related} />
+      <Footer />
     </>
   );
 }

@@ -4,6 +4,7 @@ import SiteNav from "@/components/nav/SiteNav";
 import PageHero from "@/components/sections/PageHero";
 import Reveal from "@/components/motion/Reveal";
 import { getAllLocations } from "@/lib/locations";
+import Footer from "@/components/sections/Footer";
 
 export const metadata: Metadata = {
   title: "Luxury Car Rental Locations Dubai | Free Delivery Across the City",
@@ -75,6 +76,7 @@ export default function LocationsPage() {
         </div>
       </section>
 
+      <Footer />
     </main>
   );
 }

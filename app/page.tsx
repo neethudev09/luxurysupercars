@@ -14,6 +14,7 @@ import {
   FEATURED_SUVS,
 } from "@/lib/fleet";
 
+const DeliveryAreas = dynamic(() => import("@/components/sections/DeliveryAreas"), { ssr: true });
 const Requirements = dynamic(() => import("@/components/sections/Requirements"), { ssr: true });
 const RentalDirectory = dynamic(() => import("@/components/sections/RentalDirectory"), { ssr: true });
 const Testimonials = dynamic(() => import("@/components/sections/Testimonials"), { ssr: true });
@@ -78,8 +79,9 @@ export default function Home() {
 
       <Requirements />
       <RentalDirectory />
-      <Testimonials />
       <WhyChooseUs />
+      <DeliveryAreas />
+      <Testimonials />
       <FAQ />
       <BlogStrip />
       <InstagramFeed />

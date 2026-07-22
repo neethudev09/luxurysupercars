@@ -1,7 +1,6 @@
 "use client";
 
-import { motion, useMotionValue, useSpring } from "framer-motion";
-import { ReactNode, useRef } from "react";
+import { ReactNode } from "react";
 
 interface MagneticCTAProps {
   children: ReactNode;
@@ -17,58 +16,28 @@ export default function MagneticCTA({
   href,
   onClick,
   className = "",
-  strength = 0.25,
   ariaLabel,
 }: MagneticCTAProps) {
-  const ref = useRef<HTMLElement | null>(null);
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-  const sx = useSpring(x, { stiffness: 220, damping: 18, mass: 0.4 });
-  const sy = useSpring(y, { stiffness: 220, damping: 18, mass: 0.4 });
-
-  const onMove = (e: React.MouseEvent<HTMLElement>) => {
-    const node = ref.current;
-    if (!node) return;
-    const r = node.getBoundingClientRect();
-    const dx = (e.clientX - (r.left + r.width / 2)) * strength;
-    const dy = (e.clientY - (r.top + r.height / 2)) * strength;
-    x.set(Math.max(-10, Math.min(10, dx)));
-    y.set(Math.max(-8, Math.min(8, dy)));
-  };
-
-  const onLeave = () => {
-    x.set(0);
-    y.set(0);
-  };
-
   if (href) {
     return (
-      <motion.a
-        ref={ref as React.Ref<HTMLAnchorElement>}
+      <a
         href={href}
         aria-label={ariaLabel}
-        className={className}
-        style={{ x: sx, y: sy }}
-        onMouseMove={onMove}
-        onMouseLeave={onLeave}
+        className={`${className} inline-block transition-transform duration-200 hover:scale-[1.04] active:scale-[0.97]`}
       >
         {children}
-      </motion.a>
+      </a>
     );
   }
 
   return (
-    <motion.button
-      ref={ref as React.Ref<HTMLButtonElement>}
+    <button
       type="button"
       onClick={onClick}
       aria-label={ariaLabel}
-      className={className}
-      style={{ x: sx, y: sy }}
-      onMouseMove={onMove}
-      onMouseLeave={onLeave}
+      className={`${className} inline-block transition-transform duration-200 hover:scale-[1.04] active:scale-[0.97]`}
     >
       {children}
-    </motion.button>
+    </button>
   );
 }
