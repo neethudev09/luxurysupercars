@@ -6,7 +6,7 @@ export default function WhyChooseUs() {
   return (
     <section id={WHY_US.id} className="bg-[var(--bg-obsidian)] py-20 md:py-24 overflow-hidden border-t border-white/5">
       <div className="container-x">
-        <div className="grid md:grid-cols-12 gap-6 mb-12 md:mb-14 items-end">
+        <div className="grid md:grid-cols-12 gap-6 mb-6 md:mb-8 items-end">
           <div className="md:col-span-12">
             <MaskHeading
               text={WHY_US.h2}
