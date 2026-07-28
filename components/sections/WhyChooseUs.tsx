@@ -17,7 +17,7 @@ export default function WhyChooseUs() {
           </div>
         </div>
 
-        <Reveal className="rise mb-10 md:mb-14">
+        <Reveal className="rise mb-6 md:mb-8">
           <div className="relative aspect-video w-full overflow-hidden rounded-2xl border border-white/8 bg-black">
             <iframe
               src="https://www.youtube-nocookie.com/embed/TjB258kdQFc?autoplay=1&mute=1&loop=1&playlist=TjB258kdQFc&playsinline=1&modestbranding=1&rel=0&controls=0"
