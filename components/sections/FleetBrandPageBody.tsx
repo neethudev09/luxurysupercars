@@ -6,10 +6,59 @@ import FleetExplorer from "@/components/fleet/FleetExplorer";
 import BrandJsonLd from "@/components/seo/BrandJsonLd";
 import Testimonials from "@/components/sections/Testimonials";
 import FAQ from "@/components/sections/FAQ";
+import type { FAQItem } from "@/components/sections/FAQ";
 import { CONTACT } from "@/lib/content";
 import Footer from "@/components/sections/Footer";
 import type { Car } from "@/lib/fleet";
 import type { FleetBrandMeta } from "@/lib/fleet-brands";
+
+function brandFaqs(brand: string, cars: Car[]): FAQItem[] {
+  const prices = cars.map((c) => c.price?.daily).filter(Boolean) as number[];
+  const minPrice = prices.length ? Math.min(...prices) : 0;
+  const maxPrice = prices.length ? Math.max(...prices) : 0;
+  const names = cars.map((c) => c.name);
+  const engines = [...new Set(cars.map((c) => c.engine).filter(Boolean))] as string[];
+  const hasDelivery = true;
+
+  return [
+    {
+      q: `How much does it cost to rent a ${brand} in Dubai?`,
+      a: `${brand} rental prices in Dubai start from AED ${minPrice.toLocaleString()}/day and go up to AED ${maxPrice.toLocaleString()}/day depending on the model and rental duration. We offer daily, weekly, and monthly rental options with free delivery across the UAE.`,
+    },
+    {
+      q: `What ${brand} models are available for rent?`,
+      a: `Our ${brand} fleet includes ${names.slice(0, 4).join(", ")}${names.length > 4 ? `, and more` : ""}. Each vehicle is meticulously maintained and regularly serviced to ensure peak performance and reliability during your rental.`,
+    },
+    {
+      q: `Do you offer free delivery for ${brand} rentals in Dubai?`,
+      a: `Yes, we provide free delivery and pickup for all ${brand} rentals across Dubai and the UAE. Whether you're at your hotel, residence, office, or the airport, we'll have your ${brand} ready at your preferred location and time.`,
+    },
+    {
+      q: `What is the minimum age to rent a ${brand} in Dubai?`,
+      a: `The minimum age to rent a ${brand} in Dubai is 21 years. A valid driving license is required — international visitors can drive with a valid license from their home country or an International Driving Permit (IDP).`,
+    },
+    {
+      q: `Is insurance included with ${brand} rentals?`,
+      a: `Yes, basic insurance is included with every ${brand} rental. We also offer comprehensive coverage options for added peace of mind. Feel free to ask our team about insurance upgrades when booking.`,
+    },
+    {
+      q: `Can I rent a ${brand} for a week or a month in Dubai?`,
+      a: `Absolutely. We offer flexible rental periods — daily, weekly, and monthly. Weekly and monthly rentals come with discounted rates, making them ideal for extended stays or business trips in Dubai.`,
+    },
+    ...(engines.length
+      ? [
+          {
+            q: `What engine options does the ${brand} fleet have?`,
+            a: `${brand} models in our fleet feature ${engines.slice(0, 3).join(", ")} engine configurations, delivering exceptional performance and driving dynamics suited to Dubai's roads and highways.`,
+          } as FAQItem,
+        ]
+      : []),
+    {
+      q: `How do I book a ${brand} rental in Dubai?`,
+      a: `Booking a ${brand} is quick and easy. You can reach us via WhatsApp, phone, or the contact form on our website. Our team will confirm availability, arrange free delivery, and have your car ready within hours.`,
+    },
+  ];
+}
 
 interface FleetBrandPageBodyProps {
   meta: FleetBrandMeta;
@@ -38,9 +87,7 @@ export default function FleetBrandPageBody({ meta, cars }: FleetBrandPageBodyPro
       <FleetBrandAbout brandName={brand} sections={meta.sections} />
       <CtaBeforeReviews brandName={brand} />
       <Testimonials />
-      {meta.faqHeading && meta.faqs.length > 0 && (
-        <FAQ heading={meta.faqHeading} items={meta.faqs} />
-      )}
+      <FAQ heading={meta.faqHeading} items={brandFaqs(brand, cars)} />
       <Footer />
     </main>
   );
