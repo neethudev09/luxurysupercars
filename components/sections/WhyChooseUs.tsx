@@ -58,7 +58,7 @@ export default function WhyChooseUs() {
           ))}
         </div>
 
-        <Reveal className="my-8 md:my-10">
+        <Reveal className="mt-6 md:mt-8 mb-4 md:mb-6">
           <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 px-6 py-4 text-[13px] md:text-[14px] text-white/75">
             <span className="inline-flex items-center gap-2">
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="shrink-0 text-champagne"><circle cx="7" cy="7" r="6" stroke="currentColor" strokeWidth="1.2" /><path d="M4.5 7l2 2 3-3.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" /></svg>
