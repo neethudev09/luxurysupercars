@@ -749,7 +749,7 @@ export const COOKIE_POLICY_PAGE = {
 };
 
 const FOOTER_BRANDS_DEFAULT = [
-  "Aston Martin", "Audi", "Bentley", "BMW", "Brabus", "Bugatti", "Cadillac",
+  "Aston Martin", "Audi", "Bentley", "BMW", "Brabus", "Range Rover", "Cadillac",
   "Ferrari", "Lamborghini", "Land Rover", "Mansory", "Maserati", "McLaren",
   "Mercedes Benz", "Porsche", "Rolls Royce",
 ];
@@ -785,7 +785,7 @@ const FOOTER_LEGAL_DEFAULT = [
 export const FOOTER = {
   // Footer blurb — from Sanity `siteSettings.footerDescription`.
   description: siteSettingsData.footerDescription,
-  brands: chrome.footer?.brands?.length ? chrome.footer.brands : FOOTER_BRANDS_DEFAULT,
+  brands: FOOTER_BRANDS_DEFAULT,
   rent: chrome.footer?.rentLinks?.length ? links(chrome.footer.rentLinks) : FOOTER_RENT_DEFAULT,
   useful: chrome.footer?.usefulLinks?.length ? links(chrome.footer.usefulLinks) : FOOTER_USEFUL_DEFAULT,
   legal: chrome.footer?.legalLinks?.length ? links(chrome.footer.legalLinks) : FOOTER_LEGAL_DEFAULT,

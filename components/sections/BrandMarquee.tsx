@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { BRAND_LOGOS } from "@/lib/assets";
 
 // Logos that ship dark-on-transparent — invert on this section's dark bg.
@@ -21,22 +22,26 @@ export default function BrandMarquee() {
             style={{ ["--marquee-speed" as string]: "55s" }}
           >
             <div className="marquee-track gap-12 md:gap-16 py-1">
-              {logos.map((b, i) => (
-                <div
-                  key={`${b.name}-${i}`}
-                  className="relative h-[64px] w-[70px] shrink-0 flex items-center justify-center"
-                  title={b.name}
-                >
-                  <Image
-                    src={b.src}
-                    alt={`${b.name} logo`}
-                    fill
-                    sizes="70px"
-                    className="object-contain opacity-60 hover:opacity-100 transition-opacity"
-                    style={DARK_LOGOS.has(b.name) ? { filter: "invert(1)" } : undefined}
-                  />
-                </div>
-              ))}
+              {logos.map((b, i) => {
+                const href = b.slug ? `/brands/${b.slug}` : "#";
+                return (
+                  <Link
+                    key={`${b.name}-${i}`}
+                    href={href}
+                    className="relative h-[64px] w-[70px] shrink-0 flex items-center justify-center"
+                    title={b.name}
+                  >
+                    <Image
+                      src={b.src}
+                      alt={`${b.name} logo`}
+                      fill
+                      sizes="70px"
+                      className="object-contain opacity-60 hover:opacity-100 transition-opacity"
+                      style={DARK_LOGOS.has(b.name) ? { filter: "invert(1)" } : undefined}
+                    />
+                  </Link>
+                );
+              })}
             </div>
           </div>
         </div>

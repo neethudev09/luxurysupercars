@@ -57,6 +57,31 @@ export default function WhyChooseUs() {
             </Reveal>
           ))}
         </div>
+
+        <Reveal className="my-8 md:my-10">
+          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 px-6 py-4 text-[13px] md:text-[14px] text-white/75">
+            <span className="inline-flex items-center gap-2">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="shrink-0 text-champagne"><circle cx="7" cy="7" r="6" stroke="currentColor" strokeWidth="1.2" /><path d="M4.5 7l2 2 3-3.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" /></svg>
+              Free Dubai Delivery
+            </span>
+            <span className="inline-flex items-center gap-2">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="shrink-0 text-champagne"><circle cx="7" cy="7" r="6" stroke="currentColor" strokeWidth="1.2" /><path d="M4.5 7l2 2 3-3.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" /></svg>
+              Basic Insurance Included
+            </span>
+            <span className="inline-flex items-center gap-2">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="shrink-0 text-champagne"><circle cx="7" cy="7" r="6" stroke="currentColor" strokeWidth="1.2" /><path d="M4.5 7l2 2 3-3.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" /></svg>
+              Daily • Weekly • Monthly
+            </span>
+            <span className="inline-flex items-center gap-2">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="shrink-0 text-champagne"><circle cx="7" cy="7" r="6" stroke="currentColor" strokeWidth="1.2" /><path d="M4.5 7l2 2 3-3.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" /></svg>
+              24/7 Support
+            </span>
+            <span className="inline-flex items-center gap-2">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="shrink-0 text-champagne"><circle cx="7" cy="7" r="6" stroke="currentColor" strokeWidth="1.2" /><path d="M4.5 7l2 2 3-3.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" /></svg>
+              Instant WhatsApp Booking
+            </span>
+          </div>
+        </Reveal>
       </div>
     </section>
   );

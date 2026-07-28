@@ -16,6 +16,59 @@ import StickyEnquireBar from "./StickyEnquireBar";
 import RentalCard from "./RentalCard";
 import FleetEnquiryDialog from "./FleetEnquiryDialog";
 import FAQ from "@/components/sections/FAQ";
+import type { FAQItem } from "@/components/sections/FAQ";
+
+function carFaqs(car: Car): FAQItem[] {
+  const b = car.brandName;
+  const n = car.name;
+  const p = car.price ? `AED ${car.price.toLocaleString()}/day` : "varies by season";
+  const dp = car.deposit || "AED 5,000–10,000";
+  const eng = car.engine || "a high-performance engine";
+  const perf = car.zeroToHundred ? `0–100 km/h in ${car.zeroToHundred}` : "blistering acceleration";
+  const ts = car.topSpeed ? `a top speed of ${car.topSpeed}` : "an exhilarating top speed";
+  const seats = car.seats ? `${car.seats} passengers` : "two";
+  const drs = car.doors ? `${car.doors} doors` : "two";
+  const bg = car.baggage || "light luggage";
+
+  return [
+    {
+      q: `What makes the ${n} special?`,
+      a: `The ${n} is a ${car.category} vehicle from ${b}, powered by ${eng} delivering ${perf} and ${ts}. With seating for ${seats} and ${drs}, it strikes a balance between performance and practicality that makes it one of the most popular ${b} models available for rental in Dubai.`
+    },
+    {
+      q: `How much does it cost to rent the ${n} in Dubai?`,
+      a: `The ${n} is available from ${p}. A refundable security deposit of ${dp} is held on your credit card at pickup and released after the rental. All rates include insurance with a Collision Damage Waiver and free delivery within Dubai.`
+    },
+    {
+      q: `What documents do I need to rent the ${n}?`,
+      a: `Tourists need a valid passport, home-country driving licence (plus an International Driving Permit if your country isn't RTA-exempt), and a credit card in the driver's name. UAE residents need a valid Emirates ID and UAE driving licence. The minimum age to rent this ${b} model is typically 25, though some luxury vehicles are available from 21.`
+    },
+    {
+      q: `Can tourists rent the ${n} in Dubai?`,
+      a: `Yes. Tourists from the US, UK, Canada, Australia, and most of the EU can rent the ${n} using their home driving licence directly. Drivers from other countries need an International Driving Permit arranged before travel. The car is delivered free to your hotel, villa, or Dubai Airport.`
+    },
+    {
+      q: `What fuel does the ${n} use?`,
+      a: `Like all supercars in Dubai, the ${n} requires premium "Super 98" octane petrol. The rental includes a full tank at handover — return it at the same level. Fuel stations are widely available across Dubai, with ADNOC, ENOC, and EPPCO stations on every major route.`
+    },
+    {
+      q: `How many people can the ${n} accommodate?`,
+      a: `The ${n} seats ${seats} with ${drs} and ${bg} capacity. It is ideal for couples, solo travellers, or small groups looking to experience Dubai in a premium ${b} vehicle.`
+    },
+    {
+      q: `What is the performance of the ${n}?`,
+      a: `The ${n} features ${eng} delivering ${perf} and ${ts}. The ${car.transmission || "automatic"} transmission and ${car.driveType || "rear-wheel"} drivetrain make it well-suited to Dubai's smooth highways and Sheikh Zayed Road cruising.`
+    },
+    {
+      q: `Where can I drive the ${n} in Dubai?`,
+      a: `The ${n} is perfect for Sheikh Zayed Road sunset cruises, Palm Jumeirah arrivals, Dubai Marina coastal drives, and the Abu Dhabi E11 highway. For a longer road trip, Jebel Jais in Ras Al Khaimah is a popular 90-minute drive. All rental insurance covers the entire UAE. Off-road driving is strictly prohibited.`
+    },
+    {
+      q: `Is delivery available for the ${n} rental?`,
+      a: `Yes. Free delivery is included for the ${n} across all major Dubai locations — Dubai Marina, Downtown, Palm Jumeirah, Business Bay, DIFC, JBR, Dubai Airport, Al Barsha, JVC, and Emirates Hills. We also deliver to Abu Dhabi, Sharjah, and Ras Al Khaimah.`
+    },
+  ];
+}
 
 /**
  * Where the rental card (price + deposit/mileage/extra-km + CTAs) lives.
@@ -135,11 +188,13 @@ export default function CarDetail({ car, related }: CarDetailProps) {
       {/* Related cars */}
       <RelatedCars cars={related} category={car.category} />
 
-      {/* Rental FAQs — renders the same Q&A that the global FAQPage schema
-          (components/seo/JsonLd.tsx) already emits, so the structured data is
-          backed by visible, crawlable content. Mirrors the live car pages,
-          which carried this "Everything You Need To Know" block. */}
-      <FAQ />
+      {/* Car-specific FAQs — unique per model to avoid duplicate content */}
+      <FAQ
+        heading={`${car.brandName} ${car.name} — FAQs`}
+        subheading={`**Everything** you need to know about renting the **${car.name}** in Dubai`}
+        items={carFaqs(car)}
+        cta={null}
+      />
 
       {/* Final CTA */}
       <section id="enquire" className="bg-[var(--bg-obsidian)] py-20 md:py-24 border-t border-white/5">

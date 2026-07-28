@@ -9,7 +9,8 @@ const BRAND_HREF: Record<string, string> = Object.fromEntries(
 
 function brandHref(name: string) {
   if (BRAND_HREF[name]) return BRAND_HREF[name];
-  if (name === "Mercedes Benz" && BRAND_HREF["Mercedes"]) return BRAND_HREF["Mercedes"];
+  if (name === "Range Rover") return BRAND_HREF["Land Rover"];
+  if (name === "Mercedes Benz") return BRAND_HREF["Mercedes"];
   return "#brands";
 }
 
@@ -27,6 +28,7 @@ export default function Footer() {
                 height={72}
                 sizes="360px"
                 className="h-18 w-auto object-contain"
+                style={{ width: "auto" }}
               />
             </Link>
             <p className="text-[15.5px] leading-[1.7] text-[var(--ink-lo)] max-w-md">

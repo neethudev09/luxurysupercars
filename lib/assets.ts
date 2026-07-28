@@ -86,6 +86,7 @@ export const BRAND_LOGOS: { name: string; src: string; slug: string | null }[] =
   { name: "Mansory",      src: "/images/brands/mansory.png",                slug: "rent-mansory-dubai" },
   { name: "Maserati",     src: "/images/brands/maserati.png",               slug: "rent-maserati-dubai" },
   { name: "Porsche",      src: "/images/brands/porsche-new.png",                slug: "rent-porsche-dubai" },
+  { name: "Range Rover",  src: "/images/legacy/2024/11/land.png",               slug: "rent-range-rover-dubai" },
 ];
 
 /** Resolve a brand's logo from its directory slug (e.g. "rent-aston-martin-dubai"). */

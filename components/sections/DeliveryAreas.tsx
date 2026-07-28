@@ -20,7 +20,7 @@ export default function DeliveryAreas() {
         </Reveal>
         <Reveal>
           <MaskHeading
-            text="We **deliver** across **Dubai**"
+            text="We **deliver** across **UAE**"
             as="h2"
             breakAfterBold={false}
             className="font-[var(--font-display)] text-[clamp(1.8rem,4vw,3rem)] leading-[1.05] tracking-[-0.018em] text-[var(--ink-hi)] text-balance max-w-2xl mb-4"

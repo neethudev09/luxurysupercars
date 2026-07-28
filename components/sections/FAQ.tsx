@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import MaskHeading from "@/components/motion/MaskHeading";
 import { FAQ as FAQ_CONTENT } from "@/lib/content";
 
-interface FAQItem {
+export interface FAQItem {
   q: string;
   a: string;
 }
@@ -71,7 +71,7 @@ export default function FAQ({ heading, subheading, items, cta }: FAQProps = {}) 
                       type="button"
                       onClick={() => setOpenIdx(open ? null : i)}
                       aria-expanded={open}
-                      className="w-full flex items-center justify-between gap-4 py-5 text-left group"
+                      className="w-full flex items-center justify-between gap-4 py-5 text-left group cursor-pointer"
                     >
                       <span className="font-[var(--font-display)] text-[18px] md:text-[20px] leading-tight tracking-tight text-[var(--ink-dark-hi)] pr-6">
                         {it.q}

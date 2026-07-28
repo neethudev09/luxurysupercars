@@ -216,14 +216,15 @@ export default function SiteNav() {
             aria-label="Luxury Supercars Dubai — home"
             className="relative z-[51] inline-flex items-center h-18 shrink-0 cursor-pointer"
           >
-            <Image
-              src={SITE_LOGO}
-              alt="Luxury Supercars Dubai"
-              width={360}
-              height={72}
-              priority
-              className="h-18 w-auto object-contain"
-            />
+                <Image
+                  src={SITE_LOGO}
+                  alt="Luxury Supercars Dubai"
+                  width={360}
+                  height={72}
+                  priority
+                  className="w-30 h-auto object-contain"
+                  style={{ height: "auto" }}
+                />
           </Link>
 
           {/* Viewport-centred nav (absolute so it's centred to the page, not
@@ -302,7 +303,7 @@ export default function SiteNav() {
                           </div>
                         ) : (
                           <div className="grid grid-cols-5 gap-x-3 gap-y-2">
-                            {BRAND_LOGOS.filter((b) => b.slug !== null).map((b) => (
+                            {BRAND_LOGOS.filter((b) => b.slug !== null && b.name !== "Range Rover").map((b) => (
                               <Link
                                 key={b.name}
                                 href={`/brands/${b.slug}`}
@@ -390,6 +391,7 @@ export default function SiteNav() {
                   width={360}
                   height={72}
                   className="h-18 w-auto object-contain"
+                  style={{ width: "auto" }}
                 />
               </Link>
               <button
@@ -532,6 +534,7 @@ export default function SiteNav() {
                   width={360}
                   height={72}
                   className="h-18 w-auto object-contain"
+                  style={{ width: "auto" }}
                 />
               </Link>
               <button
@@ -604,7 +607,7 @@ export default function SiteNav() {
                           transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
                           className="overflow-hidden flex flex-col"
                         >
-                          {(isType ? NAV_CAR_TYPES : BRAND_LOGOS.filter((b) => b.slug !== null)).map(
+                          {(isType ? NAV_CAR_TYPES : BRAND_LOGOS.filter((b) => b.slug !== null && b.name !== "Range Rover")).map(
                             (item) => {
                               const itemLabel = "label" in item ? item.label : item.name;
                               const itemHref =

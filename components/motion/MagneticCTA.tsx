@@ -9,6 +9,8 @@ interface MagneticCTAProps {
   className?: string;
   strength?: number;
   ariaLabel?: string;
+  target?: string;
+  rel?: string;
 }
 
 export default function MagneticCTA({
@@ -17,27 +19,31 @@ export default function MagneticCTA({
   onClick,
   className = "",
   ariaLabel,
+  target,
+  rel,
 }: MagneticCTAProps) {
-  if (href) {
+  if (onClick || !href) {
     return (
-      <a
-        href={href}
+      <button
+        type="button"
+        onClick={onClick || (() => {})}
         aria-label={ariaLabel}
         className={`${className} inline-block transition-transform duration-200 hover:scale-[1.04] active:scale-[0.97]`}
       >
         {children}
-      </a>
+      </button>
     );
   }
 
   return (
-    <button
-      type="button"
-      onClick={onClick}
+    <a
+      href={href}
+      target={target}
+      rel={rel}
       aria-label={ariaLabel}
       className={`${className} inline-block transition-transform duration-200 hover:scale-[1.04] active:scale-[0.97]`}
     >
       {children}
-    </button>
+    </a>
   );
 }

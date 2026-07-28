@@ -30,7 +30,7 @@ export default function LocationsPage() {
       <SiteNav />
       <PageHero
         eyebrow="Locations"
-        h1="**Dubai** Delivery Areas"
+        h1="**Luxury Car** Delivery Across Dubai & the UAE"
         subline="Free delivery to every major Dubai district - from the Marina to the Palm, Downtown to the Airport. Your car, wherever you are."
         spotlight="right"
       />
