@@ -5,6 +5,11 @@
  * Run: npx tsx scripts/sanity/migrate-fleet-faqs.ts
  */
 import { client, isConfigured } from "./lib";
+import { v4 as uuid } from "uuid";
+
+function withKeys<T extends Record<string, unknown>>(items: T[]): (T & { _key: string })[] {
+  return items.map((item) => ({ ...item, _key: uuid() }));
+}
 
 // ── Brand FAQs ──────────────────────────────────────────────────────────
 const BRANDS = [
@@ -14,7 +19,7 @@ const BRANDS = [
 ];
 
 function brandFaqs(brand: string) {
-  return [
+  return withKeys([
     {
       question: `How much does it cost to rent a ${brand} in Dubai?`,
       answer: `${brand} rental prices in Dubai start from AED 1,500/day and go up to AED 11,000/day depending on the model and rental duration. We offer daily, weekly, and monthly rental options with free delivery across the UAE.`,
@@ -43,7 +48,7 @@ function brandFaqs(brand: string) {
       question: `How do I book a ${brand} rental in Dubai?`,
       answer: `Booking a ${brand} is quick and easy. You can reach us via WhatsApp, phone, or the contact form on our website. Our team will confirm availability, arrange free delivery, and have your car ready within hours.`,
     },
-  ];
+  ]);
 }
 
 async function migrateBrandFaqs() {
@@ -67,7 +72,7 @@ const TYPE_PAGES: { id: string; label: string }[] = [
 ];
 
 function typeFaqs(typeLabel: string) {
-  return [
+  return withKeys([
     {
       question: `How much does it cost to rent ${typeLabel.toLowerCase()} in Dubai?`,
       answer: `${typeLabel} rental prices in Dubai start from AED 1,500/day and go up to AED 11,000/day depending on the model and rental duration. We offer daily, weekly, and monthly options with free UAE delivery.`,
@@ -96,7 +101,7 @@ function typeFaqs(typeLabel: string) {
       question: `How do I book ${typeLabel.toLowerCase()} in Dubai?`,
       answer: `Booking is quick and easy. Reach us via WhatsApp, phone, or the contact form on our website. Our team will confirm availability, arrange free delivery, and have your car ready within hours.`,
     },
-  ];
+  ]);
 }
 
 async function migrateTypeFaqs() {
