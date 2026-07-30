@@ -2,6 +2,7 @@ import Image from "next/image";
 import type { Car } from "@/lib/fleet";
 import { CONTACT } from "@/lib/content";
 import { Price } from "@/components/currency/Price";
+import { trackWhatsAppClick, trackPhoneClick } from "@/lib/analytics";
 
 interface StickyEnquireBarProps {
   car: Car;
@@ -56,6 +57,7 @@ export default function StickyEnquireBar({ car }: StickyEnquireBarProps) {
           <div className="flex items-center gap-2 shrink-0">
             <a
               href={`tel:${phoneDigits}`}
+              onClick={() => trackPhoneClick("StickyEnquireBar — " + car.name, car.name)}
               className="inline-flex items-center gap-2 rounded-full bg-white px-4 md:px-5 py-2.5 md:py-3 text-[12px] md:text-[15px] font-medium text-[var(--bg-obsidian)] hover:bg-white/90 transition-colors"
             >
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
@@ -74,6 +76,7 @@ export default function StickyEnquireBar({ car }: StickyEnquireBarProps) {
               target="_blank"
               rel="noreferrer"
               aria-label={`WhatsApp about the ${car.name}`}
+              onClick={() => trackWhatsAppClick("StickyEnquireBar — " + car.name, car.name)}
               className="inline-flex items-center justify-center size-10 md:size-11 rounded-full bg-[#25D366] text-white hover:bg-[#1ebe5d] transition-colors"
             >
               <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden>

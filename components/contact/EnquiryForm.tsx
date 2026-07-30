@@ -4,6 +4,7 @@ import { type FormEvent, useActionState, useState } from "react";
 import { CARS_BRANDS } from "@/lib/content";
 import PhoneCountrySelect from "@/components/contact/PhoneCountrySelect";
 import { sendEnquiry, type EnquiryFormState } from "@/app/actions/send-enquiry";
+import { trackFormSubmit } from "@/lib/analytics";
 
 const INITIAL_STATE: EnquiryFormState = { ok: false, message: "" };
 
@@ -30,6 +31,7 @@ export default function EnquiryForm({ className = "" }: { className?: string }) 
 
     if (!invalidField) {
       setClientMessage("");
+      trackFormSubmit("EnquiryForm");
       return;
     }
 

@@ -8,6 +8,7 @@ import Testimonials from "@/components/sections/Testimonials";
 import FAQ from "@/components/sections/FAQ";
 import { CONTACT } from "@/lib/content";
 import Footer from "@/components/sections/Footer";
+import { trackWhatsAppClick, trackPhoneClick, trackContactClick } from "@/lib/analytics";
 import type { Car } from "@/lib/fleet";
 import type { FleetBrandMeta } from "@/lib/fleet-brands";
 
@@ -112,6 +113,7 @@ function CtaBeforeReviews({ brandName }: { brandName: string }) {
         <div className="flex flex-wrap items-center justify-center gap-4">
           <a
             href={telHref}
+            onClick={() => trackPhoneClick("FleetBrandPageBody", brandName)}
             className="inline-flex items-center gap-2 rounded-full bg-white/5 border border-white/15 px-5 py-3 text-[13px] font-[var(--font-mono)] tracking-[0.06em] hover:border-[var(--champagne)]/60 transition-colors"
           >
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
@@ -123,6 +125,7 @@ function CtaBeforeReviews({ brandName }: { brandName: string }) {
             href={waHref}
             target="_blank"
             rel="noreferrer"
+            onClick={() => trackWhatsAppClick("FleetBrandPageBody", brandName)}
             className="inline-flex items-center gap-2 rounded-full bg-[var(--champagne)] text-[var(--bg-obsidian)] px-5 py-3 text-[13px] font-[var(--font-mono)] tracking-[0.06em] font-medium hover:bg-[var(--champagne-hi)] transition-colors"
           >
             <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden>
@@ -132,6 +135,7 @@ function CtaBeforeReviews({ brandName }: { brandName: string }) {
           </a>
           <Link
             href="/contact-us"
+            onClick={() => trackContactClick("FleetBrandPageBody", brandName)}
             className="inline-flex items-center gap-2 rounded-full border border-white/15 px-5 py-3 text-[13px] font-[var(--font-mono)] tracking-[0.06em] hover:border-[var(--champagne)]/60 transition-colors"
           >
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
@@ -173,6 +177,7 @@ function BrandEmptyState({ brandName }: { brandName: string }) {
               href={waHref}
               target="_blank"
               rel="noreferrer"
+              onClick={() => trackWhatsAppClick("BrandEmptyState", brandName)}
               className="inline-flex items-center gap-2 rounded-full bg-[var(--champagne)] text-[var(--bg-obsidian)] px-5 py-2.5 text-[12.5px] font-medium hover:bg-[var(--champagne-hi)] transition-colors"
             >
               WhatsApp the team

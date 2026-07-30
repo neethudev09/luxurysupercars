@@ -9,6 +9,7 @@ import { CONTACT, NAV_LINKS, SOCIAL } from "@/lib/content";
 import { SITE_LOGO, BRAND_LOGOS, NAV_CAR_TYPES } from "@/lib/assets";
 import { useCurrency } from "@/components/currency/CurrencyProvider";
 import { CURRENCIES, type Currency } from "@/lib/currency";
+import { trackPhoneClick, trackContactClick } from "@/lib/analytics";
 import type { Category } from "@/lib/fleet";
 
 const PRIMARY_LINKS = NAV_LINKS;
@@ -193,6 +194,7 @@ export default function SiteNav() {
             <Divider />
             <a
               href={`tel:${CONTACT.primaryPhone.replace(/\s/g, "")}`}
+              onClick={() => trackPhoneClick("SiteNav")}
               className="inline-flex items-center gap-2 text-[var(--champagne)] hover:text-[var(--champagne-hi)] transition-colors"
             >
               <PhoneIcon />
@@ -337,6 +339,7 @@ export default function SiteNav() {
           {/* Contact Us — pulled out of the main nav and styled as a button */}
           <Link
             href="/contact-us"
+            onClick={() => trackContactClick("SiteNav")}
             className="hidden lg:inline-flex items-center gap-2 rounded-full bg-[var(--champagne)] text-[var(--bg-obsidian)] px-5 py-2.5 text-[15px] font-medium tracking-wide hover:bg-[var(--champagne-hi)] transition-colors"
           >
             Contact Us
@@ -642,6 +645,7 @@ export default function SiteNav() {
               </div>
               <a
                 href={`tel:${CONTACT.primaryPhone.replace(/\s/g, "")}`}
+                onClick={() => trackPhoneClick("SiteNav")}
                 className="mt-6 inline-flex items-center justify-center gap-2 rounded-full bg-[var(--champagne)] text-[var(--bg-obsidian)] px-6 py-4 text-sm font-medium"
               >
                 Call {CONTACT.primaryPhone}

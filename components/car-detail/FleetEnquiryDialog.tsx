@@ -4,6 +4,7 @@ import { type ReactNode, useActionState, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { sendEnquiry, type EnquiryFormState } from "@/app/actions/send-enquiry";
 import PhoneCountrySelect from "@/components/contact/PhoneCountrySelect";
+import { trackFormSubmit } from "@/lib/analytics";
 
 const INITIAL_STATE: EnquiryFormState = { ok: false, message: "" };
 
@@ -98,7 +99,7 @@ export default function FleetEnquiryDialog({
                     </p>
                   </div>
 
-                  <form action={action} className="space-y-4 px-6 py-6 md:px-7">
+                  <form action={action} onSubmit={() => { trackFormSubmit("FleetEnquiryDialog"); }} className="space-y-4 px-6 py-6 md:px-7">
               <input type="hidden" name="enquiryType" value="fleet" />
               <input type="hidden" name="car" value={carName} />
               <input type="hidden" name="brand" value={brandName} />

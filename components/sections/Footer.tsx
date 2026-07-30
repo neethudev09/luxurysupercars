@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { CONTACT, FOOTER, SOCIAL } from "@/lib/content";
 import { BRAND_LOGOS, SITE_LOGO } from "@/lib/assets";
+import { trackPhoneClick } from "@/lib/analytics";
 
 const BRAND_HREF: Record<string, string> = Object.fromEntries(
   BRAND_LOGOS.filter((b) => b.slug).map((b) => [b.name, `/brands/${b.slug}`])
@@ -87,9 +88,9 @@ export default function Footer() {
               Contact Us
             </p>
             <ul className="flex flex-col gap-1.5 text-[15px] text-[var(--ink-hi)]/80">
-              <li><a href={`tel:${CONTACT.primaryPhone.replace(/\s/g, "")}`} className="hover:text-[var(--champagne)] transition-colors">{CONTACT.primaryPhone}</a></li>
-              <li><a href={`tel:${CONTACT.secondaryPhone.replace(/\s/g, "")}`} className="hover:text-[var(--champagne)] transition-colors">{CONTACT.secondaryPhone}</a></li>
-              <li><a href={`tel:${CONTACT.landline.replace(/\s/g, "")}`} className="hover:text-[var(--champagne)] transition-colors">{CONTACT.landline}</a></li>
+              <li><a href={`tel:${CONTACT.primaryPhone.replace(/\s/g, "")}`} onClick={() => trackPhoneClick("Footer — Primary")} className="hover:text-[var(--champagne)] transition-colors">{CONTACT.primaryPhone}</a></li>
+              <li><a href={`tel:${CONTACT.secondaryPhone.replace(/\s/g, "")}`} onClick={() => trackPhoneClick("Footer — Secondary")} className="hover:text-[var(--champagne)] transition-colors">{CONTACT.secondaryPhone}</a></li>
+              <li><a href={`tel:${CONTACT.landline.replace(/\s/g, "")}`} onClick={() => trackPhoneClick("Footer — Landline")} className="hover:text-[var(--champagne)] transition-colors">{CONTACT.landline}</a></li>
               <li><a href={`mailto:${CONTACT.email}`} className="hover:text-[var(--champagne)] transition-colors">{CONTACT.email}</a></li>
              <li className="mt-2 text-[14.5px]">
                 <a

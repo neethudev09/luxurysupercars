@@ -4,6 +4,7 @@ import { CONTACT } from "@/lib/content";
 import EnquiryForm from "@/components/contact/EnquiryForm";
 import MaskHeading from "@/components/motion/MaskHeading";
 import Reveal from "@/components/motion/Reveal";
+import { trackPhoneClick } from "@/lib/analytics";
 
 const SHOWROOM_MAP_URL = "https://maps.app.goo.gl/iSSMGBpsur7Lo8vp6";
 
@@ -38,6 +39,7 @@ export default function Contact({ formOnly = false }: { formOnly?: boolean }) {
                   href={r.href}
                   target={r.href.startsWith("http") ? "_blank" : undefined}
                   rel={r.href.startsWith("http") ? "noreferrer" : undefined}
+                  onClick={r.href.startsWith("tel:") ? () => trackPhoneClick("Contact section — " + r.label) : undefined}
                   className="group flex items-center justify-between py-4 text-[16px] hover:text-[var(--champagne)] transition-colors"
                 >
                   <span className="font-[var(--font-mono)] text-[12px] uppercase tracking-[0.22em] text-[var(--ink-lo)] w-28">

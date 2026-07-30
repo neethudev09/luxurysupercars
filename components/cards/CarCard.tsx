@@ -6,6 +6,7 @@ import Reveal from "@/components/motion/Reveal";
 import type { Car } from "@/lib/fleet";
 import { carHref } from "@/lib/fleet";
 import { CONTACT } from "@/lib/content";
+import { trackWhatsAppClick, trackBookNowClick } from "@/lib/analytics";
 import { PriceAmount, CurrencySymbol } from "@/components/currency/Price";
 import { getBrandLogo } from "@/lib/assets";
 
@@ -93,6 +94,7 @@ export default function CarCard({ car, theme = "dark", index = 0 }: CarCardProps
       <Link
         href={carHref(car)}
         aria-label={`View details for the ${car.name}`}
+        onClick={() => trackBookNowClick("CarCard — " + car.name, car.name)}
         className="absolute inset-0 z-0 focus-visible:outline-2 focus-visible:outline-[var(--champagne)] focus-visible:outline-offset-2 rounded-2xl"
       >
         <span className="sr-only">View details for the {car.name}</span>
@@ -167,7 +169,7 @@ export default function CarCard({ car, theme = "dark", index = 0 }: CarCardProps
             target="_blank"
             rel="noreferrer"
             aria-label={`WhatsApp about the ${car.name}`}
-            onClick={(e) => e.stopPropagation()}
+            onClick={(e) => { e.stopPropagation(); trackWhatsAppClick("CarCard — " + car.name, car.name); }}
             className="pointer-events-auto relative z-10 shrink-0 inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full bg-[#25D366] px-4 py-3 text-[15px] font-medium tracking-wide text-white hover:bg-[#1ebe5d] transition-colors"
           >
             <WhatsAppIcon size={18} />

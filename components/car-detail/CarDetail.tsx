@@ -17,6 +17,7 @@ import RentalCard from "./RentalCard";
 import FleetEnquiryDialog from "./FleetEnquiryDialog";
 import FAQ from "@/components/sections/FAQ";
 import type { FAQItem } from "@/components/sections/FAQ";
+import { trackWhatsAppClick, trackPhoneClick } from "@/lib/analytics";
 
 function carFaqs(car: Car): FAQItem[] {
   const b = car.brandName;
@@ -225,6 +226,7 @@ export default function CarDetail({ car, related }: CarDetailProps) {
               href={waHref}
               target="_blank"
               rel="noreferrer"
+              onClick={() => trackWhatsAppClick("CarDetail", car.name)}
               className="inline-flex items-center gap-2 rounded-full bg-[#25D366] text-white px-6 py-3 text-[15px] font-medium hover:bg-[#1ebe5d] transition-colors"
             >
               <svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor" aria-hidden>
@@ -234,6 +236,7 @@ export default function CarDetail({ car, related }: CarDetailProps) {
             </a>
             <a
               href={`tel:${waNumber}`}
+              onClick={() => trackPhoneClick("CarDetail", car.name)}
               className="inline-flex items-center gap-2 rounded-full border border-white/20 text-[var(--ink-hi)] px-6 py-3 text-[15px] font-medium hover:bg-white/5 transition-colors"
             >
               Call {CONTACT.primaryPhone}

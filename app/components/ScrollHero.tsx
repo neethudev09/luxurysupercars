@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { HERO } from "@/lib/content";
 import MaskHeading from "@/components/motion/MaskHeading";
 import MagneticCTA from "@/components/motion/MagneticCTA";
+import { trackWhatsAppClick, trackContactClick } from "@/lib/analytics";
 
 export default function ScrollHero() {
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -145,7 +146,10 @@ export default function ScrollHero() {
 
           <div className="mt-6 md:mt-9 flex flex-wrap items-center justify-start gap-3.5">
             <MagneticCTA
-              onClick={() => window.open("https://wa.me/971565266295?text=Hi%2C%20I%E2%80%99d%20like%20to%20enquire%20about%20Rent%20a%20car%20in%20Dubai.%20Please%20share%20the%20available%20vehicle%20options%2C%20pricing%2C%20and%20booking%20details.%20Thank%20you.", "_blank", "noreferrer")}
+              onClick={() => {
+                trackWhatsAppClick("Hero CTA — Rent A Car");
+                window.open("https://wa.me/971565266295?text=Hi%2C%20I%E2%80%99d%20like%20to%20enquire%20about%20Rent%20a%20car%20in%20Dubai.%20Please%20share%20the%20available%20vehicle%20options%2C%20pricing%2C%20and%20booking%20details.%20Thank%20you.", "_blank", "noreferrer");
+              }}}
               className="group inline-flex items-center gap-2.5 rounded-full bg-white px-7 py-3.5 text-[16px] font-medium tracking-wide text-[var(--bg-obsidian)] hover:bg-white/90 transition-colors cursor-pointer"
             >
               {HERO.ctaPrimary}
@@ -155,6 +159,7 @@ export default function ScrollHero() {
             </MagneticCTA>
             <MagneticCTA
               href="#contact"
+              onClick={() => trackContactClick("Hero CTA — Contact Us")}
               className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-black/10 backdrop-blur px-7 py-3.5 text-[16px] font-medium tracking-wide text-white hover:border-[var(--champagne)] hover:bg-[var(--champagne)]/15 transition-all"
             >
               {HERO.ctaSecondary}

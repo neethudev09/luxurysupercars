@@ -2,6 +2,7 @@ import type { Car } from "@/lib/fleet";
 import { CONTACT } from "@/lib/content";
 import { Price, ConvertAed } from "@/components/currency/Price";
 import FleetEnquiryDialog from "./FleetEnquiryDialog";
+import { trackWhatsAppClick } from "@/lib/analytics";
 
 /**
  * Rental card — price headline + live rental terms (deposit / mileage /
@@ -58,6 +59,7 @@ export default function RentalCard({ car, className = "" }: { car: Car; classNam
           target="_blank"
           rel="noreferrer"
           aria-label={`WhatsApp about the ${car.name}`}
+          onClick={() => trackWhatsAppClick("RentalCard — " + car.name, car.name)}
           className="inline-flex items-center justify-center gap-2 rounded-full bg-[#25D366] px-6 py-3 text-[15px] font-medium tracking-wide text-white hover:bg-[#1ebe5d] transition-colors"
         >
           <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden>
