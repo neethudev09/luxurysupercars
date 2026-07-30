@@ -23,7 +23,7 @@
  * empty set for any type — it exits non-zero WITHOUT touching the files,
  * so a flaky network or a bad query never wipes content.
  */
-import { mkdirSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { client, isConfigured } from "./lib";
@@ -818,6 +818,12 @@ async function main() {
 
   // Blog posts — newest first (query already orders).
   const blog = posts.map(mapBlogPost);
+  // Merge hand-authored extra posts (e.g. pricing guides) that live outside Sanity.
+  const extraBlogPath = resolve(ROOT, "lib/blog-extra.json");
+  if (existsSync(extraBlogPath)) {
+    const extra = JSON.parse(readFileSync(extraBlogPath, "utf-8")) as typeof blog;
+    blog.push(...extra);
+  }
 
   // Remaining CMS types → lib/generated/.
   const settingsOut = mapSiteSettings(siteSettings);
