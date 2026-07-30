@@ -12,7 +12,6 @@ import Script from "next/script";
  */
 
 const GTM_ID = "GTM-TZ8TFM6";
-const GOOGLE_ADS_ID = "AW-417752013";
 const META_PIXEL_ID = "25069636102641709";
 
 export default function Analytics() {
@@ -49,17 +48,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','${GTM_ID}');`}
       </Script>
 
-      {/* Google tag (gtag.js) — Google Ads */}
-      <Script
-        src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ADS_ID}`}
-        strategy="afterInteractive"
-      />
-      <Script id="gtag-init" strategy="afterInteractive">
-        {`window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', '${GOOGLE_ADS_ID}');`}
-      </Script>
+      {/* Google Tag Manager handles everything — no direct gtag.js */}
 
       {/* Meta Pixel — stub + SDK + init */}
       <Script id="meta-pixel" strategy="afterInteractive">

@@ -7,11 +7,10 @@
  */
 import { defineConfig } from "sanity";
 import { structureTool, type DefaultDocumentNodeResolver } from "sanity/structure";
-import { visionTool } from "@sanity/vision";
 import { schemaTypes } from "./sanity/schemas";
 import { structure } from "./sanity/structure";
 import { PreviewPane } from "./sanity/components/PreviewPane";
-import { projectId, dataset, apiVersion } from "./sanity/env";
+import { projectId, dataset } from "./sanity/env";
 
 /**
  * Adds a "Preview" tab (the live page in an iframe) to the collection document
@@ -34,8 +33,6 @@ export default defineConfig({
   basePath: "/studio",
   plugins: [
     structureTool({ structure, defaultDocumentNode }),
-    // Vision: ad-hoc GROQ playground at /studio/vision — handy for testing queries.
-    visionTool({ defaultApiVersion: apiVersion }),
   ],
   schema: {
     types: schemaTypes,

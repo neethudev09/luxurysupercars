@@ -23,7 +23,11 @@
     "next-sanity": "^9.5.6",
     "react": "19.2.4",
     "react-dom": "19.2.4",
-    "sanity": "^3.70.0"
+    "react-is": "^19.2.8",
+    "sanity": "^3.70.0",
+    "slate": "^0.126.0",
+    "slate-dom": "^0.126.0",
+    "styled-components": "^6.4.4"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
@@ -38,5 +42,8 @@
     "tailwindcss": "^4",
     "tsx": "^4.22.2",
     "typescript": "^5"
+  },
+  "overrides": {
+    "@portabletext/editor": "1.21.5"
   }
 }

@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import SiteNav from "@/components/nav/SiteNav";
 import FleetTypeHero from "@/components/sections/FleetTypeHero";

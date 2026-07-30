@@ -6,6 +6,7 @@ import FleetSection from "@/components/sections/FleetSection";
 import BrandStory from "@/components/sections/BrandStory";
 import Footer from "@/components/sections/Footer";
 
+import AggregateRatingJsonLd from "@/components/seo/AggregateRatingJsonLd";
 import { FLEET_SECTIONS } from "@/lib/content";
 import {
   FEATURED_SPORTS,
@@ -27,6 +28,7 @@ const Contact = dynamic(() => import("@/components/sections/Contact"), { ssr: tr
 export default function Home() {
   return (
     <main>
+      <AggregateRatingJsonLd />
       <SiteNav />
       <ScrollHero />
       <BrandMarquee />

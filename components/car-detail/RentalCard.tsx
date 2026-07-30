@@ -1,3 +1,5 @@
+"use client";
+
 import type { Car } from "@/lib/fleet";
 import { CONTACT } from "@/lib/content";
 import { Price, ConvertAed } from "@/components/currency/Price";

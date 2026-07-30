@@ -1,5 +1,4 @@
-import { CONTACT } from "@/lib/content";
-import { FAQ as FAQ_DATA, HERO } from "@/lib/content";
+import { CONTACT, FAQ as FAQ_DATA } from "@/lib/content";
 import { SITE_URL } from "@/lib/site";
 
 const SITE = SITE_URL;
@@ -27,11 +26,6 @@ export default function JsonLd() {
       "@type": "GeoCoordinates",
       latitude: 25.1277886,
       longitude: 55.21408,
-    },
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: HERO.rating.stars,
-      reviewCount: HERO.rating.count,
     },
     openingHoursSpecification: [
       {

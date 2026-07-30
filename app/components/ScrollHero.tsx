@@ -149,7 +149,7 @@ export default function ScrollHero() {
               onClick={() => {
                 trackWhatsAppClick("Hero CTA — Rent A Car");
                 window.open("https://wa.me/971565266295?text=Hi%2C%20I%E2%80%99d%20like%20to%20enquire%20about%20Rent%20a%20car%20in%20Dubai.%20Please%20share%20the%20available%20vehicle%20options%2C%20pricing%2C%20and%20booking%20details.%20Thank%20you.", "_blank", "noreferrer");
-              }}}
+              }}
               className="group inline-flex items-center gap-2.5 rounded-full bg-white px-7 py-3.5 text-[16px] font-medium tracking-wide text-[var(--bg-obsidian)] hover:bg-white/90 transition-colors cursor-pointer"
             >
               {HERO.ctaPrimary}

@@ -27,6 +27,10 @@ export default function FleetEnquiryDialog({
   const [state, action, pending] = useActionState(sendEnquiry, INITIAL_STATE);
 
   useEffect(() => {
+    if (state.ok) trackFormSubmit("FleetEnquiryDialog");
+  }, [state.ok]);
+
+  useEffect(() => {
     if (!open) {
       return;
     }
@@ -99,7 +103,7 @@ export default function FleetEnquiryDialog({
                     </p>
                   </div>
 
-                  <form action={action} onSubmit={() => { trackFormSubmit("FleetEnquiryDialog"); }} className="space-y-4 px-6 py-6 md:px-7">
+                  <form action={action} className="space-y-4 px-6 py-6 md:px-7">
               <input type="hidden" name="enquiryType" value="fleet" />
               <input type="hidden" name="car" value={carName} />
               <input type="hidden" name="brand" value={brandName} />

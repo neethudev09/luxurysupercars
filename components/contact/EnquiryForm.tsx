@@ -1,6 +1,6 @@
 "use client";
 
-import { type FormEvent, useActionState, useState } from "react";
+import { type FormEvent, useActionState, useEffect, useState } from "react";
 import { CARS_BRANDS } from "@/lib/content";
 import PhoneCountrySelect from "@/components/contact/PhoneCountrySelect";
 import { sendEnquiry, type EnquiryFormState } from "@/app/actions/send-enquiry";
@@ -17,6 +17,10 @@ export default function EnquiryForm({ className = "" }: { className?: string }) 
   const [state, action, pending] = useActionState(sendEnquiry, INITIAL_STATE);
   const [clientMessage, setClientMessage] = useState("");
 
+  useEffect(() => {
+    if (state.ok) trackFormSubmit("EnquiryForm");
+  }, [state.ok]);
+
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     const fields = Array.from(event.currentTarget.elements);
     const invalidField = fields.find((field) => {
@@ -31,7 +35,6 @@ export default function EnquiryForm({ className = "" }: { className?: string }) 
 
     if (!invalidField) {
       setClientMessage("");
-      trackFormSubmit("EnquiryForm");
       return;
     }
 
