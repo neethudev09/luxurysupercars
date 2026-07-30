@@ -824,6 +824,12 @@ async function main() {
     const extra = JSON.parse(readFileSync(extraBlogPath, "utf-8")) as typeof blog;
     blog.push(...extra);
   }
+  // Re-sort by date descending so extra posts with future dates appear first.
+  blog.sort((a, b) => {
+    const da = a.date ? new Date(a.date).getTime() : 0;
+    const db = b.date ? new Date(b.date).getTime() : 0;
+    return db - da;
+  });
 
   // Remaining CMS types → lib/generated/.
   const settingsOut = mapSiteSettings(siteSettings);
