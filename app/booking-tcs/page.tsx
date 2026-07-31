@@ -5,6 +5,7 @@ import StickyToc from "@/components/sections/StickyToc";
 import MaskHeading from "@/components/motion/MaskHeading";
 import { BOOKING_TERMS_PAGE } from "@/lib/content";
 import Footer from "@/components/sections/Footer";
+import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 
 export const metadata: Metadata = {
   title: BOOKING_TERMS_PAGE.metaTitle,
@@ -41,6 +42,12 @@ export default function BookingTermsPage() {
   return (
     <main>
       <SiteNav />
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Booking T&Cs", href: "/booking-tcs" },
+        ]}
+      />
        {/* <h1 className="sr-only">{BOOKING_TERMS_PAGE.h1}</h1> */}
 
       <PageHero

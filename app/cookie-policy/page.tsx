@@ -4,6 +4,7 @@ import PageHero from "@/components/sections/PageHero";
 import MaskHeading from "@/components/motion/MaskHeading";
 import { COOKIE_POLICY_PAGE } from "@/lib/content";
 import Footer from "@/components/sections/Footer";
+import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 
 export const metadata: Metadata = {
   title: COOKIE_POLICY_PAGE.metaTitle,
@@ -23,6 +24,12 @@ export default function CookiePolicyPage() {
   return (
     <main>
       <SiteNav />
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Cookie Policy", href: "/cookie-policy" },
+        ]}
+      />
        {/*<h1 className="sr-only">{COOKIE_POLICY_PAGE.h1}</h1>*/}
 
       <PageHero

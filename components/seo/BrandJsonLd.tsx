@@ -9,17 +9,7 @@ interface BrandJsonLdProps {
 
 export default function BrandJsonLd({ meta, cars }: BrandJsonLdProps) {
   const site = SITE_URL;
-  const brandPageUrl = `${site}/brands/${meta.slug}`;
   const brandName = meta.displayName;
-
-  const breadcrumb = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: site + "/" },
-      { "@type": "ListItem", position: 2, name: `Rent ${brandName}`, item: brandPageUrl },
-    ],
-  };
 
   const vehicleSchemas = cars.map((car) => ({
     "@context": "https://schema.org",
@@ -37,7 +27,10 @@ export default function BrandJsonLd({ meta, cars }: BrandJsonLdProps) {
     },
   }));
 
-  const blocks = [breadcrumb, ...vehicleSchemas];
+  // BreadcrumbList is rendered separately via <BreadcrumbJsonLd> on the
+  // brand page — kept here-free so only one breadcrumb exists per page.
+
+  const blocks = [...vehicleSchemas];
 
   return (
     <>

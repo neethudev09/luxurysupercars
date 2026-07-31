@@ -4,6 +4,7 @@ import BrandsSection from "@/components/sections/BrandsSection";
 import FleetExplorer from "@/components/fleet/FleetExplorer";
 import Testimonials from "@/components/sections/Testimonials";
 import FAQ from "@/components/sections/FAQ";
+import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 import { UNIQUE_CARS } from "@/lib/fleet";
 import Footer from "@/components/sections/Footer";
 
@@ -27,6 +28,12 @@ export default function OurFleetPage() {
   return (
     <main>
       <SiteNav />
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Our Fleet", href: "/our-fleet" },
+        ]}
+      />
       {/* Visually-hidden — preserves the live site's "Our Fleet" page-title
           for SEO/crawlers without rendering it in the redesigned layout. */}
       <p className="sr-only">Our Fleet</p>

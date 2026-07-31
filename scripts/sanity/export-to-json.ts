@@ -119,9 +119,11 @@ interface SanityCar {
   heroImage?: SanityImage;
   gallery?: SanityImage[];
   seo?: { title?: string; description?: string };
+  _updatedAt?: string;
 }
 
 const CAR_QUERY = `*[_type == "car" && defined(slug.current) && defined(brand)]{
+  _updatedAt,
   name,
   "slug": slug.current,
   "brandSlug": brand->slug.current,
@@ -195,6 +197,7 @@ function mapCar(c: SanityCar) {
     },
     features: (c.features || []).filter((x): x is string => typeof x === "string"),
     bodyText: portableTextToPlain(c.description),
+    updatedAt: isoDate(c._updatedAt),
   };
 }
 
@@ -207,6 +210,10 @@ interface SanityBlogPost {
   h1?: string;
   slug: string;
   publishedAt?: string;
+  updatedAt?: string;
+  _createdAt?: string;
+  author?: string;
+  keywords?: string[];
   excerpt?: string;
   bodyHtml?: string;
   heroImage?: SanityImage & { alt?: string };
@@ -217,6 +224,10 @@ const BLOG_QUERY = `*[_type == "blogPost" && defined(slug.current)]{
   title, h1,
   "slug": slug.current,
   publishedAt,
+  updatedAt,
+  _createdAt,
+  author,
+  keywords,
   excerpt,
   bodyHtml,
   "heroImage": heroImage{ alt, "url": asset->url, "width": asset->metadata.dimensions.width, "height": asset->metadata.dimensions.height },
@@ -228,6 +239,14 @@ function formatDate(iso?: string): string | null {
   const d = new Date(iso);
   if (Number.isNaN(d.getTime())) return null;
   return d.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
+}
+
+/** Normalise a Sanity timestamp to a stable ISO 8601 string, or null. */
+function isoDate(iso?: string): string | null {
+  if (!iso) return null;
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return null;
+  return d.toISOString();
 }
 
 function mapBlogPost(p: SanityBlogPost) {
@@ -247,6 +266,11 @@ function mapBlogPost(p: SanityBlogPost) {
     ogImageHeight: num(p.heroImage?.height),
     h1: str(p.h1) || p.title,
     date: formatDate(p.publishedAt),
+    publishedAt: isoDate(p.publishedAt),
+    createdAt: isoDate(p._createdAt),
+    updatedAt: isoDate(p.updatedAt),
+    author: str(p.author),
+    keywords: Array.isArray(p.keywords) ? p.keywords.map(str).filter(Boolean) : undefined,
     excerpt: str(p.excerpt) || "",
     bodyHtml: rewriteLegacyImageUrls(p.bodyHtml || ""),
   };

@@ -22,6 +22,14 @@ export type BlogPost = {
   ogImageHeight?: number;
   h1: string;
   date: string | null;
+  /** ISO 8601 publication date (from Sanity publishedAt). */
+  publishedAt?: string | null;
+  /** ISO 8601 creation date (Sanity _createdAt). */
+  createdAt?: string | null;
+  /** ISO 8601 last-modified date (Sanity _updatedAt). */
+  updatedAt?: string | null;
+  author?: string;
+  keywords?: string[];
   excerpt: string;
   bodyHtml: string;
 };

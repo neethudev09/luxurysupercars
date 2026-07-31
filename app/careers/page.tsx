@@ -5,6 +5,7 @@ import Reveal from "@/components/motion/Reveal";
 import MaskHeading from "@/components/motion/MaskHeading";
 import { CAREERS_PAGE } from "@/lib/content";
 import { PAGE_HERO_IMAGES } from "@/lib/assets";
+import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 import CareersForm from "@/components/careers/CareersForm";
 import Footer from "@/components/sections/Footer";
 
@@ -43,6 +44,12 @@ export default function CareersPage() {
   return (
     <main>
       <SiteNav />
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Careers", href: "/careers" },
+        ]}
+      />
       {/* <h1 className="sr-only">{CAREERS_PAGE.h1}</h1> */}
 
       <PageHero

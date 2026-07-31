@@ -4,6 +4,7 @@ import FleetTypeAbout from "@/components/sections/FleetTypeAbout";
 import FleetExplorer from "@/components/fleet/FleetExplorer";
 import Testimonials from "@/components/sections/Testimonials";
 import FAQ from "@/components/sections/FAQ";
+import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 import Footer from "@/components/sections/Footer";
 import type { Car } from "@/lib/fleet";
 import type { FleetTypeMeta } from "@/lib/fleet-types";
@@ -22,6 +23,13 @@ export default function FleetTypePageBody({ meta, cars }: FleetTypePageBodyProps
   return (
     <main>
       <SiteNav />
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Our Fleet", href: "/our-fleet" },
+          { name: meta.visibleTitle, href: `/${meta.slug}` },
+        ]}
+      />
       <FleetTypeHero visibleTitle={meta.visibleTitle} h1={meta.h1} />
       <FleetExplorer cars={cars} hideTypeFilter />
       <FleetTypeAbout

@@ -56,7 +56,6 @@ export default function RootLayout({
     >
       <head>
         <link rel="preconnect" href="https://api.fontshare.com" crossOrigin="anonymous" />
-        <link rel="preload" as="image" href="/images/hero-poster.webp" />
         <meta name="msvalidate.01" content="90C633242FF8940E83F63CEF364F497F" />
       </head>
       <body suppressHydrationWarning>

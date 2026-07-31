@@ -4,6 +4,7 @@ import Link from "next/link";
 import SiteNav from "@/components/nav/SiteNav";
 import PageHero from "@/components/sections/PageHero";
 import Reveal from "@/components/motion/Reveal";
+import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 import { SERVICES_PAGE } from "@/lib/content";
 import { PAGE_HERO_IMAGES } from "@/lib/assets";
 import Footer from "@/components/sections/Footer";
@@ -42,6 +43,12 @@ export default function ServicesPage() {
   return (
     <main>
       <SiteNav />
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Services", href: "/services" },
+        ]}
+      />
     {/*  <h1 className="sr-only">{SERVICES_PAGE.h1}</h1> */}
 
       <PageHero

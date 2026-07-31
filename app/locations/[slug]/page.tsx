@@ -6,6 +6,7 @@ import PageHero from "@/components/sections/PageHero";
 import LocationBody from "@/components/sections/LocationBody";
 import LocationMap from "@/components/sections/LocationMap";
 import FAQ from "@/components/sections/FAQ";
+import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 import { getLocation, getAllLocations, LOCATION_SLUGS } from "@/lib/locations";
 import Footer from "@/components/sections/Footer";
 
@@ -82,6 +83,13 @@ export default async function LocationPage({ params }: Props) {
   return (
     <main>
       <SiteNav />
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Locations", href: "/locations" },
+          { name: location.name, href: `/locations/${slug}` },
+        ]}
+      />
       <PageHero
         eyebrow={location.name}
         h1={location.h1}

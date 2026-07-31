@@ -27,11 +27,15 @@ const Contact = dynamic(() => import("@/components/sections/Contact"), { ssr: tr
 
 export default function Home() {
   return (
-    <main>
-      <AggregateRatingJsonLd />
-      <SiteNav />
-      <ScrollHero />
-      <BrandMarquee />
+    <>
+      {/* Homepage-only preload of the scroll-hero poster — keeps the LCP
+          image eager + high priority without wasting a site-wide preload. */}
+      <link rel="preload" as="image" href="/images/hero-poster.webp" fetchPriority="high" />
+      <main>
+        <AggregateRatingJsonLd />
+        <SiteNav />
+        <ScrollHero />
+        <BrandMarquee />
 
       <FleetSection
         id={FLEET_SECTIONS.sports.id}
@@ -89,6 +93,7 @@ export default function Home() {
       <InstagramFeed />
       <Contact />
       <Footer />
-    </main>
+      </main>
+    </>
   );
 }

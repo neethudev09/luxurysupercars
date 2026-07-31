@@ -117,6 +117,8 @@ export interface Car {
    * once the CMS is wired in.
    */
   featuredIn: Category[];
+  /** Last Sanity edit (ISO). Used for sitemap lastmod. */
+  updatedAt?: string;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -165,6 +167,7 @@ interface RawFleetCar {
   specs: RawSpecs;
   features: string[];
   bodyText: string;
+  updatedAt?: string;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -268,6 +271,7 @@ function adaptCar(raw: RawFleetCar): Car {
     features: mapFeatures(raw.features),
     featureLabels: raw.features,
     gallery: raw.gallery,
+    updatedAt: raw.updatedAt,
     seo: {
       title: raw.title,
       metaDescription: raw.metaDescription,

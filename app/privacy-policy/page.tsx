@@ -5,6 +5,7 @@ import StickyToc from "@/components/sections/StickyToc";
 import MaskHeading from "@/components/motion/MaskHeading";
 import { PRIVACY_POLICY_PAGE } from "@/lib/content";
 import Footer from "@/components/sections/Footer";
+import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 
 export const metadata: Metadata = {
   title: PRIVACY_POLICY_PAGE.metaTitle,
@@ -39,6 +40,12 @@ export default function PrivacyPolicyPage() {
   return (
     <main>
       <SiteNav />
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Privacy Policy", href: "/privacy-policy" },
+        ]}
+      />
        {/* <h1 className="sr-only">{PRIVACY_POLICY_PAGE.h1}</h1> */}
 
       <PageHero

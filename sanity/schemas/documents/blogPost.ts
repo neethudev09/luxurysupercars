@@ -41,6 +41,12 @@ export const blogPost = defineType({
       initialValue: () => new Date().toISOString(),
     }),
     defineField({
+      name: "updatedAt",
+      title: "Last updated",
+      type: "datetime",
+      description: "Set only when the article is genuinely updated. Controls the visible 'Last Updated' date and dateModified structured data. Leave blank if the article has never been meaningfully updated.",
+    }),
+    defineField({
       name: "excerpt",
       title: "Excerpt",
       type: "text",
@@ -88,6 +94,19 @@ export const blogPost = defineType({
       type: "text",
       rows: 20,
       description: "Migrated posts keep their original HTML here. New posts should use the rich-text Body above.",
+    }),
+    defineField({
+      name: "author",
+      title: "Author",
+      type: "string",
+      description: "Author name shown in structured data. Leave blank to fall back to the organisation.",
+    }),
+    defineField({
+      name: "keywords",
+      title: "Keywords",
+      type: "array",
+      of: [{ type: "string" }],
+      description: "Genuine topic keywords for structured data. Leave empty if not needed.",
     }),
     defineField({
       name: "relatedCars",

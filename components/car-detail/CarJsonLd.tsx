@@ -58,31 +58,13 @@ export default function CarJsonLd({ car }: { car: Car }) {
     };
   }
 
-  const breadcrumb = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: SITE + "/" },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: car.category[0].toUpperCase() + car.category.slice(1),
-        item: SITE + "/#" + car.category,
-      },
-      { "@type": "ListItem", position: 3, name: car.name, item: url },
-    ],
-  };
+  // BreadcrumbList is rendered separately via <BreadcrumbJsonLd> on the
+  // car detail page — kept here-free so only one breadcrumb exists per page.
 
   return (
-    <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(json) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumb) }}
-      />
-    </>
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(json) }}
+    />
   );
 }

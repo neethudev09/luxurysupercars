@@ -3,6 +3,7 @@ import Link from "next/link";
 import SiteNav from "@/components/nav/SiteNav";
 import PageHero from "@/components/sections/PageHero";
 import Reveal from "@/components/motion/Reveal";
+import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 import { getAllLocations } from "@/lib/locations";
 import Footer from "@/components/sections/Footer";
 
@@ -28,6 +29,12 @@ export default function LocationsPage() {
   return (
     <main>
       <SiteNav />
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Locations", href: "/locations" },
+        ]}
+      />
       <PageHero
         eyebrow="Locations"
         h1="**Luxury Car** Delivery Across Dubai & the UAE"

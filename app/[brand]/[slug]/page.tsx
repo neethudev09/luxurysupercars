@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import CarDetail from "@/components/car-detail/CarDetail";
 import CarJsonLd from "@/components/car-detail/CarJsonLd";
+import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 import Footer from "@/components/sections/Footer";
 import {
   UNIQUE_CARS,
@@ -79,6 +80,13 @@ export default async function CarPage({
   const related = getRelatedCars(UNIQUE_CARS, car, 4);
   return (
     <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", href: "/" },
+          { name: car.brandName, href: `/brands/${car.brand}` },
+          { name: car.name, href: carHref(car) },
+        ]}
+      />
       <CarJsonLd car={car} />
       <CarDetail car={car} related={related} />
       <Footer />

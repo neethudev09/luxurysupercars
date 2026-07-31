@@ -6,6 +6,7 @@ import PageHero from "@/components/sections/PageHero";
 import FleetSection from "@/components/sections/FleetSection";
 import Reveal from "@/components/motion/Reveal";
 import MagneticCTA from "@/components/motion/MagneticCTA";
+import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 import { SERVICES_PAGE } from "@/lib/content";
 import { SERVICE_IMAGES } from "@/lib/assets";
 import Footer from "@/components/sections/Footer";
@@ -102,6 +103,13 @@ export default async function ServiceDetailPage(
   return (
     <main>
       <SiteNav />
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Services", href: "/services" },
+          { name: service.h1, href: `/service/${service.slug}` },
+        ]}
+      />
     {/*   <h1 className="sr-only">{service.h1}</h1>*/}
 
       <PageHero

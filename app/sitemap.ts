@@ -51,6 +51,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Car detail pages — live: /{brand}/{slug}/
   const carPages: MetadataRoute.Sitemap = UNIQUE_CARS.map((c) => ({
     url: `${ORIGIN}${carHref(c)}`,
+    lastModified: c.updatedAt ? new Date(c.updatedAt) : now,
     changeFrequency: "weekly",
     priority: 0.75,
   }));
@@ -58,7 +59,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Blog posts — live: /blogs/{slug}/
   const blogPages: MetadataRoute.Sitemap = BLOG_POSTS.map((p) => ({
     url: `${ORIGIN}/blogs/${p.slug}`,
-    lastModified: p.date ? new Date(p.date) : now,
+    lastModified: p.updatedAt ? new Date(p.updatedAt) : p.date ? new Date(p.date) : now,
     changeFrequency: "monthly",
     priority: 0.6,
   }));

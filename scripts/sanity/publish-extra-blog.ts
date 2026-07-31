@@ -6,7 +6,7 @@
 import { uploadImageFromUrl } from "./lib";
 import { client, isConfigured } from "./lib";
 import blogExtraRaw from "../../lib/blog-extra.json" with { type: "json" };
-interface ExtraPost { slug: string; url: string; canonical: string; title: string; metaDescription: string; ogTitle: string; ogDescription: string; ogImage: string; ogImageAlt?: string; ogImageWidth?: number; ogImageHeight?: number; h1: string; date: string | null; excerpt: string; bodyHtml: string }
+interface ExtraPost { slug: string; url: string; canonical: string; title: string; metaDescription: string; ogTitle: string; ogDescription: string; ogImage: string; ogImageAlt?: string; ogImageWidth?: number; ogImageHeight?: number; h1: string; date: string | null; publishedAt?: string | null; author?: string; keywords?: string[]; excerpt: string; bodyHtml: string }
 const blogExtra = blogExtraRaw as ExtraPost[];
 
 function isoFromDate(d: string | null): string | undefined {
@@ -44,8 +44,10 @@ async function main() {
       title: raw.title,
       h1: raw.h1,
       slug: { _type: "slug", current: raw.slug },
-      publishedAt: isoFromDate(raw.date),
+      publishedAt: raw.publishedAt || isoFromDate(raw.date),
       excerpt: raw.excerpt,
+      author: raw.author,
+      keywords: raw.keywords,
       heroImage,
       bodyHtml: raw.bodyHtml,
       seo: {

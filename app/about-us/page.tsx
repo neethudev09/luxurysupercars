@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import SiteNav from "@/components/nav/SiteNav";
+import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 import AboutScrollHero from "@/components/sections/AboutScrollHero";
 import AboutVideo from "@/components/sections/AboutVideo";
 import AboutFocus from "@/components/sections/AboutFocus";
@@ -33,6 +34,12 @@ export default function AboutPage() {
   return (
     <main>
       <SiteNav />
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", href: "/" },
+          { name: "About Us", href: "/about-us" },
+        ]}
+      />
       {/* Visually-hidden — preserves the verbatim live-site <h1> for SEO
           while the visible design uses the AboutStory hero instead. */}
       <h1 className="sr-only">About Us</h1>

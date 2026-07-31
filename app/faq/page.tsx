@@ -9,6 +9,7 @@ import MagneticCTA from "@/components/motion/MagneticCTA";
 import MaskHeading from "@/components/motion/MaskHeading";
 import { FAQ_PAGE } from "@/lib/content";
 import Footer from "@/components/sections/Footer";
+import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 import { PAGE_HERO_IMAGES } from "@/lib/assets";
 
 export const metadata: Metadata = {
@@ -39,6 +40,12 @@ export default function FaqPage() {
   return (
     <main>
       <SiteNav />
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", href: "/" },
+          { name: "FAQ", href: "/faq" },
+        ]}
+      />
       {/* <h1 className="sr-only">{FAQ_PAGE.h1}</h1> */}
 
       <PageHero

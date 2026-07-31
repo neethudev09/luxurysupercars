@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import SiteNav from "@/components/nav/SiteNav";
 import PageHero from "@/components/sections/PageHero";
 import EnquiryForm from "@/components/contact/EnquiryForm";
 import Reveal from "@/components/motion/Reveal";
 import MagneticCTA from "@/components/motion/MagneticCTA";
+import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 import { CONTACT, CONTACT_PAGE } from "@/lib/content";
 import { PAGE_HERO_IMAGES } from "@/lib/assets";
 import Footer from "@/components/sections/Footer";
@@ -34,6 +36,12 @@ export default function ContactUsPage() {
   return (
     <main>
       <SiteNav />
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Contact Us", href: "/contact-us" },
+        ]}
+      />
 
       {/* SEO H1 
       <h1 className="sr-only">{CONTACT_PAGE.h1}</h1>*/}
@@ -133,6 +141,24 @@ export default function ContactUsPage() {
                 {CONTACT_PAGE.hours}
               </p>
             </div>
+
+            <Reveal delay={150}>
+              <figure className="rise group relative mt-10 overflow-hidden rounded-2xl border border-white/8 bg-[var(--bg-graphite)]/40">
+                <Image
+                  src="/images/showroom-luxurysupercarsdubai.webp"
+                  alt="Luxury Supercars Dubai showroom in Al Quoz"
+                  width={1280}
+                  height={960}
+                  sizes="(min-width: 768px) 40vw, 90vw"
+                  className="aspect-[4/3] w-full object-cover transition-transform duration-[1400ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03]"
+                />
+                <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent px-5 pb-4 pt-12">
+                  <p className="font-[var(--font-mono)] text-[10.5px] uppercase tracking-[0.24em] text-[var(--champagne)]">
+                    Our Showroom — Al Quoz
+                  </p>
+                </figcaption>
+              </figure>
+            </Reveal>
           </div>
 
           {/* RIGHT COLUMN */}

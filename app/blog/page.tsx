@@ -4,6 +4,7 @@ import Link from "next/link";
 import SiteNav from "@/components/nav/SiteNav";
 import PageHero from "@/components/sections/PageHero";
 import BlogFeaturedHero from "@/components/sections/BlogFeaturedHero";
+import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 import Reveal from "@/components/motion/Reveal";
 import { BLOG_POSTS, blogImageAlt } from "@/lib/blog";
 import Footer from "@/components/sections/Footer";
@@ -53,6 +54,12 @@ export default async function BlogIndexPage({
   return (
     <main>
       <SiteNav />
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Blog", href: "/blog" },
+        ]}
+      />
        {/* <h1 className="sr-only">{visibleH1}</h1> */}
 
       <PageHero

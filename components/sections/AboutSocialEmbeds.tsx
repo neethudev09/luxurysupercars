@@ -158,6 +158,8 @@ function VideoFacade({
           <img
             src={thumbUrl(id)}
             alt=""
+            width={1280}
+            height={720}
             loading="lazy"
             onError={(e) => {
               // Fall back to hqdefault when a video has no maxres rendition.

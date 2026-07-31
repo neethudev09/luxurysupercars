@@ -6,6 +6,7 @@ import FleetTypeHero from "@/components/sections/FleetTypeHero";
 import FleetBrandAbout from "@/components/sections/FleetBrandAbout";
 import FleetExplorer from "@/components/fleet/FleetExplorer";
 import BrandJsonLd from "@/components/seo/BrandJsonLd";
+import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 import Testimonials from "@/components/sections/Testimonials";
 import FAQ from "@/components/sections/FAQ";
 import { CONTACT } from "@/lib/content";
@@ -25,6 +26,15 @@ export default function FleetBrandPageBody({ meta, cars }: FleetBrandPageBodyPro
 
   return (
     <main>
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", href: "/" },
+          // No /brands index page exists; /our-fleet is where all brands
+          // are browsable in the real navigation.
+          { name: "Brands", href: "/our-fleet" },
+          { name: meta.displayName, href: `/brands/${meta.slug}` },
+        ]}
+      />
       <BrandJsonLd meta={meta} cars={cars} />
       <SiteNav />
       <FleetTypeHero visibleTitle={meta.visibleTitle} h1={meta.h1} />

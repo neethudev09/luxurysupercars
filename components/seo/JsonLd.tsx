@@ -51,15 +51,10 @@ export default function JsonLd() {
     })),
   };
 
-  const breadcrumb = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: SITE + "/" },
-    ],
-  };
+  // No BreadcrumbList here — it's emitted once per page by
+  // <BreadcrumbJsonLd> with the page's real hierarchy, never site-wide.
 
-  const blocks = [localBusiness, faqPage, breadcrumb];
+  const blocks = [localBusiness, faqPage];
 
   return (
     <>

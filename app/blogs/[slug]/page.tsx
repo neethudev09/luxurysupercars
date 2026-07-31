@@ -1,20 +1,27 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import Script from "next/script";
 import { notFound } from "next/navigation";
 import SiteNav from "@/components/nav/SiteNav";
 import ShareStrip from "@/components/sections/ShareStrip";
 import Reveal from "@/components/motion/Reveal";
 import MaskHeading from "@/components/motion/MaskHeading";
 import MagneticCTA from "@/components/motion/MagneticCTA";
+import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 import Footer from "@/components/sections/Footer";
 import { BLOG_POSTS, blogImageAlt, getPost, getRelatedPosts } from "@/lib/blog";
-import { SITE_URL } from "@/lib/site";
+import { PRODUCTION_ORIGIN, SITE_URL } from "@/lib/site";
 
 type Params = { slug: string };
 
 const CONTACT_EMAIL = "info@luxurysupercarsdubai.com";
+
+/** Format an ISO date string as "July 30, 2026" — matches the published-date format. */
+function formatDisplayDate(iso: string): string {
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return "";
+  return d.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
+}
 
 const BLOG_CONTACT_ICON_STYLE =
   "display:inline-flex;width:1.35em;margin-right:0.35em;vertical-align:-0.18em;color:var(--champagne);";
@@ -101,24 +108,72 @@ export default async function BlogPostPage(
   const related = getRelatedPosts(slug, 4);
   const canonicalUrl = `${SITE_URL}/blogs/${post.slug}/`;
 
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    headline: post.h1 || post.title,
-    description: post.metaDescription || post.ogDescription,
-    image: post.ogImage || undefined,
-    datePublished: post.date || undefined,
-    mainEntityOfPage: canonicalUrl,
-    publisher: {
+  const datePublished =
+    post.publishedAt ||
+    (post.date ? new Date(post.date).toISOString() : undefined);
+  const dateModified = post.updatedAt || post.publishedAt || datePublished;
+  const lastUpdated =
+    dateModified && datePublished &&
+    new Date(dateModified).getTime() > new Date(datePublished).getTime()
+      ? formatDisplayDate(dateModified)
+      : null;
+
+  const jsonLd = (() => {
+    const org = {
       "@type": "Organization",
       name: "Luxury Supercars Dubai",
       url: SITE_URL,
-    },
-  };
+      logo: {
+        "@type": "ImageObject",
+        url: `${PRODUCTION_ORIGIN}/images/branding/logo.png`,
+      },
+    };
+    const author = post.author
+      ? { "@type": "Person", name: post.author }
+      : org;
+
+    if (!datePublished) return null;
+
+    const schema: Record<string, unknown> = {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      headline: post.title || post.h1,
+      description: post.metaDescription || post.excerpt || post.ogDescription,
+      image: post.ogImage || undefined,
+      datePublished,
+      dateModified,
+      author,
+      publisher: org,
+      mainEntityOfPage: {
+        "@type": "WebPage",
+        "@id": canonicalUrl,
+      },
+      url: canonicalUrl,
+      isPartOf: {
+        "@type": "Blog",
+        name: "Luxury Supercars Dubai Blog",
+        url: `${SITE_URL}/blog/`,
+      },
+      inLanguage: "en",
+    };
+
+    if (post.keywords && post.keywords.length > 0) {
+      schema.keywords = post.keywords;
+    }
+
+    return schema;
+  })();
 
   return (
     <main>
       <SiteNav />
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Blog", href: "/blog" },
+          { name: post.h1 || post.title, href: `/blogs/${post.slug}` },
+        ]}
+      />
 
       {/* Hero — title on the left, featured image on the right fades in from
           transparent → fully opaque so it bleeds into the dark background. */}
@@ -160,6 +215,11 @@ export default async function BlogPostPage(
               {post.date && <span className="text-[var(--ink-lo)]">·</span>}
               {post.date && <span className="text-[var(--ink-lo)]">{post.date}</span>}
             </p>
+            {lastUpdated && (
+              <p className="rise font-[var(--font-mono)] text-[10px] uppercase tracking-[0.28em] -mt-3 mb-6 text-[var(--ink-lo)]/70">
+                Last updated · {lastUpdated}
+              </p>
+            )}
           </Reveal>
 
           <div className="max-w-2xl md:max-w-3xl">
@@ -287,12 +347,14 @@ export default async function BlogPostPage(
       </section>
 
 
-      <Script
-        id={`blog-jsonld-${post.slug}`}
-        type="application/ld+json"
-        strategy="afterInteractive"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      {jsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+          }}
+        />
+      )}
       <Footer />
     </main>
   );

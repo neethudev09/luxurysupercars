@@ -103,6 +103,8 @@ export default function ScrollHero() {
               src="/images/hero-poster.webp"
               alt=""
               fetchPriority="high"
+              width={1280}
+              height={720}
               className="absolute inset-0 h-full w-full object-cover"
             />
             <video
