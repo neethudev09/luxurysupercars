@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { legacyRedirects as generatedLegacyRedirects } from "./redirecturl/lsr-redirects.generated";
 
 /**
  * Brand-index URLs from the live WordPress site (e.g. /rent-ferrari-dubai/).
@@ -364,7 +365,9 @@ const nextConfig: NextConfig = {
       })),
       ...LEGACY_REDIRECTS.map((r) => ({ ...r, permanent: true })),
       ...BLOG_REDIRECTS.map((r) => ({ ...r, permanent: true })),
-    ];
+      ...generatedLegacyRedirects,
+      { source: "/blogs", destination: "/blog", statusCode: 301 },
+    ].sort((a, b) => a.source.localeCompare(b.source));
   },
 };
 
