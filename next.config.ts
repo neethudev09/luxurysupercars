@@ -367,6 +367,7 @@ const nextConfig: NextConfig = {
       ...BLOG_REDIRECTS.map((r) => ({ ...r, permanent: true })),
       ...generatedLegacyRedirects,
       { source: "/blogs", destination: "/blog", statusCode: 301 },
+      { source: "/terms-and-conditions", destination: "/booking-tcs", statusCode: 301 },
     ].sort((a, b) => a.source.localeCompare(b.source));
   },
 };
