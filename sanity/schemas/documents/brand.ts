@@ -37,7 +37,7 @@ export const brand = defineType({
       name: "h1",
       title: "Page H1",
       type: "string",
-      description: "Visible heading on the brand page. Mirror live verbatim (some have intentional quirks like \"Rent Mclaren in Dubai\").",
+      description: "Visible heading on the brand page. Mirror live verbatim (some have intentional quirks like \"Rent Mercedes Benz in Dubai\").",
       validation: (Rule) => Rule.required(),
     }),
     defineField({

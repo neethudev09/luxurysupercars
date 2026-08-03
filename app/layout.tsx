@@ -4,8 +4,10 @@ import "./globals.css";
 import SiteChrome from "@/components/SiteChrome";
 import JsonLd from "@/components/seo/JsonLd";
 import Analytics from "@/components/analytics/Analytics";
-import FontLoader from "@/components/FontLoader";
 import { SITE_URL } from "@/lib/site";
+
+const FONTSHARE_URL =
+  "https://api.fontshare.com/v2/css?f[]=switzer@400,500,600,700&display=swap";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -56,12 +58,18 @@ export default function RootLayout({
     >
       <head>
         <link rel="preconnect" href="https://api.fontshare.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://cdn.fontshare.com" crossOrigin="anonymous" />
+        <link
+          rel="stylesheet"
+          href={FONTSHARE_URL}
+          crossOrigin="anonymous"
+        />
+        <link rel="preload" as="image" href="/images/hero-poster.webp" />
         <meta name="msvalidate.01" content="90C633242FF8940E83F63CEF364F497F" />
       </head>
       <body suppressHydrationWarning>
         <Analytics />
         <JsonLd />
-        <FontLoader />
         <SiteChrome>{children}</SiteChrome>
       </body>
     </html>

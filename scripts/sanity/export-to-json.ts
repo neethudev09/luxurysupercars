@@ -465,9 +465,9 @@ function mapService(s: SanityService) {
  * Brand-page "visible title" — the heading shown on the brand hero and
  * the prefix of its FAQ heading ("{visibleTitle} FAQs"). Not a Sanity
  * field: the live site uses a simplified form that doesn't derive cleanly
- * from the brand display name ("Mclaren" vs "McLaren", "Mercedes Benz" vs
- * "Mercedes-Benz", "Rolls Royce" vs "Rolls-Royce"), so it's pinned here
- * keyed by slug. A brand absent from this map falls back to displayName.
+ * from the brand display name ("Mercedes Benz" vs "Mercedes-Benz",
+ * "Rolls Royce" vs "Rolls-Royce"), so it's pinned here keyed by slug.
+ * A brand absent from this map falls back to displayName.
  */
 const BRAND_VISIBLE_TITLES: Record<string, string> = {
   "rent-aston-martin-dubai": "Aston Martin",
@@ -478,7 +478,7 @@ const BRAND_VISIBLE_TITLES: Record<string, string> = {
   "rent-ferrari-dubai": "Ferrari",
   "rent-lamborghini-dubai": "Lamborghini",
   "rent-maserati-dubai": "Maserati",
-  "rent-mclaren-dubai": "Mclaren",
+  "rent-mclaren-dubai": "McLaren",
   "rent-mercedes-benz-dubai": "Mercedes Benz",
   "rent-porsche-dubai": "Porsche",
   "rent-range-rover-dubai": "Range Rover",
@@ -776,8 +776,32 @@ function mapStandalonePages(pages: SanityStandalonePage[]): Record<string, unkno
 /*  Main                                                                      */
 /* -------------------------------------------------------------------------- */
 
+/**
+ * Recursively rewrite the "Mclaren" (lowercase 'l') spelling — a legacy
+ * CMS quirk — to the correct "McLaren" in every string before it is
+ * written to disk. Applied at the single JSON choke point so it covers
+ * car names, titles, SEO copy and brand content regardless of what is
+ * stored in Sanity. Mirror of the schema/brand guidance comment.
+ */
+function normalizeMclarenSpelling(value: unknown): unknown {
+  if (typeof value === "string") {
+    return value.replace(/Mclaren/g, "McLaren");
+  }
+  if (Array.isArray(value)) {
+    return value.map(normalizeMclarenSpelling);
+  }
+  if (value && typeof value === "object") {
+    const out: Record<string, unknown> = {};
+    for (const [k, v] of Object.entries(value as Record<string, unknown>)) {
+      out[k] = normalizeMclarenSpelling(v);
+    }
+    return out;
+  }
+  return value;
+}
+
 function writeJson(relPath: string, data: unknown) {
-  writeFileSync(resolve(ROOT, relPath), JSON.stringify(data, null, 2) + "\n");
+  writeFileSync(resolve(ROOT, relPath), JSON.stringify(normalizeMclarenSpelling(data), null, 2) + "\n");
 }
 
 async function main() {

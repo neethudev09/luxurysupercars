@@ -13,7 +13,8 @@
   "dependencies": {
     "@sanity/client": "^7.22.0",
     "@sanity/image-url": "^2.1.1",
-    "@sanity/vision": "^4.21.1",
+    "@sanity/schema": "^3.99.0",
+    "@sanity/vision": "^3.99.0",
     "@vercel/analytics": "^2.0.1",
     "@vercel/speed-insights": "^2.0.0",
     "embla-carousel-react": "^8.6.0",

@@ -10,7 +10,6 @@
  * Every string is verbatim from the live WordPress site so the pages
  * inherit existing rankings. Live-page quirks preserved per the
  * SEO-is-king rule:
- *   - McLaren H1: "Rent Mclaren in Dubai" (lowercase 'l')
  *   - Mercedes H1: "Rent Mercedes Benz in Dubai" (no hyphen)
  *   - Title/meta price mismatches on BMW, Cadillac, Rolls-Royce
  */

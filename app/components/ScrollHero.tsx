@@ -9,21 +9,14 @@ import { trackWhatsAppClick, trackContactClick } from "@/lib/analytics";
 export default function ScrollHero() {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
-  const [mounted, setMounted] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     const mq = window.matchMedia("(pointer: coarse)");
     const check = () => setIsMobile(mq.matches || window.innerWidth < 768);
     mq.addEventListener("change", check);
-    const id = requestAnimationFrame(() => {
-      check();
-      setMounted(true);
-    });
-    return () => {
-      mq.removeEventListener("change", check);
-      cancelAnimationFrame(id);
-    };
+    check();
+    return () => mq.removeEventListener("change", check);
   }, []);
 
   useEffect(() => {
@@ -91,10 +84,6 @@ export default function ScrollHero() {
     <div
       ref={containerRef}
       className="relative h-[200vh] bg-[var(--bg-obsidian)]"
-      style={{
-        opacity: mounted ? 1 : 0,
-        transition: "opacity 200ms ease-out",
-      }}
     >
       <div className="sticky top-0 h-[100svh] w-full overflow-hidden">
         {isMobile ? (
@@ -105,15 +94,7 @@ export default function ScrollHero() {
               fetchPriority="high"
               width={1280}
               height={720}
-              className="absolute inset-0 h-full w-full object-cover"
-            />
-            <video
-              src="/luxurysupercarsdubai-video.webm"
-              muted
-              playsInline
-              autoPlay
-              loop
-              preload="none"
+              decoding="async"
               className="absolute inset-0 h-full w-full object-cover"
             />
           </>

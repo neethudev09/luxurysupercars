@@ -33,7 +33,7 @@ export default function LocationMap({ location }: LocationMapProps) {
             </a>
           </div>
           <div className="md:col-span-7">
-            <div className="relative w-full h-full min-h-[280px] rounded-2xl border border-white/10 bg-white/[0.02] p-7 md:p-8 flex flex-col">
+            <div className="relative w-full h-full min-h-[280px] overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02] p-7 md:p-8 flex flex-col">
               <span
                 aria-hidden
                 className="pointer-events-none absolute right-0 top-0 size-[240px] translate-x-1/4 -translate-y-1/4 rounded-full bg-[var(--champagne)]/[0.04] blur-[100px]"
