@@ -6,7 +6,11 @@
  * The redesign mirrors live SEO verbatim: titles, meta descriptions, OG
  * tags, hero images, and full body HTML are preserved per post.
  */
+import { existsSync, readFileSync } from "node:fs";
+import { join } from "node:path";
 import data from "./blog-data.json";
+
+// Local draft merge marker — bump to force Turbopack recompile.
 
 export type BlogPost = {
   slug: string;
@@ -32,9 +36,34 @@ export type BlogPost = {
   keywords?: string[];
   excerpt: string;
   bodyHtml: string;
+  /** Optional FAQPage JSON-LD for posts with a FAQs section. */
+  faqSchema?: Record<string, unknown>[];
 };
 
-export const BLOG_POSTS: BlogPost[] = data as BlogPost[];
+export const BLOG_POSTS: BlogPost[] = (() => {
+  const posts: BlogPost[] = data as BlogPost[];
+
+  const localPosts = readLocalPosts();
+  const slugs = new Set(posts.map((p) => p.slug));
+  for (const p of localPosts) {
+    if (!slugs.has(p.slug)) {
+      posts.push(p);
+      slugs.add(p.slug);
+    }
+  }
+
+  return posts;
+})();
+
+function readLocalPosts(): BlogPost[] {
+  try {
+    const localFile = join(process.cwd(), "blog-local", "posts.json");
+    if (!existsSync(localFile)) return [];
+    return JSON.parse(readFileSync(localFile, "utf8")) as BlogPost[];
+  } catch {
+    return [];
+  }
+}
 
 export const BLOG_POSTS_BY_SLUG: Map<string, BlogPost> = new Map(
   BLOG_POSTS.map((p) => [p.slug, p]),

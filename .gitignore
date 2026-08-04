@@ -45,3 +45,6 @@ env
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local-only blog drafts (never committed or deployed)
+/blog-local/

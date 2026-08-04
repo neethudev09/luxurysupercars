@@ -355,6 +355,18 @@ export default async function BlogPostPage(
           }}
         />
       )}
+      {post.faqSchema && post.faqSchema.length > 0 && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              mainEntity: post.faqSchema,
+            }).replace(/</g, "\\u003c"),
+          }}
+        />
+      )}
       <Footer />
     </main>
   );
