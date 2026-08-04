@@ -109,6 +109,32 @@ export const blogPost = defineType({
       description: "Genuine topic keywords for structured data. Leave empty if not needed.",
     }),
     defineField({
+      name: "faq",
+      title: "FAQ",
+      type: "array",
+      of: [
+        {
+          type: "object",
+          fields: [
+            defineField({
+              name: "question",
+              title: "Question",
+              type: "string",
+              validation: (Rule) => Rule.required(),
+            }),
+            defineField({
+              name: "answer",
+              title: "Answer",
+              type: "text",
+              rows: 3,
+              validation: (Rule) => Rule.required(),
+            }),
+          ],
+        },
+      ],
+      description: "Q&As emitted as FAQPage structured data on the post page. Keep in sync with the FAQs section in the body.",
+    }),
+    defineField({
       name: "relatedCars",
       title: "Related cars",
       type: "array",

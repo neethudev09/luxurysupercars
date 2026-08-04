@@ -216,6 +216,7 @@ interface SanityBlogPost {
   keywords?: string[];
   excerpt?: string;
   bodyHtml?: string;
+  faq?: Array<{ question?: string; answer?: string }>;
   heroImage?: SanityImage & { alt?: string };
   seo?: { title?: string; description?: string };
 }
@@ -230,6 +231,7 @@ const BLOG_QUERY = `*[_type == "blogPost" && defined(slug.current)]{
   keywords,
   excerpt,
   bodyHtml,
+  faq,
   "heroImage": heroImage{ alt, "url": asset->url, "width": asset->metadata.dimensions.width, "height": asset->metadata.dimensions.height },
   seo
 } | order(publishedAt desc)`;
@@ -272,6 +274,15 @@ function mapBlogPost(p: SanityBlogPost) {
     author: str(p.author),
     keywords: Array.isArray(p.keywords) ? p.keywords.map(str).filter(Boolean) : undefined,
     excerpt: str(p.excerpt) || "",
+    faqSchema: Array.isArray(p.faq)
+      ? p.faq
+          .map((f) => ({
+            "@type": "Question",
+            name: str(f.question),
+            acceptedAnswer: { "@type": "Answer", text: str(f.answer) },
+          }))
+          .filter((f) => f.name && f.acceptedAnswer.text)
+      : undefined,
     bodyHtml: rewriteLegacyImageUrls(p.bodyHtml || ""),
   };
 }
