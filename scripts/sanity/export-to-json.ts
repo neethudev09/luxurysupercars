@@ -66,8 +66,7 @@ function num(v: unknown): number | undefined {
 /** Like `str`, but yields a stable "" instead of `undefined` — keeps the
  *  shape of always-present string fields constant. Never trims, so SEO
  *  copy round-trips byte-for-byte. */
-function text(v: unknown): string {
-  return v == null ? "" : String(v);
+function text(v: unknown): string {  return v == null ? "" : String(v);
 }
 
 /**
@@ -251,6 +250,63 @@ function isoDate(iso?: string): string | null {
   return d.toISOString();
 }
 
+/** Strip HTML to plain text, collapsing whitespace (for FAQ Q&A text). */
+function htmlToPlainText(html: string): string {
+  return html
+    .replace(/<br\s*\/?>/g, " ")
+    .replace(/<[^>]+>/g, "")
+    .replace(/&nbsp;/g, " ")
+    .replace(/&amp;/g, "&")
+    .replace(/&#8217;|&rsquo;|[\u2019\u2018]/g, "'")
+    .replace(/&#8220;|&ldquo;|[\u201C]/g, '"')
+    .replace(/&#8221;|&rdquo;|[\u201D]/g, '"')
+    .replace(/&#8211;|&ndash;|[\u2013]/g, "-")
+    .replace(/&#8212;|&mdash;|[\u2014]/g, "-")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+/**
+ * Derive FAQPage Q&As from a post's legacy HTML body when no structured
+ * `faq` field exists in Sanity. Handles three markup shapes used by the
+ * scraped posts:
+ *   <p><b>Q</b></p> / <p><strong>Q</strong></p> + <p>answer</p>
+ *   <h3>Q</h3> + <p>answer</p>
+ * Stops at the next <h2> after "FAQs" (e.g. a closing "Conclusion" section).
+ */
+function parseFaqFromBodyHtml(bodyHtml: string): BlogFaqEntry[] {
+  const head = bodyHtml.search(/<h2>\s*FAQs/i);
+  if (head < 0) return [];
+  let slice = bodyHtml.slice(head);
+  const nextH2 = slice.search(/<h2>/i);
+  if (nextH2 > 0) slice = slice.slice(0, nextH2);
+
+  const out: BlogFaqEntry[] = [];
+  const pairRe =
+    /<p><(?:b|strong)>(.*?)<\/(?:b|strong)><\/p>\s*(<p[^>]*>[\s\S]*?<\/p>)/g;
+  let m: RegExpExecArray | null;
+  while ((m = pairRe.exec(slice)) !== null) {
+    const name = htmlToPlainText(m[1]);
+    const answer = htmlToPlainText(m[2]);
+    if (name && answer) out.push({ "@type": "Question", name, acceptedAnswer: { "@type": "Answer", text: answer } });
+  }
+  if (out.length > 0) return out;
+
+  const h3Re = /<h3>(.*?)<\/h3>\s*(<p[^>]*>[\s\S]*?<\/p>)/g;
+  while ((m = h3Re.exec(slice)) !== null) {
+    const name = htmlToPlainText(m[1]);
+    const answer = htmlToPlainText(m[2]);
+    if (name && answer) out.push({ "@type": "Question", name, acceptedAnswer: { "@type": "Answer", text: answer } });
+  }
+  return out;
+}
+
+interface BlogFaqEntry {
+  "@type": "Question";
+  name: string;
+  acceptedAnswer: { "@type": "Answer"; text: string };
+}
+
 function mapBlogPost(p: SanityBlogPost) {
   const url = `${SITE}/blogs/${p.slug}/`;
   const hero = str(p.heroImage?.url) || "";
@@ -274,7 +330,7 @@ function mapBlogPost(p: SanityBlogPost) {
     author: str(p.author),
     keywords: Array.isArray(p.keywords) ? p.keywords.map(str).filter(Boolean) : undefined,
     excerpt: str(p.excerpt) || "",
-    faqSchema: Array.isArray(p.faq)
+    faqSchema: Array.isArray(p.faq) && p.faq.length > 0
       ? p.faq
           .map((f) => ({
             "@type": "Question",
@@ -282,7 +338,7 @@ function mapBlogPost(p: SanityBlogPost) {
             acceptedAnswer: { "@type": "Answer", text: str(f.answer) },
           }))
           .filter((f) => f.name && f.acceptedAnswer.text)
-      : undefined,
+      : parseFaqFromBodyHtml(p.bodyHtml || ""),
     bodyHtml: rewriteLegacyImageUrls(p.bodyHtml || ""),
   };
 }
