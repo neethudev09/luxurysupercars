@@ -1,4 +1,4 @@
-import { CONTACT, FAQ as FAQ_DATA } from "@/lib/content";
+import { BUSINESS_SAME_AS, CONTACT, FAQ as FAQ_DATA } from "@/lib/content";
 import { SITE_URL } from "@/lib/site";
 
 const SITE = SITE_URL;
@@ -7,9 +7,12 @@ export default function JsonLd() {
   const localBusiness = {
     "@context": "https://schema.org",
     "@type": "AutoRental",
+    // Shared business identity — the blog publisher schema uses the same @id.
+    "@id": `${SITE}/#business`,
     name: "Luxury Supercars Dubai",
     url: SITE,
     image: `${SITE}/images/legacy/2024/11/image-1.png`,
+    sameAs: BUSINESS_SAME_AS,
     // Verbatim from live site's LocalBusiness schema description
     description:
       "If you are looking to rent the latest luxury Car in Dubai, luxurysupercarsdubai.com is a one-stop destination for all. You can avail the widest range of the most exotic luxury cars, including everything from the latest Sports Cars, Convertible Cars, SUVs, Supercars, and Prestige Cars, all of which would surely provide you with a fascinating experience.",

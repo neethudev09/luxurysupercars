@@ -10,6 +10,7 @@ import MagneticCTA from "@/components/motion/MagneticCTA";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 import Footer from "@/components/sections/Footer";
 import { BLOG_POSTS, blogImageAlt, getPost, getRelatedPosts } from "@/lib/blog";
+import { BUSINESS_SAME_AS } from "@/lib/content";
 import { PRODUCTION_ORIGIN, SITE_URL } from "@/lib/site";
 
 type Params = { slug: string };
@@ -121,12 +122,15 @@ export default async function BlogPostPage(
   const jsonLd = (() => {
     const org = {
       "@type": "Organization",
+      // Same business identity as the homepage AutoRental schema.
+      "@id": `${SITE_URL}/#business`,
       name: "Luxury Supercars Dubai",
       url: SITE_URL,
       logo: {
         "@type": "ImageObject",
         url: `${PRODUCTION_ORIGIN}/images/branding/logo.png`,
       },
+      sameAs: BUSINESS_SAME_AS,
     };
     const author = post.author
       ? { "@type": "Person", name: post.author }

@@ -134,6 +134,19 @@ export const CONTACT = siteSettingsData.contact;
 // facebook/instagram/youtube/tiktok).
 export const SOCIAL = siteSettingsData.social;
 
+// Official social profiles for the `sameAs` property in the AutoRental/
+// Organization structured data. Shared by the homepage and blog publisher
+// schemas so the entity stays consistent. Twitter/X is excluded because
+// `SOCIAL.twitter` is still a placeholder (https://twitter.com/); LinkedIn
+// is not configured in Sanity yet, so it is omitted until a real profile
+// URL exists.
+export const BUSINESS_SAME_AS: string[] = [
+  SOCIAL.facebook,
+  SOCIAL.instagram,
+  SOCIAL.youtube,
+  SOCIAL.tiktok,
+].filter((url): url is string => Boolean(url));
+
 export const HERO = {
   // Owner-approved rewrite (2026-05-13) — replaces the live site's ungrammatical
   // "Are You Looking To Rent Luxury Car In Dubai?". Bold markers force the
