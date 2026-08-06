@@ -9,23 +9,53 @@ import Reveal from "@/components/motion/Reveal";
 import { BLOG_POSTS, blogImageAlt } from "@/lib/blog";
 import Footer from "@/components/sections/Footer";
 
-export const metadata: Metadata = {
-  title: "Blog | Insights & News on Super Car Rentals in Dubai",
-  description:
-    "Explore the Luxury Supercars Dubai journal — guides, brand histories, rental tips, and stories from the world's most extraordinary car rental fleet.",
-  alternates: { canonical: "/blog" },
-  openGraph: {
+const PAGE_SIZE = 12;
+
+// Single featured post above the archive grid; remaining posts flow into
+// the uniform grid below. The featured post is only rendered on page 1.
+const ARCHIVE_POSTS = BLOG_POSTS.slice(1);
+const TOTAL_PAGES = Math.max(1, Math.ceil(ARCHIVE_POSTS.length / PAGE_SIZE));
+
+/** Clamp the requested page into the valid range; non-numeric → 1. */
+function resolvePage(pageParam: string | undefined): number {
+  const raw = Number.parseInt(pageParam ?? "1", 10);
+  if (!Number.isFinite(raw)) return 1;
+  return Math.min(Math.max(raw, 1), TOTAL_PAGES);
+}
+
+/**
+ * Canonical URL for a given page, generated server-side from the `page`
+ * search parameter. Page 1 (and the bare URL) canonicalize without the
+ * `?page=1` parameter; every other page canonicalizes to itself so each
+ * paginated set of posts has a distinct canonical.
+ */
+function canonicalFor(page: number): string {
+  return page > 1 ? `/blog?page=${page}` : "/blog";
+}
+
+export async function generateMetadata({
+  searchParams,
+}: {
+  searchParams: Promise<{ page?: string }>;
+}): Promise<Metadata> {
+  const currentPage = resolvePage((await searchParams).page);
+  const canonical = canonicalFor(currentPage);
+  return {
     title: "Blog | Insights & News on Super Car Rentals in Dubai",
     description:
-      "Guides, brand histories, rental tips, and stories from Luxury Supercars Dubai.",
-    url: "/blog/",
-    siteName: "Luxury Supercars Dubai",
-    locale: "en_AE",
-    type: "website",
-  },
-};
-
-const PAGE_SIZE = 12;
+      "Explore the Luxury Supercars Dubai journal — guides, brand histories, rental tips, and stories from the world's most extraordinary car rental fleet.",
+    alternates: { canonical },
+    openGraph: {
+      title: "Blog | Insights & News on Super Car Rentals in Dubai",
+      description:
+        "Guides, brand histories, rental tips, and stories from Luxury Supercars Dubai.",
+      url: canonical,
+      siteName: "Luxury Supercars Dubai",
+      locale: "en_AE",
+      type: "website",
+    },
+  };
+}
 
 export default async function BlogIndexPage({
   searchParams,
@@ -35,21 +65,13 @@ export default async function BlogIndexPage({
   // Live h1 verbatim: "Latest News & Article"
   const visibleH1 = "Latest News & Article";
   const featured = BLOG_POSTS[0];
-  // Single featured post above the archive grid; remaining posts (incl.
-  // [1] and [2]) flow straight into the uniform grid below.
-  const archive = BLOG_POSTS.slice(1);
+  const archive = ARCHIVE_POSTS;
 
-  const { page: pageParam } = await searchParams;
-  const totalPages = Math.max(1, Math.ceil(archive.length / PAGE_SIZE));
-  const rawPage = Number.parseInt(pageParam ?? "1", 10);
-  const currentPage = Number.isFinite(rawPage)
-    ? Math.min(Math.max(rawPage, 1), totalPages)
-    : 1;
+  const currentPage = resolvePage((await searchParams).page);
   const start = (currentPage - 1) * PAGE_SIZE;
   const grid = archive.slice(start, start + PAGE_SIZE);
 
-  const pageHref = (n: number) =>
-    n === 1 ? "/blog#archive" : `/blog?page=${n}#archive`;
+  const pageHref = (n: number) => (n === 1 ? "/blog" : `/blog?page=${n}`);
 
   return (
     <main>
@@ -117,8 +139,8 @@ export default async function BlogIndexPage({
             ))}
           </ul>
 
-          {totalPages > 1 && (
-            <Pagination current={currentPage} total={totalPages} hrefFor={pageHref} />
+          {TOTAL_PAGES > 1 && (
+            <Pagination current={currentPage} total={TOTAL_PAGES} hrefFor={pageHref} />
           )}
         </div>
       </section>
@@ -128,17 +150,18 @@ export default async function BlogIndexPage({
   );
 }
 
-function Pagination({
-  current,
-  total,
-  hrefFor,
-}: {
-  current: number;
-  total: number;
-  hrefFor: (n: number) => string;
-}) {
-  // Build a compact page list with ellipses when there are many pages.
-  // Always show first + last; show current ± 1 in the middle.
+/** Show every page number when there are at most this many pages. */
+const MAX_UNWINDOWED_PAGES = 15;
+
+/**
+ * Page numbers to render. Small page counts emit the full range
+ * (1 2 3 … 13) so every page is a direct crawlable link; large counts
+ * fall back to a windowed range that still keeps first/last reachable.
+ */
+function buildPageNumbers(current: number, total: number): (number | "…")[] {
+  if (total <= MAX_UNWINDOWED_PAGES) {
+    return Array.from({ length: total }, (_, i) => i + 1);
+  }
   const pages: (number | "…")[] = [];
   const push = (v: number | "…") => {
     if (pages[pages.length - 1] !== v) pages.push(v);
@@ -154,9 +177,28 @@ function Pagination({
       push("…");
     }
   }
+  return pages;
+}
+
+function Pagination({
+  current,
+  total,
+  hrefFor,
+}: {
+  current: number;
+  total: number;
+  hrefFor: (n: number) => string;
+}) {
+  const pages = buildPageNumbers(current, total);
 
   const itemBase =
     "inline-flex h-10 min-w-[2.5rem] items-center justify-center rounded-full px-3 text-[13.5px] tracking-wide transition-colors";
+  const navLink = (disabled: boolean) =>
+    `${itemBase} border border-white/10 ${
+      disabled
+        ? "pointer-events-none opacity-40 text-[var(--ink-lo)]"
+        : "text-[var(--ink-hi)] hover:border-[var(--champagne)] hover:text-[var(--champagne)]"
+    }`;
 
   return (
     <nav
@@ -164,15 +206,21 @@ function Pagination({
       className="mt-12 md:mt-16 flex flex-wrap items-center justify-center gap-2"
     >
       <Link
+        href={hrefFor(1)}
+        aria-label="First page"
+        aria-disabled={current === 1}
+        tabIndex={current === 1 ? -1 : 0}
+        className={navLink(current === 1)}
+      >
+        First
+      </Link>
+
+      <Link
         href={hrefFor(Math.max(1, current - 1))}
         aria-label="Previous page"
         aria-disabled={current === 1}
         tabIndex={current === 1 ? -1 : 0}
-        className={`${itemBase} border border-white/10 ${
-          current === 1
-            ? "pointer-events-none opacity-40 text-[var(--ink-lo)]"
-            : "text-[var(--ink-hi)] hover:border-[var(--champagne)] hover:text-[var(--champagne)]"
-        }`}
+        className={navLink(current === 1)}
       >
         <svg width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden>
           <path d="M14 5H2M6 1L2 5l4 4" stroke="currentColor" strokeWidth="1.5" />
@@ -212,15 +260,21 @@ function Pagination({
         aria-label="Next page"
         aria-disabled={current === total}
         tabIndex={current === total ? -1 : 0}
-        className={`${itemBase} border border-white/10 ${
-          current === total
-            ? "pointer-events-none opacity-40 text-[var(--ink-lo)]"
-            : "text-[var(--ink-hi)] hover:border-[var(--champagne)] hover:text-[var(--champagne)]"
-        }`}
+        className={navLink(current === total)}
       >
         <svg width="14" height="10" viewBox="0 0 14 10" fill="none" aria-hidden>
           <path d="M0 5h12M8 1l4 4-4 4" stroke="currentColor" strokeWidth="1.5" />
         </svg>
+      </Link>
+
+      <Link
+        href={hrefFor(total)}
+        aria-label="Last page"
+        aria-disabled={current === total}
+        tabIndex={current === total ? -1 : 0}
+        className={navLink(current === total)}
+      >
+        Last
       </Link>
     </nav>
   );
