@@ -1,5 +1,5 @@
 import type { Car } from "@/lib/fleet";
-import { carHref } from "@/lib/fleet";
+import { carHref, CATEGORY_BODY_TYPE } from "@/lib/fleet";
 import { SITE_URL } from "@/lib/site";
 
 const SITE = SITE_URL;
@@ -13,6 +13,7 @@ export default function CarJsonLd({ car }: { car: Car }) {
     "@type": "Car",
     name: car.name,
     brand: car.brandName,
+    bodyType: CATEGORY_BODY_TYPE[car.category],
     image: car.image,
     url,
     ...(car.description?.length

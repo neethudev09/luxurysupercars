@@ -17,6 +17,19 @@ import featuredData from "./featured-cars.json";
 
 export type Category = "sports" | "convertible" | "luxury" | "suv";
 
+/**
+ * Schema.org `Vehicle.bodyType` value per site category. Kept as a single
+ * primary value per car (not an array) because `bodyType` describes the
+ * physical body style — cross-listings like "convertible + luxury" are
+ * marketing tags, not additional body styles.
+ */
+export const CATEGORY_BODY_TYPE: Record<Category, string> = {
+  sports: "Sports",
+  convertible: "Convertible",
+  luxury: "Luxury",
+  suv: "SUV",
+};
+
 export type Tag =
   | "supercar"
   | "hypercar"
