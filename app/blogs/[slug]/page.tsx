@@ -10,6 +10,7 @@ import MagneticCTA from "@/components/motion/MagneticCTA";
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd";
 import Footer from "@/components/sections/Footer";
 import { BLOG_POSTS, blogImageAlt, getPost, getRelatedPosts } from "@/lib/blog";
+import { getAuthorByName } from "@/lib/authors";
 import { BUSINESS_SAME_AS } from "@/lib/content";
 import { PRODUCTION_ORIGIN, SITE_URL } from "@/lib/site";
 
@@ -132,9 +133,23 @@ export default async function BlogPostPage(
       },
       sameAs: BUSINESS_SAME_AS,
     };
-    const author = post.author
-      ? { "@type": "Person", name: post.author }
-      : org;
+    // Known bylines reference the author profile's canonical Person @id so
+    // Google sees one identity; unknown bylines fall back to a plain Person.
+    const author = (() => {
+      if (post.author) {
+        const known = getAuthorByName(post.author);
+        if (known) {
+          return {
+            "@type": "Person",
+            "@id": known.personId,
+            name: known.name,
+            url: known.personId.replace(/#person$/, ""),
+          };
+        }
+        return { "@type": "Person", name: post.author };
+      }
+      return org;
+    })();
 
     if (!datePublished) return null;
 

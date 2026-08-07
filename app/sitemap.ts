@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { FLEET_BRAND_SLUGS } from "@/lib/fleet-brands";
 import { UNIQUE_CARS, carHref } from "@/lib/fleet";
 import { BLOG_POSTS } from "@/lib/blog";
+import { AUTHORS } from "@/lib/authors";
 import { SERVICES_PAGE } from "@/lib/content";
 import { getAllLocations } from "@/lib/locations";
 import { SITE_URL } from "@/lib/site";
@@ -71,6 +72,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
+  // Author profile pages — live: /authors/{slug}/
+  const authorPages: MetadataRoute.Sitemap = AUTHORS.map((a) => ({
+    url: `${ORIGIN}/authors/${a.slug}`,
+    lastModified: now,
+    changeFrequency: "monthly",
+    priority: 0.5,
+  }));
+
   return [
     { url: `${ORIGIN}/locations`, changeFrequency: "weekly", priority: 0.8 },
     ...staticPages.map((p) => ({ lastModified: now, ...p })),
@@ -78,6 +87,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...brandPages.map((p) => ({ lastModified: now, ...p })),
     ...carPages.map((p) => ({ lastModified: now, ...p })),
     ...blogPages,
+    ...authorPages,
     ...locationPages.map((p) => ({ lastModified: now, ...p })),
   ];
 }
