@@ -17,6 +17,19 @@ type Agent = {
 // as a placeholder until per-agent WhatsApp lines are confirmed.
 const TEAM: Agent[] = [
   {
+    name: "Ryan",
+    language: "French, Arabic, English",
+    flags: [
+      { code: "sa", label: "Saudi Arabia" },
+      { code: "lb", label: "Lebanon" },
+      { code: "ae", label: "United Arab Emirates" },
+      { code: "fr", label: "France" },
+      { code: "gb", label: "United Kingdom" },
+    ],
+    phone: CONTACT.primaryPhone,
+    message: "Hi Ryan, I'd like to enquire about renting a car.",
+  },
+  {
     name: "Aleona",
     language: "Russian, Ukrainian, English",
     flags: [
@@ -26,18 +39,6 @@ const TEAM: Agent[] = [
     ],
     phone: "+971 50 204 5552",
     message: "Hi Aleona, I'd like to enquire about renting a car.",
-  },
-  {
-    name: "Ryan",
-    language: "French, Arabic",
-    flags: [
-      { code: "sa", label: "Saudi Arabia" },
-      { code: "lb", label: "Lebanon" },
-      { code: "ae", label: "United Arab Emirates" },
-      { code: "fr", label: "France" },
-    ],
-    phone: CONTACT.primaryPhone,
-    message: "Hi Ryan, I'd like to enquire about renting a car.",
   },
   {
     name: "Claire",
