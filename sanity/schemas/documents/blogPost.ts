@@ -54,6 +54,14 @@ export const blogPost = defineType({
       description: "Short summary shown on blog index cards.",
     }),
     defineField({
+      name: "isFeatured",
+      title: "Featured on blog page",
+      type: "boolean",
+      initialValue: false,
+      description:
+        "Show this post as the large featured card at the top of /blog. Toggle on only one post at a time — if several are on, the newest one wins.",
+    }),
+    defineField({
       name: "heroImage",
       title: "Hero image",
       type: "image",

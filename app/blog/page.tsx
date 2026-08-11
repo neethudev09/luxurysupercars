@@ -12,8 +12,13 @@ import Footer from "@/components/sections/Footer";
 const PAGE_SIZE = 12;
 
 // Single featured post above the archive grid; remaining posts flow into
-// the uniform grid below. The featured post is only rendered on page 1.
-const ARCHIVE_POSTS = BLOG_POSTS.slice(1);
+// the uniform grid below. The featured post is chosen in Sanity
+// (blogPost.isFeatured) and only rendered on page 1; if none is flagged,
+// the newest post fills the slot.
+const FEATURED_POST = BLOG_POSTS.find((p) => p.featured) ?? BLOG_POSTS[0];
+const ARCHIVE_POSTS = FEATURED_POST
+  ? BLOG_POSTS.filter((p) => p.slug !== FEATURED_POST.slug)
+  : BLOG_POSTS.slice(1);
 const TOTAL_PAGES = Math.max(1, Math.ceil(ARCHIVE_POSTS.length / PAGE_SIZE));
 
 /** Clamp the requested page into the valid range; non-numeric → 1. */
@@ -64,7 +69,7 @@ export default async function BlogIndexPage({
 }) {
   // Live h1 verbatim: "Latest News & Article"
   const visibleH1 = "Latest News & Article";
-  const featured = BLOG_POSTS[0];
+  const featured = FEATURED_POST;
   const archive = ARCHIVE_POSTS;
 
   const currentPage = resolvePage((await searchParams).page);

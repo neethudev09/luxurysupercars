@@ -218,6 +218,7 @@ interface SanityBlogPost {
   faq?: Array<{ question?: string; answer?: string }>;
   heroImage?: SanityImage & { alt?: string };
   seo?: { title?: string; description?: string };
+  isFeatured?: boolean;
 }
 
 const BLOG_QUERY = `*[_type == "blogPost" && defined(slug.current)]{
@@ -231,6 +232,7 @@ const BLOG_QUERY = `*[_type == "blogPost" && defined(slug.current)]{
   excerpt,
   bodyHtml,
   faq,
+  isFeatured,
   "heroImage": heroImage{ alt, "url": asset->url, "width": asset->metadata.dimensions.width, "height": asset->metadata.dimensions.height },
   seo
 } | order(publishedAt desc)`;
@@ -330,6 +332,7 @@ function mapBlogPost(p: SanityBlogPost) {
     author: str(p.author),
     keywords: Array.isArray(p.keywords) ? p.keywords.map(str).filter(Boolean) : undefined,
     excerpt: str(p.excerpt) || "",
+    featured: p.isFeatured === true,
     faqSchema: Array.isArray(p.faq) && p.faq.length > 0
       ? p.faq
           .map((f) => ({

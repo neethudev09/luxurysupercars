@@ -10,7 +10,7 @@ import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import data from "./blog-data.json";
 
-// Local draft merge marker — bump to force Turbopack recompile. (bump 2026-08-11: desert-safari-car-rental-dubai draft + webp hero)
+// Local draft merge marker — bump to force Turbopack recompile. (bump 2026-08-12: best-scenic-drives-dubai draft, desert post removed)
 
 export type BlogPost = {
   slug: string;
@@ -34,6 +34,8 @@ export type BlogPost = {
   updatedAt?: string | null;
   author?: string;
   keywords?: string[];
+  /** Sanity blogPost.isFeatured — rendered as the large card atop /blog. */
+  featured?: boolean;
   excerpt: string;
   bodyHtml: string;
   /** Optional FAQPage JSON-LD for posts with a FAQs section. */
