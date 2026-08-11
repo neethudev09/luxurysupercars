@@ -13,6 +13,7 @@ import { batchCreateOrReplace, client, uploadLocalAsset } from "./lib";
 const SLUG = "best-scenic-drives-dubai-luxury-car-rental";
 
 interface LocalPost {
+  slug?: string;
   bodyHtml?: string;
   excerpt?: string;
   keywords?: string[];
@@ -22,7 +23,7 @@ interface LocalPost {
 async function main() {
   const localFile = resolve(process.cwd(), "blog-local", "posts.json");
   const raw: LocalPost[] = JSON.parse(readFileSync(localFile, "utf8"));
-  const local = raw.find((p) => p.bodyHtml) ?? {};
+  const local = raw.find((p) => p.slug === SLUG) ?? {};
 
   const heroImage = await uploadLocalAsset(
     "/images/legacy/2025/08/DSCF9336-scaled.jpg",
