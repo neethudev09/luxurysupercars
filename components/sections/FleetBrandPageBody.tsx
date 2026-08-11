@@ -29,9 +29,7 @@ export default function FleetBrandPageBody({ meta, cars }: FleetBrandPageBodyPro
       <BreadcrumbJsonLd
         items={[
           { name: "Home", href: "/" },
-          // No /brands index page exists; /our-fleet is where all brands
-          // are browsable in the real navigation.
-          { name: "Brands", href: "/our-fleet" },
+          { name: "Brands", href: "/brands" },
           { name: meta.displayName, href: `/brands/${meta.slug}` },
         ]}
       />
