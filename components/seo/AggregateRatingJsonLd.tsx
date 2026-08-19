@@ -4,6 +4,7 @@ export default function AggregateRatingJsonLd() {
   const aggregateRating = {
     "@context": "https://schema.org",
     "@type": "AutoRental",
+    name: "Luxury Supercars Dubai",
     aggregateRating: {
       "@type": "AggregateRating",
       ratingValue: GOOGLE_REVIEW_SUMMARY.stars,
