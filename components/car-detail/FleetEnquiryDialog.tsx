@@ -5,6 +5,7 @@ import { createPortal } from "react-dom";
 import { sendEnquiry, type EnquiryFormState } from "@/app/actions/send-enquiry";
 import PhoneCountrySelect from "@/components/contact/PhoneCountrySelect";
 import { trackFormSubmit } from "@/lib/analytics";
+import { HONEYPOT_FIELD, TIME_TRAP_FIELD } from "@/lib/form-defense";
 
 const INITIAL_STATE: EnquiryFormState = { ok: false, message: "" };
 
@@ -25,6 +26,12 @@ export default function FleetEnquiryDialog({
 }: FleetEnquiryDialogProps) {
   const [open, setOpen] = useState(false);
   const [state, action, pending] = useActionState(sendEnquiry, INITIAL_STATE);
+  const [loadedAt, setLoadedAt] = useState(0);
+
+  const openDialog = () => {
+    setLoadedAt(Date.now());
+    setOpen(true);
+  };
 
   useEffect(() => {
     if (state.ok) trackFormSubmit("FleetEnquiryDialog");
@@ -54,7 +61,7 @@ export default function FleetEnquiryDialog({
     <>
       <button
         type="button"
-        onClick={() => setOpen(true)}
+        onClick={openDialog}
         className={buttonClassName}
       >
         {children}
@@ -114,6 +121,16 @@ export default function FleetEnquiryDialog({
               />
               <input type="hidden" name="pagePath" value={pagePath} />
               <input type="hidden" name="pageUrl" value={pagePath} />
+              <div className="hidden" aria-hidden="true">
+                <input
+                  tabIndex={-1}
+                  autoComplete="off"
+                  name={HONEYPOT_FIELD}
+                  type="text"
+                  placeholder="Company website"
+                />
+              </div>
+              <input type="hidden" name={TIME_TRAP_FIELD} value={loadedAt} readOnly />
 
               <DialogInput label="Full name" name="name" required />
               <DialogInput

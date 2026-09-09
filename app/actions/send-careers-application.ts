@@ -1,5 +1,7 @@
 "use server";
 
+import { HONEYPOT_FIELD, TIME_TRAP_FIELD, shouldBlockForm } from "@/lib/form-defense";
+
 /**
  * Server action for the careers application form.
  *
@@ -208,6 +210,22 @@ async function handleCareersApplication(
 
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
     return { ok: false, message: "Please provide a valid email address." };
+  }
+
+  if (
+    shouldBlockForm({
+      email: data.email,
+      phone: `${data.countryCode ?? ""} ${data.phone ?? ""}`,
+      message: data.message,
+      honeypot: data[HONEYPOT_FIELD],
+      startedAt: data[TIME_TRAP_FIELD],
+    })
+  ) {
+    // Silently accept so bots don't learn they're blocked.
+    return {
+      ok: true,
+      message: "Thanks - we received your application and will review it shortly.",
+    };
   }
 
   const cv = form.get("cv");

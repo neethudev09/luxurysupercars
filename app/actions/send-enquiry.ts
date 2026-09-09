@@ -1,6 +1,7 @@
 "use server";
 
 import { CONTACT } from "@/lib/content";
+import { HONEYPOT_FIELD, TIME_TRAP_FIELD, shouldBlockForm } from "@/lib/form-defense";
 
 /**
  * Server action that handles every enquiry-form submission on the site
@@ -240,6 +241,19 @@ export async function sendEnquiry(
 
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
     return { ok: false, message: "Please provide a valid email address." };
+  }
+
+  if (
+    shouldBlockForm({
+      email: data.email,
+      phone: `${data.countryCode ?? ""} ${data.phone ?? ""}`,
+      message: data.message,
+      honeypot: data[HONEYPOT_FIELD],
+      startedAt: data[TIME_TRAP_FIELD],
+    })
+  ) {
+    // Silently accept so bots/spammers don't learn they're blocked.
+    return { ok: true, message: enquirySuccessMessage(data) };
   }
 
   const carContext = data.car ? ` regarding ${data.car}` : "";

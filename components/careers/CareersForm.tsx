@@ -6,6 +6,7 @@ import {
   type CareersApplicationState,
 } from "@/app/actions/send-careers-application";
 import PhoneCountrySelect from "@/components/contact/PhoneCountrySelect";
+import { HONEYPOT_FIELD, TIME_TRAP_FIELD } from "@/lib/form-defense";
 
 const INITIAL_STATE: CareersApplicationState = { ok: false, message: "" };
 
@@ -31,6 +32,7 @@ export default function CareersForm() {
     INITIAL_STATE,
   );
   const [clientMessage, setClientMessage] = useState("");
+  const [loadedAt] = useState(() => Date.now());
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     const invalidField = Array.from(event.currentTarget.elements).find(
@@ -64,6 +66,17 @@ export default function CareersForm() {
       onInput={() => setClientMessage("")}
       onSubmit={handleSubmit}
     >
+      <div className="hidden" aria-hidden="true">
+        <input
+          tabIndex={-1}
+          autoComplete="off"
+          name={HONEYPOT_FIELD}
+          type="text"
+          placeholder="Company website"
+        />
+      </div>
+      <input type="hidden" name={TIME_TRAP_FIELD} value={loadedAt} readOnly />
+
       <div>
         <p className="font-[var(--font-mono)] text-[11px] uppercase tracking-[0.28em] text-[var(--champagne)] mb-3">
           Careers Application

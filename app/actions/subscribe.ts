@@ -1,5 +1,7 @@
 "use server";
 
+import { HONEYPOT_FIELD, TIME_TRAP_FIELD, shouldBlockForm } from "@/lib/form-defense";
+
 /**
  * Marketing-list signup for the entry promo pop-up. This is separate from the
  * enquiry form, but each promo signup is still emailed to the enquiry inbox so
@@ -40,9 +42,15 @@ export async function subscribeEmail(
   form: FormData,
 ): Promise<SubscribeState> {
   const email = (typeof form.get("email") === "string" ? (form.get("email") as string) : "").trim();
+  const honeypot = (typeof form.get(HONEYPOT_FIELD) === "string" ? (form.get(HONEYPOT_FIELD) as string) : "").trim();
+  const startedAt = (typeof form.get(TIME_TRAP_FIELD) === "string" ? (form.get(TIME_TRAP_FIELD) as string) : "").trim();
 
   if (!isEmail(email)) {
     return { ok: false, message: "Please enter a valid email address." };
+  }
+
+  if (shouldBlockForm({ email, honeypot, startedAt })) {
+    return { ok: true, message: SUCCESS };
   }
 
   const apiKey = process.env.RESEND_API_KEY;

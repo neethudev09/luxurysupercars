@@ -5,6 +5,7 @@ import { CARS_BRANDS } from "@/lib/content";
 import PhoneCountrySelect from "@/components/contact/PhoneCountrySelect";
 import { sendEnquiry, type EnquiryFormState } from "@/app/actions/send-enquiry";
 import { trackFormSubmit } from "@/lib/analytics";
+import { HONEYPOT_FIELD, TIME_TRAP_FIELD } from "@/lib/form-defense";
 
 const INITIAL_STATE: EnquiryFormState = { ok: false, message: "" };
 
@@ -16,6 +17,7 @@ const INITIAL_STATE: EnquiryFormState = { ok: false, message: "" };
 export default function EnquiryForm({ className = "" }: { className?: string }) {
   const [state, action, pending] = useActionState(sendEnquiry, INITIAL_STATE);
   const [clientMessage, setClientMessage] = useState("");
+  const [loadedAt] = useState(() => Date.now());
 
   useEffect(() => {
     if (state.ok) trackFormSubmit("EnquiryForm");
@@ -63,6 +65,17 @@ export default function EnquiryForm({ className = "" }: { className?: string }) 
       onInput={() => setClientMessage("")}
       onSubmit={handleSubmit}
     >
+      <div className="hidden" aria-hidden="true">
+        <input
+          tabIndex={-1}
+          autoComplete="off"
+          name={HONEYPOT_FIELD}
+          type="text"
+          placeholder="Company website"
+        />
+      </div>
+      <input type="hidden" name={TIME_TRAP_FIELD} value={loadedAt} readOnly />
+
       <h3 className="font-[var(--font-display)] text-[24px] tracking-tight text-[var(--ink-hi)] mb-6">
         How Can We Help You?
       </h3>

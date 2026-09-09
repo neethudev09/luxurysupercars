@@ -3,6 +3,7 @@
 import { useActionState, useEffect, useState } from "react";
 import { subscribeEmail, type SubscribeState } from "@/app/actions/subscribe";
 import { PROMO } from "@/lib/content";
+import { HONEYPOT_FIELD, TIME_TRAP_FIELD } from "@/lib/form-defense";
 
 const STORAGE_KEY = "lsr-promo-seen";
 const DELAY_MS = 10_000;
@@ -31,6 +32,7 @@ function PromoHeading() {
 export default function PromoPopup() {
   const [open, setOpen] = useState(false);
   const [state, action, pending] = useActionState(subscribeEmail, INITIAL_STATE);
+  const [loadedAt] = useState(() => Date.now());
 
   // Show once, 10s after first arrival.
   useEffect(() => {
@@ -114,6 +116,16 @@ export default function PromoPopup() {
             </p>
           ) : (
             <form action={action} className="mt-6 flex flex-col gap-3">
+              <div className="hidden" aria-hidden="true">
+                <input
+                  tabIndex={-1}
+                  autoComplete="off"
+                  name={HONEYPOT_FIELD}
+                  type="text"
+                  placeholder="Company website"
+                />
+              </div>
+              <input type="hidden" name={TIME_TRAP_FIELD} value={loadedAt} readOnly />
               <input
                 type="email"
                 name="email"
