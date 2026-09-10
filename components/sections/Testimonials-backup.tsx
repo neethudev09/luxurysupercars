@@ -8,6 +8,12 @@ import { TESTIMONIALS } from "@/lib/content";
 
 const SENJA_DATA_ID = "243cc1c8-894d-424a-bd77-11251e49f38a";
 
+interface LiveReview {
+  rating: number;
+  totalReviews: number;
+  reviews: { name: string; text: string; rating: number; timeAgo: string }[];
+}
+
 function GoogleLogo({ size = 14 }: { size?: number }) {
   return (
     <svg
@@ -25,14 +31,37 @@ function GoogleLogo({ size = 14 }: { size?: number }) {
   );
 }
 
+function QuoteCard({ name, quote }: { name: string; quote: string }) {
+  return (
+    <article
+      className="shrink-0 flex flex-col w-[320px] md:w-[360px] min-h-[220px] rounded-xl bg-white border border-black/8 p-6 mx-3 hover:border-[var(--champagne)]/60 transition-colors"
+    >
+      <div className="flex items-start justify-between gap-3">
+        <span className="text-[17px] font-semibold text-[var(--ink-dark-hi)] leading-tight">
+          {name}
+        </span>
+        <GoogleLogo size={20} />
+      </div>
+      <div className="mt-2 flex gap-0.5 text-[#F5B400] text-[17px] leading-none">
+        {[0, 1, 2, 3, 4].map((i) => (
+          <span key={i}>★</span>
+        ))}
+      </div>
+      <p className="mt-4 text-[17.5px] leading-[1.6] text-[var(--ink-dark-hi)]/85">
+        {quote}
+      </p>
+    </article>
+  );
+}
+
 export default function Testimonials() {
-  const [live, setLive] = useState<{ rating: number; totalReviews: number } | null>(null);
+  const [live, setLive] = useState<LiveReview | null>(null);
 
   useEffect(() => {
     fetch("/api/reviews")
       .then((r) => r.json())
       .then((d) => {
-        if (d.totalReviews) setLive(d);
+        if (d.reviews?.length) setLive(d);
       })
       .catch(() => {});
   }, []);
@@ -43,6 +72,13 @@ export default function Testimonials() {
       w.senja?.init?.();
     } catch {}
   }, []);
+
+  const namedTrack = [...TESTIMONIALS.named, ...TESTIMONIALS.named, ...TESTIMONIALS.named];
+
+  const googleSource = live?.reviews?.length
+    ? live.reviews.map((r) => ({ name: r.name, quote: r.text }))
+    : TESTIMONIALS.google;
+  const googleTrack = [...googleSource, ...googleSource, ...googleSource];
 
   const displayRating = live?.rating ?? 4.9;
   const displayCount = live?.totalReviews ?? 489;
@@ -73,40 +109,48 @@ export default function Testimonials() {
                   Reviews
                 </span>
               </div>
-              <div className="flex items-center gap-4 self-start md:self-end">
-                <div className="flex items-center gap-4">
-                  <span className="font-[var(--font-display)] text-[3.5rem] leading-none text-[var(--ink-dark-hi)]">
-                    <CountUp value={displayRating} decimals={1} />
-                  </span>
-                  <div className="flex flex-col gap-1">
-                    <div className="flex gap-0.5 text-[#F5B400] text-[16px] leading-none">
-                      {[0, 1, 2, 3, 4].map((i) => (
-                        <span key={i}>★</span>
-                      ))}
-                    </div>
-                    <span className="font-[var(--font-mono)] text-[10px] uppercase tracking-[0.22em] text-[var(--ink-dark-lo)]">
-                      Based on <CountUp value={displayCount} /> reviews
-                    </span>
+              <div className="flex items-center gap-4">
+                <span className="font-[var(--font-display)] text-[3.5rem] leading-none text-[var(--ink-dark-hi)]">
+                  <CountUp value={displayRating} decimals={1} />
+                </span>
+                <div className="flex flex-col gap-1">
+                  <div className="flex gap-0.5 text-[#F5B400] text-[16px] leading-none">
+                    {[0, 1, 2, 3, 4].map((i) => (
+                      <span key={i}>★</span>
+                    ))}
                   </div>
+                  <span className="font-[var(--font-mono)] text-[10px] uppercase tracking-[0.22em] text-[var(--ink-dark-lo)]">
+                    Based on <CountUp value={displayCount} /> reviews
+                  </span>
                 </div>
-                <a
-                  href="https://www.google.com/maps/search/?api=1&query=Luxury+Supercars+Dubai"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="ml-2 shrink-0 inline-flex items-center gap-2 rounded-full bg-[var(--champagne)] px-5 py-2.5 text-[13px] font-semibold text-[var(--bg-obsidian)] hover:bg-[var(--champagne-hi)] transition-colors"
-                >
-                  Review us on Google
-                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden>
-                    <path d="M3 9l6-6M4 3h5v5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </a>
               </div>
             </div>
           </Reveal>
         </div>
       </div>
 
-      <div className="mt-8 px-4 md:px-8">
+      <div className="marquee-pause-hover" style={{ ["--marquee-speed" as string]: "60s" }}>
+        <div className="marquee-track py-3">
+          {namedTrack.map((t, i) => (
+            <QuoteCard key={`n-${i}`} name={t.name} quote={t.quote} />
+          ))}
+        </div>
+      </div>
+
+      <div className="marquee-pause-hover mt-4" style={{ ["--marquee-speed" as string]: "50s" }}>
+        <div className="marquee-track marquee-track--reverse py-3">
+          {googleTrack.map((t, i) => (
+            <QuoteCard key={`g-${i}`} name={t.name} quote={t.quote} />
+          ))}
+        </div>
+      </div>
+
+      <div className="mt-16 px-4 md:px-8">
+        <div className="mb-6 text-center">
+          <p className="font-[var(--font-mono)] text-[10px] uppercase tracking-[0.24em] text-[var(--ink-dark-lo)]">
+            Live from Google
+          </p>
+        </div>
         <div
           className="senja-embed"
           data-id={SENJA_DATA_ID}

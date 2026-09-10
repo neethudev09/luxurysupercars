@@ -66,6 +66,11 @@ export default function RootLayout({
         />
         <link rel="preload" as="image" href="/images/hero-poster.webp" />
         <meta name="msvalidate.01" content="90C633242FF8940E83F63CEF364F497F" />
+        <script
+          src="https://widget.senja.io/widget/243cc1c8-894d-424a-bd77-11251e49f38a/platform.js"
+          type="text/javascript"
+          async
+        />
       </head>
       <body suppressHydrationWarning>
         <Analytics />

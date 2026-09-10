@@ -33,7 +33,7 @@ async function fetchReviews(): Promise<GoogleReviewsResponse> {
 
   return {
     rating: data.rating ?? 4.9,
-    totalReviews: data.userRatingCount ?? 486,
+    totalReviews: data.userRatingCount ?? 489,
     reviews: (data.reviews ?? []).map(
       (r: {
         authorAttribution?: { displayName?: string };
@@ -63,7 +63,7 @@ export async function GET() {
     return NextResponse.json(
       {
         rating: 4.9,
-        totalReviews: 486,
+        totalReviews: 489,
         reviews: [],
         error: "Failed to fetch reviews",
       },

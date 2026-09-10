@@ -192,7 +192,7 @@ const doc = {
           "Rental terms are transparent: basic insurance is included, the mileage allowance is 250 km per day, and delivery is free across Dubai. Payment can be made via bank transfer, cash, credit or debit card, and cryptocurrency.",
         ),
         paragraphBlock(
-          "Our verified rating of 4.9 stars from 486 Google reviews reflects the quality of service our clients have experienced. The Luxury Supercar Rentals showroom is located at 87 4th St - Al Qouz Ind.third - Al Quoz - Dubai — you are welcome to view any vehicle before booking.",
+          "Our verified rating of 4.9 stars from 489 Google reviews reflects the quality of service our clients have experienced. The Luxury Supercar Rentals showroom is located at 87 4th St - Al Qouz Ind.third - Al Quoz - Dubai — you are welcome to view any vehicle before booking.",
         ),
       ],
     },

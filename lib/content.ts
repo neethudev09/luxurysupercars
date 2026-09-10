@@ -55,7 +55,7 @@ const home = homeData as unknown as HomeData;
 
 export const GOOGLE_REVIEW_SUMMARY = {
   stars: 4.9,
-  count: 486,
+  count: 489,
   url: "https://www.google.com/search?q=luxury+supercars+dubai",
 };
 
