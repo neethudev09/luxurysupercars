@@ -71,6 +71,11 @@ export default function RootLayout({
           type="text/javascript"
           async
         />
+        <script
+          src="https://cdn.lightwidget.com/widgets/lightwidget.js"
+          type="text/javascript"
+          async
+        />
       </head>
       <body suppressHydrationWarning>
         <Analytics />
