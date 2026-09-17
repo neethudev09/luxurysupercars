@@ -115,6 +115,7 @@ export default function Footer() {
                 { name: "Mastercard", file: "Mastercard.svg" },
                 { name: "American Express", file: "Amex.svg" },
                 { name: "PayPal", file: "PayPal.svg" },
+                { name: "Cash", file: "cash.png" },
                 { name: "Bitcoin", file: "Bitcoin.svg" },
               ].map((p) => (
                 <li key={p.name} title={p.name}>
@@ -126,7 +127,7 @@ export default function Footer() {
                     height={36}
                     loading="lazy"
                     decoding="async"
-                    className="h-9 w-auto"
+                    className={`h-9 w-auto ${p.file === "cash.png" ? "rounded-[8%]" : ""}`}
                   />
                 </li>
               ))}
